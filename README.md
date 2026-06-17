@@ -55,7 +55,6 @@ neo4j / password123
 另开一个 PowerShell：
 
 ```powershell
-cd D:\Work\实习-华泰\industry-chain-graph
 .\scripts\start-backend.ps1
 ```
 
@@ -70,7 +69,6 @@ http://127.0.0.1:8010
 另开一个 PowerShell：
 
 ```powershell
-cd D:\Work\实习-华泰\industry-chain-graph
 .\scripts\start-frontend.ps1
 ```
 
@@ -85,7 +83,6 @@ http://localhost:5173
 确认 Neo4j 和后端都已启动后，另开一个 PowerShell：
 
 ```powershell
-cd D:\Work\实习-华泰\industry-chain-graph
 .\scripts\import-food-beverage.ps1
 ```
 

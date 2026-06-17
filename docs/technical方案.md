@@ -233,7 +233,7 @@ industry-chain-graph/
 ### 8.1 打开仓库
 
 ```powershell
-cd D:\Work\实习-华泰\industry-chain-graph
+cd D:\Work\industry-chain-graph
 ```
 
 ### 8.2 启动 Neo4j
@@ -279,7 +279,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 另开一个 PowerShell：
 
 ```powershell
-cd D:\Work\实习-华泰\industry-chain-graph\frontend
+cd D:\Work\industry-chain-graph\frontend
 npm install
 npm run dev
 ```
