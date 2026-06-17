@@ -1,0 +1,11 @@
+[
+  {
+    "id": "food_beverage",
+    "name": "食品饮料行业",
+    "data_path": "data/industries/food_beverage/graph.json",
+    "status": "demo",
+    "node_count": 71,
+    "edge_count": 121
+  }
+]
+
