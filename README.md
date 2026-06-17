@@ -30,11 +30,7 @@ OPENAI_MODEL=
 
 ## 启动方式
 
-在 Windows PowerShell 中进入项目根目录：
-
-```powershell
-cd D:\Work\实习-华泰\industry-chain-graph
-```
+在 Windows PowerShell 中进入项目根目录或在
 
 ### 1. 启动 Neo4j
 
