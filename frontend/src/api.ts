@@ -1,4 +1,16 @@
-import type { AgentRunResponse, AskResponse, ChainPosition, ExportResponse, GraphFilters, GraphResponse, Industry, RelationType } from "./types";
+import type {
+  AgentArtifact,
+  AgentArtifactContent,
+  AgentRunResponse,
+  AskResponse,
+  ChainPosition,
+  ExportResponse,
+  GraphFilters,
+  GraphResponse,
+  Industry,
+  RelationType,
+  UpdateMode
+} from "./types";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "";
 
@@ -21,11 +33,6 @@ function appendList<T extends string | number>(params: URLSearchParams, key: str
   values.forEach((value) => params.append(key, String(value)));
 }
 
-export async function importFoodBeverage() {
-  return request<{ industry_id: string; node_count: number; edge_count: number }>("/api/import/food-beverage", {
-    method: "POST"
-  });
-}
 
 export async function fetchIndustries() {
   return request<Industry[]>("/api/industries");
@@ -60,7 +67,19 @@ export async function askGraph(industryId: string, question: string, filters: Gr
   });
 }
 
+export async function createSearchPlan(industryId: string, industryName: string) {
+  return request<AgentRunResponse>("/api/agent/search-plan", {
+    method: "POST",
+    body: JSON.stringify({ industry_id: industryId, industry_name: industryName })
+  });
+}
 
+export async function validateAgentGraph(industryId: string) {
+  return request<AgentRunResponse>("/api/agent/validate", {
+    method: "POST",
+    body: JSON.stringify({ industry_id: industryId, mode: "check_only" })
+  });
+}
 
 export async function buildAgentGraph(industryId: string, industryName: string, targetDepth = "5-6 层") {
   return request<AgentRunResponse>("/api/agent/build", {
@@ -69,7 +88,7 @@ export async function buildAgentGraph(industryId: string, industryName: string, 
   });
 }
 
-export async function updateAgentGraph(industryId: string, mode: "check_only" | "propose" | "apply" = "check_only") {
+export async function updateAgentGraph(industryId: string, mode: UpdateMode = "check_only") {
   return request<AgentRunResponse>("/api/agent/update", {
     method: "POST",
     body: JSON.stringify({ industry_id: industryId, mode })
@@ -78,6 +97,14 @@ export async function updateAgentGraph(industryId: string, mode: "check_only" | 
 
 export async function fetchAgentReport(runId: string) {
   return request<{ run_id: string; report_path: string; content: string }>(`/api/agent/runs/${runId}/report`);
+}
+
+export async function fetchAgentArtifacts(industryId: string) {
+  return request<{ industry_id: string; artifacts: AgentArtifact[] }>(`/api/industries/${industryId}/agent-artifacts`);
+}
+
+export async function fetchAgentArtifact(industryId: string, artifactName: string) {
+  return request<AgentArtifactContent>(`/api/industries/${industryId}/agent-artifacts/${artifactName}`);
 }
 
 export async function exportIndustryCsv(industryId: string) {

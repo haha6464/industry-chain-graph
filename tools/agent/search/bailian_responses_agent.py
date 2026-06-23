@@ -67,8 +67,11 @@ def _build_prompt(industry_id: str, industry_name: str, target_depth: str) -> st
 3. 图谱只允许两类关系：contains 和 upstream_downstream。
 4. contains 的方向是 父节点 -> 子节点；upstream_downstream 的方向是 上游节点 -> 下游节点。
 5. 每个节点和每条关系都必须保留至少 1 个 URL 来源。
-6. 尽量覆盖上游、中游、下游、支持环节，目标层级深度：{target_depth}。
-7. 输出必须是严格 JSON，不要输出 Markdown、解释文字或代码块。
+6. 层级必须使用数字 level 表达，目标层级深度约为：{target_depth}。level=0 是行业根节点；level=1 是一级产业链环节；level=2/3/4/5... 是逐级细分的产品、原料、工艺、渠道、应用等节点。
+7. 不要把 level 简单命名为“上游/中游/下游”。上游/中游/下游/支持只用于 chain_position 或 chain_segment，表示节点在产业链中的位置，不代表层级深度。
+8. 每个非根节点都应通过 parent_id 和 contains 关系挂到上一级节点；能由公开证据支持的分支应尽量展开到 5-6 层左右，证据不足时保持合理粒度，不要硬凑层级。
+9. upstream_downstream 只表示不同节点之间的流向关系，不替代 contains 层级关系。
+10. 输出必须是严格 JSON，不要输出 Markdown、解释文字或代码块。
 
 请返回如下 JSON 结构：
 {{
@@ -81,7 +84,7 @@ def _build_prompt(industry_id: str, industry_name: str, target_depth: str) -> st
   "nodes": [{{
     "id": "{industry_id}_001",
     "name": "节点名称",
-    "node_type": "产业链/产业链环节/细分环节/原材料/产品/渠道/应用场景",
+    "node_type": "产业链/一级环节/二级环节/细分环节/原材料/产品/工艺/渠道/应用场景",
     "tags": ["level_0", "root"],
     "industry": "{industry_name}",
     "level": 0,
@@ -90,7 +93,7 @@ def _build_prompt(industry_id: str, industry_name: str, target_depth: str) -> st
     "description": "一句话业务描述",
     "business_description": "一句话业务描述",
     "is_key_node": true,
-    "chain_segment": "root/上游/中游/下游/支持",
+    "chain_segment": "root/上游/中游/下游/支持（位置标签，不是层级名称）",
     "source_urls": ["https://..."],
     "evidence_ids": ["{industry_id}_ev_0001"],
     "confidence": 0.85,

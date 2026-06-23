@@ -1,11 +1,252 @@
 [
   {
+    "id": "nonferrous_metals",
+    "name": "有色金属行业",
+    "sector": "基础材料",
+    "source_order": 23,
+    "data_path": "data/industries/nonferrous_metals/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "petroleum_petrochemical",
+    "name": "石油石化行业",
+    "sector": "基础材料",
+    "source_order": 24,
+    "data_path": "data/industries/petroleum_petrochemical/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "basic_chemicals",
+    "name": "基础化工行业",
+    "sector": "基础材料",
+    "source_order": 25,
+    "data_path": "data/industries/basic_chemicals/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "building_materials",
+    "name": "建筑材料行业",
+    "sector": "基础材料",
+    "source_order": 26,
+    "data_path": "data/industries/building_materials/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "power_equipment_new_energy",
+    "name": "电力设备与新能源行业",
+    "sector": "工业",
+    "source_order": 27,
+    "data_path": "data/industries/power_equipment_new_energy/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "machinery_equipment",
+    "name": "机械设备行业",
+    "sector": "工业",
+    "source_order": 28,
+    "data_path": "data/industries/machinery_equipment/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "defense_military",
+    "name": "国防军工行业",
+    "sector": "工业",
+    "source_order": 29,
+    "data_path": "data/industries/defense_military/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "building_decoration",
+    "name": "建筑装饰行业",
+    "sector": "建筑",
+    "source_order": 30,
+    "data_path": "data/industries/building_decoration/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "public_utilities",
+    "name": "公用事业行业",
+    "sector": "公用环保",
+    "source_order": 31,
+    "data_path": "data/industries/public_utilities/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "environmental_protection",
+    "name": "环保行业",
+    "sector": "公用环保",
+    "source_order": 32,
+    "data_path": "data/industries/environmental_protection/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "transportation",
+    "name": "交通运输行业",
+    "sector": "交通运输",
+    "source_order": 33,
+    "data_path": "data/industries/transportation/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "automobile",
+    "name": "汽车行业",
+    "sector": "汽车",
+    "source_order": 34,
+    "data_path": "data/industries/automobile/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "electronics",
+    "name": "电子行业",
+    "sector": "科技",
+    "source_order": 35,
+    "data_path": "data/industries/electronics/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "computer",
+    "name": "计算机行业",
+    "sector": "科技",
+    "source_order": 36,
+    "data_path": "data/industries/computer/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "communication",
+    "name": "通信行业",
+    "sector": "科技",
+    "source_order": 37,
+    "data_path": "data/industries/communication/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "media_internet",
+    "name": "传媒互联网行业",
+    "sector": "科技",
+    "source_order": 38,
+    "data_path": "data/industries/media_internet/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "healthcare",
+    "name": "医药健康行业",
+    "sector": "医药",
+    "source_order": 39,
+    "data_path": "data/industries/healthcare/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
     "id": "food_beverage",
     "name": "食品饮料行业",
+    "sector": "必选消费",
+    "source_order": 40,
     "data_path": "data/industries/food_beverage/graph.json",
     "status": "demo",
     "node_count": 71,
     "edge_count": 121
+  },
+  {
+    "id": "agriculture_forestry_animal_fishery",
+    "name": "农林牧渔行业",
+    "sector": "必选消费",
+    "source_order": 41,
+    "data_path": "data/industries/agriculture_forestry_animal_fishery/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "social_services",
+    "name": "社会服务行业",
+    "sector": "可选消费",
+    "source_order": 42,
+    "data_path": "data/industries/social_services/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "beauty_care",
+    "name": "美容护理行业",
+    "sector": "可选消费",
+    "source_order": 43,
+    "data_path": "data/industries/beauty_care/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "commercial_retail",
+    "name": "商贸零售行业",
+    "sector": "可选消费",
+    "source_order": 44,
+    "data_path": "data/industries/commercial_retail/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "light_manufacturing",
+    "name": "轻工制造行业",
+    "sector": "可选消费",
+    "source_order": 45,
+    "data_path": "data/industries/light_manufacturing/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "home_appliances",
+    "name": "家用电器行业",
+    "sector": "可选消费",
+    "source_order": 46,
+    "data_path": "data/industries/home_appliances/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
+  },
+  {
+    "id": "textile_apparel",
+    "name": "纺织服饰行业",
+    "sector": "可选消费",
+    "source_order": 47,
+    "data_path": "data/industries/textile_apparel/graph.json",
+    "status": "pending",
+    "node_count": 0,
+    "edge_count": 0
   }
 ]
-

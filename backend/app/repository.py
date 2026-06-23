@@ -1,6 +1,7 @@
 from neo4j import Driver
 
 from app.config import Settings
+from app.graph_loader import load_manifest
 from app.schemas import GraphEdge, GraphFilters, GraphNode, Industry
 
 
@@ -67,19 +68,41 @@ class GraphRepository:
         }
 
     def list_industries(self) -> list[Industry]:
-        records, _, _ = self.driver.execute_query(
-            """
-            MATCH (industry:Industry)
-            RETURN industry.id AS id,
-                   industry.name AS name,
-                   coalesce(industry.status, 'demo') AS status,
-                   coalesce(industry.node_count, 0) AS node_count,
-                   coalesce(industry.edge_count, 0) AS edge_count
-            ORDER BY industry.name
-            """,
-            database_=self.database,
-        )
-        return [Industry(**record.data()) for record in records]
+        manifest_items = {item["id"]: item for item in load_manifest()}
+        neo4j_items: dict[str, dict[str, object]] = {}
+        try:
+            records, _, _ = self.driver.execute_query(
+                """
+                MATCH (industry:Industry)
+                RETURN industry.id AS id,
+                       industry.name AS name,
+                       coalesce(industry.status, 'demo') AS status,
+                       coalesce(industry.node_count, 0) AS node_count,
+                       coalesce(industry.edge_count, 0) AS edge_count
+                """,
+                database_=self.database,
+            )
+            neo4j_items = {record["id"]: record.data() for record in records}
+        except Exception:
+            neo4j_items = {}
+
+        items: list[Industry] = []
+        for manifest_item in manifest_items.values():
+            merged = {
+                "id": manifest_item["id"],
+                "name": manifest_item.get("name", manifest_item["id"]),
+                "status": manifest_item.get("status", "pending"),
+                "node_count": manifest_item.get("node_count", 0),
+                "edge_count": manifest_item.get("edge_count", 0),
+            }
+            merged.update(neo4j_items.get(manifest_item["id"], {}))
+            items.append(Industry(**merged))
+
+        for industry_id, neo4j_item in neo4j_items.items():
+            if industry_id not in manifest_items:
+                items.append(Industry(**neo4j_item))
+
+        return items
 
     def get_graph(self, industry_id: str, filters: GraphFilters) -> tuple[list[GraphNode], list[GraphEdge]]:
         params = {

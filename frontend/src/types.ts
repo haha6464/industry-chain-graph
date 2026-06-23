@@ -1,5 +1,6 @@
 export type ChainPosition = "root" | "upstream" | "midstream" | "downstream" | "support";
 export type RelationType = "contains" | "upstream_downstream";
+export type UpdateMode = "check_only" | "propose" | "apply";
 
 export interface Industry {
   id: string;
@@ -62,13 +63,30 @@ export interface GraphFilters {
   levels: number[];
 }
 
-
-
 export interface AgentRunResponse {
   run_id: string;
   industry_id: string;
   status: string;
   report_path?: string | null;
+}
+
+export interface AgentArtifact {
+  name: string;
+  label: string;
+  kind: "json" | "jsonl" | "markdown" | "text" | "csv";
+  path: string;
+  exists: boolean;
+  size_bytes: number;
+  updated_at?: string | null;
+}
+
+export interface AgentArtifactContent {
+  industry_id: string;
+  name: string;
+  label: string;
+  kind: string;
+  path: string;
+  content: unknown;
 }
 
 export interface ExportResponse {

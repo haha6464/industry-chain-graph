@@ -99,9 +99,6 @@ def validate_graph(graph: dict[str, Any], industry_id: str) -> dict[str, Any]:
                 if child_id not in seen:
                     seen.add(child_id)
                     queue.append((child_id, depth + 1))
-    if max_depth < 4:
-        issue("warning", "shallow_hierarchy", "contains 层级深度低于建议的 5-6 层。")
-
     error_count = sum(1 for item in issues if item["severity"] == "error")
     warning_count = sum(1 for item in issues if item["severity"] == "warning")
     return {
@@ -124,7 +121,7 @@ def write_markdown_report(report: dict[str, Any], output_path: Path) -> None:
         f"- 状态：{report['status']}",
         f"- 节点数：{report['node_count']}",
         f"- 关系数：{report['edge_count']}",
-        f"- contains 最大深度：{report['max_contains_depth']}",
+        f"- contains 最大深度：{report['max_contains_depth']}（按 Agent 抽取结果动态记录，不强制 5-6 层）",
         f"- error：{report['error_count']}",
         f"- warning：{report['warning_count']}",
         "",

@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -95,6 +95,30 @@ class AgentRunResponse(BaseModel):
     industry_id: str
     status: str
     report_path: str | None = None
+
+
+class AgentArtifact(BaseModel):
+    name: str
+    label: str
+    kind: Literal["json", "jsonl", "markdown", "text", "csv"]
+    path: str
+    exists: bool
+    size_bytes: int = 0
+    updated_at: str | None = None
+
+
+class AgentArtifactListResponse(BaseModel):
+    industry_id: str
+    artifacts: list[AgentArtifact]
+
+
+class AgentArtifactContent(BaseModel):
+    industry_id: str
+    name: str
+    label: str
+    kind: str
+    path: str
+    content: Any
 
 
 class ExportResponse(BaseModel):

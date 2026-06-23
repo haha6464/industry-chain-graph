@@ -77,12 +77,12 @@ def _build_prompt(graph: dict[str, Any], deterministic_report: dict[str, Any]) -
 4. contains 表示父节点 -> 子节点；upstream_downstream 表示上游 -> 下游。
 5. 同一节点对只允许一种主关系。
 6. 节点命名要避免明显同义重复。
-7. 层级、chain_position、chain_segment 要符合产业链常识。
+7. level 是数字层级深度，chain_position/chain_segment 是上游、中游、下游、支持等位置标签；不要把 level 简化成上中下游三层。
 8. 如果能通过小修解决问题，请直接修改 graph；如果需要大改或证据不足，放入 review_items，不要臆造。
 
 允许的最小修改：
 - 合并明显重复或同义节点，并同步关系引用。
-- 修正明显错误的层级、chain_position、chain_segment、parent_id。
+- 修正明显错误的数字层级、chain_position、chain_segment、parent_id；必要时保留 5-6 层左右的合理细分深度，不要为了整齐强行压缩。
 - 修正明显反向的上下游关系。
 - 删除明显违反规则的公司/股票/财务节点或关系。
 - 补齐缺失但可由已有来源支持的 description、source_urls、confidence。

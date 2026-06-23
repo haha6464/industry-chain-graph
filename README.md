@@ -1,6 +1,6 @@
 # Agent 化产业链图谱
 
-面向 25 个基础行业的标清产业链图谱构建与维护工具。当前 demo 是食品饮料行业，系统包含两条主线：
+面向 25 个基础行业的标清产业链图谱构建与维护工具。以食品饮料为例，系统包含两条主线：
 
 - 图谱应用：FastAPI + Neo4j + React，用于展示、筛选查询、AI 问答和图谱可视化。
 - 构建 Agent：调用阿里云百炼 Qwen Responses API 自动联网搜索，抽取产业链节点/关系，并通过校验 Agent 做最小修图。
@@ -28,11 +28,11 @@
 启动前后端查看图谱：
 
 ```powershell
-.\scripts\start-neo4j.ps1
 .\scripts\start-backend.ps1
 .\scripts\start-frontend.ps1
-.\scripts\import-food-beverage.ps1
 ```
+
+前端选择行业后会直接读取该行业正式 `graph.json`；尚未构建的行业会提示先到 Agent 工作流生成图谱。Neo4j 可视化数据库不再是查看图谱的前置步骤。
 
 ## 环境与配置
 
@@ -74,6 +74,38 @@ DASHSCOPE_API_KEY=
 BAILIAN_BASE_URL=
 BAILIAN_MODEL=
 ```
+
+## 25 个目标行业
+
+本项目的批量构建范围来自 mentor 表格中的 25 个基础行业。当前 `data/industries/manifest.json` 已登记完整行业池，食品饮料为已有 demo，其余行业默认 `pending`，可在前端 Agent 工作流页选择后启动构建。
+
+| 序号 | 行业 | 板块 | industry_id |
+| --- | --- | --- | --- |
+| 23 | 有色金属行业 | 基础材料 | `nonferrous_metals` |
+| 24 | 石油石化行业 | 基础材料 | `petroleum_petrochemical` |
+| 25 | 基础化工行业 | 基础材料 | `basic_chemicals` |
+| 26 | 建筑材料行业 | 基础材料 | `building_materials` |
+| 27 | 电力设备与新能源行业 | 工业 | `power_equipment_new_energy` |
+| 28 | 机械设备行业 | 工业 | `machinery_equipment` |
+| 29 | 国防军工行业 | 工业 | `defense_military` |
+| 30 | 建筑装饰行业 | 建筑 | `building_decoration` |
+| 31 | 公用事业行业 | 公用环保 | `public_utilities` |
+| 32 | 环保行业 | 公用环保 | `environmental_protection` |
+| 33 | 交通运输行业 | 交通运输 | `transportation` |
+| 34 | 汽车行业 | 汽车 | `automobile` |
+| 35 | 电子行业 | 科技 | `electronics` |
+| 36 | 计算机行业 | 科技 | `computer` |
+| 37 | 通信行业 | 科技 | `communication` |
+| 38 | 传媒互联网行业 | 科技 | `media_internet` |
+| 39 | 医药健康行业 | 医药 | `healthcare` |
+| 40 | 食品饮料行业 | 必选消费 | `food_beverage` |
+| 41 | 农林牧渔行业 | 必选消费 | `agriculture_forestry_animal_fishery` |
+| 42 | 社会服务行业 | 可选消费 | `social_services` |
+| 43 | 美容护理行业 | 可选消费 | `beauty_care` |
+| 44 | 商贸零售行业 | 可选消费 | `commercial_retail` |
+| 45 | 轻工制造行业 | 可选消费 | `light_manufacturing` |
+| 46 | 家用电器行业 | 可选消费 | `home_appliances` |
+| 47 | 纺织服饰行业 | 可选消费 | `textile_apparel` |
 
 ## 构建 Agent 流程
 
@@ -150,13 +182,16 @@ Neo4j Browser：`http://localhost:7474`，账号：`neo4j / password123`。
 
 前端页面：`http://localhost:5173`
 
-### 4. 导入食品饮料图谱到 Neo4j
+### 4. 选择行业查看图谱
+
+打开前端页面后选择行业即可查看正式 `graph.json`。食品饮料已有 demo 图谱；其他行业需要先在 Agent 工作流页构建并应用生成正式 `graph.json`。
+
+如需把图谱同步到 Neo4j 做数据库调试，可额外运行：
 
 ```powershell
+.\scripts\start-neo4j.ps1
 .\scripts\import-food-beverage.ps1
 ```
-
-导入成功后刷新前端页面，即可查看食品饮料行业图谱。
 
 ## 单独工具
 
@@ -235,6 +270,8 @@ GET  /api/agent/runs/{run_id}
 GET  /api/agent/runs/{run_id}/report
 POST /api/industries/{industry_id}/export-csv
 GET  /api/industries/{industry_id}/exports
+GET  /api/industries/{industry_id}/agent-artifacts
+GET  /api/industries/{industry_id}/agent-artifacts/{artifact_name}
 ```
 
 触发食品饮料构建：
@@ -283,5 +320,5 @@ cd ..
 
 - 优化百炼抽取和校验 prompt，提高 5-6 层图谱深度、关系方向和最小修图稳定性。
 - 增加批量行业运行脚本，对 25 个行业统一执行构建、校验、更新检查和导出。
-- 为 25 个行业补齐 `manifest.json` 和初始目录。
-- 做前端 Agent 工作台：行业选择、构建按钮、更新检查、运行报告、复核队列和 CSV 下载。
+- 为 25 个行业批量运行 Agent 构建，并补齐正式 `graph.json`、校验报告和 CSV 数据包。
+- 继续增强 Agent 工作流页：补充运行进度轮询、复核队列编辑、CSV 文件下载和正式应用前确认。
