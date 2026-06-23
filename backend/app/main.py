@@ -2,15 +2,20 @@ import httpx
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.agent_service import export_csv, list_exports, read_report, run_build, run_update
 from app.ai_service import AIConfigurationError, answer_with_graph_context
 from app.config import Settings, get_settings
 from app.graph_loader import load_industry_graph
 from app.neo4j_client import Neo4jClient, get_neo4j_client
 from app.repository import GraphRepository
 from app.schemas import (
+    AgentRunRequest,
+    AgentRunResponse,
+    AgentUpdateRequest,
     AskRequest,
     AskResponse,
     ChainPosition,
+    ExportResponse,
     GraphFilters,
     GraphResponse,
     HealthResponse,
@@ -21,6 +26,7 @@ from app.schemas import (
 
 app = FastAPI(title="Industry Chain Graph API", version="0.1.0")
 settings = get_settings()
+RUN_REPORTS: dict[str, str] = {}
 
 app.add_middleware(
     CORSMiddleware,
@@ -86,6 +92,55 @@ def get_neighbors(
     if not nodes:
         raise HTTPException(status_code=404, detail=f"Node not found: {node_id}")
     return GraphResponse(industry_id=industry_id, nodes=nodes, edges=edges)
+
+
+@app.post("/api/agent/build", response_model=AgentRunResponse)
+def build_agent_graph(request: AgentRunRequest) -> AgentRunResponse:
+    try:
+        result = run_build(request.industry_id, request.industry_name, request.target_depth)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    RUN_REPORTS[result["run_id"]] = result.get("report_path") or ""
+    return AgentRunResponse(**result)
+
+
+@app.post("/api/agent/update", response_model=AgentRunResponse)
+def update_agent_graph(request: AgentUpdateRequest) -> AgentRunResponse:
+    try:
+        result = run_update(request.industry_id, request.mode)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    RUN_REPORTS[result["run_id"]] = result.get("report_path") or ""
+    return AgentRunResponse(**result)
+
+
+@app.get("/api/agent/runs/{run_id}", response_model=AgentRunResponse)
+def get_agent_run(run_id: str) -> AgentRunResponse:
+    report_path = RUN_REPORTS.get(run_id)
+    if report_path is None:
+        raise HTTPException(status_code=404, detail=f"Agent run not found: {run_id}")
+    return AgentRunResponse(run_id=run_id, industry_id="", status="completed", report_path=report_path)
+
+
+@app.get("/api/agent/runs/{run_id}/report")
+def get_agent_report(run_id: str) -> dict[str, str]:
+    report_path = RUN_REPORTS.get(run_id)
+    if report_path is None:
+        raise HTTPException(status_code=404, detail=f"Agent run not found: {run_id}")
+    return {"run_id": run_id, "report_path": report_path, "content": read_report(report_path)}
+
+
+@app.post("/api/industries/{industry_id}/export-csv", response_model=ExportResponse)
+def export_industry_csv(industry_id: str) -> ExportResponse:
+    try:
+        return ExportResponse(**export_csv(industry_id))
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/industries/{industry_id}/exports")
+def get_industry_exports(industry_id: str) -> dict[str, list[str]]:
+    return {"industry_id": industry_id, "exports": list_exports(industry_id)}
 
 
 @app.post("/api/ask", response_model=AskResponse)

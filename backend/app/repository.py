@@ -42,13 +42,13 @@ class GraphRepository:
               WITH source, target, edge
               WITH source, target, edge WHERE edge.relation_type = 'contains'
               MERGE (source)-[rel:CONTAINS {industry_id: $industry_id}]->(target)
-              SET rel.id = edge.id, rel.description = edge.description, rel.relation_type = edge.relation_type
+              SET rel += edge
               RETURN count(rel) AS rel_count
               UNION
               WITH source, target, edge
               WITH source, target, edge WHERE edge.relation_type = 'upstream_downstream'
               MERGE (source)-[rel:UPSTREAM_DOWNSTREAM {industry_id: $industry_id}]->(target)
-              SET rel.id = edge.id, rel.description = edge.description, rel.relation_type = edge.relation_type
+              SET rel += edge
               RETURN count(rel) AS rel_count
             }
             RETURN imported_nodes AS node_count, sum(rel_count) AS edge_count
@@ -92,7 +92,7 @@ class GraphRepository:
         records, _, _ = self.driver.execute_query(
             """
             MATCH (:Industry {id: $industry_id})-[:CONTAINS]->(n:IndustryNode)
-            WHERE ($q IS NULL OR $q = '' OR n.name CONTAINS $q OR n.description CONTAINS $q)
+            WHERE ($q IS NULL OR $q = '' OR n.name CONTAINS $q OR coalesce(n.description, '') CONTAINS $q OR coalesce(n.business_description, '') CONTAINS $q)
               AND (size($chain_positions) = 0 OR n.chain_position IN $chain_positions)
               AND (size($levels) = 0 OR n.level IN $levels)
             WITH collect(DISTINCT n) AS nodes
@@ -105,7 +105,12 @@ class GraphRepository:
               source: startNode(r).id,
               target: endNode(r).id,
               relation_type: r.relation_type,
-              description: r.description
+              description: r.description,
+              relation_weight: r.relation_weight,
+              source_urls: coalesce(r.source_urls, []),
+              evidence_ids: coalesce(r.evidence_ids, []),
+              confidence: coalesce(r.confidence, 0.0),
+              updated_at: r.updated_at
             }) AS edges
             """,
             parameters_=params,
@@ -135,7 +140,12 @@ class GraphRepository:
                      source: startNode(rel).id,
                      target: endNode(rel).id,
                      relation_type: rel.relation_type,
-                     description: rel.description
+                     description: rel.description,
+                     relation_weight: rel.relation_weight,
+                     source_urls: coalesce(rel.source_urls, []),
+                     evidence_ids: coalesce(rel.evidence_ids, []),
+                     confidence: coalesce(rel.confidence, 0.0),
+                     updated_at: rel.updated_at
                    }] AS edges
             """,
             node_id=node_id,
@@ -158,10 +168,20 @@ class GraphRepository:
                     id=data["id"],
                     industry_id=data.get("industry_id", "food_beverage"),
                     name=data["name"],
+                    node_type=data.get("node_type", "产业链环节"),
+                    tags=data.get("tags", []),
+                    industry=data.get("industry"),
                     level=data["level"],
                     chain_position=data["chain_position"],
+                    chain_segment=data.get("chain_segment"),
                     parent_id=data.get("parent_id"),
-                    description=data["description"],
+                    description=data.get("description") or data.get("business_description", ""),
+                    business_description=data.get("business_description") or data.get("description", ""),
+                    is_key_node=bool(data.get("is_key_node", False)),
+                    source_urls=data.get("source_urls", []),
+                    evidence_ids=data.get("evidence_ids", []),
+                    confidence=float(data.get("confidence", 0.0)),
+                    updated_at=data.get("updated_at"),
                 )
             )
         return nodes
@@ -180,7 +200,12 @@ class GraphRepository:
                     source=data["source"],
                     target=data["target"],
                     relation_type=data["relation_type"],
-                    description=data["description"],
+                    description=data.get("description", ""),
+                    relation_weight=float(data.get("relation_weight", 1.0) or 1.0),
+                    source_urls=data.get("source_urls", []),
+                    evidence_ids=data.get("evidence_ids", []),
+                    confidence=float(data.get("confidence", 0.0) or 0.0),
+                    updated_at=data.get("updated_at"),
                 )
             )
         return edges

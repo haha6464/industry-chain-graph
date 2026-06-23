@@ -1,4 +1,4 @@
-import type { AskResponse, ChainPosition, GraphFilters, GraphResponse, Industry, RelationType } from "./types";
+import type { AgentRunResponse, AskResponse, ChainPosition, ExportResponse, GraphFilters, GraphResponse, Industry, RelationType } from "./types";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "";
 
@@ -60,3 +60,30 @@ export async function askGraph(industryId: string, question: string, filters: Gr
   });
 }
 
+
+
+export async function buildAgentGraph(industryId: string, industryName: string, targetDepth = "5-6 层") {
+  return request<AgentRunResponse>("/api/agent/build", {
+    method: "POST",
+    body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
+  });
+}
+
+export async function updateAgentGraph(industryId: string, mode: "check_only" | "propose" | "apply" = "check_only") {
+  return request<AgentRunResponse>("/api/agent/update", {
+    method: "POST",
+    body: JSON.stringify({ industry_id: industryId, mode })
+  });
+}
+
+export async function fetchAgentReport(runId: string) {
+  return request<{ run_id: string; report_path: string; content: string }>(`/api/agent/runs/${runId}/report`);
+}
+
+export async function exportIndustryCsv(industryId: string) {
+  return request<ExportResponse>(`/api/industries/${industryId}/export-csv`, { method: "POST" });
+}
+
+export async function fetchIndustryExports(industryId: string) {
+  return request<{ industry_id: string; exports: string[] }>(`/api/industries/${industryId}/exports`);
+}

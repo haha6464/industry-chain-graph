@@ -1,0 +1,12 @@
+{
+  "status": "pending_review",
+  "items": [
+    {
+      "type": "validation_issue",
+      "severity": "warning",
+      "code": "shallow_hierarchy",
+      "message": "contains 层级深度低于建议的 5-6 层。",
+      "item_id": ""
+    }
+  ]
+}

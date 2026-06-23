@@ -19,10 +19,20 @@ class GraphNode(BaseModel):
     id: str
     industry_id: str = "food_beverage"
     name: str
+    node_type: str = "产业链环节"
+    tags: list[str] = Field(default_factory=list)
+    industry: str | None = None
     level: int
     chain_position: ChainPosition
+    chain_segment: str | None = None
     parent_id: str | None = None
     description: str
+    business_description: str | None = None
+    is_key_node: bool = False
+    source_urls: list[str] = Field(default_factory=list)
+    evidence_ids: list[str] = Field(default_factory=list)
+    confidence: float = 0.0
+    updated_at: str | None = None
 
 
 class GraphEdge(BaseModel):
@@ -31,6 +41,11 @@ class GraphEdge(BaseModel):
     target: str
     relation_type: RelationType
     description: str
+    relation_weight: float = 1.0
+    source_urls: list[str] = Field(default_factory=list)
+    evidence_ids: list[str] = Field(default_factory=list)
+    confidence: float = 0.0
+    updated_at: str | None = None
 
 
 class GraphResponse(BaseModel):
@@ -63,3 +78,26 @@ class HealthResponse(BaseModel):
     api: str
     neo4j: str
 
+
+class AgentRunRequest(BaseModel):
+    industry_id: str
+    industry_name: str | None = None
+    target_depth: str = "5-6 层"
+
+
+class AgentUpdateRequest(BaseModel):
+    industry_id: str
+    mode: Literal["check_only", "propose", "apply"] = "check_only"
+
+
+class AgentRunResponse(BaseModel):
+    run_id: str
+    industry_id: str
+    status: str
+    report_path: str | None = None
+
+
+class ExportResponse(BaseModel):
+    industry_id: str
+    node_csv: str
+    edge_csv: str

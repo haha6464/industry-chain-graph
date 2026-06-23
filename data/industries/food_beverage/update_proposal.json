@@ -1,0 +1,10 @@
+{
+  "status": "no_change",
+  "reason": "本次搜索资料未发现足够高置信度的产业链结构变化。",
+  "checked_urls": 0,
+  "new_evidence": 0,
+  "add_nodes": [],
+  "add_edges": [],
+  "modify_nodes": [],
+  "remove_or_deprecate": []
+}

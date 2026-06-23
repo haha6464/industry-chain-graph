@@ -13,10 +13,20 @@ export interface GraphNode {
   id: string;
   industry_id: string;
   name: string;
+  node_type: string;
+  tags: string[];
+  industry?: string | null;
   level: number;
   chain_position: ChainPosition;
+  chain_segment?: string | null;
   parent_id?: string | null;
   description: string;
+  business_description?: string | null;
+  is_key_node: boolean;
+  source_urls: string[];
+  evidence_ids: string[];
+  confidence: number;
+  updated_at?: string | null;
 }
 
 export interface GraphEdge {
@@ -25,6 +35,11 @@ export interface GraphEdge {
   target: string;
   relation_type: RelationType;
   description: string;
+  relation_weight: number;
+  source_urls: string[];
+  evidence_ids: string[];
+  confidence: number;
+  updated_at?: string | null;
 }
 
 export interface GraphResponse {
@@ -47,3 +62,17 @@ export interface GraphFilters {
   levels: number[];
 }
 
+
+
+export interface AgentRunResponse {
+  run_id: string;
+  industry_id: string;
+  status: string;
+  report_path?: string | null;
+}
+
+export interface ExportResponse {
+  industry_id: string;
+  node_csv: string;
+  edge_csv: string;
+}
