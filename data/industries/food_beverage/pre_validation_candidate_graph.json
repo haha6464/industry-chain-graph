@@ -1,6 +1,9 @@
 {
   "industry": "食品饮料行业",
+  "version": "v0.1-agent-search",
   "schema_version": "standard_industry_graph_v0.2_agent",
+  "generated_at": "2026-06-25T10:00:00Z",
+  "scope": "标清产业链图谱；不包含公司节点、股票代码、财务指标。",
   "source_basis": [
     {
       "name": "前瞻产业研究院",
@@ -1734,8 +1737,5 @@
       "confidence": 0.9,
       "updated_at": "2026-06-25T10:00:00Z"
     }
-  ],
-  "version": "v0.1-demo",
-  "generated_at": "2026-06-25",
-  "scope": "标清产业链图谱；不包含公司节点、股票代码、财务指标。"
+  ]
 }

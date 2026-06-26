@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
@@ -61,7 +62,7 @@ def _compact_graph(graph: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _build_prompt(graph: dict[str, Any], recent_sources: list[dict[str, Any]], mode: str) -> str:
+def build_bailian_update_prompt(graph: dict[str, Any], recent_sources: list[dict[str, Any]], mode: str) -> str:
     payload = {
         "mode": mode,
         "existing_graph": _compact_graph(graph),
@@ -96,7 +97,7 @@ def _build_prompt(graph: dict[str, Any], recent_sources: list[dict[str, Any]], m
 """.strip() + "\n" + json.dumps(payload, ensure_ascii=False)
 
 
-def call_bailian_update_agent(graph: dict[str, Any], recent_sources: list[dict[str, Any]], mode: str) -> tuple[dict[str, Any], str]:
+def call_bailian_update_agent(graph: dict[str, Any], recent_sources: list[dict[str, Any]], mode: str, prompt_path: Path | None = None) -> tuple[dict[str, Any], str]:
     _load_env()
     api_key = os.getenv("DASHSCOPE_API_KEY") or os.getenv("BAILIAN_API_KEY")
     if not api_key:
@@ -106,10 +107,13 @@ def call_bailian_update_agent(graph: dict[str, Any], recent_sources: list[dict[s
     except ImportError as exc:
         raise BailianAgentError("openai package is required for update agent. Run .\\scripts\\setup-conda.ps1 to update the conda environment.") from exc
 
+    prompt = build_bailian_update_prompt(graph, recent_sources, mode)
+    if prompt_path:
+        prompt_path.write_text(prompt, encoding="utf-8")
     client = OpenAI(api_key=api_key, base_url=os.getenv("BAILIAN_BASE_URL", DEFAULT_BASE_URL))
     response = client.responses.create(
         model=os.getenv("BAILIAN_MODEL", DEFAULT_MODEL),
-        input=_build_prompt(graph, recent_sources, mode),
+        input=prompt,
         tools=[
             {"type": "web_search"},
             {"type": "web_extractor"},

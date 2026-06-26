@@ -277,7 +277,7 @@ GET  /api/industries/{industry_id}/agent-artifacts/{artifact_name}
 触发食品饮料构建：
 
 ```powershell
-Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8010/api/agent/build" -ContentType "application/json" -Body '{"industry_id":"food_beverage","industry_name":"食品饮料行业","target_depth":"5-6 层"}'
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8010/api/agent/build" -ContentType "application/json" -Body '{"industry_id":"food_beverage","industry_name":"食品饮料行业","target_depth":"5-6 层，60-100 个节点，最多 150 个节点"}'
 ```
 
 导出 CSV：
@@ -318,7 +318,7 @@ cd ..
 
 ## 下一步扩展建议
 
-- 优化百炼抽取和校验 prompt，提高 5-6 层图谱深度、关系方向和最小修图稳定性。
+- 优化百炼抽取和校验 prompt，提高 5-6 层深度、60-100 节点规模、关系方向和最小修图稳定性。
 - 增加批量行业运行脚本，对 25 个行业统一执行构建、校验、更新检查和导出。
 - 为 25 个行业批量运行 Agent 构建，并补齐正式 `graph.json`、校验报告和 CSV 数据包。
 - 继续增强 Agent 工作流页：补充运行进度轮询、复核队列编辑、CSV 文件下载和正式应用前确认。

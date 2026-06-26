@@ -18,6 +18,9 @@ from tools.agent.common import load_graph, standardize_graph, write_json
 
 ALLOWED_RELATIONS = {"contains", "upstream_downstream"}
 MIN_CONFIDENCE = 0.5
+MIN_TARGET_NODES = 60
+MAX_TARGET_NODES = 150
+MIN_LEVEL_ONE_NODES = 5
 
 
 def _norm_name(name: str) -> str:
@@ -54,6 +57,15 @@ def validate_graph(graph: dict[str, Any], industry_id: str) -> dict[str, Any]:
     for norm_name, ids in name_buckets.items():
         if norm_name and len(ids) > 1:
             issue("warning", "duplicate_node_name", f"疑似重复节点名称：{', '.join(ids)}。", ids[0])
+
+    node_count = len(nodes)
+    level_one_count = sum(1 for node in nodes if node.get("level") == 1)
+    if node_count < MIN_TARGET_NODES:
+        issue("warning", "node_count_below_target", f"节点数量 {node_count} 低于目标下限 {MIN_TARGET_NODES}，建议补充横向分支。")
+    if node_count > MAX_TARGET_NODES:
+        issue("warning", "node_count_above_target", f"节点数量 {node_count} 超过建议上限 {MAX_TARGET_NODES}，建议人工复核是否过细。")
+    if nodes and level_one_count < MIN_LEVEL_ONE_NODES:
+        issue("warning", "level_one_breadth_low", f"level=1 一级环节仅 {level_one_count} 个，建议覆盖更多主要产业链环节。")
 
     pair_types: dict[tuple[str, str], set[str]] = defaultdict(set)
     incident: set[str] = set()
@@ -119,7 +131,7 @@ def write_markdown_report(report: dict[str, Any], output_path: Path) -> None:
         f"# {report['industry']} 图谱校验报告",
         "",
         f"- 状态：{report['status']}",
-        f"- 节点数：{report['node_count']}",
+        f"- 节点数：{report['node_count']}（目标 60-100，硬上限 150）",
         f"- 关系数：{report['edge_count']}",
         f"- contains 最大深度：{report['max_contains_depth']}（按 Agent 抽取结果动态记录，不强制 5-6 层）",
         f"- error：{report['error_count']}",

@@ -2,7 +2,7 @@ import httpx
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.agent_service import export_csv, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_build, run_search_plan, run_update, run_validate
+from app.agent_service import apply_candidate_graph, cancel_run, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_build, run_search_plan, run_update, run_validate
 from app.ai_service import AIConfigurationError, answer_with_graph_context
 from app.config import Settings, get_settings
 from app.graph_loader import load_industry_graph, load_manifest
@@ -13,6 +13,7 @@ from app.schemas import (
     AgentArtifactListResponse,
     AgentRunRequest,
     AgentRunResponse,
+    ApplyCandidateRequest,
     AgentUpdateRequest,
     AskRequest,
     AskResponse,
@@ -28,7 +29,6 @@ from app.schemas import (
 
 app = FastAPI(title="Industry Chain Graph API", version="0.1.0")
 settings = get_settings()
-RUN_REPORTS: dict[str, str] = {}
 
 app.add_middleware(
     CORSMiddleware,
@@ -166,7 +166,6 @@ def get_neighbors(
 @app.post("/api/agent/search-plan", response_model=AgentRunResponse)
 def create_agent_search_plan(request: AgentRunRequest) -> AgentRunResponse:
     result = run_search_plan(request.industry_id, request.industry_name)
-    RUN_REPORTS[result["run_id"]] = result.get("report_path") or ""
     return AgentRunResponse(**result)
 
 
@@ -176,7 +175,6 @@ def validate_agent_graph(request: AgentUpdateRequest) -> AgentRunResponse:
         result = run_validate(request.industry_id)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
-    RUN_REPORTS[result["run_id"]] = result.get("report_path") or ""
     return AgentRunResponse(**result)
 
 
@@ -186,7 +184,6 @@ def build_agent_graph(request: AgentRunRequest) -> AgentRunResponse:
         result = run_build(request.industry_id, request.industry_name, request.target_depth)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
-    RUN_REPORTS[result["run_id"]] = result.get("report_path") or ""
     return AgentRunResponse(**result)
 
 
@@ -196,24 +193,45 @@ def update_agent_graph(request: AgentUpdateRequest) -> AgentRunResponse:
         result = run_update(request.industry_id, request.mode)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
-    RUN_REPORTS[result["run_id"]] = result.get("report_path") or ""
     return AgentRunResponse(**result)
 
 
 @app.get("/api/agent/runs/{run_id}", response_model=AgentRunResponse)
 def get_agent_run(run_id: str) -> AgentRunResponse:
-    report_path = RUN_REPORTS.get(run_id)
-    if report_path is None:
-        raise HTTPException(status_code=404, detail=f"Agent run not found: {run_id}")
-    return AgentRunResponse(run_id=run_id, industry_id="", status="completed", report_path=report_path)
+    try:
+        return AgentRunResponse(**get_run(run_id))
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/api/agent/runs/{run_id}/cancel", response_model=AgentRunResponse)
+def cancel_agent_run(run_id: str) -> AgentRunResponse:
+    try:
+        return AgentRunResponse(**cancel_run(run_id))
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.get("/api/agent/runs/{run_id}/report")
 def get_agent_report(run_id: str) -> dict[str, str]:
-    report_path = RUN_REPORTS.get(run_id)
-    if report_path is None:
-        raise HTTPException(status_code=404, detail=f"Agent run not found: {run_id}")
-    return {"run_id": run_id, "report_path": report_path, "content": read_report(report_path)}
+    try:
+        run = get_run(run_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    report_path = run.get("report_path") or ""
+    return {"run_id": run_id, "report_path": report_path, "content": read_report(report_path) if report_path else ""}
+
+
+
+
+@app.post("/api/industries/{industry_id}/apply-candidate", response_model=AgentRunResponse)
+def apply_industry_candidate(industry_id: str, request: ApplyCandidateRequest) -> AgentRunResponse:
+    try:
+        return AgentRunResponse(**apply_candidate_graph(industry_id, request.candidate_type))
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.post("/api/industries/{industry_id}/export-csv", response_model=ExportResponse)

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { InteractiveNvlWrapper } from "@neo4j-nvl/react";
-import { Bot, CheckCircle2, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles } from "lucide-react";
-import { askGraph, buildAgentGraph, createSearchPlan, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, updateAgentGraph, validateAgentGraph } from "./api";
-import type { AgentArtifact, AgentArtifactContent, AskResponse, ChainPosition, GraphEdge, GraphFilters, GraphNode, Industry, RelationType, UpdateMode } from "./types";
+import { Bot, CheckCircle2, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, X } from "lucide-react";
+import { applyCandidateGraph, askGraph, buildAgentGraph, cancelAgentRun, createSearchPlan, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, updateAgentGraph, validateAgentGraph } from "./api";
+import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, GraphEdge, GraphFilters, GraphNode, Industry, RelationType, UpdateMode } from "./types";
 
 const nodeTypeOptions: Array<{ value: ChainPosition; label: string; color: string }> = [
   { value: "root", label: "根节点", color: "#334155" },
@@ -15,6 +15,15 @@ const relationOptions: Array<{ value: RelationType; label: string }> = [
 type LayoutMode = "forceDirected" | "hierarchical";
 type PageMode = "graph" | "agent";
 const defaultFilters: GraphFilters = { q: "", chain_positions: [], relation_types: [], levels: [] };
+const activeRunStatuses = new Set(["running", "canceling"]);
+
+function isActiveRun(run: AgentRunResponse | null) {
+  return Boolean(run && activeRunStatuses.has(run.status));
+}
+
+function wait(ms: number) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
 
 function toggleValue<T>(values: T[], value: T): T[] {
   return values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
@@ -36,6 +45,7 @@ function artifactPreview(content: AgentArtifactContent | null) {
 export function App() {
   const nvlRef = useRef<any>(null);
   const detailPanelRef = useRef<HTMLElement | null>(null);
+  const runLogRef = useRef<HTMLPreElement | null>(null);
   const [pageMode, setPageMode] = useState<PageMode>("graph");
   const [industries, setIndustries] = useState<Industry[]>([]);
   const [industryId, setIndustryId] = useState("");
@@ -50,6 +60,8 @@ export function App() {
   const [graphLoading, setGraphLoading] = useState(false);
   const [asking, setAsking] = useState(false);
   const [agentBusy, setAgentBusy] = useState(false);
+  const [activeRun, setActiveRun] = useState<AgentRunResponse | null>(null);
+  const [runDrawerOpen, setRunDrawerOpen] = useState(false);
   const [artifactLoading, setArtifactLoading] = useState(false);
   const [artifacts, setArtifacts] = useState<AgentArtifact[]>([]);
   const [selectedArtifact, setSelectedArtifact] = useState<AgentArtifactContent | null>(null);
@@ -69,10 +81,10 @@ export function App() {
   const hasArtifact = (name: string) => artifacts.some((artifact) => artifact.name === name && artifact.exists);
   const workflowSteps = [
     { id: "plan", title: "搜索规划", summary: "生成行业检索 query，并记录 search_plan.json。", done: hasArtifact("search_plan"), artifacts: ["search_plan"], action: "plan" },
-    { id: "build", title: "联网搜索与候选构建", summary: "百炼联网搜索、抽取节点关系，生成候选图谱和证据库。", done: hasArtifact("candidate_graph"), artifacts: ["agent_raw_response", "pre_validation_candidate_graph", "candidate_graph", "sources"], action: "build" },
-    { id: "semantic", title: "百炼语义校验与最小修图", summary: "对候选图谱做语义审查、冲突检查和最小修正，随联网构建自动执行。", done: hasArtifact("semantic_validation_report"), artifacts: ["semantic_validation_report", "validation_agent_raw_response"], action: "auto" },
+    { id: "build", title: "联网搜索与候选构建", summary: "百炼联网搜索、抽取节点关系，生成候选图谱和证据库。", done: hasArtifact("candidate_graph"), artifacts: ["agent_request_prompt", "agent_raw_response", "pre_validation_candidate_graph", "candidate_graph", "sources"], action: "build" },
+    { id: "semantic", title: "百炼语义校验与最小修图", summary: "对候选图谱做语义审查、冲突检查和最小修正，随联网构建自动执行。", done: hasArtifact("semantic_validation_report"), artifacts: ["validation_agent_request_prompt", "semantic_validation_report", "validation_agent_raw_response"], action: "auto" },
     { id: "rules", title: "硬规则复检", summary: "检查来源、重复节点、关系冲突、置信度、孤立节点等规则。", done: hasArtifact("validation_report"), artifacts: ["validation_report", "validation_report_json", "review_queue"], action: "validate" },
-    { id: "update", title: "增量更新", summary: "联网搜索新增证据，默认生成 no_change 或 update_proposal。", done: hasArtifact("update_proposal") || hasArtifact("update_report"), artifacts: ["update_proposal", "update_candidate_graph", "update_report", "update_agent_raw_response"], action: "update" },
+    { id: "update", title: "增量更新", summary: "联网搜索新增证据，默认生成 no_change 或 update_proposal。", done: hasArtifact("update_proposal") || hasArtifact("update_report"), artifacts: ["update_agent_request_prompt", "update_proposal", "update_candidate_graph", "update_report", "update_agent_raw_response"], action: "update" },
     { id: "export", title: "CSV 交付", summary: "按 mentor 格式导出节点 CSV 和关系 CSV。", done: exportPaths.length > 0, artifacts: [], action: "export" }
   ];
 
@@ -125,6 +137,15 @@ export function App() {
       setArtifactLoading(false);
     }
   }
+  async function refreshArtifactsSilently() {
+    if (!hasSelectedIndustry) return;
+    try {
+      const data = await fetchAgentArtifacts(industryId);
+      setArtifacts(data.artifacts);
+    } catch {
+      // Keep the current artifact list while a long-running Agent call is still in flight.
+    }
+  }
   async function loadExports() {
     if (!hasSelectedIndustry) {
       setExportPaths([]);
@@ -137,6 +158,50 @@ export function App() {
       setExportPaths([]);
     }
   }
+  async function trackAgentRun(initialRun: AgentRunResponse, successMessage: string, afterDone?: () => Promise<void>) {
+    setActiveRun(initialRun);
+    setRunDrawerOpen(true);
+    setAgentBusy(isActiveRun(initialRun));
+    setMessage((initialRun.current_step || "Agent 已启动") + "：run " + initialRun.run_id);
+    let current = initialRun;
+    let pollCount = 0;
+    try {
+      while (isActiveRun(current)) {
+        await wait(1200);
+        current = await fetchAgentRun(initialRun.run_id);
+        pollCount += 1;
+        setActiveRun(current);
+        setMessage((current.current_step || current.status) + "：run " + current.run_id);
+        if (pollCount % 3 === 0) await refreshArtifactsSilently();
+      }
+      setAgentBusy(false);
+      await loadArtifacts();
+      await loadExports();
+      if (current.status === "completed") {
+        setMessage(successMessage + "：run " + current.run_id + "。");
+        if (afterDone) await afterDone();
+      } else if (current.status === "canceled") {
+        setMessage("运行已中断：run " + current.run_id + "。");
+      } else {
+        setMessage("运行失败：" + (current.current_step || current.status));
+      }
+    } catch (error) {
+      setAgentBusy(false);
+      setMessage(error instanceof Error ? error.message : "读取 Agent 运行状态失败");
+    }
+  }
+
+  async function handleCancelRun() {
+    if (!activeRun || !isActiveRun(activeRun)) return;
+    try {
+      const canceled = await cancelAgentRun(activeRun.run_id);
+      setActiveRun(canceled);
+      setMessage("正在中断 run " + activeRun.run_id + "...");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "中断运行失败");
+    }
+  }
+
   async function handleSearchPlan() {
     if (!hasSelectedIndustry) {
       setMessage("请先选择行业。");
@@ -146,6 +211,8 @@ export function App() {
     setSelectedArtifact(null);
     try {
       const result = await createSearchPlan(industryId, industryName);
+      setActiveRun(result);
+      setRunDrawerOpen(true);
       setMessage("搜索规划完成：run " + result.run_id + "。");
       await loadArtifacts();
     } catch (error) {
@@ -164,6 +231,8 @@ export function App() {
     setSelectedArtifact(null);
     try {
       const result = await validateAgentGraph(industryId);
+      setActiveRun(result);
+      setRunDrawerOpen(true);
       setMessage("规则校验完成：run " + result.run_id + "。");
       await loadArtifacts();
     } catch (error) {
@@ -182,8 +251,7 @@ export function App() {
     setSelectedArtifact(null);
     try {
       const result = await buildAgentGraph(industryId, industryName);
-      setMessage("构建完成：run " + result.run_id + "，报告已写入 " + (result.report_path ?? "行业目录"));
-      await loadArtifacts();
+      await trackAgentRun(result, "构建完成");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Agent 构建失败，请检查 DASHSCOPE_API_KEY 和百炼配置。");
     } finally {
@@ -199,15 +267,37 @@ export function App() {
     setSelectedArtifact(null);
     try {
       const result = await updateAgentGraph(industryId, mode);
-      setMessage("更新流程完成：" + result.status + "，run " + result.run_id + "。");
-      await loadArtifacts();
-      if (mode === "apply") await loadGraph();
+      await trackAgentRun(result, "更新流程完成", mode === "apply" ? async () => { await loadGraph(); } : undefined);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Agent 更新失败");
     } finally {
       setAgentBusy(false);
     }
   }
+  async function handleApplyCandidate(candidateType: CandidateGraphType) {
+    if (!hasSelectedIndustry) {
+      setMessage("请先选择行业。");
+      return;
+    }
+    const label = candidateType === "candidate_graph" ? "候选图谱" : "更新候选图谱";
+    if (!window.confirm("确认将" + label + "应用为正式 graph.json 吗？")) return;
+    setAgentBusy(true);
+    setSelectedArtifact(null);
+    try {
+      const result = await applyCandidateGraph(industryId, candidateType);
+      setActiveRun(result);
+      setRunDrawerOpen(true);
+      setMessage(label + "已应用为正式图谱：run " + result.run_id + "。");
+      await loadArtifacts();
+      await loadExports();
+      await loadGraph();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : label + "应用失败");
+    } finally {
+      setAgentBusy(false);
+    }
+  }
+
   async function handleExport() {
     if (!hasSelectedIndustry) {
       setMessage("请先选择行业。");
@@ -300,6 +390,11 @@ export function App() {
   }, [selectedNode?.id]);
 
   useEffect(() => {
+    if (!runLogRef.current) return;
+    runLogRef.current.scrollTop = runLogRef.current.scrollHeight;
+  }, [activeRun?.logs.length]);
+
+  useEffect(() => {
     if (nodes.length === 0 || pageMode !== "graph") return;
     const timer = window.setTimeout(() => nvlRef.current?.fit?.(nodes.map((node) => node.id)), 500);
     return () => window.clearTimeout(timer);
@@ -376,10 +471,10 @@ export function App() {
                   <p>{step.summary}</p>
                   {step.artifacts.length > 0 && <div className="workflow-artifacts">{step.artifacts.map((artifactName) => { const artifact = artifacts.find((item) => item.name === artifactName); return artifact?.exists ? <button key={artifactName} type="button" onClick={() => handleArtifactOpen(artifactName)}>{artifact.label}</button> : <span key={artifactName}>{artifact?.label ?? artifactName}</span>; })}</div>}
                   {step.action === "plan" && <button type="button" className="action-button" onClick={handleSearchPlan} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Search size={15} />}运行规划</button>}
-                  {step.action === "build" && <button type="button" className="action-button" onClick={handleBuild} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Sparkles size={15} />}运行构建</button>}
+                  {step.action === "build" && <div className="button-grid vertical"><button type="button" className="action-button" onClick={handleBuild} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Sparkles size={15} />}运行构建</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("candidate_graph")} disabled={agentBusy || !hasArtifact("candidate_graph")}>应用候选</button></div>}
                   {step.action === "auto" && <span className="auto-badge">随构建自动执行</span>}
                   {step.action === "validate" && <button type="button" className="action-button" onClick={handleValidate} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <CheckCircle2 size={15} />}运行校验</button>}
-                  {step.action === "update" && <div className="button-grid tight"><button type="button" className="secondary-button" onClick={() => handleUpdate("check_only")} disabled={agentBusy}>检查</button><button type="button" className="secondary-button" onClick={() => handleUpdate("propose")} disabled={agentBusy}>提案</button><button type="button" className="secondary-button" onClick={() => window.confirm("确认应用更新提案并写回正式 graph.json 吗？") && handleUpdate("apply")} disabled={agentBusy}>应用</button></div>}
+                  {step.action === "update" && <div className="button-grid tight"><button type="button" className="secondary-button" onClick={() => handleUpdate("check_only")} disabled={agentBusy}>检查</button><button type="button" className="secondary-button" onClick={() => handleUpdate("propose")} disabled={agentBusy}>提案</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("update_candidate_graph")} disabled={agentBusy || !hasArtifact("update_candidate_graph")}>应用候选</button></div>}
                   {step.action === "export" && <button type="button" className="action-button" onClick={handleExport} disabled={agentBusy}><Download size={15} />导出 CSV</button>}
                 </div>
               </article>
@@ -387,7 +482,7 @@ export function App() {
           </section>
         </aside>
         <section className="artifact-workspace">
-          <header className="stage-header"><div><h2>Agent 产物展示</h2><p>{message}</p></div><div className="stats"><span>{existingArtifacts.length} 个产物</span><span>{exportPaths.length} 个 CSV</span></div></header>
+          <header className="stage-header"><div><h2>Agent 产物展示</h2><p>{message}</p></div><div className="stats"><span>{existingArtifacts.length} 个产物</span><span>{exportPaths.length} 个 CSV</span>{activeRun && <button type="button" className={"run-drawer-toggle " + (isActiveRun(activeRun) ? "live" : "")} onClick={() => setRunDrawerOpen(true)}><Terminal size={14} />运行监控</button>}</div></header>
           <div className="artifact-layout">
             <aside className="artifact-index">
               <div className="panel-title"><FileText size={16} /><span>文件</span></div>
@@ -401,6 +496,20 @@ export function App() {
             <section className="artifact-reader"><div className="artifact-reader-header"><div><h3>{selectedArtifact?.label ?? "产物预览"}</h3><span>{selectedArtifact?.path ?? "选择左侧文件或工作流节点中的产物"}</span></div></div><pre className="artifact-viewer full">{artifactPreview(selectedArtifact)}</pre></section>
           </div>
         </section>
+        {activeRun && <aside className={"run-drawer " + (runDrawerOpen ? "open" : "")} aria-hidden={!runDrawerOpen}>
+          <div className="run-drawer-header">
+            <div><strong><Terminal size={17} />运行监控</strong><span>{activeRun.kind ?? "agent"} · {activeRun.status} · run {activeRun.run_id}</span></div>
+            <button type="button" className="icon-button" aria-label="关闭运行监控" onClick={() => setRunDrawerOpen(false)}><X size={16} /></button>
+          </div>
+          <div className="run-drawer-body">
+            <div className="run-current"><span>当前步骤</span><strong>{activeRun.current_step || "等待日志"}</strong></div>
+            {activeRun.command.length > 0 && <div className="run-command"><span>命令</span><code>{activeRun.command.join(" ")}</code></div>}
+            <pre ref={runLogRef} className="run-log">{activeRun.logs.length > 0 ? activeRun.logs.join("\n") : "等待后端日志..."}</pre>
+          </div>
+          <div className="run-drawer-footer">
+            <button type="button" className="danger-button" onClick={handleCancelRun} disabled={!isActiveRun(activeRun)}><Square size={14} />中断运行</button>
+          </div>
+        </aside>}
       </main>
     );
   }

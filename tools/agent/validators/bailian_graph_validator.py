@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
@@ -62,7 +63,7 @@ def _compact_graph(graph: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _build_prompt(graph: dict[str, Any], deterministic_report: dict[str, Any]) -> str:
+def build_bailian_validation_prompt(graph: dict[str, Any], deterministic_report: dict[str, Any]) -> str:
     payload = {
         "graph": _compact_graph(graph),
         "deterministic_validation": deterministic_report,
@@ -79,10 +80,12 @@ def _build_prompt(graph: dict[str, Any], deterministic_report: dict[str, Any]) -
 6. 节点命名要避免明显同义重复。
 7. level 是数字层级深度，chain_position/chain_segment 是上游、中游、下游、支持等位置标签；不要把 level 简化成上中下游三层。
 8. 如果能通过小修解决问题，请直接修改 graph；如果需要大改或证据不足，放入 review_items，不要臆造。
+9. 候选图谱目标规模为 60-100 个节点，硬上限 150 个节点；校验时不要因为追求简洁而把合理的横向分支压缩掉。
+10. 检查图谱广度：level=1 应覆盖主要一级环节，重要一级环节应有多个二级/三级兄弟分支；如果节点数低于 60 或分支明显偏窄，应添加 review_items 提醒补充广度。
 
 允许的最小修改：
 - 合并明显重复或同义节点，并同步关系引用。
-- 修正明显错误的数字层级、chain_position、chain_segment、parent_id；必要时保留 5-6 层左右的合理细分深度，不要为了整齐强行压缩。
+- 修正明显错误的数字层级、chain_position、chain_segment、parent_id；必要时保留 5-6 层左右的合理细分深度和 60-100 个节点左右的横向广度，不要为了整齐强行压缩。
 - 修正明显反向的上下游关系。
 - 删除明显违反规则的公司/股票/财务节点或关系。
 - 补齐缺失但可由已有来源支持的 description、source_urls、confidence。
@@ -135,6 +138,7 @@ def validate_and_repair_with_bailian(
     graph: dict[str, Any],
     industry_id: str,
     deterministic_report: dict[str, Any],
+    prompt_path: Path | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any], str]:
     _load_env()
     api_key = os.getenv("DASHSCOPE_API_KEY") or os.getenv("BAILIAN_API_KEY")
@@ -146,10 +150,13 @@ def validate_and_repair_with_bailian(
         raise BailianAgentError("openai package is required for semantic validation. Run .\\scripts\\setup-conda.ps1 to update the conda environment.") from exc
 
     standardized = standardize_graph(graph, industry_id)
+    prompt = build_bailian_validation_prompt(standardized, deterministic_report)
+    if prompt_path:
+        prompt_path.write_text(prompt, encoding="utf-8")
     client = OpenAI(api_key=api_key, base_url=os.getenv("BAILIAN_BASE_URL", DEFAULT_BASE_URL))
     response = client.responses.create(
         model=os.getenv("BAILIAN_MODEL", DEFAULT_MODEL),
-        input=_build_prompt(standardized, deterministic_report),
+        input=prompt,
         tools=[
             {"type": "web_search"},
             {"type": "web_extractor"},

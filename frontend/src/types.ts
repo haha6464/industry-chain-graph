@@ -1,6 +1,7 @@
 export type ChainPosition = "root" | "upstream" | "midstream" | "downstream" | "support";
 export type RelationType = "contains" | "upstream_downstream";
 export type UpdateMode = "check_only" | "propose" | "apply";
+export type CandidateGraphType = "candidate_graph" | "update_candidate_graph";
 
 export interface Industry {
   id: string;
@@ -68,6 +69,13 @@ export interface AgentRunResponse {
   industry_id: string;
   status: string;
   report_path?: string | null;
+  kind?: string | null;
+  current_step?: string | null;
+  command: string[];
+  logs: string[];
+  started_at?: string | null;
+  ended_at?: string | null;
+  returncode?: number | null;
 }
 
 export interface AgentArtifact {

@@ -19,6 +19,10 @@ from tools.agent.updaters.bailian_update_agent import call_bailian_update_agent
 from tools.agent.validators.graph_validator import validate_graph, write_markdown_report
 
 
+def _log(message: str) -> None:
+    print(f"[agent] {message}", flush=True)
+
+
 def _index_by_id(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return {item["id"]: item for item in items if item.get("id")}
 
@@ -88,17 +92,22 @@ def _write_update_report(path: Path, proposal: dict[str, Any], validation: dict[
 def update_graph(industry_id: str, mode: str) -> dict[str, object]:
     output_dir = industry_dir(industry_id)
     output_dir.mkdir(parents=True, exist_ok=True)
+    _log(f"准备执行增量更新，模式 {mode}。")
 
+    _log("读取正式图谱 graph.json 与历史 sources.jsonl。")
     graph = load_graph(industry_id)
     existing_sources = read_jsonl(output_dir / "sources.jsonl")
-    proposal, raw_text = call_bailian_update_agent(graph, existing_sources, mode)
+    _log("请求百炼联网搜索并生成增量提案，提示词将写入 update_agent_request_prompt.txt。")
+    proposal, raw_text = call_bailian_update_agent(graph, existing_sources, mode, output_dir / "update_agent_request_prompt.txt")
     proposal["industry_id"] = industry_id
     raw_path = output_dir / "update_agent_raw_response.txt"
     raw_path.write_text(raw_text, encoding="utf-8")
+    _log("百炼更新响应已写入 update_agent_raw_response.txt。")
 
     proposal_path = output_dir / "update_proposal.json"
     write_json(proposal_path, proposal)
 
+    _log("应用提案到候选图谱并执行硬规则校验。")
     candidate = _apply_update_proposal(graph, proposal, industry_id)
     validation = validate_graph(candidate, industry_id)
     candidate_path = output_dir / "update_candidate_graph.json"
@@ -112,11 +121,13 @@ def update_graph(industry_id: str, mode: str) -> dict[str, object]:
         and not any(item.get("severity") == "error" for item in proposal.get("review_items", []))
     )
     if can_apply:
+        _log("满足 apply 条件，写回正式 graph.json。")
         write_json(output_dir / "graph.json", candidate)
         write_jsonl(output_dir / "sources.jsonl", existing_sources + proposal.get("checked_sources", []))
         applied = True
         export = export_graph_csv(candidate, industry_id)
     else:
+        _log("未写回正式图谱，仅刷新现有 CSV 导出信息。")
         export = export_industry_csv(industry_id)
 
     report_path = output_dir / "update_report.md"
@@ -125,6 +136,7 @@ def update_graph(industry_id: str, mode: str) -> dict[str, object]:
     write_markdown_report(validation, validation_path)
     write_json(validation_path.with_suffix(".json"), validation)
 
+    _log("增量更新流程完成。")
     return {
         "industry_id": industry_id,
         "status": proposal.get("status", "needs_review"),

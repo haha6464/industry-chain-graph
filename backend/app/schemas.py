@@ -82,7 +82,7 @@ class HealthResponse(BaseModel):
 class AgentRunRequest(BaseModel):
     industry_id: str
     industry_name: str | None = None
-    target_depth: str = "5-6 层"
+    target_depth: str = "5-6 层，60-100 个节点，最多 150 个节点"
 
 
 class AgentUpdateRequest(BaseModel):
@@ -90,11 +90,24 @@ class AgentUpdateRequest(BaseModel):
     mode: Literal["check_only", "propose", "apply"] = "check_only"
 
 
+
+
+class ApplyCandidateRequest(BaseModel):
+    candidate_type: Literal["candidate_graph", "update_candidate_graph"]
+
+
 class AgentRunResponse(BaseModel):
     run_id: str
     industry_id: str
     status: str
     report_path: str | None = None
+    kind: str | None = None
+    current_step: str | None = None
+    command: list[str] = Field(default_factory=list)
+    logs: list[str] = Field(default_factory=list)
+    started_at: str | None = None
+    ended_at: str | None = None
+    returncode: int | None = None
 
 
 class AgentArtifact(BaseModel):

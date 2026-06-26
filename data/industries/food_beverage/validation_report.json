@@ -1,18 +1,11 @@
 {
   "industry": "食品饮料行业",
   "schema_version": "standard_industry_graph_v0.2_agent",
-  "node_count": 71,
-  "edge_count": 121,
-  "max_contains_depth": 2,
+  "node_count": 38,
+  "edge_count": 49,
+  "max_contains_depth": 5,
   "error_count": 0,
-  "warning_count": 1,
+  "warning_count": 0,
   "status": "pass",
-  "issues": [
-    {
-      "severity": "warning",
-      "code": "shallow_hierarchy",
-      "message": "contains 层级深度低于建议的 5-6 层。",
-      "item_id": ""
-    }
-  ]
+  "issues": []
 }

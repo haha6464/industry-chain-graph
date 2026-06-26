@@ -3,6 +3,7 @@ import type {
   AgentArtifactContent,
   AgentRunResponse,
   AskResponse,
+  CandidateGraphType,
   ChainPosition,
   ExportResponse,
   GraphFilters,
@@ -81,7 +82,7 @@ export async function validateAgentGraph(industryId: string) {
   });
 }
 
-export async function buildAgentGraph(industryId: string, industryName: string, targetDepth = "5-6 层") {
+export async function buildAgentGraph(industryId: string, industryName: string, targetDepth = "5-6 层，60-100 个节点，最多 150 个节点") {
   return request<AgentRunResponse>("/api/agent/build", {
     method: "POST",
     body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
@@ -95,6 +96,14 @@ export async function updateAgentGraph(industryId: string, mode: UpdateMode = "c
   });
 }
 
+export async function fetchAgentRun(runId: string) {
+  return request<AgentRunResponse>(`/api/agent/runs/${runId}`);
+}
+
+export async function cancelAgentRun(runId: string) {
+  return request<AgentRunResponse>(`/api/agent/runs/${runId}/cancel`, { method: "POST" });
+}
+
 export async function fetchAgentReport(runId: string) {
   return request<{ run_id: string; report_path: string; content: string }>(`/api/agent/runs/${runId}/report`);
 }
@@ -105,6 +114,14 @@ export async function fetchAgentArtifacts(industryId: string) {
 
 export async function fetchAgentArtifact(industryId: string, artifactName: string) {
   return request<AgentArtifactContent>(`/api/industries/${industryId}/agent-artifacts/${artifactName}`);
+}
+
+
+export async function applyCandidateGraph(industryId: string, candidateType: CandidateGraphType) {
+  return request<AgentRunResponse>(`/api/industries/${industryId}/apply-candidate`, {
+    method: "POST",
+    body: JSON.stringify({ candidate_type: candidateType })
+  });
 }
 
 export async function exportIndustryCsv(industryId: string) {
