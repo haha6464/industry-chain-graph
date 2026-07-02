@@ -5,19 +5,8 @@ import os
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
-
 from tools.agent.common import PROJECT_ROOT
-from tools.agent.search.bailian_responses_agent import BailianAgentError
-
-DEFAULT_BASE_URL = "https://llm-5h22uw9yblw6v1rz.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
-DEFAULT_MODEL = "qwen3.7-max"
-DEFAULT_SEARCH_STRATEGY = "agent_max"
-
-
-def _load_env() -> None:
-    load_dotenv(PROJECT_ROOT / ".env", override=False)
-    load_dotenv(PROJECT_ROOT / "backend" / ".env", override=False)
+from tools.agent.bailian_client import BailianAgentError, call_bailian_responses, load_bailian_env
 
 
 def _response_text(response: Any) -> str:
@@ -98,7 +87,7 @@ def build_bailian_update_prompt(graph: dict[str, Any], recent_sources: list[dict
 
 
 def call_bailian_update_agent(graph: dict[str, Any], recent_sources: list[dict[str, Any]], mode: str, prompt_path: Path | None = None) -> tuple[dict[str, Any], str]:
-    _load_env()
+    load_bailian_env()
     api_key = os.getenv("DASHSCOPE_API_KEY") or os.getenv("BAILIAN_API_KEY")
     if not api_key:
         raise BailianAgentError("DASHSCOPE_API_KEY or BAILIAN_API_KEY is required for update agent.")
@@ -110,22 +99,7 @@ def call_bailian_update_agent(graph: dict[str, Any], recent_sources: list[dict[s
     prompt = build_bailian_update_prompt(graph, recent_sources, mode)
     if prompt_path:
         prompt_path.write_text(prompt, encoding="utf-8")
-    client = OpenAI(api_key=api_key, base_url=os.getenv("BAILIAN_BASE_URL", DEFAULT_BASE_URL))
-    response = client.responses.create(
-        model=os.getenv("BAILIAN_MODEL", DEFAULT_MODEL),
-        input=prompt,
-        tools=[
-            {"type": "web_search"},
-            {"type": "web_extractor"},
-            {"type": "code_interpreter"},
-        ],
-        extra_body={
-            "enable_thinking": os.getenv("BAILIAN_ENABLE_THINKING", "true").lower() == "true",
-            "search_options": {
-                "forced_search": True,
-                "search_strategy": os.getenv("BAILIAN_SEARCH_STRATEGY", DEFAULT_SEARCH_STRATEGY),
-            },
-        },
-    )
+    response = call_bailian_responses(prompt, "增量更新")
     raw_text = _response_text(response)
     return _extract_json_object(raw_text), raw_text
+

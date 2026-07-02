@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { InteractiveNvlWrapper } from "@neo4j-nvl/react";
-import { Bot, CheckCircle2, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, X } from "lucide-react";
-import { applyCandidateGraph, askGraph, buildAgentGraph, cancelAgentRun, createSearchPlan, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, updateAgentGraph, validateAgentGraph } from "./api";
+import { Bot, CheckCircle2, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, Trash2, X } from "lucide-react";
+import { applyCandidateGraph, askGraph, buildAgentBranches, buildAgentSkeleton, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, finalValidateAgentGraph, updateAgentGraph } from "./api";
 import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, GraphEdge, GraphFilters, GraphNode, Industry, RelationType, UpdateMode } from "./types";
 
 const nodeTypeOptions: Array<{ value: ChainPosition; label: string; color: string }> = [
@@ -28,9 +28,41 @@ function wait(ms: number) {
 function toggleValue<T>(values: T[], value: T): T[] {
   return values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
 }
-function levelColor(level: number) {
-  const colors = ["#ea580c", "#f97316", "#f59e0b", "#7c3aed", "#2563eb", "#0891b2", "#475569"];
-  return colors[Math.min(Math.max(level, 0), colors.length - 1)];
+const levelGradientStops = [
+  { position: 0, color: "#ea580c" },
+  { position: 0.35, color: "#f59e0b" },
+  { position: 0.7, color: "#06b6d4" },
+  { position: 1, color: "#2563eb" }
+];
+
+function hexToRgb(hex: string) {
+  const value = hex.replace("#", "");
+  return {
+    r: Number.parseInt(value.slice(0, 2), 16),
+    g: Number.parseInt(value.slice(2, 4), 16),
+    b: Number.parseInt(value.slice(4, 6), 16)
+  };
+}
+
+function rgbToHex({ r, g, b }: { r: number; g: number; b: number }) {
+  return "#" + [r, g, b].map((value) => Math.round(value).toString(16).padStart(2, "0")).join("");
+}
+
+function levelColor(level: number, maxLevel = 6) {
+  const safeMaxLevel = Math.max(1, maxLevel);
+  const ratio = Math.min(Math.max(level / safeMaxLevel, 0), 1);
+  const rightIndex = levelGradientStops.findIndex((stop) => stop.position >= ratio);
+  const rightStop = levelGradientStops[rightIndex === -1 ? levelGradientStops.length - 1 : rightIndex];
+  const leftStop = levelGradientStops[Math.max(0, (rightIndex === -1 ? levelGradientStops.length - 1 : rightIndex) - 1)];
+  const span = Math.max(0.001, rightStop.position - leftStop.position);
+  const localRatio = (ratio - leftStop.position) / span;
+  const left = hexToRgb(leftStop.color);
+  const right = hexToRgb(rightStop.color);
+  return rgbToHex({
+    r: left.r + (right.r - left.r) * localRatio,
+    g: left.g + (right.g - left.g) * localRatio,
+    b: left.b + (right.b - left.b) * localRatio
+  });
 }
 function relationLabel(type: RelationType) {
   return relationOptions.find((item) => item.value === type)?.label ?? type;
@@ -78,12 +110,17 @@ export function App() {
     draftFilters.levels.forEach((level) => values.add(level));
     return Array.from(values).sort((left, right) => left - right);
   }, [nodes, draftFilters.levels]);
+  const maxVisibleLevel = useMemo(() => {
+    const graphMax = nodes.reduce((maxLevel, node) => Math.max(maxLevel, node.level), 0);
+    const filterMax = draftFilters.levels.reduce((maxLevel, level) => Math.max(maxLevel, level), 0);
+    return Math.max(graphMax, filterMax, 1);
+  }, [nodes, draftFilters.levels]);
   const hasArtifact = (name: string) => artifacts.some((artifact) => artifact.name === name && artifact.exists);
   const workflowSteps = [
     { id: "plan", title: "搜索规划", summary: "生成行业检索 query，并记录 search_plan.json。", done: hasArtifact("search_plan"), artifacts: ["search_plan"], action: "plan" },
-    { id: "build", title: "联网搜索与候选构建", summary: "百炼联网搜索、抽取节点关系，生成候选图谱和证据库。", done: hasArtifact("candidate_graph"), artifacts: ["agent_request_prompt", "agent_raw_response", "pre_validation_candidate_graph", "candidate_graph", "sources"], action: "build" },
-    { id: "semantic", title: "百炼语义校验与最小修图", summary: "对候选图谱做语义审查、冲突检查和最小修正，随联网构建自动执行。", done: hasArtifact("semantic_validation_report"), artifacts: ["validation_agent_request_prompt", "semantic_validation_report", "validation_agent_raw_response"], action: "auto" },
-    { id: "rules", title: "硬规则复检", summary: "检查来源、重复节点、关系冲突、置信度、孤立节点等规则。", done: hasArtifact("validation_report"), artifacts: ["validation_report", "validation_report_json", "review_queue"], action: "validate" },
+    { id: "skeleton", title: "一级骨架构建", summary: "联网生成 level=1 一级产业链骨架，并立即评估分类质量；不通过时只修骨架。", done: hasArtifact("staged_level1_graph") && hasArtifact("staged_level1_evaluation"), artifacts: ["agent_request_prompt", "staged_level1_graph", "staged_level1_evaluation", "staged_quality_opinions"], action: "skeleton" },
+    { id: "branches", title: "分支扩展与评估", summary: "基于一级骨架逐分支扩展，每条分支单独评估；不通过时只修当前分支，最后合并为校验前候选图谱。", done: hasArtifact("pre_validation_candidate_graph"), artifacts: ["staged_branch_fragments", "staged_branch_evaluations", "staged_quality_opinions", "staged_merged_graph", "staged_errors", "agent_raw_response", "pre_validation_candidate_graph"], action: "branches" },
+    { id: "validate_repair", title: "最终校验与格式修复", summary: "单轮硬规则校验；只有不通过才请求百炼做格式修复，不再做整图质量审查。", done: hasArtifact("candidate_graph") && hasArtifact("validation_report"), artifacts: ["validation_agent_request_prompt", "validation_agent_raw_response", "format_repair_report", "candidate_graph", "sources", "validation_report", "validation_report_json", "review_queue"], action: "final_validate" },
     { id: "update", title: "增量更新", summary: "联网搜索新增证据，默认生成 no_change 或 update_proposal。", done: hasArtifact("update_proposal") || hasArtifact("update_report"), artifacts: ["update_agent_request_prompt", "update_proposal", "update_candidate_graph", "update_report", "update_agent_raw_response"], action: "update" },
     { id: "export", title: "CSV 交付", summary: "按 mentor 格式导出节点 CSV 和关系 CSV。", done: exportPaths.length > 0, artifacts: [], action: "export" }
   ];
@@ -222,7 +259,8 @@ export function App() {
     }
   }
 
-  async function handleValidate() {
+
+  async function handleBuildSkeleton() {
     if (!hasSelectedIndustry) {
       setMessage("请先选择行业。");
       return;
@@ -230,30 +268,51 @@ export function App() {
     setAgentBusy(true);
     setSelectedArtifact(null);
     try {
-      const result = await validateAgentGraph(industryId);
-      setActiveRun(result);
-      setRunDrawerOpen(true);
-      setMessage("规则校验完成：run " + result.run_id + "。");
-      await loadArtifacts();
+      const result = await buildAgentSkeleton(industryId, industryName);
+      await trackAgentRun(result, "一级骨架构建完成");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "规则校验失败");
+      setMessage(error instanceof Error ? error.message : "一级骨架构建失败，请检查 DASHSCOPE_API_KEY 和百炼配置。");
     } finally {
       setAgentBusy(false);
     }
   }
 
-  async function handleBuild() {
+  async function handleBuildBranches() {
     if (!hasSelectedIndustry) {
       setMessage("请先选择行业。");
+      return;
+    }
+    if (!hasArtifact("staged_level1_graph")) {
+      setMessage("请先运行一级骨架构建，生成 staged_level1_graph.json 后再扩展分支。");
       return;
     }
     setAgentBusy(true);
     setSelectedArtifact(null);
     try {
-      const result = await buildAgentGraph(industryId, industryName);
-      await trackAgentRun(result, "构建完成");
+      const result = await buildAgentBranches(industryId, industryName);
+      await trackAgentRun(result, "分支扩展与评估完成");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Agent 构建失败，请检查 DASHSCOPE_API_KEY 和百炼配置。");
+      setMessage(error instanceof Error ? error.message : "分支扩展与评估失败");
+    } finally {
+      setAgentBusy(false);
+    }
+  }
+  async function handleFinalValidate() {
+    if (!hasSelectedIndustry) {
+      setMessage("请先选择行业。");
+      return;
+    }
+    if (!hasArtifact("pre_validation_candidate_graph")) {
+      setMessage("请先运行分支扩展，生成 pre_validation_candidate_graph.json 后再运行最终校验。");
+      return;
+    }
+    setAgentBusy(true);
+    setSelectedArtifact(null);
+    try {
+      const result = await finalValidateAgentGraph(industryId);
+      await trackAgentRun(result, "最终校验完成");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "最终校验失败");
     } finally {
       setAgentBusy(false);
     }
@@ -325,6 +384,21 @@ export function App() {
       setSelectedArtifact(await fetchAgentArtifact(industryId, name));
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "产物读取失败");
+    } finally {
+      setArtifactLoading(false);
+    }
+  }  async function handleArtifactDelete() {
+    if (!hasSelectedIndustry || !selectedArtifact) return;
+    if (!window.confirm("确认删除当前产物「" + selectedArtifact.label + "」吗？")) return;
+    setArtifactLoading(true);
+    try {
+      await deleteAgentArtifact(industryId, selectedArtifact.name);
+      setMessage("已删除产物：" + selectedArtifact.label + "。");
+      setSelectedArtifact(null);
+      await loadArtifacts();
+      await loadExports();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "产物删除失败");
     } finally {
       setArtifactLoading(false);
     }
@@ -428,7 +502,7 @@ export function App() {
     id: node.id,
     caption: node.name,
     size: node.level === 0 ? 50 : node.is_key_node ? 38 : Math.max(18, 34 - node.level * 3),
-    color: levelColor(node.level)
+    color: levelColor(node.level, maxVisibleLevel)
   })), [nodes]);
   const nvlRelationships = useMemo(() => edges.map((edge) => ({
     id: edge.id,
@@ -471,9 +545,8 @@ export function App() {
                   <p>{step.summary}</p>
                   {step.artifacts.length > 0 && <div className="workflow-artifacts">{step.artifacts.map((artifactName) => { const artifact = artifacts.find((item) => item.name === artifactName); return artifact?.exists ? <button key={artifactName} type="button" onClick={() => handleArtifactOpen(artifactName)}>{artifact.label}</button> : <span key={artifactName}>{artifact?.label ?? artifactName}</span>; })}</div>}
                   {step.action === "plan" && <button type="button" className="action-button" onClick={handleSearchPlan} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Search size={15} />}运行规划</button>}
-                  {step.action === "build" && <div className="button-grid vertical"><button type="button" className="action-button" onClick={handleBuild} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Sparkles size={15} />}运行构建</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("candidate_graph")} disabled={agentBusy || !hasArtifact("candidate_graph")}>应用候选</button></div>}
-                  {step.action === "auto" && <span className="auto-badge">随构建自动执行</span>}
-                  {step.action === "validate" && <button type="button" className="action-button" onClick={handleValidate} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <CheckCircle2 size={15} />}运行校验</button>}
+                  {step.action === "skeleton" && <button type="button" className="action-button" onClick={handleBuildSkeleton} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Sparkles size={15} />}运行骨架</button>}{step.action === "branches" && <button type="button" className="action-button" onClick={handleBuildBranches} disabled={agentBusy || !hasArtifact("staged_level1_graph")}>{agentBusy ? <span className="spinner" /> : <GitBranch size={15} />}运行分支</button>}
+                  {step.action === "final_validate" && <div className="button-grid vertical"><button type="button" className="action-button" onClick={handleFinalValidate} disabled={agentBusy || !hasArtifact("pre_validation_candidate_graph")}>{agentBusy ? <span className="spinner" /> : <CheckCircle2 size={15} />}运行最终校验</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("candidate_graph")} disabled={agentBusy || !hasArtifact("candidate_graph")}>应用候选</button></div>}
                   {step.action === "update" && <div className="button-grid tight"><button type="button" className="secondary-button" onClick={() => handleUpdate("check_only")} disabled={agentBusy}>检查</button><button type="button" className="secondary-button" onClick={() => handleUpdate("propose")} disabled={agentBusy}>提案</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("update_candidate_graph")} disabled={agentBusy || !hasArtifact("update_candidate_graph")}>应用候选</button></div>}
                   {step.action === "export" && <button type="button" className="action-button" onClick={handleExport} disabled={agentBusy}><Download size={15} />导出 CSV</button>}
                 </div>
@@ -493,7 +566,7 @@ export function App() {
               </div>
               {exportPaths.length > 0 && <div className="path-list"><strong>CSV 导出</strong>{exportPaths.map((item) => <span key={item}>{item}</span>)}</div>}
             </aside>
-            <section className="artifact-reader"><div className="artifact-reader-header"><div><h3>{selectedArtifact?.label ?? "产物预览"}</h3><span>{selectedArtifact?.path ?? "选择左侧文件或工作流节点中的产物"}</span></div></div><pre className="artifact-viewer full">{artifactPreview(selectedArtifact)}</pre></section>
+            <section className="artifact-reader"><div className="artifact-reader-header"><div><h3>{selectedArtifact?.label ?? "产物预览"}</h3><span>{selectedArtifact?.path ?? "选择左侧文件或工作流节点中的产物"}</span></div>{selectedArtifact && <button type="button" className="artifact-delete-button" title="删除当前产物" aria-label="删除当前产物" onClick={handleArtifactDelete} disabled={artifactLoading}><Trash2 size={15} /></button>}</div><pre className="artifact-viewer full">{artifactPreview(selectedArtifact)}</pre></section>
           </div>
         </section>
         {activeRun && <aside className={"run-drawer " + (runDrawerOpen ? "open" : "")} aria-hidden={!runDrawerOpen}>
@@ -523,7 +596,7 @@ export function App() {
         <section className="panel">
           <div className="panel-title"><Filter size={16} /><span>筛选</span></div>
           <label className="field"><span>关键词</span><div className="search-box"><Search size={16} /><input placeholder="节点名称或简介" value={draftFilters.q} onChange={(event) => setDraftFilters({ ...draftFilters, q: event.target.value })} onKeyDown={(event) => { if (event.key === "Enter") applyFilters(draftFilters); }} /></div></label>
-          <div className="filter-group"><span>节点类型</span>{nodeTypeOptions.map((option) => <label key={option.value} className="check-row"><input type="checkbox" checked={draftFilters.chain_positions.includes(option.value)} onChange={() => setDraftFilters({ ...draftFilters, chain_positions: toggleValue(draftFilters.chain_positions, option.value) })} /><span className="dot" style={{ backgroundColor: option.color }} />{option.label}</label>)}{levelOptions.map((level) => <label key={level} className="check-row"><input type="checkbox" checked={draftFilters.levels.includes(level)} onChange={() => setDraftFilters({ ...draftFilters, levels: toggleValue(draftFilters.levels, level) })} /><span className="dot" style={{ backgroundColor: levelColor(level) }} />L{level}</label>)}</div>
+          <div className="filter-group"><span>节点类型</span>{nodeTypeOptions.map((option) => <label key={option.value} className="check-row"><input type="checkbox" checked={draftFilters.chain_positions.includes(option.value)} onChange={() => setDraftFilters({ ...draftFilters, chain_positions: toggleValue(draftFilters.chain_positions, option.value) })} /><span className="dot" style={{ backgroundColor: option.color }} />{option.label}</label>)}{levelOptions.map((level) => <label key={level} className="check-row"><input type="checkbox" checked={draftFilters.levels.includes(level)} onChange={() => setDraftFilters({ ...draftFilters, levels: toggleValue(draftFilters.levels, level) })} /><span className="dot" style={{ backgroundColor: levelColor(level, maxVisibleLevel) }} />L{level}</label>)}</div>
           <div className="filter-group"><span>关系类型</span>{relationOptions.map((option) => <label key={option.value} className="check-row"><input type="checkbox" checked={draftFilters.relation_types.includes(option.value)} onChange={() => setDraftFilters({ ...draftFilters, relation_types: toggleValue(draftFilters.relation_types, option.value) })} />{option.label}</label>)}</div>
           <div className="toolbar"><button type="button" title="应用筛选" onClick={() => applyFilters(draftFilters)} disabled={graphLoading || !hasSelectedIndustry}>{graphLoading ? <span className="spinner dark" /> : <Search size={16} />}</button><button type="button" title="重置筛选" onClick={() => applyFilters(defaultFilters)} disabled={graphLoading || !hasSelectedIndustry}><RefreshCw size={16} /></button></div>
         </section>
@@ -534,8 +607,20 @@ export function App() {
       </section>
       <aside className="inspector">
         <section ref={detailPanelRef} className="panel detail-panel"><div className="panel-title"><Network size={16} /><span>节点审计</span></div>{selectedNode ? <><h3>{selectedNode.name}</h3><div className="meta-row"><span>L{selectedNode.level}</span><span>{selectedNode.node_type}</span>{selectedNode.is_key_node && <span>关键节点</span>}<span>置信度 {formatPercent(selectedNode.confidence)}</span></div><p>{selectedNode.business_description || selectedNode.description || "暂无描述"}</p><dl className="kv-list"><div><dt>行业</dt><dd>{selectedNode.industry || selectedNode.industry_id}</dd></div><div><dt>层级</dt><dd>L{selectedNode.level}</dd></div><div><dt>更新时间</dt><dd>{selectedNode.updated_at || "-"}</dd></div></dl>{selectedNode.tags.length > 0 && <div className="chips compact">{selectedNode.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}<div className="node-link-list compact"><strong>父节点</strong>{parentNode ? <button type="button" onClick={() => handleNodeClick(parentNode.id)}>{parentNode.name}<small>{parentNode.id}</small></button> : selectedNode.parent_id ? <button type="button" onClick={() => handleNodeClick(selectedNode.parent_id!)}>{nodeLabel(selectedNode.parent_id)}</button> : <span>暂无父节点</span>}</div><div className="node-link-list compact two-col"><strong>子节点</strong>{childNodes.length > 0 ? childNodes.map((node) => <button key={node.id} type="button" onClick={() => handleNodeClick(node.id)}>{node.name}<small>{node.id}</small></button>) : <span>暂无子节点</span>}</div><div className="source-list"><strong>来源 URL</strong>{selectedNode.source_urls.length > 0 ? selectedNode.source_urls.slice(0, 5).map((url) => <a key={url} href={url} target="_blank" rel="noreferrer">{url}</a>) : <span>暂无来源</span>}</div><div className="source-list"><strong>证据 ID</strong>{selectedNode.evidence_ids.length > 0 ? <span>{selectedNode.evidence_ids.join(", ")}</span> : <span>暂无证据</span>}</div><div className="neighbor-list"><strong>邻接关系</strong>{otherNeighborEdges.slice(0, 10).map((edge) => <button key={edge.id} type="button" onClick={() => handleNodeClick(edge.source === selectedNode.id ? edge.target : edge.source)}><span>{relationSentence(edge)}</span><small>置信度 {formatPercent(edge.confidence)}</small></button>)}{otherNeighborEdges.length === 0 && <span>暂无其他邻接关系</span>}</div></> : <p className="muted">点击图谱节点查看描述、层级、来源、证据、置信度和邻接关系。</p>}</section>
-        <section className="panel ask-panel"><div className="panel-title"><Bot size={16} /><span>AI 问答</span></div><textarea value={question} placeholder="例如：食品饮料行业的上游主要有哪些？" onChange={(event) => setQuestion(event.target.value)} /><button className="action-button" type="button" title="发送问题" onClick={handleAsk} disabled={asking || !question.trim() || !hasSelectedIndustry}>{asking ? <span className="spinner" /> : <Send size={16} />}<span>{asking ? "思考中" : "发送问题"}</span></button>{asking && <div className="thinking" aria-live="polite"><span>正在基于图谱检索上下文</span><i /><i /><i /></div>}{answer && <div className="answer"><strong>回答</strong><p>{answer.answer}</p><strong>引用节点</strong><div className="chips">{answer.context_nodes.slice(0, 12).map((node) => <span key={node.id}>{node.name}</span>)}</div><strong>引用关系</strong><div className="chips">{answer.context_edges.slice(0, 8).map((edge) => <span key={edge.id}>{relationLabel(edge.relation_type)}</span>)}</div></div>}</section>
+        <section className="panel ask-panel"><div className="panel-title"><Bot size={16} /><span>AI 问答</span></div><textarea value={question} placeholder="例如：该行业的上游主要有哪些？" onChange={(event) => setQuestion(event.target.value)} /><button className="action-button" type="button" title="发送问题" onClick={handleAsk} disabled={asking || !question.trim() || !hasSelectedIndustry}>{asking ? <span className="spinner" /> : <Send size={16} />}<span>{asking ? "思考中" : "发送问题"}</span></button>{asking && <div className="thinking" aria-live="polite"><span>正在基于图谱检索上下文</span><i /><i /><i /></div>}{answer && <div className="answer"><strong>回答</strong><p>{answer.answer}</p><strong>引用节点</strong><div className="chips">{answer.context_nodes.slice(0, 12).map((node) => <span key={node.id}>{node.name}</span>)}</div><strong>引用关系</strong><div className="chips">{answer.context_edges.slice(0, 8).map((edge) => <span key={edge.id}>{relationLabel(edge.relation_type)}</span>)}</div></div>}</section>
       </aside>
     </main>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,50 +1,47 @@
-你是一个面向证券研究场景的产业链图谱构建 Agent。请你必须联网搜索公开资料，为“食品饮料行业”构建一个标清产业链图谱。
+你是证券研究场景的产业链图谱构建 Agent。请联网搜索公开资料，为“食品饮料行业”先构建产业链一级骨架。
+
+本次只负责：行业根节点 + level=1 一级产业链环节。
 
 硬性要求：
-1. 必须使用联网搜索和网页抽取能力，不要只依赖模型内部知识。
-2. 不要抽取公司节点，不要输出公司列表，不要涉及股票代码、财务指标或个股信息。
-3. 图谱只允许两类关系：contains 和 upstream_downstream。
-4. contains 的方向是 父节点 -> 子节点；upstream_downstream 的方向是 上游节点 -> 下游节点。
-5. 每个节点和每条关系都必须保留至少 1 个 URL 来源。
-6. 层级必须使用数字 level 表达，构建目标为：5-6 层，60-100 个节点，最多 150 个节点。level=0 是行业根节点；level=1 是一级产业链环节；level=2/3/4/5... 是逐级细分的产品、原料、工艺、渠道、应用等节点。
-7. 不要把 level 简单命名为“上游/中游/下游”。上游/中游/下游/支持只用于 chain_position 或 chain_segment，表示节点在产业链中的位置，不代表层级深度。
-8. 每个非根节点都应通过 parent_id 和 contains 关系挂到上一级节点；能由公开证据支持的分支应尽量展开到 5-6 层左右，证据不足时保持合理粒度，不要硬凑层级。
-9. 图谱要兼顾深度和广度：目标节点数量为 60-100 个，硬上限 150 个；不要只沿少数分支深挖成一条深链。
-10. level=1 应覆盖该行业主要一级环节，通常不少于 5 个；每个重要一级环节应尽量展开 3-8 个二级/三级分支；同一分支继续深挖时要保证兄弟节点也有合理覆盖。
-11. 若节点数低于 60，优先补充横向缺失的产品类别、原材料、关键工艺、设备、渠道、应用场景、支撑服务等节点，而不是重复拆分同一概念。
-12. upstream_downstream 只表示不同节点之间的流向关系，不替代 contains 层级关系。
-13. 输出必须是严格 JSON，不要输出 Markdown、解释文字或代码块。
+1. 必须联网搜索，不要只依赖模型内部知识。
+2. 不要抽取公司节点，不要公司列表，不要股票代码、财务指标或个股信息。
+3. level=0 只能有 1 个行业根节点，名称为“食品饮料行业”。
+4. level=1 覆盖该行业主要一级环节，建议 6-10 个，至少 5 个。
+5. level=1 不要命名为“上游/中游/下游”；可以是原材料、关键工艺、设备、产品品类、渠道、应用、支撑服务等真实产业环节。
+6. 只输出 contains 关系：根节点 -> 一级环节。
+7. 每个节点和关系必须保留至少 1 个 URL 来源。
+8. 总体构建目标为：5-6 层，60-100 个节点，最多 150 个节点；本阶段只打宽骨架，不深挖。
 
-请返回如下 JSON 结构：
+请返回严格 JSON，不要 Markdown、解释文字或代码块。结构如下：
 {
   "industry": "食品饮料行业",
-  "version": "v0.1-agent-search",
+  "version": "v0.2-staged-build",
   "schema_version": "standard_industry_graph_v0.2_agent",
   "generated_at": "",
-  "scope": "标清产业链图谱；目标 60-100 个节点，硬上限 150 个节点；不包含公司节点、股票代码、财务指标。",
+  "scope": "分阶段产业链图谱构建；不包含公司节点、股票代码、财务指标。",
   "source_basis": [{"name": "资料标题或机构名称", "url": "https://...", "note": "该来源支持的产业链判断"}],
   "nodes": [{
     "id": "food_beverage_001",
     "name": "节点名称",
-    "node_type": "产业链/一级环节/二级环节/细分环节/原材料/产品/工艺/渠道/应用场景",
-    "tags": ["level_0", "root"],
+    "node_type": "产业链/一级环节/二级环节/细分环节/原材料/产品/工艺/设备/渠道/应用场景/支撑服务",
+    "tags": ["level_1"],
     "industry": "食品饮料行业",
-    "level": 0,
+    "level": 1,
     "chain_position": "root/upstream/midstream/downstream/support",
     "parent_id": "",
     "description": "一句话业务描述",
     "business_description": "一句话业务描述",
     "is_key_node": true,
-    "chain_segment": "root/上游/中游/下游/支持（位置标签，不是层级名称）",
+    "chain_segment": "位置标签，不是层级名称",
     "source_urls": ["https://..."],
     "evidence_ids": ["food_beverage_ev_0001"],
     "confidence": 0.85,
     "updated_at": ""
   }],
   "edges": [{
-    "source": "food_beverage_001",
-    "target": "food_beverage_002",
-    "relation_type": "contains",
+    "source": "父节点或上游节点 id",
+    "target": "子节点或下游节点 id",
+    "relation_type": "contains/upstream_downstream",
     "relation_weight": 1.0,
     "description": "关系说明",
     "source_urls": ["https://..."],

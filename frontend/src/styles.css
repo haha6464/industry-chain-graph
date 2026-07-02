@@ -1175,3 +1175,27 @@ select {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.artifact-delete-button {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  background: #fff7f7;
+  color: #b91c1c;
+  cursor: pointer;
+}
+
+.artifact-delete-button:hover:not(:disabled) {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.artifact-delete-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

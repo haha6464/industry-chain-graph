@@ -1,39 +1,229 @@
 {
   "industry": "食品饮料行业",
-  "version": "v0.1-agent-search",
+  "version": "v0.2-staged-build",
   "schema_version": "standard_industry_graph_v0.2_agent",
-  "generated_at": "2026-06-25T10:00:00Z",
-  "scope": "标清产业链图谱；不包含公司节点、股票代码、财务指标。",
+  "generated_at": "2026-07-02T11:56:40+00:00",
+  "scope": "分阶段产业链图谱构建；目标 60-100 个节点，硬上限 150 个节点；不包含公司节点、股票代码、财务指标。",
   "source_basis": [
     {
-      "name": "前瞻产业研究院",
-      "url": "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html",
-      "note": "提供食品饮料及软饮料产业链上中下游结构划分及宏观行业趋势"
+      "name": "新浪财经-2026年中国饮料行业全景图谱",
+      "url": "https://finance.sina.com.cn/roll/2026-04-21/doc-inhvfivk6377628.shtml",
+      "note": "提供饮料及食品饮料产业链中游核心环节及上下游结构剖析"
     },
     {
-      "name": "新浪财经-软饮料产业链",
-      "url": "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4",
-      "note": "软饮料产业链中游制造细分品类及下游流通渠道全景梳理"
+      "name": "沙利文-2024中国食品饮料行业白皮书",
+      "url": "https://aigc.idigital.com.cn/djyanbao/%E3%80%90%E6%B2%99%E5%88%A9%E6%96%87%E5%85%AC%E5%8F%B8%E3%80%91%E9%A3%9F%E4%B8%BA%E5%A4%A9%EF%BC%9A2024%E4%B8%AD%E5%9B%BD%E9%A3%9F%E5%93%81%E9%A5%AE%E6%96%99%E8%A1%8C%E4%B8%9A%E7%99%BD%E7%9A%AE%E4%B9%A6-2024-09-09.pdf",
+      "note": "解析食品饮料全产业链各环节发展现状及冷链物流融合趋势"
     },
     {
-      "name": "东方财富-乳制品产业链",
-      "url": "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf",
-      "note": "乳制品上游奶源、中游加工及下游销售渠道深度解析"
+      "name": "联合资信-食品饮料行业2025年信用风险研究",
+      "url": "https://www.lhratings.com/file/g060863f067.pdf",
+      "note": "分析食品饮料销售渠道、冷链物流成本及产业链信用结构"
     },
     {
-      "name": "知乎-烘焙休闲食品产业",
-      "url": "https://zhuanlan.zhihu.com/p/2038611384401908743",
-      "note": "烘焙休闲食品产业链上游原料、面粉油脂及中游产品分类"
+      "name": "前瞻产业研究院-食品饮料行业分析报告",
+      "url": "https://bg.qianzhan.com/report/list2/3425.html",
+      "note": "梳理中国食品饮料产业链上下游结构及包装、原材料等环节"
     },
     {
-      "name": "产业世界-休闲食品",
-      "url": "https://www.inwwin.com.cn/1192/view-1101888-1.html",
-      "note": "全球休闲食品行业产业链深度研究及上游农副产品供应分析"
+      "name": "產業價值鏈資訊平台-食品產業鏈簡介",
+      "url": "https://ic.tpex.org.tw/introduce.php?ic=M000",
+      "note": "食品產業供應鏈的上游以原料為主，包括大麥、小麥、糖、咖啡、玉米、黃豆、牛、羊、豬、雞及水產等原物料。"
+    },
+    {
+      "name": "2025年中国休闲食品产业链图谱及投资布局分析",
+      "url": "https://t.cj.sina.cn/articles/view/7962326780/1da9776fc001016nrk",
+      "note": "休闲食品产业链上游分析包含谷物等食品原料供应。"
+    },
+    {
+      "name": "中国生鲜农产品供应链研究报告",
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf",
+      "note": "生鲜农产品供应链上游对接农户及种养殖企业，涵盖果蔬、水产、肉禽等农产品供应。"
+    },
+    {
+      "name": "种植业百科",
+      "url": "https://baike.baidu.com/item/%E7%A7%8D%E6%A4%8D%E4%B8%9A/673446",
+      "note": "种植业分为粮食作物、经济作物等，为食品工业提供基础原料。"
+    },
+    {
+      "name": "智研咨询-食品添加剂产业百科",
+      "url": "https://www.chyxx.com/wiki/1189604.html",
+      "note": "提供食品添加剂定义、上下游产业链结构及分类依据"
+    },
+    {
+      "name": "FoodTalks-食品添加剂产业链分析",
+      "url": "https://www.foodtalks.cn/news/41394",
+      "note": "提供中游添加剂细分赛道（甜味剂、防腐剂、香精等）及下游应用"
+    },
+    {
+      "name": "观研报告网-我国食品添加剂行业产业链现状",
+      "url": "https://m.chinabaogao.com/detail/657187.html",
+      "note": "提供食品添加剂按功能分类的详细类别及代表产品"
+    },
+    {
+      "name": "ChemicalBook-食品添加剂种类和作用",
+      "url": "https://www.chemicalbook.com/NewsInfo_2039.htm",
+      "note": "提供防腐剂、着色剂等化学功能分类的百科支持"
+    },
+    {
+      "name": "百度百科-甜味剂",
+      "url": "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096",
+      "note": "提供甜味剂天然与人工合成的分类及具体产品（赤藓糖醇、三氯蔗糖等）"
+    },
+    {
+      "name": "前瞻产业研究院-食品包装行业市场规模及分类",
+      "url": "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html",
+      "note": "明确了食品包装按材料分为金属、玻璃、纸质、塑料、复合材料等核心分类体系。"
+    },
+    {
+      "name": "东方财富-金属包装行业研究报告",
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202405231634397583_1.pdf",
+      "note": "提供了金属包装中铝制两片罐与马口铁三片罐的工艺区分及下游应用场景。"
+    },
+    {
+      "name": "Global Market Insights-环保食品包装市场报告",
+      "url": "https://www.gminsights.com/zh/industry-analysis/eco-friendly-food-packaging-market",
+      "note": "支撑了生物基塑料及可降解材料在食品包装领域的新型环保趋势判断。"
+    },
+    {
+      "name": "Fortune Business Insights-智能食品包装市场",
+      "url": "https://www.fortunebusinessinsights.com/zh/plastic-free-smart-food-packaging-market-110202",
+      "note": "提供了RFID及活性保鲜技术在智能食品包装中应用的前沿依据。"
+    },
+    {
+      "name": "百度百科-食品加工设备",
+      "url": "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8A%A0%E5%B7%A5%E8%AE%BE%E5%A4%87/9561625",
+      "note": "食品加工设备分类及通用、专用设备界定"
+    },
+    {
+      "name": "搜狐-2024年中国食品专用设备行业市场深度调查报告",
+      "url": "https://www.sohu.com/a/803679719_120113054",
+      "note": "食品专用设备细分赛道（饮料、肉禽、果蔬等）及产业链划分"
+    },
+    {
+      "name": "百度百科-食品包装机械",
+      "url": "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8C%85%E8%A3%85%E6%9C%BA%E6%A2%B0/8144639",
+      "note": "食品包装机械功能分类及产业链环节"
+    },
+    {
+      "name": "东方财富-食品机械设备研报",
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202403171626952799_1.pdf",
+      "note": "食品加工与包装设备产品矩阵及自动化应用"
+    },
+    {
+      "name": "食品机械设备网-行业深度解析",
+      "url": "https://m.snnfm.com/product/88.html",
+      "note": "食品机械智能化趋势及检测设备应用"
+    },
+    {
+      "name": "国家统计局《国民经济行业分类》",
+      "url": "https://www.stats.gov.cn/sj/tjbz/gmjjhyfl/202501/P020250116506795831658.pdf",
+      "note": "定义了食品制造业及酒、饮料和精制茶制造业的官方分类标准"
+    },
+    {
+      "name": "知乎专栏-食品饮料产业图谱",
+      "url": "https://zhuanlan.zhihu.com/p/605244483",
+      "note": "梳理了食品饮料中游制造环节包含食品加工、肉类、酒类、饮料等细分领域"
+    },
+    {
+      "name": "税屋-国民经济行业分类和代码",
+      "url": "https://www.shui5.cn/article/cc/41677.html",
+      "note": "详细列出了食品制造业下的焙烤、方便食品、乳制品、调味品等中类代码"
+    },
+    {
+      "name": "前瞻产业研究院-饮料行业发展前景分析报告",
+      "url": "https://bg.qianzhan.com/report/keys/c9f37d3f.html",
+      "note": "分析了软饮料制造及包装饮用水等细分赛道的市场规模与产业链位置"
+    },
+    {
+      "name": "“十四五”冷链物流发展规划",
+      "url": "https://www.ndrc.gov.cn/fggz/fzzlgh/gjjzxgh/202203/t20220325_1320204.html",
+      "note": "明确冷链物流产业链构成及冷库、冷藏车等核心设施分类"
+    },
+    {
+      "name": "冷库的分类-农业农村部",
+      "url": "https://scs.moa.gov.cn/ccll/jszn/202306/t20230621_6430707.htm",
+      "note": "提供土建式、装配式、气调冷库等细分设施标准"
+    },
+    {
+      "name": "第三方冷链物流崛起-东方财富",
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202011051426807760_1.pdf",
+      "note": "界定冷链上游设备制造与中游仓储、干线及城配运输服务"
+    },
+    {
+      "name": "冷链物流包装材料解析-知乎",
+      "url": "https://zhuanlan.zhihu.com/p/562665464",
+      "note": "阐述保温箱、冰袋、相变蓄冷剂等温控包装耗材体系"
+    },
+    {
+      "name": "冷链配送冷藏车管理规范-全国团体标准信息平台",
+      "url": "https://www.ttbz.org.cn/upload/file/20231130/6383694074400474676141707.pdf",
+      "note": "涉及冷链温湿度监控及信息化追溯设备要求"
+    },
+    {
+      "name": "食品饮料行业深度报告：渠道变革大时代",
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202602111819863001_1.pdf",
+      "note": "支持线下连锁零售业态、硬折扣模式及渠道价值链条重塑的判断"
+    },
+    {
+      "name": "中国饮料渠道地图及分类特点",
+      "url": "https://www.foodtalks.cn/news/17352",
+      "note": "支持饮料行业毛细血管级别线下网点及线上渠道增速的分类依据"
+    },
+    {
+      "name": "中国便利店发展报告",
+      "url": "https://cif.mofcom.gov.cn/cif/html/upload/20221027133715579_2021-2022%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BE%BF%E5%88%A9%E5%BA%97%E5%8F%91%E5%B1%95%E6%8A%A5%E5%91%8A.pdf",
+      "note": "支持便利店业态作为城市公共服务基础设施及零售终端价值的判断"
+    },
+    {
+      "name": "《餐饮供应链趋势研究报告2026》",
+      "url": "https://www.news.cn/food/20260413/da96be919d86403a8578bbbec7ac077a/c.html",
+      "note": "支持餐饮渠道、团餐供应链及食材酒水饮料B端供应体系的分类"
+    },
+    {
+      "name": "即时零售与前置仓模式分析",
+      "url": "https://www.cbndata.com/information/294337",
+      "note": "支持O2O即时零售、前置仓模式及同城即时配送网络的业态定义"
+    },
+    {
+      "name": "软饮行业渠道分化与特通渠道布局",
+      "url": "https://www.21jingji.com/article/20260106/herald/5f19ef88b554d2f654a2a441f58acd94.html",
+      "note": "支持餐饮渠道、加油站等特通渠道及深度分销模式的行业现状"
+    },
+    {
+      "name": "CTI华测检测-饮料行业全链路服务",
+      "url": "https://www.cti-cert.com/service/3116/31737.html",
+      "note": "支持食品检测、认证、研发、货架期测试等支撑服务环节的划分"
+    },
+    {
+      "name": "新浪财经-检验检测行业产业链全景梳理",
+      "url": "https://finance.sina.com.cn/roll/2024-03-25/doc-inapphuq4924479.shtml",
+      "note": "支持检验检测作为独立服务产业链的定位及细分领域划分"
+    },
+    {
+      "name": "梅里埃营养科学-测试服务",
+      "url": "https://www.merieuxnutrisciences.com.cn/?page_id=350",
+      "note": "支持微生物、农残、重金属等具体食品安全检测细分节点的构建"
+    },
+    {
+      "name": "食品伙伴网-食品研发服务中心",
+      "url": "https://yanfa.foodmate.net/",
+      "note": "支持第三方配方设计、工艺优化等研发技术服务节点的构建"
+    },
+    {
+      "name": "阿里云-区块链溯源服务解决方案",
+      "url": "https://www.aliyun.com/solution/blockchain/mytc",
+      "note": "支持基于区块链的食品防伪溯源及数字化供应链服务节点构建"
+    },
+    {
+      "name": "SciOpen-基于区块链的芝麻油防伪溯源系统的设计与实现",
+      "url": "https://www.sciopen.com/local/article_pdf/10.7506/spkx1002-6630-20231201-001.pdf",
+      "note": "支持食品防伪溯源平台的技术应用及业务逻辑描述"
     }
   ],
   "nodes": [
     {
-      "id": "food_bev_root",
+      "id": "food_beverage_000",
       "name": "食品饮料行业",
       "node_type": "产业链",
       "tags": [
@@ -44,22 +234,22 @@
       "level": 0,
       "chain_position": "root",
       "parent_id": "",
-      "description": "提供人类日常饮食所需的加工食品与饮品的综合性产业。",
-      "business_description": "提供人类日常饮食所需的加工食品与饮品的综合性产业。",
+      "description": "涵盖从农产品原料到终端消费者的完整食品饮料生产与流通体系。",
+      "business_description": "涵盖从农产品原料到终端消费者的完整食品饮料生产与流通体系。",
       "is_key_node": true,
-      "chain_segment": "root",
+      "chain_segment": "产业链全景",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://finance.sina.com.cn/roll/2026-04-21/doc-inhvfivk6377628.shtml"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0000"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "upstream_raw",
-      "name": "上游原材料供应",
+      "id": "food_beverage_001",
+      "name": "农副产品及原料供应",
       "node_type": "一级环节",
       "tags": [
         "level_1"
@@ -67,73 +257,77 @@
       "industry": "食品饮料行业",
       "level": 1,
       "chain_position": "upstream",
-      "parent_id": "food_bev_root",
-      "description": "农牧业种植、养殖及基础化工原料提取产业。",
-      "business_description": "农牧业种植、养殖及基础化工原料提取产业。",
+      "parent_id": "food_beverage_000",
+      "description": "提供粮食、水果、蔬菜、肉类、奶源、糖类等食品饮料基础农林牧渔原材料。",
+      "business_description": "提供粮食、水果、蔬菜、肉类、奶源、糖类等食品饮料基础农林牧渔原材料。",
       "is_key_node": true,
-      "chain_segment": "上游",
+      "chain_segment": "前端原材料",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html",
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
+        "https://finance.sina.com.cn/roll/2026-05-05/doc-inhwusxq9997173.shtml",
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
       ],
       "evidence_ids": [
-        "ev_001",
-        "ev_005"
+        "food_beverage_ev_0001",
+        "food_beverage_ev_0011"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "midstream_mfg",
-      "name": "中游生产制造",
+      "id": "food_beverage_002",
+      "name": "食品添加剂与配料",
       "node_type": "一级环节",
       "tags": [
         "level_1"
       ],
       "industry": "食品饮料行业",
       "level": 1,
-      "chain_position": "midstream",
-      "parent_id": "food_bev_root",
-      "description": "食品与饮料的工业化加工、制造与灌装产业。",
-      "business_description": "食品与饮料的工业化加工、制造与灌装产业。",
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_000",
+      "description": "提供香精香料、防腐剂、甜味剂、色素等改善食品品质与口感的辅助材料。",
+      "business_description": "提供香精香料、防腐剂、甜味剂、色素等改善食品品质与口感的辅助材料。",
       "is_key_node": true,
-      "chain_segment": "中游",
+      "chain_segment": "前端辅料",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://www.163.com/dy/article/KS5H1MUO05148U2B.html",
+        "https://www.chyxx.com/wiki/1189604.html"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0002",
+        "food_beverage_ev_0020"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "downstream_retail",
-      "name": "下游流通与消费",
+      "id": "food_beverage_003",
+      "name": "食品包装材料与容器",
       "node_type": "一级环节",
       "tags": [
         "level_1"
       ],
       "industry": "食品饮料行业",
       "level": 1,
-      "chain_position": "downstream",
-      "parent_id": "food_bev_root",
-      "description": "食品饮料的批发、零售分销及餐饮服务产业。",
-      "business_description": "食品饮料的批发、零售分销及餐饮服务产业。",
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_000",
+      "description": "提供玻璃瓶、PET塑料、纸盒、金属易拉罐等用于食品保鲜与防护的包装载体。",
+      "business_description": "提供玻璃瓶、PET塑料、纸盒、金属易拉罐等用于食品保鲜与防护的包装载体。",
       "is_key_node": true,
-      "chain_segment": "下游",
+      "chain_segment": "前端包材",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://bg.qianzhan.com/report/list2/3425.html",
+        "https://www.huaon.com/channel/trend/912654.html"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0003",
+        "food_beverage_ev_003_00"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "support_pkg_log",
-      "name": "配套支持产业",
+      "id": "food_beverage_004",
+      "name": "食品加工与包装设备",
       "node_type": "一级环节",
       "tags": [
         "level_1"
@@ -141,167 +335,1095 @@
       "industry": "食品饮料行业",
       "level": 1,
       "chain_position": "support",
-      "parent_id": "food_bev_root",
-      "description": "包装材料制造及冷链物流运输产业。",
-      "business_description": "包装材料制造及冷链物流运输产业。",
+      "parent_id": "food_beverage_000",
+      "description": "提供杀菌、灌装、成型、包装等食品饮料工业化生产所需的机械设备。",
+      "business_description": "提供杀菌、灌装、成型、包装等食品饮料工业化生产所需的机械设备。",
       "is_key_node": true,
-      "chain_segment": "支持",
+      "chain_segment": "生产装备",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://www.zhanhuiquan.com/info/show?id=229693"
       ],
       "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "agri_products",
-      "name": "农副产品",
-      "node_type": "二级环节",
-      "tags": [
-        "level_2"
-      ],
-      "industry": "食品饮料行业",
-      "level": 2,
-      "chain_position": "upstream",
-      "parent_id": "upstream_raw",
-      "description": "农林牧渔业初级产品种植与养殖。",
-      "business_description": "农林牧渔业初级产品种植与养殖。",
-      "is_key_node": true,
-      "chain_segment": "上游",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "additives",
-      "name": "食品添加剂及配料",
-      "node_type": "二级环节",
-      "tags": [
-        "level_2"
-      ],
-      "industry": "食品饮料行业",
-      "level": 2,
-      "chain_position": "upstream",
-      "parent_id": "upstream_raw",
-      "description": "香精香料、甜味剂、防腐剂及食品配料制造。",
-      "business_description": "香精香料、甜味剂、防腐剂及食品配料制造。",
-      "is_key_node": false,
-      "chain_segment": "上游",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "food_processing",
-      "name": "食品加工制造",
-      "node_type": "二级环节",
-      "tags": [
-        "level_2"
-      ],
-      "industry": "食品饮料行业",
-      "level": 2,
-      "chain_position": "midstream",
-      "parent_id": "midstream_mfg",
-      "description": "休闲食品、调味品、乳制品及肉制品等加工制造。",
-      "business_description": "休闲食品、调味品、乳制品及肉制品等加工制造。",
-      "is_key_node": true,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
-      ],
-      "evidence_ids": [
-        "ev_004"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "beverage_mfg",
-      "name": "饮料及酒水制造",
-      "node_type": "二级环节",
-      "tags": [
-        "level_2"
-      ],
-      "industry": "食品饮料行业",
-      "level": 2,
-      "chain_position": "midstream",
-      "parent_id": "midstream_mfg",
-      "description": "软饮料、白酒、啤酒及葡萄酒等饮品制造。",
-      "business_description": "软饮料、白酒、啤酒及葡萄酒等饮品制造。",
-      "is_key_node": true,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "retail_channels",
-      "name": "流通与零售渠道",
-      "node_type": "二级环节",
-      "tags": [
-        "level_2"
-      ],
-      "industry": "食品饮料行业",
-      "level": 2,
-      "chain_position": "downstream",
-      "parent_id": "downstream_retail",
-      "description": "商超、便利店、电商平台及传统流通批发网络。",
-      "business_description": "商超、便利店、电商平台及传统流通批发网络。",
-      "is_key_node": true,
-      "chain_segment": "下游",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "catering",
-      "name": "餐饮服务",
-      "node_type": "二级环节",
-      "tags": [
-        "level_2"
-      ],
-      "industry": "食品饮料行业",
-      "level": 2,
-      "chain_position": "downstream",
-      "parent_id": "downstream_retail",
-      "description": "餐厅、现制饮品店及快餐外卖等餐饮服务业。",
-      "business_description": "餐厅、现制饮品店及快餐外卖等餐饮服务业。",
-      "is_key_node": false,
-      "chain_segment": "下游",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0004"
       ],
       "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "packaging",
-      "name": "包装产业",
+      "id": "food_beverage_005",
+      "name": "食品饮料产品制造",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_000",
+      "description": "将原材料加工为白酒、啤酒、乳制品、休闲食品、调味品及软饮料等终端产品。",
+      "business_description": "将原材料加工为白酒、啤酒、乳制品、休闲食品、调味品及软饮料等终端产品。",
+      "is_key_node": true,
+      "chain_segment": "核心制造",
+      "source_urls": [
+        "https://aigc.idigital.com.cn/djyanbao/%E3%80%90%E6%B2%99%E5%88%A9%E6%96%87%E5%85%AC%E5%8F%B8%E3%80%91%E9%A3%9F%E4%B8%BA%E5%A4%A9%EF%BC%9A2024%E4%B8%AD%E5%9B%BD%E9%A3%9F%E5%93%81%E9%A5%AE%E6%96%99%E8%A1%8C%E4%B8%9A%E7%99%BD%E7%9A%AE%E4%B9%A6-2024-09-09.pdf",
+        "https://zhuanlan.zhihu.com/p/605244483"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002",
+        "food_beverage_ev_0005"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_006",
+      "name": "冷链物流与仓储服务",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_000",
+      "description": "提供保鲜、冷藏运输及专业仓储服务，保障短保及温控食品饮料的品质与安全。",
+      "business_description": "提供保鲜、冷藏运输及专业仓储服务，保障短保及温控食品饮料的品质与安全。",
+      "is_key_node": true,
+      "chain_segment": "流通交付",
+      "source_urls": [
+        "https://www.lhratings.com/file/g060863f067.pdf",
+        "https://www.ndrc.gov.cn/fggz/fzzlgh/gjjzxgh/202203/t20220325_1320204.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0006",
+        "food_beverage_ev_0600"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007",
+      "name": "全渠道销售与终端零售",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_000",
+      "description": "涵盖商超、便利店、餐饮渠道、电商平台及零食量贩店等触达消费者的流通网络。",
+      "business_description": "涵盖商超、便利店、餐饮渠道、电商平台及零食量贩店等触达消费者的流通网络。",
+      "is_key_node": true,
+      "chain_segment": "终端渠道",
+      "source_urls": [
+        "https://finance.sina.com.cn/roll/2026-04-21/doc-inhvfivk6377628.shtml",
+        "https://www.foodtalks.cn/news/17352"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0007",
+        "food_beverage_ev_007_base"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008",
+      "name": "检验检测与产业支撑服务",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "support",
+      "parent_id": "food_beverage_000",
+      "description": "提供食品安全检测、研发设计、数字化营销及碳中和管理等产业配套支撑服务。",
+      "business_description": "提供食品安全检测、研发设计、数字化营销及碳中和管理等产业配套支撑服务。",
+      "is_key_node": true,
+      "chain_segment": "产业支撑",
+      "source_urls": [
+        "https://finance.sina.com.cn/roll/2024-03-25/doc-inapphuq4924479.shtml",
+        "https://www.iyiou.com/research/20220331990"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_00",
+        "food_beverage_ev_0008"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_01",
+      "name": "粮食及油料作物供应",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001",
+      "description": "主要包括小麦、玉米、水稻、大豆、花生等农作物的种植与初加工。",
+      "business_description": "主要包括小麦、玉米、水稻、大豆、花生等农作物的种植与初加工。",
+      "is_key_node": true,
+      "chain_segment": "农副产品及原料供应",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%A7%8D%E6%A4%8D%E4%B8%9A/673446"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0014"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_02",
+      "name": "经济作物供应",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001",
+      "description": "涵盖甘蔗、甜菜、茶叶、咖啡、可可等经济价值较高的作物种植。",
+      "business_description": "涵盖甘蔗、甜菜、茶叶、咖啡、可可等经济价值较高的作物种植。",
+      "is_key_node": true,
+      "chain_segment": "农副产品及原料供应",
+      "source_urls": [
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0011"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_03",
+      "name": "畜禽养殖与供应",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001",
+      "description": "包括猪、牛、羊、家禽的规模化养殖及生鲜乳的采集。",
+      "business_description": "包括猪、牛、羊、家禽的规模化养殖及生鲜乳的采集。",
+      "is_key_node": true,
+      "chain_segment": "农副产品及原料供应",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0013"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_04",
+      "name": "水产及果蔬供应",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001",
+      "description": "涵盖淡水/海水养殖、远洋捕捞以及果园、蔬菜基地的种植与采收。",
+      "business_description": "涵盖淡水/海水养殖、远洋捕捞以及果园、蔬菜基地的种植与采收。",
+      "is_key_node": false,
+      "chain_segment": "农副产品及原料供应",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0013"
+      ],
+      "confidence": 0.88,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_05",
+      "name": "食用菌及林特产品供应",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001",
+      "description": "包括香菇、木耳等菌菇栽培，以及林业副产品的采集与初加工。",
+      "business_description": "包括香菇、木耳等菌菇栽培，以及林业副产品的采集与初加工。",
+      "is_key_node": false,
+      "chain_segment": "农副产品及原料供应",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%A7%8D%E6%A4%8D%E4%B8%9A/673446"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0014"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_01_01",
+      "name": "谷物原料",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001_01",
+      "description": "作为主食加工、酿酒、调味品及饲料工业的核心基础原料。",
+      "business_description": "作为主食加工、酿酒、调味品及饲料工业的核心基础原料。",
+      "is_key_node": true,
+      "chain_segment": "粮食及油料作物供应",
+      "source_urls": [
+        "https://t.cj.sina.cn/articles/view/7962326780/1da9776fc001016nrk"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0012"
+      ],
+      "confidence": 0.92,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_01_02",
+      "name": "豆类及油料原料",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001_01",
+      "description": "主要用于压榨食用油、制作豆制品及提取植物蛋白。",
+      "business_description": "主要用于压榨食用油、制作豆制品及提取植物蛋白。",
+      "is_key_node": false,
+      "chain_segment": "粮食及油料作物供应",
+      "source_urls": [
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0011"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_02_01",
+      "name": "糖料及饮料作物原料",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001_02",
+      "description": "涵盖甘蔗、甜菜、茶叶、咖啡豆、可可豆的种植与初加工。",
+      "business_description": "涵盖甘蔗、甜菜、茶叶、咖啡豆、可可豆的种植与初加工。",
+      "is_key_node": true,
+      "chain_segment": "经济作物供应",
+      "source_urls": [
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0011"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_03_01",
+      "name": "肉类及蛋奶原料",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001_03",
+      "description": "支撑肉制品加工、烘焙及乳制品制造行业的核心原料供应。",
+      "business_description": "支撑肉制品加工、烘焙及乳制品制造行业的核心原料供应。",
+      "is_key_node": true,
+      "chain_segment": "畜禽养殖与供应",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0013"
+      ],
+      "confidence": 0.92,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_04_01",
+      "name": "水产及果蔬原料",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001_04",
+      "description": "用于果蔬汁饮料、罐头食品、休闲零食及预制菜的加工制造。",
+      "business_description": "用于果蔬汁饮料、罐头食品、休闲零食及预制菜的加工制造。",
+      "is_key_node": false,
+      "chain_segment": "水产及果蔬供应",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0013"
+      ],
+      "confidence": 0.88,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_01_01_01",
+      "name": "小麦及玉米原料",
+      "node_type": "原材料",
+      "tags": [
+        "level_4"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001_01_01",
+      "description": "小麦主要用于烘焙及面制品；玉米用于淀粉糖、味精及膨化食品。",
+      "business_description": "小麦主要用于烘焙及面制品；玉米用于淀粉糖、味精及膨化食品。",
+      "is_key_node": true,
+      "chain_segment": "谷物原料",
+      "source_urls": [
+        "https://t.cj.sina.cn/articles/view/7962326780/1da9776fc001016nrk"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0012"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001_02_01_01",
+      "name": "蔗糖及甜菜原料",
+      "node_type": "原材料",
+      "tags": [
+        "level_4"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_001_02_01",
+      "description": "通过压榨或浸出工艺提取糖汁，进一步精炼为白砂糖及糖浆。",
+      "business_description": "通过压榨或浸出工艺提取糖汁，进一步精炼为白砂糖及糖浆。",
+      "is_key_node": false,
+      "chain_segment": "糖料及饮料作物原料",
+      "source_urls": [
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0011"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01",
+      "name": "甜味剂",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002",
+      "description": "赋予食品甜味的食品添加剂，按来源分为天然甜味剂和人工合成甜味剂。",
+      "business_description": "赋予食品甜味的食品添加剂，按来源分为天然甜味剂和人工合成甜味剂。",
+      "is_key_node": true,
+      "chain_segment": "功能型添加剂-味觉调节",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096",
+        "https://www.foodtalks.cn/news/41394"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0021"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_02",
+      "name": "防腐剂",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002",
+      "description": "抑制微生物生长繁殖，防止食品腐败变质，延长食品保质期的添加剂。",
+      "business_description": "抑制微生物生长繁殖，防止食品腐败变质，延长食品保质期的添加剂。",
+      "is_key_node": true,
+      "chain_segment": "功能型添加剂-保鲜防腐",
+      "source_urls": [
+        "https://www.chemicalbook.com/NewsInfo_2039.htm",
+        "https://www.foodtalks.cn/news/41394"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0022"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_03",
+      "name": "增稠剂与胶体",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002",
+      "description": "提高食品黏稠度，改善食品物理性状和口感的亲水性高分子化合物。",
+      "business_description": "提高食品黏稠度，改善食品物理性状和口感的亲水性高分子化合物。",
+      "is_key_node": false,
+      "chain_segment": "功能型添加剂-质构调节",
+      "source_urls": [
+        "https://m.chinabaogao.com/detail/657187.html",
+        "https://pdf.dfcfw.com/pdf/H3_AP202301061581765866_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0023"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_04",
+      "name": "食用香精香料",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002",
+      "description": "赋予或改善食品风味与香气，由多种香料和溶剂调配而成的混合物。",
+      "business_description": "赋予或改善食品风味与香气，由多种香料和溶剂调配而成的混合物。",
+      "is_key_node": true,
+      "chain_segment": "功能型添加剂-嗅觉调节",
+      "source_urls": [
+        "https://www.foodtalks.cn/news/41394",
+        "https://m.chinabaogao.com/detail/657187.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0024"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_05",
+      "name": "营养强化剂",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002",
+      "description": "为增强营养成分而加入食品中的天然或人工合成的属于天然营养素范围的食品添加剂。",
+      "business_description": "为增强营养成分而加入食品中的天然或人工合成的属于天然营养素范围的食品添加剂。",
+      "is_key_node": false,
+      "chain_segment": "营养型添加剂",
+      "source_urls": [
+        "https://www.chyxx.com/wiki/1189604.html",
+        "https://www.foodtalks.cn/news/41394"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0025"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_06",
+      "name": "着色剂与护色剂",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002",
+      "description": "赋予食品色泽或保持食品原有色泽，改善食品感官性状的物质。",
+      "business_description": "赋予食品色泽或保持食品原有色泽，改善食品感官性状的物质。",
+      "is_key_node": false,
+      "chain_segment": "功能型添加剂-视觉调节",
+      "source_urls": [
+        "https://www.chemicalbook.com/NewsInfo_2039.htm",
+        "https://m.chinabaogao.com/detail/657187.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0026"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01_01",
+      "name": "天然甜味剂",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002_01",
+      "description": "从植物、微生物中提取或经过酶转化得到的具有甜味的天然物质。",
+      "business_description": "从植物、微生物中提取或经过酶转化得到的具有甜味的天然物质。",
+      "is_key_node": true,
+      "chain_segment": "清洁标签/天然提取",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0027"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01_02",
+      "name": "人工合成甜味剂",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002_01",
+      "description": "通过化学合成方法制备的高甜度、低热量甜味剂。",
+      "business_description": "通过化学合成方法制备的高甜度、低热量甜味剂。",
+      "is_key_node": false,
+      "chain_segment": "化工合成",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0028"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01_01_01",
+      "name": "赤藓糖醇",
+      "node_type": "产品/细分原材料",
+      "tags": [
+        "level_4"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002_01_01",
+      "description": "一种天然零热量糖醇，广泛应用于无糖饮料和健康食品中。",
+      "business_description": "一种天然零热量糖醇，广泛应用于无糖饮料和健康食品中。",
+      "is_key_node": true,
+      "chain_segment": "代糖核心单品",
+      "source_urls": [
+        "https://www.foodtalks.cn/news/41394"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0029"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01_01_02",
+      "name": "甜菊糖苷",
+      "node_type": "产品/细分原材料",
+      "tags": [
+        "level_4"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002_01_01",
+      "description": "从甜叶菊中提取的天然高甜度、低热量甜味剂。",
+      "business_description": "从甜叶菊中提取的天然高甜度、低热量甜味剂。",
+      "is_key_node": true,
+      "chain_segment": "植物提取代糖",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0030"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01_02_01",
+      "name": "三氯蔗糖",
+      "node_type": "产品/细分原材料",
+      "tags": [
+        "level_4"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002_01_02",
+      "description": "以蔗糖为原料合成的高倍人工甜味剂，具有极高的稳定性和安全性。",
+      "business_description": "以蔗糖为原料合成的高倍人工甜味剂，具有极高的稳定性和安全性。",
+      "is_key_node": true,
+      "chain_segment": "高倍合成代糖",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096",
+        "https://m.chinabaogao.com/detail/657187.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0031"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_02_01",
+      "name": "化学合成防腐剂",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002_02",
+      "description": "如苯甲酸钠、山梨酸钾等，成本低且抑菌谱广，是食品工业最常用的防腐剂。",
+      "business_description": "如苯甲酸钠、山梨酸钾等，成本低且抑菌谱广，是食品工业最常用的防腐剂。",
+      "is_key_node": false,
+      "chain_segment": "传统化工防腐",
+      "source_urls": [
+        "https://www.chemicalbook.com/NewsInfo_2039.htm"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0032"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_02_02",
+      "name": "天然生物防腐剂",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002_02",
+      "description": "如乳酸链球菌素、纳他霉素，由生物发酵或提取获得，安全性高，符合清洁标签趋势。",
+      "business_description": "如乳酸链球菌素、纳他霉素，由生物发酵或提取获得，安全性高，符合清洁标签趋势。",
+      "is_key_node": true,
+      "chain_segment": "生物发酵防腐",
+      "source_urls": [
+        "https://www.chyxx.com/wiki/1189604.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0033"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_04_01",
+      "name": "天然香料提取物",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_002_04",
+      "description": "通过物理方法从动植物中提取的香料精油、浸膏或酊剂，风味自然。",
+      "business_description": "通过物理方法从动植物中提取的香料精油、浸膏或酊剂，风味自然。",
+      "is_key_node": false,
+      "chain_segment": "天然植物提取",
+      "source_urls": [
+        "https://m.chinabaogao.com/detail/657187.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0034"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_003_01",
+      "name": "塑料包装材料与容器",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003",
+      "description": "提供轻便、低成本、高阻隔性的食品包装解决方案，占据食品包装市场最大份额。",
+      "business_description": "提供轻便、低成本、高阻隔性的食品包装解决方案，占据食品包装市场最大份额。",
+      "is_key_node": true,
+      "chain_segment": "包装材料细分领域",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_02",
+      "name": "纸基包装材料与容器",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003",
+      "description": "具备良好的印刷适性和可回收性，广泛用于食品外包装及物流周转包装。",
+      "business_description": "具备良好的印刷适性和可回收性，广泛用于食品外包装及物流周转包装。",
+      "is_key_node": true,
+      "chain_segment": "包装材料细分领域",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_02"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_03",
+      "name": "金属包装材料与容器",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003",
+      "description": "具有极佳的密封性、避光性和抗压强度，是罐头食品及含气饮料的核心包装形式。",
+      "business_description": "具有极佳的密封性、避光性和抗压强度，是罐头食品及含气饮料的核心包装形式。",
+      "is_key_node": true,
+      "chain_segment": "包装材料细分领域",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202405231634397583_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_03"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_04",
+      "name": "玻璃包装材料与容器",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003",
+      "description": "化学性质稳定、阻隔性极佳且可无限次回收，主要用于高端酒水、调味品及婴幼儿食品。",
+      "business_description": "化学性质稳定、阻隔性极佳且可无限次回收，主要用于高端酒水、调味品及婴幼儿食品。",
+      "is_key_node": true,
+      "chain_segment": "包装材料细分领域",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_04"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_05",
+      "name": "复合与新型环保包装",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003",
+      "description": "满足长保质期无菌灌装需求及全球碳中和背景下的可持续、智能化包装升级趋势。",
+      "business_description": "满足长保质期无菌灌装需求及全球碳中和背景下的可持续、智能化包装升级趋势。",
+      "is_key_node": true,
+      "chain_segment": "包装材料细分领域",
+      "source_urls": [
+        "https://www.gminsights.com/zh/industry-analysis/eco-friendly-food-packaging-market"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_05"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_01_1",
+      "name": "塑料软包装薄膜",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_01",
+      "description": "应用于休闲零食、粉末冲剂、速冻食品等需要轻量化及高阻氧阻水性能的包装场景。",
+      "business_description": "应用于休闲零食、粉末冲剂、速冻食品等需要轻量化及高阻氧阻水性能的包装场景。",
+      "is_key_node": true,
+      "chain_segment": "塑料包装细分形态",
+      "source_urls": [
+        "https://www.dongfangqb.com/article/5709"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_06"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_01_2",
+      "name": "塑料硬质包装容器",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_01",
+      "description": "是饮用水、碳酸饮料、外卖餐饮及大宗食用油等领域不可或缺的主力包装容器。",
+      "business_description": "是饮用水、碳酸饮料、外卖餐饮及大宗食用油等领域不可或缺的主力包装容器。",
+      "is_key_node": true,
+      "chain_segment": "塑料包装细分形态",
+      "source_urls": [
+        "https://www.dongfangqb.com/article/5709"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_07"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_02_1",
+      "name": "瓦楞纸箱与运输纸包装",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_02",
+      "description": "作为食品饮料产业链中的二级/三级外包装，承担仓储、物流运输中的缓冲保护功能。",
+      "business_description": "作为食品饮料产业链中的二级/三级外包装，承担仓储、物流运输中的缓冲保护功能。",
+      "is_key_node": false,
+      "chain_segment": "纸基包装细分形态",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_08"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_02_2",
+      "name": "食品级白卡纸盒",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_02",
+      "description": "凭借优异的表面印刷效果，广泛用于烘焙糕点、茶叶、高端保健品等产品的零售展示包装。",
+      "business_description": "凭借优异的表面印刷效果，广泛用于烘焙糕点、茶叶、高端保健品等产品的零售展示包装。",
+      "is_key_node": true,
+      "chain_segment": "纸基包装细分形态",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_09"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_03_1",
+      "name": "铝制两片罐/易拉罐",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_03",
+      "description": "质轻且耐内压，是啤酒、可乐等含气饮料实现高速自动化灌装的首选包装方案。",
+      "business_description": "质轻且耐内压，是啤酒、可乐等含气饮料实现高速自动化灌装的首选包装方案。",
+      "is_key_node": true,
+      "chain_segment": "金属包装细分形态",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202405231634397583_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_10"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_03_2",
+      "name": "马口铁三片罐",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_03",
+      "description": "具备极强的机械强度和密封防腐性，专用于肉类罐头、果蔬罐头及高端奶粉的长期保存。",
+      "business_description": "具备极强的机械强度和密封防腐性，专用于肉类罐头、果蔬罐头及高端奶粉的长期保存。",
+      "is_key_node": true,
+      "chain_segment": "金属包装细分形态",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202405231634397583_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_11"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_04_1",
+      "name": "玻璃包装瓶罐",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_04",
+      "description": "因其绝对的安全无毒和高阻隔性，在白酒、葡萄酒、酱油醋及高端水市场占据重要地位。",
+      "business_description": "因其绝对的安全无毒和高阻隔性，在白酒、葡萄酒、酱油醋及高端水市场占据重要地位。",
+      "is_key_node": true,
+      "chain_segment": "玻璃包装细分形态",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_12"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_05_1",
+      "name": "无菌纸基复合包",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_05",
+      "description": "能够在常温下长期保存液态奶和果汁，极大降低了冷链物流成本，是液态食品革命性包装。",
+      "business_description": "能够在常温下长期保存液态奶和果汁，极大降低了冷链物流成本，是液态食品革命性包装。",
+      "is_key_node": true,
+      "chain_segment": "复合包装细分形态",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_13"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_05_2",
+      "name": "生物可降解与智能包装",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_003_05",
+      "description": "响应全球限塑令及食品溯源防损需求，代表了食品包装材料向绿色低碳和数字化发展的前沿方向。",
+      "business_description": "响应全球限塑令及食品溯源防损需求，代表了食品包装材料向绿色低碳和数字化发展的前沿方向。",
+      "is_key_node": true,
+      "chain_segment": "新型包装细分形态",
+      "source_urls": [
+        "https://www.gminsights.com/zh/industry-analysis/eco-friendly-food-packaging-market",
+        "https://www.fortunebusinessinsights.com/zh/plastic-free-smart-food-packaging-market-110202"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_14"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_004_01",
+      "name": "食品前处理与通用加工设备",
       "node_type": "二级环节",
       "tags": [
         "level_2"
@@ -309,23 +1431,23 @@
       "industry": "食品饮料行业",
       "level": 2,
       "chain_position": "support",
-      "parent_id": "support_pkg_log",
-      "description": "纸质、塑料、玻璃及金属包装材料制造。",
-      "business_description": "纸质、塑料、玻璃及金属包装材料制造。",
+      "parent_id": "food_beverage_004",
+      "description": "涵盖食品原料的清洗、分选、粉碎、混合、分离、杀菌等基础加工环节所需的通用型机械设备。",
+      "business_description": "涵盖食品原料的清洗、分选、粉碎、混合、分离、杀菌等基础加工环节所需的通用型机械设备。",
       "is_key_node": true,
-      "chain_segment": "支持",
+      "chain_segment": "食品加工与包装设备",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8A%A0%E5%B7%A5%E8%AE%BE%E5%A4%87/9561625"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_004_01"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "cold_chain",
-      "name": "冷链与物流",
+      "id": "food_beverage_004_02",
+      "name": "食品专用加工设备",
       "node_type": "二级环节",
       "tags": [
         "level_2"
@@ -333,169 +1455,455 @@
       "industry": "食品饮料行业",
       "level": 2,
       "chain_position": "support",
-      "parent_id": "support_pkg_log",
-      "description": "冷链仓储、冷藏运输及常温快消品物流履约。",
-      "business_description": "冷链仓储、冷藏运输及常温快消品物流履约。",
+      "parent_id": "food_beverage_004",
+      "description": "针对特定食品品类（如肉类、果蔬、饮料、烘焙等）的工艺流程定制开发的专业生产线设备。",
+      "business_description": "针对特定食品品类（如肉类、果蔬、饮料、烘焙等）的工艺流程定制开发的专业生产线设备。",
       "is_key_node": true,
-      "chain_segment": "支持",
+      "chain_segment": "食品加工与包装设备",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://www.sohu.com/a/803679719_120113054"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_004_02"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "grains",
-      "name": "粮食作物",
-      "node_type": "细分环节",
+      "id": "food_beverage_004_03",
+      "name": "食品包装机械设备",
+      "node_type": "二级环节",
       "tags": [
-        "level_3"
+        "level_2"
       ],
       "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "upstream",
-      "parent_id": "agri_products",
-      "description": "小麦、玉米、水稻等大宗粮食作物种植。",
-      "business_description": "小麦、玉米、水稻等大宗粮食作物种植。",
+      "level": 2,
+      "chain_position": "support",
+      "parent_id": "food_beverage_004",
+      "description": "用于食品成品或半成品的充填、裹包、封口、贴标及装箱等包装工序的自动化机械。",
+      "business_description": "用于食品成品或半成品的充填、裹包、封口、贴标及装箱等包装工序的自动化机械。",
       "is_key_node": true,
-      "chain_segment": "上游",
+      "chain_segment": "食品加工与包装设备",
       "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8C%85%E8%A3%85%E6%9C%BA%E6%A2%B0/8144639"
       ],
       "evidence_ids": [
-        "ev_005"
+        "food_beverage_ev_004_03"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "livestock",
-      "name": "畜禽养殖",
-      "node_type": "细分环节",
+      "id": "food_beverage_004_04",
+      "name": "智能控制与检测设备",
+      "node_type": "二级环节",
       "tags": [
-        "level_3"
+        "level_2"
       ],
       "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "upstream",
-      "parent_id": "agri_products",
-      "description": "生猪、家禽、肉牛等畜禽规模化养殖。",
-      "business_description": "生猪、家禽、肉牛等畜禽规模化养殖。",
+      "level": 2,
+      "chain_position": "support",
+      "parent_id": "food_beverage_004",
+      "description": "应用于食品加工与包装产线的自动化控制系统、机器视觉、重量及异物检测等智能化支撑设备。",
+      "business_description": "应用于食品加工与包装产线的自动化控制系统、机器视觉、重量及异物检测等智能化支撑设备。",
       "is_key_node": true,
-      "chain_segment": "上游",
+      "chain_segment": "食品加工与包装设备",
       "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
+        "https://m.snnfm.com/product/88.html"
       ],
       "evidence_ids": [
-        "ev_005"
+        "food_beverage_ev_004_04"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "dairy_raw",
-      "name": "生鲜乳及水产",
-      "node_type": "细分环节",
+      "id": "food_beverage_004_01_01",
+      "name": "清洗与分选设备",
+      "node_type": "设备",
       "tags": [
         "level_3"
       ],
       "industry": "食品饮料行业",
       "level": 3,
-      "chain_position": "upstream",
-      "parent_id": "agri_products",
-      "description": "奶牛养殖、原奶生产及水产捕捞养殖。",
-      "business_description": "奶牛养殖、原奶生产及水产捕捞养殖。",
-      "is_key_node": true,
-      "chain_segment": "上游",
+      "chain_position": "support",
+      "parent_id": "food_beverage_004_01",
+      "description": "用于农产品及食品原料的除杂、清洗、色选、重量分级等前处理环节的设备。",
+      "business_description": "用于农产品及食品原料的除杂、清洗、色选、重量分级等前处理环节的设备。",
+      "is_key_node": false,
+      "chain_segment": "食品加工与包装设备",
       "source_urls": [
-        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf"
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8A%A0%E5%B7%A5%E8%AE%BE%E5%A4%87/9561625"
       ],
       "evidence_ids": [
-        "ev_003"
+        "food_beverage_ev_004_05"
       ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "snack_food",
-      "name": "休闲食品",
-      "node_type": "细分环节",
+      "id": "food_beverage_004_01_02",
+      "name": "混合与均质设备",
+      "node_type": "设备",
       "tags": [
         "level_3"
       ],
       "industry": "食品饮料行业",
       "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_processing",
-      "description": "烘焙食品、坚果炒货、卤制食品等休闲零食制造。",
-      "business_description": "烘焙食品、坚果炒货、卤制食品等休闲零食制造。",
-      "is_key_node": true,
-      "chain_segment": "中游",
+      "chain_position": "support",
+      "parent_id": "food_beverage_004_01",
+      "description": "用于食品配料混合、乳化、均质的设备。",
+      "business_description": "用于食品配料混合、乳化、均质的设备。",
+      "is_key_node": false,
+      "chain_segment": "食品加工与包装设备",
       "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743",
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
+        "https://pdf.dfcfw.com/pdf/H3_AP202403171626952799_1.pdf"
       ],
       "evidence_ids": [
-        "ev_004",
-        "ev_005"
+        "food_beverage_ev_004_06"
       ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "dairy_products",
-      "name": "乳制品加工",
-      "node_type": "细分环节",
+      "id": "food_beverage_004_01_03",
+      "name": "杀菌与干燥设备",
+      "node_type": "设备",
       "tags": [
         "level_3"
       ],
       "industry": "食品饮料行业",
       "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_processing",
-      "description": "液态奶、酸奶、奶粉及奶酪等乳制品加工制造。",
-      "business_description": "液态奶、酸奶、奶粉及奶酪等乳制品加工制造。",
-      "is_key_node": true,
-      "chain_segment": "中游",
+      "chain_position": "support",
+      "parent_id": "food_beverage_004_01",
+      "description": "用于食品保鲜与延长保质期的热处理或脱水设备。",
+      "business_description": "用于食品保鲜与延长保质期的热处理或脱水设备。",
+      "is_key_node": false,
+      "chain_segment": "食品加工与包装设备",
       "source_urls": [
-        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf"
+        "https://www.sohu.com/a/803679719_120113054"
       ],
       "evidence_ids": [
-        "ev_003"
+        "food_beverage_ev_004_07"
       ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "soft_drinks",
-      "name": "软饮料",
-      "node_type": "细分环节",
+      "id": "food_beverage_004_02_01",
+      "name": "饮料与流体加工设备",
+      "node_type": "设备",
       "tags": [
         "level_3"
       ],
       "industry": "食品饮料行业",
       "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "beverage_mfg",
-      "description": "包装饮用水、碳酸饮料、茶饮料及果汁制造。",
-      "business_description": "包装饮用水、碳酸饮料、茶饮料及果汁制造。",
+      "chain_position": "support",
+      "parent_id": "food_beverage_004_02",
+      "description": "专用于液态食品的调配、过滤、发酵、灌装前处理的流体生产线设备。",
+      "business_description": "专用于液态食品的调配、过滤、发酵、灌装前处理的流体生产线设备。",
       "is_key_node": true,
-      "chain_segment": "中游",
+      "chain_segment": "食品加工与包装设备",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://www.sohu.com/a/803679719_120113054"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_004_08"
       ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "alcohol",
+      "id": "food_beverage_004_02_02",
+      "name": "烘焙与休闲食品加工设备",
+      "node_type": "设备",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_004_02",
+      "description": "专用于休闲食品成型、熟化加工的设备。",
+      "business_description": "专用于休闲食品成型、熟化加工的设备。",
+      "is_key_node": false,
+      "chain_segment": "食品加工与包装设备",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202403171626952799_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_09"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_03_01",
+      "name": "灌装与封口设备",
+      "node_type": "设备",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_004_03",
+      "description": "用于液态、酱料或粉末食品的定量充填及容器密封的设备。",
+      "business_description": "用于液态、酱料或粉末食品的定量充填及容器密封的设备。",
+      "is_key_node": true,
+      "chain_segment": "食品加工与包装设备",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202403171626952799_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_10"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_03_02",
+      "name": "后道包装与码垛设备",
+      "node_type": "设备",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_004_03",
+      "description": "完成产品外包装的装箱、裹膜、封箱及托盘码垛等物流准备环节的设备。",
+      "business_description": "完成产品外包装的装箱、裹膜、封箱及托盘码垛等物流准备环节的设备。",
+      "is_key_node": false,
+      "chain_segment": "食品加工与包装设备",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8C%85%E8%A3%85%E6%9C%BA%E6%A2%B0/8144639"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_11"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_04_01",
+      "name": "异物与品质检测设备",
+      "node_type": "设备",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_004_04",
+      "description": "用于在线检测食品中金属、X光异物、重量偏差及包装密封性缺陷的品控设备。",
+      "business_description": "用于在线检测食品中金属、X光异物、重量偏差及包装密封性缺陷的品控设备。",
+      "is_key_node": true,
+      "chain_segment": "食品加工与包装设备",
+      "source_urls": [
+        "https://m.snnfm.com/product/88.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_12"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_051",
       "name": "酒类制造",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_005",
+      "description": "以粮食、水果等为主要原料，经过发酵、蒸馏等工艺生产各类酒精饮料的制造环节。",
+      "business_description": "以粮食、水果等为主要原料，经过发酵、蒸馏等工艺生产各类酒精饮料的制造环节。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://www.stats.gov.cn/sj/tjbz/gmjjhyfl/202501/P020250116506795831658.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_052",
+      "name": "饮料制造",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_005",
+      "description": "将水、果蔬、植物蛋白等原料加工成液态或固态饮品的制造环节，包含软饮料及功能性饮料。",
+      "business_description": "将水、果蔬、植物蛋白等原料加工成液态或固态饮品的制造环节，包含软饮料及功能性饮料。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://bg.qianzhan.com/report/keys/c9f37d3f.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_053",
+      "name": "乳制品制造",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_005",
+      "description": "以生鲜牛（羊）乳及其制品为主要原料，经加工制成液态奶、奶粉、酸奶及奶酪等产品的环节。",
+      "business_description": "以生鲜牛（羊）乳及其制品为主要原料，经加工制成液态奶、奶粉、酸奶及奶酪等产品的环节。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://www.shui5.cn/article/cc/41677.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_054",
+      "name": "调味品制造",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_005",
+      "description": "在饮食、烹饪和食品加工中广泛应用的，用于调和滋味和气味并具有去腥除膻增香增鲜作用的制品制造。",
+      "business_description": "在饮食、烹饪和食品加工中广泛应用的，用于调和滋味和气味并具有去腥除膻增香增鲜作用的制品制造。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://www.shui5.cn/article/cc/41677.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_055",
+      "name": "休闲食品制造",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_005",
+      "description": "在闲暇消遣时食用的食品制造，涵盖坚果炒货、糖果巧克力、膨化食品及卤味零食等细分品类。",
+      "business_description": "在闲暇消遣时食用的食品制造，涵盖坚果炒货、糖果巧克力、膨化食品及卤味零食等细分品类。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/605244483"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_056",
+      "name": "焙烤食品制造",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_005",
+      "description": "以面粉、米粉等谷物为主要原料，配以糖、油脂、蛋品等辅料，经焙烤工艺制成的糕点、面包等产品。",
+      "business_description": "以面粉、米粉等谷物为主要原料，配以糖、油脂、蛋品等辅料，经焙烤工艺制成的糕点、面包等产品。",
+      "is_key_node": false,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://www.shui5.cn/article/cc/41677.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_057",
+      "name": "方便食品制造",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_005",
+      "description": "经过加工处理、部分或完全熟制，食用前无需烹调或只需简单加热即可食用的食品制造环节。",
+      "business_description": "经过加工处理、部分或完全熟制，食用前无需烹调或只需简单加热即可食用的食品制造环节。",
+      "is_key_node": false,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://www.shui5.cn/article/cc/41677.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_058",
+      "name": "肉制品加工",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_005",
+      "description": "以畜禽肉为主要原料，经选料、修整、腌制、熟制等工艺加工成的火腿、香肠、酱卤肉等包装食品。",
+      "business_description": "以畜禽肉为主要原料，经选料、修整、腌制、熟制等工艺加工成的火腿、香肠、酱卤肉等包装食品。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/605244483"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0511",
+      "name": "白酒制造",
       "node_type": "细分环节",
       "tags": [
         "level_3"
@@ -503,23 +1911,215 @@
       "industry": "食品饮料行业",
       "level": 3,
       "chain_position": "midstream",
-      "parent_id": "beverage_mfg",
-      "description": "白酒、啤酒、葡萄酒及洋酒制造。",
-      "business_description": "白酒、啤酒、葡萄酒及洋酒制造。",
+      "parent_id": "food_beverage_051",
+      "description": "以高粱、小麦等粮谷为主要原料，用大曲、小曲或麸曲及酒母等为糖化发酵剂，经蒸煮、糖化、发酵、蒸馏而制成的蒸馏酒。",
+      "business_description": "以高粱、小麦等粮谷为主要原料，用大曲、小曲或麸曲及酒母等为糖化发酵剂，经蒸煮、糖化、发酵、蒸馏而制成的蒸馏酒。",
       "is_key_node": true,
-      "chain_segment": "中游",
+      "chain_segment": "产品制造",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://www.stats.gov.cn/sj/tjbz/gmjjhyfl/202501/P020250116506795831658.pdf"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0001"
       ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "offline_retail",
-      "name": "线下实体零售",
+      "id": "food_beverage_0512",
+      "name": "啤酒制造",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_051",
+      "description": "以麦芽、水为主要原料，加啤酒花，经酵母发酵酿制而成的含有二氧化碳、起泡、低酒精浓度的发酵酒。",
+      "business_description": "以麦芽、水为主要原料，加啤酒花，经酵母发酵酿制而成的含有二氧化碳、起泡、低酒精浓度的发酵酒。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://www.stats.gov.cn/sj/tjbz/gmjjhyfl/202501/P020250116506795831658.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0521",
+      "name": "包装饮用水制造",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_052",
+      "description": "将天然水源或公共供水系统的水经过过滤、杀菌等工艺处理后，密封于包装容器中的饮用水产品制造。",
+      "business_description": "将天然水源或公共供水系统的水经过过滤、杀菌等工艺处理后，密封于包装容器中的饮用水产品制造。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://bg.qianzhan.com/report/keys/c9f37d3f.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0522",
+      "name": "果蔬汁及碳酸饮料制造",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_052",
+      "description": "以新鲜果蔬为原料榨汁调配，或充入二氧化碳气体的软饮料制造，是饮料制造中规模最大的细分赛道之一。",
+      "business_description": "以新鲜果蔬为原料榨汁调配，或充入二氧化碳气体的软饮料制造，是饮料制造中规模最大的细分赛道之一。",
+      "is_key_node": true,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://bg.qianzhan.com/report/keys/c9f37d3f.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0551",
+      "name": "坚果炒货制造",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_055",
+      "description": "以各类植物坚果及籽类为原料，经烘焙、炒制、调味等工艺加工而成的休闲零食制造环节。",
+      "business_description": "以各类植物坚果及籽类为原料，经烘焙、炒制、调味等工艺加工而成的休闲零食制造环节。",
+      "is_key_node": false,
+      "chain_segment": "产品制造",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/605244483"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_061",
+      "name": "冷链仓储设施与服务",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_006",
+      "description": "提供低温环境下的食品储藏、保鲜及中转仓储设施与运营服务。",
+      "business_description": "提供低温环境下的食品储藏、保鲜及中转仓储设施与运营服务。",
+      "is_key_node": true,
+      "chain_segment": "冷链物流与仓储",
+      "source_urls": [
+        "https://www.chyxx.com/wiki/1178041.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0601"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_062",
+      "name": "冷链运输装备与服务",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_006",
+      "description": "涵盖冷藏车辆制造及跨城、城配的温控运输服务网络。",
+      "business_description": "涵盖冷藏车辆制造及跨城、城配的温控运输服务网络。",
+      "is_key_node": true,
+      "chain_segment": "冷链物流与仓储",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202011051426807760_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0602"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_063",
+      "name": "冷链包装与温控耗材",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_006",
+      "description": "用于流通环节维持食品低温状态的保温容器及蓄冷材料。",
+      "business_description": "用于流通环节维持食品低温状态的保温容器及蓄冷材料。",
+      "is_key_node": false,
+      "chain_segment": "冷链物流与仓储",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/562665464"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0603"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_064",
+      "name": "冷链信息化与追溯系统",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_006",
+      "description": "提供温湿度实时监控、断链预警及全链路数据追溯的软硬件系统。",
+      "business_description": "提供温湿度实时监控、断链预警及全链路数据追溯的软硬件系统。",
+      "is_key_node": false,
+      "chain_segment": "冷链物流与仓储",
+      "source_urls": [
+        "https://www.ttbz.org.cn/upload/file/20231130/6383694074400474676141707.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0604"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0611",
+      "name": "冷库设施",
       "node_type": "细分环节",
       "tags": [
         "level_3"
@@ -527,23 +2127,23 @@
       "industry": "食品饮料行业",
       "level": 3,
       "chain_position": "downstream",
-      "parent_id": "retail_channels",
-      "description": "大型商超、连锁便利店及传统夫妻老婆店。",
-      "business_description": "大型商超、连锁便利店及传统夫妻老婆店。",
+      "parent_id": "food_beverage_061",
+      "description": "用于食品长期低温储藏的固定式制冷建筑设施。",
+      "business_description": "用于食品长期低温储藏的固定式制冷建筑设施。",
       "is_key_node": true,
-      "chain_segment": "下游",
+      "chain_segment": "冷链仓储",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://scs.moa.gov.cn/ccll/jszn/202306/t20230621_6430707.htm"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0601"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "online_retail",
-      "name": "线上电商平台",
+      "id": "food_beverage_0621",
+      "name": "冷藏车辆与装备",
       "node_type": "细分环节",
       "tags": [
         "level_3"
@@ -551,1191 +2151,2822 @@
       "industry": "食品饮料行业",
       "level": 3,
       "chain_position": "downstream",
-      "parent_id": "retail_channels",
-      "description": "综合电商、生鲜电商及社区团购平台。",
-      "business_description": "综合电商、生鲜电商及社区团购平台。",
+      "parent_id": "food_beverage_062",
+      "description": "搭载制冷机组与保温厢体的专用道路运输车辆。",
+      "business_description": "搭载制冷机组与保温厢体的专用道路运输车辆。",
       "is_key_node": true,
-      "chain_segment": "下游",
+      "chain_segment": "冷链运输",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://pdf.dfcfw.com/pdf/H3_AP202011051426807760_1.pdf"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0602"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "wheat_corn",
-      "name": "小麦与玉米",
-      "node_type": "原材料",
+      "id": "food_beverage_0622",
+      "name": "冷链运输与配送服务",
+      "node_type": "细分环节",
       "tags": [
-        "level_4"
+        "level_3"
       ],
       "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "upstream",
-      "parent_id": "grains",
-      "description": "优质强筋小麦及工业用玉米种植。",
-      "business_description": "优质强筋小麦及工业用玉米种植。",
-      "is_key_node": false,
-      "chain_segment": "上游",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "pork_poultry",
-      "name": "猪肉与禽肉",
-      "node_type": "原材料",
-      "tags": [
-        "level_4"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "upstream",
-      "parent_id": "livestock",
-      "description": "生猪屠宰及白羽/黄羽肉鸡养殖。",
-      "business_description": "生猪屠宰及白羽/黄羽肉鸡养殖。",
-      "is_key_node": false,
-      "chain_segment": "上游",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "raw_milk",
-      "name": "生鲜原奶",
-      "node_type": "原材料",
-      "tags": [
-        "level_4"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "upstream",
-      "parent_id": "dairy_raw",
-      "description": "规模化牧场生产的标准化生鲜牛乳。",
-      "business_description": "规模化牧场生产的标准化生鲜牛乳。",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_062",
+      "description": "由第三方物流或企业自建车队提供的温控货物运输服务。",
+      "business_description": "由第三方物流或企业自建车队提供的温控货物运输服务。",
       "is_key_node": true,
-      "chain_segment": "上游",
+      "chain_segment": "冷链运输",
       "source_urls": [
-        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf"
+        "https://zhuanlan.zhihu.com/p/279931914"
       ],
       "evidence_ids": [
-        "ev_003"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "baked_goods",
-      "name": "烘焙食品",
-      "node_type": "产品",
-      "tags": [
-        "level_4"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "snack_food",
-      "description": "面包、蛋糕、糕点及饼干制造。",
-      "business_description": "面包、蛋糕、糕点及饼干制造。",
-      "is_key_node": true,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
-      ],
-      "evidence_ids": [
-        "ev_004"
+        "food_beverage_ev_0605"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "nuts_seeds",
-      "name": "坚果炒货",
-      "node_type": "产品",
+      "id": "food_beverage_0631",
+      "name": "保温包装容器",
+      "node_type": "细分环节",
       "tags": [
-        "level_4"
+        "level_3"
       ],
       "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "snack_food",
-      "description": "瓜子、核桃、巴旦木等坚果炒货加工。",
-      "business_description": "瓜子、核桃、巴旦木等坚果炒货加工。",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_063",
+      "description": "EPS泡沫箱、EPP保温箱等用于隔绝外部热量的包装载体。",
+      "business_description": "EPS泡沫箱、EPP保温箱等用于隔绝外部热量的包装载体。",
       "is_key_node": false,
-      "chain_segment": "中游",
+      "chain_segment": "冷链包装",
       "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
+        "https://www.sf-express.com/chn/sc/express/add-service/pkg-temp"
       ],
       "evidence_ids": [
-        "ev_004"
+        "food_beverage_ev_0603"
       ],
       "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "carbonated_drinks",
-      "name": "碳酸饮料",
-      "node_type": "产品",
+      "id": "food_beverage_0632",
+      "name": "蓄冷剂与温控耗材",
+      "node_type": "细分环节",
       "tags": [
-        "level_4"
+        "level_3"
       ],
       "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "soft_drinks",
-      "description": "可乐、雪碧等汽水及气泡水制造。",
-      "business_description": "可乐、雪碧等汽水及气泡水制造。",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_063",
+      "description": "冰袋、干冰及相变蓄冷材料等主动释放冷量的消耗品。",
+      "business_description": "冰袋、干冰及相变蓄冷材料等主动释放冷量的消耗品。",
       "is_key_node": false,
-      "chain_segment": "中游",
+      "chain_segment": "冷链包装",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://zhuanlan.zhihu.com/p/562665464"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0603"
       ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "tea_drinks",
-      "name": "茶饮料",
-      "node_type": "产品",
-      "tags": [
-        "level_4"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "soft_drinks",
-      "description": "调味茶饮料、无糖纯茶及果茶制造。",
-      "business_description": "调味茶饮料、无糖纯茶及果茶制造。",
-      "is_key_node": true,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "packaged_water",
-      "name": "包装饮用水",
-      "node_type": "产品",
-      "tags": [
-        "level_4"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "soft_drinks",
-      "description": "天然矿泉水、纯净水及饮用天然水灌装。",
-      "business_description": "天然矿泉水、纯净水及饮用天然水灌装。",
-      "is_key_node": true,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "baijiu",
-      "name": "白酒",
-      "node_type": "产品",
-      "tags": [
-        "level_4"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "alcohol",
-      "description": "酱香、浓香、清香等不同香型白酒酿造。",
-      "business_description": "酱香、浓香、清香等不同香型白酒酿造。",
-      "is_key_node": true,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "beer",
-      "name": "啤酒",
-      "node_type": "产品",
-      "tags": [
-        "level_4"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "alcohol",
-      "description": "工业拉格啤酒及精酿啤酒酿造。",
-      "business_description": "工业拉格啤酒及精酿啤酒酿造。",
-      "is_key_node": true,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "supermarkets",
-      "name": "大型商超及便利店",
-      "node_type": "渠道",
+      "id": "food_beverage_06111",
+      "name": "装配式冷库",
+      "node_type": "设备/产品",
       "tags": [
         "level_4"
       ],
       "industry": "食品饮料行业",
       "level": 4,
       "chain_position": "downstream",
-      "parent_id": "offline_retail",
-      "description": "KA卖场、连锁便利店及精品超市运营。",
-      "business_description": "KA卖场、连锁便利店及精品超市运营。",
-      "is_key_node": true,
-      "chain_segment": "下游",
+      "parent_id": "food_beverage_0611",
+      "description": "采用聚氨酯保温板拼装而成，建设周期短、灵活性高的冷库设施。",
+      "business_description": "采用聚氨酯保温板拼装而成，建设周期短、灵活性高的冷库设施。",
+      "is_key_node": false,
+      "chain_segment": "冷链仓储",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://scs.moa.gov.cn/ccll/jszn/202306/t20230621_6430707.htm"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0601"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_06112",
+      "name": "气调冷库",
+      "node_type": "设备/产品",
+      "tags": [
+        "level_4"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_0611",
+      "description": "通过调节库内气体成分结合低温以延长果蔬保鲜期的高级冷库。",
+      "business_description": "通过调节库内气体成分结合低温以延长果蔬保鲜期的高级冷库。",
+      "is_key_node": false,
+      "chain_segment": "冷链仓储",
+      "source_urls": [
+        "https://scs.moa.gov.cn/ccll/jszn/202306/t20230621_6430707.htm"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0601"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_06221",
+      "name": "干线冷链运输",
+      "node_type": "渠道/服务",
+      "tags": [
+        "level_4"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_0622",
+      "description": "跨省市长距离、大批量的冷藏车整车运输服务。",
+      "business_description": "跨省市长距离、大批量的冷藏车整车运输服务。",
+      "is_key_node": true,
+      "chain_segment": "冷链运输",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/279931914"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0605"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "bread_cakes",
-      "name": "面包与糕点",
-      "node_type": "细分产品",
+      "id": "food_beverage_06222",
+      "name": "城市冷链配送",
+      "node_type": "渠道/服务",
       "tags": [
-        "level_5"
+        "level_4"
       ],
       "industry": "食品饮料行业",
-      "level": 5,
-      "chain_position": "midstream",
-      "parent_id": "baked_goods",
-      "description": "吐司、软欧包、瑞士卷及各类中式糕点制造。",
-      "business_description": "吐司、软欧包、瑞士卷及各类中式糕点制造。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
-      ],
-      "evidence_ids": [
-        "ev_004"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "cookies_biscuits",
-      "name": "饼干与曲奇",
-      "node_type": "细分产品",
-      "tags": [
-        "level_5"
-      ],
-      "industry": "食品饮料行业",
-      "level": 5,
-      "chain_position": "midstream",
-      "parent_id": "baked_goods",
-      "description": "苏打饼干、夹心饼干及手工曲奇制造。",
-      "business_description": "苏打饼干、夹心饼干及手工曲奇制造。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
-      ],
-      "evidence_ids": [
-        "ev_004"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "walnuts_almonds",
-      "name": "树坚果",
-      "node_type": "细分产品",
-      "tags": [
-        "level_5"
-      ],
-      "industry": "食品饮料行业",
-      "level": 5,
-      "chain_position": "midstream",
-      "parent_id": "nuts_seeds",
-      "description": "核桃、巴旦木、腰果及夏威夷果加工。",
-      "business_description": "核桃、巴旦木、腰果及夏威夷果加工。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "flavor_tea",
-      "name": "调味茶饮料",
-      "node_type": "细分产品",
-      "tags": [
-        "level_5"
-      ],
-      "industry": "食品饮料行业",
-      "level": 5,
-      "chain_position": "midstream",
-      "parent_id": "tea_drinks",
-      "description": "冰红茶、果味茶及奶茶饮料制造。",
-      "business_description": "冰红茶、果味茶及奶茶饮料制造。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "pure_tea",
-      "name": "无糖纯茶",
-      "node_type": "细分产品",
-      "tags": [
-        "level_5"
-      ],
-      "industry": "食品饮料行业",
-      "level": 5,
-      "chain_position": "midstream",
-      "parent_id": "tea_drinks",
-      "description": "无糖乌龙茶、无糖绿茶及茉莉花茶灌装。",
-      "business_description": "无糖乌龙茶、无糖绿茶及茉莉花茶灌装。",
+      "level": 4,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_0622",
+      "description": "面向商超、餐饮及前置仓的同城多温区小批量配送服务。",
+      "business_description": "面向商超、餐饮及前置仓的同城多温区小批量配送服务。",
       "is_key_node": true,
-      "chain_segment": "中游",
+      "chain_segment": "冷链运输",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://zhuanlan.zhihu.com/p/279931914"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0605"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01",
+      "name": "线下实体零售渠道",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2",
+        "downstream",
+        "offline_channel"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007",
+      "description": "通过物理空间触点实现产品分销与消费者体验，是食饮行业基本盘。",
+      "business_description": "通过物理空间触点实现产品分销与消费者体验，是食饮行业基本盘。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202602111819863001_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02",
+      "name": "线上电商与新零售渠道",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2",
+        "downstream",
+        "online_channel"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007",
+      "description": "突破物理空间限制，依托数据算法实现精准营销与高效履约的新兴增量渠道。",
+      "business_description": "突破物理空间限制，依托数据算法实现精准营销与高效履约的新兴增量渠道。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://www.tidesight.com/news/1370604.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_03",
+      "name": "餐饮及特通渠道",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2",
+        "downstream",
+        "special_channel"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007",
+      "description": "满足特定场景下的即时性、配套性消费需求，具备较高的渠道壁垒和忠诚度。",
+      "business_description": "满足特定场景下的即时性、配套性消费需求，具备较高的渠道壁垒和忠诚度。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://www.21jingji.com/article/20260106/herald/5f19ef88b554d2f654a2a441f58acd94.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_03"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01_01",
+      "name": "现代商超与连锁便利店",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3",
+        "downstream",
+        "modern_retail"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_01",
+      "description": "通过规模化采购和标准化运营降低流通成本，提供丰富的SKU和稳定的购物体验。",
+      "business_description": "通过规模化采购和标准化运营降低流通成本，提供丰富的SKU和稳定的购物体验。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://cif.mofcom.gov.cn/cif/html/upload/20221027133715579_2021-2022%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BE%BF%E5%88%A9%E5%BA%97%E5%8F%91%E5%B1%95%E6%8A%A5%E5%91%8A.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01_02",
+      "name": "传统流通与下沉网点",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3",
+        "downstream",
+        "traditional_retail"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_01",
+      "description": "依托熟人社会和深度分销网络，实现极高密度的终端覆盖，是大众饮品和零食的基本盘。",
+      "business_description": "依托熟人社会和深度分销网络，实现极高密度的终端覆盖，是大众饮品和零食的基本盘。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://www.cbndata.com/information/290285"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01_02"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02_01",
+      "name": "综合电商与垂直电商平台",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3",
+        "downstream",
+        "ecommerce"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_02",
+      "description": "打破地域限制，通过大促活动和流量分发机制实现单品的爆发式增长。",
+      "business_description": "打破地域限制，通过大促活动和流量分发机制实现单品的爆发式增长。",
+      "is_key_node": false,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://www.tidesight.com/news/1370604.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02_01"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02_02",
+      "name": "内容电商与社区团购",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3",
+        "downstream",
+        "social_commerce"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_02",
+      "description": "以内容激发需求或以社区团长为节点降低履约成本，重构人货场关系。",
+      "business_description": "以内容激发需求或以社区团长为节点降低履约成本，重构人货场关系。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/433450424"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02_02"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02_03",
+      "name": "O2O即时零售与同城配送",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3",
+        "downstream",
+        "instant_retail"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_02",
+      "description": "将线下门店转化为前置履约中心，实现30分钟至1小时达的极速交付。",
+      "business_description": "将线下门店转化为前置履约中心，实现30分钟至1小时达的极速交付。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://www.cbndata.com/information/294337"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02_03"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_03_01",
+      "name": "连锁餐饮与团餐供应链",
+      "node_type": "三级环节",
+      "tags": [
+        "level_3",
+        "downstream",
+        "b2b_catering"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_03",
+      "description": "提供定制化规格与稳定配送服务，伴随餐饮连锁化率提升而持续扩容。",
+      "business_description": "提供定制化规格与稳定配送服务，伴随餐饮连锁化率提升而持续扩容。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://www.news.cn/food/20260413/da96be919d86403a8578bbbec7ac077a/c.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_03_01"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01_01_01",
+      "name": "大型连锁KA卖场",
+      "node_type": "细分环节",
+      "tags": [
+        "level_4",
+        "downstream",
+        "ka_hypermarket"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_01_01",
+      "description": "提供堆头展示、端架陈列等营销资源，适合家庭周期性集中采购。",
+      "business_description": "提供堆头展示、端架陈列等营销资源，适合家庭周期性集中采购。",
+      "is_key_node": false,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202602111819863001_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01_01_01"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01_01_02",
+      "name": "连锁便利店网络",
+      "node_type": "细分环节",
+      "tags": [
+        "level_4",
+        "downstream",
+        "convenience_store"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_01_01",
+      "description": "以时间和空间的便利性溢价为核心竞争力，是新品测试与年轻客群触达的桥头堡。",
+      "business_description": "以时间和空间的便利性溢价为核心竞争力，是新品测试与年轻客群触达的桥头堡。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://cif.mofcom.gov.cn/cif/html/upload/20221027133715579_2021-2022%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BE%BF%E5%88%A9%E5%BA%97%E5%8F%91%E5%B1%95%E6%8A%A5%E5%91%8A.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01_01_02"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02_03_01",
+      "name": "前置仓与即时履约网络",
+      "node_type": "细分环节",
+      "tags": [
+        "level_4",
+        "downstream",
+        "front_warehouse"
+      ],
+      "industry": "食品饮料行业",
+      "level": 4,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_007_02_03",
+      "description": "牺牲线下展示空间以换取仓储密度与拣货效率，支撑高频次的即时零售订单。",
+      "business_description": "牺牲线下展示空间以换取仓储密度与拣货效率，支撑高频次的即时零售订单。",
+      "is_key_node": true,
+      "chain_segment": "全渠道销售与终端零售",
+      "source_urls": [
+        "https://www.cbndata.com/information/294337"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02_03_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01",
+      "name": "食品安全与质量检测",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008",
+      "description": "提供食品全链路安全性检测服务以保障合规与消费者健康。",
+      "business_description": "提供食品全链路安全性检测服务以保障合规与消费者健康。",
+      "is_key_node": true,
+      "chain_segment": "检验检测",
+      "source_urls": [
+        "https://www.merieuxnutrisciences.com.cn/?page_id=350"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_01"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01_01",
+      "name": "微生物与致病菌检测",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_01",
+      "description": "检测食品及生产环境中的致病微生物以防范食品安全事故。",
+      "business_description": "检测食品及生产环境中的致病微生物以防范食品安全事故。",
+      "is_key_node": false,
+      "chain_segment": "检验检测",
+      "source_urls": [
+        "https://www.merieuxnutrisciences.com.cn/?page_id=350"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_02"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01_02",
+      "name": "农兽药残留与重金属检测",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_01",
+      "description": "利用色谱、质谱等仪器分析食品中的有害化学残留物。",
+      "business_description": "利用色谱、质谱等仪器分析食品中的有害化学残留物。",
+      "is_key_node": false,
+      "chain_segment": "检验检测",
+      "source_urls": [
+        "https://www.merieuxnutrisciences.com.cn/?page_id=350"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_03"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01_03",
+      "name": "理化指标与营养成分检测",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_01",
+      "description": "为食品营养标签制作及品质分级提供科学数据支撑。",
+      "business_description": "为食品营养标签制作及品质分级提供科学数据支撑。",
+      "is_key_node": false,
+      "chain_segment": "检验检测",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_04"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_02",
+      "name": "认证认可与标准服务",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008",
+      "description": "通过第三方认证提升企业品牌公信力并推动行业标准化建设。",
+      "business_description": "通过第三方认证提升企业品牌公信力并推动行业标准化建设。",
+      "is_key_node": true,
+      "chain_segment": "合规与认证",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_05"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_02_01",
+      "name": "体系认证与有机认证",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_02",
+      "description": "审核并颁发国内外认可的食品安全及质量管理认证证书。",
+      "business_description": "审核并颁发国内外认可的食品安全及质量管理认证证书。",
+      "is_key_node": false,
+      "chain_segment": "合规与认证",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_06"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_02_02",
+      "name": "标准制定与合规咨询",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_02",
+      "description": "提供食品法规咨询、标签合规审核及特殊食品注册一站式服务。",
+      "business_description": "提供食品法规咨询、标签合规审核及特殊食品注册一站式服务。",
+      "is_key_node": false,
+      "chain_segment": "合规与认证",
+      "source_urls": [
+        "https://www.cirs-group.com/cn/food/tsyxytpfspzcscqyxchcydjpdyz-sx"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_07"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_03",
+      "name": "研发与技术服务",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008",
+      "description": "赋能中小微食品企业突破研发瓶颈，加速新口味与新形态产品上市。",
+      "business_description": "赋能中小微食品企业突破研发瓶颈，加速新口味与新形态产品上市。",
+      "is_key_node": true,
+      "chain_segment": "技术研发",
+      "source_urls": [
+        "https://yanfa.foodmate.net/"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_08"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_03_01",
+      "name": "配方设计与工艺优化",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_03",
+      "description": "从实验室小试到工厂中试，提供全套食品配方与工艺落地解决方案。",
+      "business_description": "从实验室小试到工厂中试，提供全套食品配方与工艺落地解决方案。",
+      "is_key_node": false,
+      "chain_segment": "技术研发",
+      "source_urls": [
+        "https://yanfa.foodmate.net/"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_09"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_03_02",
+      "name": "感官评价与货架期测试",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_03",
+      "description": "通过量化感官数据和加速老化模型确定产品最佳赏味期与安全货架期。",
+      "business_description": "通过量化感官数据和加速老化模型确定产品最佳赏味期与安全货架期。",
+      "is_key_node": false,
+      "chain_segment": "技术研发",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_10"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_04",
+      "name": "数字化与防伪溯源服务",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008",
+      "description": "提升供应链透明度，打击假冒伪劣产品并增强终端消费者信任。",
+      "business_description": "提升供应链透明度，打击假冒伪劣产品并增强终端消费者信任。",
+      "is_key_node": true,
+      "chain_segment": "数字化支撑",
+      "source_urls": [
+        "https://www.aliyun.com/solution/blockchain/mytc"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_11"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_04_01",
+      "name": "区块链防伪溯源平台",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_04",
+      "description": "提供一物一码及区块链存证服务，保障高价值食品及地理标志产品的真实性。",
+      "business_description": "提供一物一码及区块链存证服务，保障高价值食品及地理标志产品的真实性。",
+      "is_key_node": false,
+      "chain_segment": "数字化支撑",
+      "source_urls": [
+        "https://www.sciopen.com/local/article_pdf/10.7506/spkx1002-6630-20231201-001.pdf"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_12"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_04_02",
+      "name": "供应链数字化管理SaaS",
+      "node_type": "细分环节",
+      "tags": [
+        "level_3"
+      ],
+      "industry": "食品饮料行业",
+      "level": 3,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008_04",
+      "description": "通过SaaS系统打通产业链上下游数据孤岛，提升食品供应链协同效率。",
+      "business_description": "通过SaaS系统打通产业链上下游数据孤岛，提升食品供应链协同效率。",
+      "is_key_node": false,
+      "chain_segment": "数字化支撑",
+      "source_urls": [
+        "https://www.aliyun.com/solution/blockchain/mytc"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_13"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_05",
+      "name": "产业咨询与市场研究",
+      "node_type": "二级环节",
+      "tags": [
+        "level_2"
+      ],
+      "industry": "食品饮料行业",
+      "level": 2,
+      "chain_position": "support",
+      "parent_id": "food_beverage_008",
+      "description": "为食品企业的战略规划、产能布局及品牌营销提供数据驱动的市场决策支持。",
+      "business_description": "为食品企业的战略规划、产能布局及品牌营销提供数据驱动的市场决策支持。",
+      "is_key_node": true,
+      "chain_segment": "智库与咨询",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202110281525515415_1.pdf"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_14"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
     }
   ],
   "edges": [
     {
-      "id": "food_bev_root__contains__upstream_raw",
-      "source": "food_bev_root",
-      "target": "upstream_raw",
+      "id": "food_beverage_000__contains__food_beverage_001",
+      "source": "food_beverage_000",
+      "target": "food_beverage_001",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含上游原材料供应环节",
+      "description": "食品饮料行业包含农副产品及原料供应环节",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://finance.sina.com.cn/roll/2026-05-05/doc-inhwusxq9997173.shtml"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0001"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "food_bev_root__contains__midstream_mfg",
-      "source": "food_bev_root",
-      "target": "midstream_mfg",
+      "id": "food_beverage_000__contains__food_beverage_002",
+      "source": "food_beverage_000",
+      "target": "food_beverage_002",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含中游生产制造环节",
+      "description": "食品饮料行业包含食品添加剂与配料环节",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://www.163.com/dy/article/KS5H1MUO05148U2B.html"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0002"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "food_bev_root__contains__downstream_retail",
-      "source": "food_bev_root",
-      "target": "downstream_retail",
+      "id": "food_beverage_000__contains__food_beverage_003",
+      "source": "food_beverage_000",
+      "target": "food_beverage_003",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含下游流通与消费环节",
+      "description": "食品饮料行业包含食品包装材料与容器环节",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://bg.qianzhan.com/report/list2/3425.html"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0003"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "food_bev_root__contains__support_pkg_log",
-      "source": "food_bev_root",
-      "target": "support_pkg_log",
+      "id": "food_beverage_000__contains__food_beverage_004",
+      "source": "food_beverage_000",
+      "target": "food_beverage_004",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含配套支持产业",
+      "description": "食品饮料行业包含食品加工与包装设备环节",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://www.zhanhuiquan.com/info/show?id=229693"
       ],
       "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "upstream_raw__contains__agri_products",
-      "source": "upstream_raw",
-      "target": "agri_products",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "上游原材料供应包含农副产品",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
+        "food_beverage_ev_0004"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "upstream_raw__contains__additives",
-      "source": "upstream_raw",
-      "target": "additives",
+      "id": "food_beverage_000__contains__food_beverage_005",
+      "source": "food_beverage_000",
+      "target": "food_beverage_005",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "上游原材料供应包含食品添加剂及配料",
+      "description": "食品饮料行业包含食品饮料产品制造环节",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://aigc.idigital.com.cn/djyanbao/%E3%80%90%E6%B2%99%E5%88%A9%E6%96%87%E5%85%AC%E5%8F%B8%E3%80%91%E9%A3%9F%E4%B8%BA%E5%A4%A9%EF%BC%9A2024%E4%B8%AD%E5%9B%BD%E9%A3%9F%E5%93%81%E9%A5%AE%E6%96%99%E8%A1%8C%E4%B8%9A%E7%99%BD%E7%9A%AE%E4%B9%A6-2024-09-09.pdf"
       ],
       "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "midstream_mfg__contains__food_processing",
-      "source": "midstream_mfg",
-      "target": "food_processing",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "中游生产制造包含食品加工制造",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
-      ],
-      "evidence_ids": [
-        "ev_004"
+        "food_beverage_ev_0005"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "midstream_mfg__contains__beverage_mfg",
-      "source": "midstream_mfg",
-      "target": "beverage_mfg",
+      "id": "food_beverage_000__contains__food_beverage_006",
+      "source": "food_beverage_000",
+      "target": "food_beverage_006",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "中游生产制造包含饮料及酒水制造",
+      "description": "食品饮料行业包含冷链物流与仓储服务环节",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://www.lhratings.com/file/g060863f067.pdf"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0006"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "downstream_retail__contains__retail_channels",
-      "source": "downstream_retail",
-      "target": "retail_channels",
+      "id": "food_beverage_000__contains__food_beverage_007",
+      "source": "food_beverage_000",
+      "target": "food_beverage_007",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "下游流通与消费包含流通与零售渠道",
+      "description": "食品饮料行业包含全渠道销售与终端零售环节",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://finance.sina.com.cn/roll/2026-04-21/doc-inhvfivk6377628.shtml"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0007"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "downstream_retail__contains__catering",
-      "source": "downstream_retail",
-      "target": "catering",
+      "id": "food_beverage_000__contains__food_beverage_008",
+      "source": "food_beverage_000",
+      "target": "food_beverage_008",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "下游流通与消费包含餐饮服务",
+      "description": "食品饮料行业包含检验检测与产业支撑服务环节",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://www.iyiou.com/research/20220331990"
       ],
       "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "support_pkg_log__contains__packaging",
-      "source": "support_pkg_log",
-      "target": "packaging",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "配套支持产业包含包装产业",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "support_pkg_log__contains__cold_chain",
-      "source": "support_pkg_log",
-      "target": "cold_chain",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "配套支持产业包含冷链与物流",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "agri_products__contains__grains",
-      "source": "agri_products",
-      "target": "grains",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "农副产品包含粮食作物",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "agri_products__contains__livestock",
-      "source": "agri_products",
-      "target": "livestock",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "农副产品包含畜禽养殖",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "agri_products__contains__dairy_raw",
-      "source": "agri_products",
-      "target": "dairy_raw",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "农副产品包含生鲜乳及水产",
-      "source_urls": [
-        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf"
-      ],
-      "evidence_ids": [
-        "ev_003"
+        "food_beverage_ev_0008"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "food_processing__contains__snack_food",
-      "source": "food_processing",
-      "target": "snack_food",
+      "id": "food_beverage_001__contains__food_beverage_001_01",
+      "source": "food_beverage_001",
+      "target": "food_beverage_001_01",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品加工制造包含休闲食品",
+      "description": "农副产品及原料供应包含粮食及油料作物供应环节",
       "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
+        "https://baike.baidu.com/item/%E7%A7%8D%E6%A4%8D%E4%B8%9A/673446"
       ],
       "evidence_ids": [
-        "ev_004"
+        "food_beverage_ev_0014"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "food_processing__contains__dairy_products",
-      "source": "food_processing",
-      "target": "dairy_products",
+      "id": "food_beverage_001__contains__food_beverage_001_02",
+      "source": "food_beverage_001",
+      "target": "food_beverage_001_02",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品加工制造包含乳制品加工",
+      "description": "农副产品及原料供应包含经济作物供应环节",
       "source_urls": [
-        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf"
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
       ],
       "evidence_ids": [
-        "ev_003"
+        "food_beverage_ev_0011"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "beverage_mfg__contains__soft_drinks",
-      "source": "beverage_mfg",
-      "target": "soft_drinks",
+      "id": "food_beverage_001__contains__food_beverage_001_03",
+      "source": "food_beverage_001",
+      "target": "food_beverage_001_03",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "饮料及酒水制造包含软饮料",
+      "description": "农副产品及原料供应包含畜禽养殖与供应环节",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0013"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "beverage_mfg__contains__alcohol",
-      "source": "beverage_mfg",
-      "target": "alcohol",
+      "id": "food_beverage_001__contains__food_beverage_001_04",
+      "source": "food_beverage_001",
+      "target": "food_beverage_001_04",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "饮料及酒水制造包含酒类制造",
+      "description": "农副产品及原料供应包含水产及果蔬供应环节",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf"
       ],
       "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "retail_channels__contains__offline_retail",
-      "source": "retail_channels",
-      "target": "offline_retail",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "流通与零售渠道包含线下实体零售",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "retail_channels__contains__online_retail",
-      "source": "retail_channels",
-      "target": "online_retail",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "流通与零售渠道包含线上电商平台",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "grains__contains__wheat_corn",
-      "source": "grains",
-      "target": "wheat_corn",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "粮食作物包含小麦与玉米",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "livestock__contains__pork_poultry",
-      "source": "livestock",
-      "target": "pork_poultry",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "畜禽养殖包含猪肉与禽肉",
-      "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
-      ],
-      "evidence_ids": [
-        "ev_005"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "dairy_raw__contains__raw_milk",
-      "source": "dairy_raw",
-      "target": "raw_milk",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "生鲜乳及水产包含生鲜原奶",
-      "source_urls": [
-        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf"
-      ],
-      "evidence_ids": [
-        "ev_003"
+        "food_beverage_ev_0013"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "snack_food__contains__baked_goods",
-      "source": "snack_food",
-      "target": "baked_goods",
+      "id": "food_beverage_001__contains__food_beverage_001_05",
+      "source": "food_beverage_001",
+      "target": "food_beverage_001_05",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "休闲食品包含烘焙食品",
+      "description": "农副产品及原料供应包含食用菌及林特产品供应环节",
       "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
+        "https://baike.baidu.com/item/%E7%A7%8D%E6%A4%8D%E4%B8%9A/673446"
       ],
       "evidence_ids": [
-        "ev_004"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "snack_food__contains__nuts_seeds",
-      "source": "snack_food",
-      "target": "nuts_seeds",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "休闲食品包含坚果炒货",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
-      ],
-      "evidence_ids": [
-        "ev_004"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "soft_drinks__contains__carbonated_drinks",
-      "source": "soft_drinks",
-      "target": "carbonated_drinks",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "软饮料包含碳酸饮料",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "soft_drinks__contains__tea_drinks",
-      "source": "soft_drinks",
-      "target": "tea_drinks",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "软饮料包含茶饮料",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "soft_drinks__contains__packaged_water",
-      "source": "soft_drinks",
-      "target": "packaged_water",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "软饮料包含包装饮用水",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0014"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "alcohol__contains__baijiu",
-      "source": "alcohol",
-      "target": "baijiu",
+      "id": "food_beverage_001_01__contains__food_beverage_001_01_01",
+      "source": "food_beverage_001_01",
+      "target": "food_beverage_001_01_01",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "酒类制造包含白酒",
+      "description": "粮食及油料作物供应包含谷物原料细分环节",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://t.cj.sina.cn/articles/view/7962326780/1da9776fc001016nrk"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0012"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "alcohol__contains__beer",
-      "source": "alcohol",
-      "target": "beer",
+      "id": "food_beverage_001_01__contains__food_beverage_001_01_02",
+      "source": "food_beverage_001_01",
+      "target": "food_beverage_001_01_02",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "酒类制造包含啤酒",
+      "description": "粮食及油料作物供应包含豆类及油料原料细分环节",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0011"
       ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "offline_retail__contains__supermarkets",
-      "source": "offline_retail",
-      "target": "supermarkets",
+      "id": "food_beverage_001_02__contains__food_beverage_001_02_01",
+      "source": "food_beverage_001_02",
+      "target": "food_beverage_001_02_01",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "线下实体零售包含大型商超及便利店",
+      "description": "经济作物供应包含糖料及饮料作物原料细分环节",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0011"
       ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "baked_goods__contains__bread_cakes",
-      "source": "baked_goods",
-      "target": "bread_cakes",
+      "id": "food_beverage_001_03__contains__food_beverage_001_03_01",
+      "source": "food_beverage_001_03",
+      "target": "food_beverage_001_03_01",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "烘焙食品包含面包与糕点",
+      "description": "畜禽养殖与供应包含肉类及蛋奶原料细分环节",
       "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
+        "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf"
       ],
       "evidence_ids": [
-        "ev_004"
+        "food_beverage_ev_0013"
       ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "baked_goods__contains__cookies_biscuits",
-      "source": "baked_goods",
-      "target": "cookies_biscuits",
+      "id": "food_beverage_001_04__contains__food_beverage_001_04_01",
+      "source": "food_beverage_001_04",
+      "target": "food_beverage_001_04_01",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "烘焙食品包含饼干与曲奇",
+      "description": "水产及果蔬供应包含水产及果蔬原料细分环节",
       "source_urls": [
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
+        "https://pdf.dfcfw.com/pdf/H3_AP202308161594849062_1.pdf"
       ],
       "evidence_ids": [
-        "ev_004"
+        "food_beverage_ev_0013"
       ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "nuts_seeds__contains__walnuts_almonds",
-      "source": "nuts_seeds",
-      "target": "walnuts_almonds",
+      "id": "food_beverage_001_01_01__contains__food_beverage_001_01_01_01",
+      "source": "food_beverage_001_01_01",
+      "target": "food_beverage_001_01_01_01",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "坚果炒货包含树坚果",
+      "description": "谷物原料包含小麦及玉米原料等具体原材料",
       "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html"
+        "https://t.cj.sina.cn/articles/view/7962326780/1da9776fc001016nrk"
       ],
       "evidence_ids": [
-        "ev_005"
+        "food_beverage_ev_0012"
       ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "tea_drinks__contains__flavor_tea",
-      "source": "tea_drinks",
-      "target": "flavor_tea",
+      "id": "food_beverage_001_02_01__contains__food_beverage_001_02_01_01",
+      "source": "food_beverage_001_02_01",
+      "target": "food_beverage_001_02_01_01",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "茶饮料包含调味茶饮料",
+      "description": "糖料及饮料作物原料包含蔗糖及甜菜原料等具体原材料",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://ic.tpex.org.tw/introduce.php?ic=M000"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0011"
       ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "tea_drinks__contains__pure_tea",
-      "source": "tea_drinks",
-      "target": "pure_tea",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "茶饮料包含无糖纯茶",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "agri_products__upstream_downstream__food_processing",
-      "source": "agri_products",
-      "target": "food_processing",
+      "id": "food_beverage_001_01_01__upstream_downstream__food_beverage_001_03_01",
+      "source": "food_beverage_001_01_01",
+      "target": "food_beverage_001_03_01",
       "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "农副产品作为原材料供应给食品加工制造环节",
+      "relation_weight": 0.85,
+      "description": "谷物（如玉米、高粱等）是畜禽养殖的重要饲料来源，构成产业链内部的上游原料供应关系。",
       "source_urls": [
-        "https://www.inwwin.com.cn/1192/view-1101888-1.html",
-        "https://zhuanlan.zhihu.com/p/2038611384401908743"
+        "https://baike.baidu.com/item/%E7%A7%8D%E6%A4%8D%E4%B8%9A/673446"
       ],
       "evidence_ids": [
-        "ev_005",
-        "ev_004"
+        "food_beverage_ev_0014"
       ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "agri_products__upstream_downstream__beverage_mfg",
-      "source": "agri_products",
-      "target": "beverage_mfg",
-      "relation_type": "upstream_downstream",
+      "id": "food_beverage_002__contains__food_beverage_002_01",
+      "source": "food_beverage_002",
+      "target": "food_beverage_002_01",
+      "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "农副产品（如水果、谷物）作为原材料供应给饮料及酒水制造环节",
+      "description": "食品添加剂包含甜味剂大类",
       "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
+        "https://www.foodtalks.cn/news/41394"
       ],
       "evidence_ids": [
-        "ev_002"
+        "food_beverage_ev_0021"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "additives__upstream_downstream__food_processing",
-      "source": "additives",
-      "target": "food_processing",
+      "id": "food_beverage_002__contains__food_beverage_002_02",
+      "source": "food_beverage_002",
+      "target": "food_beverage_002_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品添加剂包含防腐剂大类",
+      "source_urls": [
+        "https://www.chyxx.com/wiki/1189604.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0022"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002__contains__food_beverage_002_03",
+      "source": "food_beverage_002",
+      "target": "food_beverage_002_03",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品添加剂包含增稠剂与胶体",
+      "source_urls": [
+        "https://m.chinabaogao.com/detail/657187.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0023"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002__contains__food_beverage_002_04",
+      "source": "food_beverage_002",
+      "target": "food_beverage_002_04",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品添加剂包含食用香精香料",
+      "source_urls": [
+        "https://www.foodtalks.cn/news/41394"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0024"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002__contains__food_beverage_002_05",
+      "source": "food_beverage_002",
+      "target": "food_beverage_002_05",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品添加剂包含营养强化剂",
+      "source_urls": [
+        "https://www.chyxx.com/wiki/1189604.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0025"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002__contains__food_beverage_002_06",
+      "source": "food_beverage_002",
+      "target": "food_beverage_002_06",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品添加剂包含着色剂与护色剂",
+      "source_urls": [
+        "https://www.chemicalbook.com/NewsInfo_2039.htm"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0026"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01__contains__food_beverage_002_01_01",
+      "source": "food_beverage_002_01",
+      "target": "food_beverage_002_01_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "甜味剂按来源分为天然甜味剂",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0027"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01__contains__food_beverage_002_01_02",
+      "source": "food_beverage_002_01",
+      "target": "food_beverage_002_01_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "甜味剂按来源分为人工合成甜味剂",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0028"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01_01__contains__food_beverage_002_01_01_01",
+      "source": "food_beverage_002_01_01",
+      "target": "food_beverage_002_01_01_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "天然甜味剂具体产品包含赤藓糖醇",
+      "source_urls": [
+        "https://www.foodtalks.cn/news/41394"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0029"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01_01__contains__food_beverage_002_01_01_02",
+      "source": "food_beverage_002_01_01",
+      "target": "food_beverage_002_01_01_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "天然甜味剂具体产品包含甜菊糖苷",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0030"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_01_02__contains__food_beverage_002_01_02_01",
+      "source": "food_beverage_002_01_02",
+      "target": "food_beverage_002_01_02_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "人工合成甜味剂具体产品包含三氯蔗糖",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E7%94%9C%E5%91%B3%E5%89%82/2532096"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0031"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_02__contains__food_beverage_002_02_01",
+      "source": "food_beverage_002_02",
+      "target": "food_beverage_002_02_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "防腐剂包含化学合成防腐剂",
+      "source_urls": [
+        "https://www.chemicalbook.com/NewsInfo_2039.htm"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0032"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_02__contains__food_beverage_002_02_02",
+      "source": "food_beverage_002_02",
+      "target": "food_beverage_002_02_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "防腐剂包含天然生物防腐剂",
+      "source_urls": [
+        "https://www.chyxx.com/wiki/1189604.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0033"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002_04__contains__food_beverage_002_04_01",
+      "source": "food_beverage_002_04",
+      "target": "food_beverage_002_04_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食用香精香料包含天然香料提取物",
+      "source_urls": [
+        "https://m.chinabaogao.com/detail/657187.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0034"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_003__contains__food_beverage_003_01",
+      "source": "food_beverage_003",
+      "target": "food_beverage_003_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "塑料包装材料与容器是食品包装材料的五大核心分支之一。",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003__contains__food_beverage_003_02",
+      "source": "food_beverage_003",
+      "target": "food_beverage_003_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "纸基包装材料与容器是食品包装材料的重要分支。",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_02"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003__contains__food_beverage_003_03",
+      "source": "food_beverage_003",
+      "target": "food_beverage_003_03",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "金属包装材料与容器是食品包装材料的重要分支。",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202405231634397583_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_03"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003__contains__food_beverage_003_04",
+      "source": "food_beverage_003",
+      "target": "food_beverage_003_04",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "玻璃包装材料与容器是食品包装材料的重要分支。",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_04"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003__contains__food_beverage_003_05",
+      "source": "food_beverage_003",
+      "target": "food_beverage_003_05",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "复合与新型环保包装代表了食品包装材料的前沿与升级方向。",
+      "source_urls": [
+        "https://www.gminsights.com/zh/industry-analysis/eco-friendly-food-packaging-market"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_05"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_01__contains__food_beverage_003_01_1",
+      "source": "food_beverage_003_01",
+      "target": "food_beverage_003_01_1",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "塑料软包装薄膜是塑料包装的主要形态之一。",
+      "source_urls": [
+        "https://www.dongfangqb.com/article/5709"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_06"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_01__contains__food_beverage_003_01_2",
+      "source": "food_beverage_003_01",
+      "target": "food_beverage_003_01_2",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "塑料硬质包装容器是塑料包装的主要形态之一。",
+      "source_urls": [
+        "https://www.dongfangqb.com/article/5709"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_07"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_02__contains__food_beverage_003_02_1",
+      "source": "food_beverage_003_02",
+      "target": "food_beverage_003_02_1",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "瓦楞纸箱与运输纸包装是纸基包装在物流环节的应用形态。",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_08"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_02__contains__food_beverage_003_02_2",
+      "source": "food_beverage_003_02",
+      "target": "food_beverage_003_02_2",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品级白卡纸盒是纸基包装在终端零售展示环节的应用形态。",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_09"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_03__contains__food_beverage_003_03_1",
+      "source": "food_beverage_003_03",
+      "target": "food_beverage_003_03_1",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "铝制两片罐/易拉罐是金属包装中针对含气饮料的细分品类。",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202405231634397583_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_10"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_03__contains__food_beverage_003_03_2",
+      "source": "food_beverage_003_03",
+      "target": "food_beverage_003_03_2",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "马口铁三片罐是金属包装中针对罐头食品的细分品类。",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202405231634397583_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_11"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_04__contains__food_beverage_003_04_1",
+      "source": "food_beverage_003_04",
+      "target": "food_beverage_003_04_1",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "玻璃包装瓶罐是玻璃包装材料的具体产品形态。",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_12"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_05__contains__food_beverage_003_05_1",
+      "source": "food_beverage_003_05",
+      "target": "food_beverage_003_05_1",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "无菌纸基复合包是复合包装材料在液态奶及果汁领域的典型应用。",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/220617-15ead5df.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_13"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_003_05__contains__food_beverage_003_05_2",
+      "source": "food_beverage_003_05",
+      "target": "food_beverage_003_05_2",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "生物可降解与智能包装是新型环保包装的技术演进方向。",
+      "source_urls": [
+        "https://www.gminsights.com/zh/industry-analysis/eco-friendly-food-packaging-market",
+        "https://www.fortunebusinessinsights.com/zh/plastic-free-smart-food-packaging-market-110202"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_003_14"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02T12:00:00Z"
+    },
+    {
+      "id": "food_beverage_004__contains__food_beverage_004_01",
+      "source": "food_beverage_004",
+      "target": "food_beverage_004_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品加工与包装设备包含食品前处理与通用加工设备",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8A%A0%E5%B7%A5%E8%AE%BE%E5%A4%87/9561625"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_01"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004__contains__food_beverage_004_02",
+      "source": "food_beverage_004",
+      "target": "food_beverage_004_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品加工与包装设备包含食品专用加工设备",
+      "source_urls": [
+        "https://www.sohu.com/a/803679719_120113054"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_02"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004__contains__food_beverage_004_03",
+      "source": "food_beverage_004",
+      "target": "food_beverage_004_03",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品加工与包装设备包含食品包装机械设备",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8C%85%E8%A3%85%E6%9C%BA%E6%A2%B0/8144639"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_03"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004__contains__food_beverage_004_04",
+      "source": "food_beverage_004",
+      "target": "food_beverage_004_04",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品加工与包装设备包含智能控制与检测设备",
+      "source_urls": [
+        "https://m.snnfm.com/product/88.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_04"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_01__contains__food_beverage_004_01_01",
+      "source": "food_beverage_004_01",
+      "target": "food_beverage_004_01_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "前处理与通用设备包含清洗与分选设备",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8A%A0%E5%B7%A5%E8%AE%BE%E5%A4%87/9561625"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_05"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_01__contains__food_beverage_004_01_02",
+      "source": "food_beverage_004_01",
+      "target": "food_beverage_004_01_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "前处理与通用设备包含混合与均质设备",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202403171626952799_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_06"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_01__contains__food_beverage_004_01_03",
+      "source": "food_beverage_004_01",
+      "target": "food_beverage_004_01_03",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "前处理与通用设备包含杀菌与干燥设备",
+      "source_urls": [
+        "https://www.sohu.com/a/803679719_120113054"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_07"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_02__contains__food_beverage_004_02_01",
+      "source": "food_beverage_004_02",
+      "target": "food_beverage_004_02_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "专用加工设备包含饮料与流体加工设备",
+      "source_urls": [
+        "https://www.sohu.com/a/803679719_120113054"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_08"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_02__contains__food_beverage_004_02_02",
+      "source": "food_beverage_004_02",
+      "target": "food_beverage_004_02_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "专用加工设备包含烘焙与休闲食品加工设备",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202403171626952799_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_09"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_03__contains__food_beverage_004_03_01",
+      "source": "food_beverage_004_03",
+      "target": "food_beverage_004_03_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "包装机械设备包含灌装与封口设备",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202403171626952799_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_10"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_03__contains__food_beverage_004_03_02",
+      "source": "food_beverage_004_03",
+      "target": "food_beverage_004_03_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "包装机械设备包含后道包装与码垛设备",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8C%85%E8%A3%85%E6%9C%BA%E6%A2%B0/8144639"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_11"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_04__contains__food_beverage_004_04_01",
+      "source": "food_beverage_004_04",
+      "target": "food_beverage_004_04_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "智能控制与检测设备包含异物与品质检测设备",
+      "source_urls": [
+        "https://m.snnfm.com/product/88.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_12"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_01_01__upstream_downstream__food_beverage_004_01_02",
+      "source": "food_beverage_004_01_01",
+      "target": "food_beverage_004_01_02",
       "relation_type": "upstream_downstream",
       "relation_weight": 0.8,
-      "description": "食品添加剂及配料流向食品加工制造环节用于调味和防腐",
+      "description": "原料清洗分选后进入混合均质工序",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8A%A0%E5%B7%A5%E8%AE%BE%E5%A4%87/9561625"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_004_13"
       ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.8,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "additives__upstream_downstream__beverage_mfg",
-      "source": "additives",
-      "target": "beverage_mfg",
+      "id": "food_beverage_004_01_02__upstream_downstream__food_beverage_004_01_03",
+      "source": "food_beverage_004_01_02",
+      "target": "food_beverage_004_01_03",
       "relation_type": "upstream_downstream",
       "relation_weight": 0.8,
-      "description": "食品添加剂及配料流向饮料及酒水制造环节用于调味和调色",
+      "description": "物料混合均质后进入杀菌干燥工序",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://www.sohu.com/a/803679719_120113054"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_004_14"
       ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "confidence": 0.8,
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "dairy_raw__upstream_downstream__dairy_products",
-      "source": "dairy_raw",
-      "target": "dairy_products",
+      "id": "food_beverage_004_01_03__upstream_downstream__food_beverage_004_03_01",
+      "source": "food_beverage_004_01_03",
+      "target": "food_beverage_004_03_01",
       "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "生鲜乳及水产（核心为原奶）直接供应给乳制品加工环节",
+      "relation_weight": 0.8,
+      "description": "食品完成杀菌干燥后进入灌装封口环节",
       "source_urls": [
-        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf"
+        "https://pdf.dfcfw.com/pdf/H3_AP202403171626952799_1.pdf"
       ],
       "evidence_ids": [
-        "ev_003"
+        "food_beverage_ev_004_15"
+      ],
+      "confidence": 0.8,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_03_01__upstream_downstream__food_beverage_004_03_02",
+      "source": "food_beverage_004_03_01",
+      "target": "food_beverage_004_03_02",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 0.8,
+      "description": "产品灌装封口后进入后道包装与码垛环节",
+      "source_urls": [
+        "https://baike.baidu.com/item/%E9%A3%9F%E5%93%81%E5%8C%85%E8%A3%85%E6%9C%BA%E6%A2%B0/8144639"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_16"
+      ],
+      "confidence": 0.8,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004_03_02__upstream_downstream__food_beverage_004_04_01",
+      "source": "food_beverage_004_03_02",
+      "target": "food_beverage_004_04_01",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 0.8,
+      "description": "完成包装码垛后进行最终品质与异物在线检测",
+      "source_urls": [
+        "https://m.snnfm.com/product/88.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_004_17"
+      ],
+      "confidence": 0.8,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_005__contains__food_beverage_051",
+      "source": "food_beverage_005",
+      "target": "food_beverage_051",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料产品制造包含酒类制造细分环节",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/605244483"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "packaging__upstream_downstream__food_processing",
-      "source": "packaging",
-      "target": "food_processing",
+      "id": "food_beverage_005__contains__food_beverage_052",
+      "source": "food_beverage_005",
+      "target": "food_beverage_052",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料产品制造包含饮料制造细分环节",
+      "source_urls": [
+        "https://bg.qianzhan.com/report/keys/c9f37d3f.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_005__contains__food_beverage_053",
+      "source": "food_beverage_005",
+      "target": "food_beverage_053",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料产品制造包含乳制品制造细分环节",
+      "source_urls": [
+        "https://www.shui5.cn/article/cc/41677.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_005__contains__food_beverage_054",
+      "source": "food_beverage_005",
+      "target": "food_beverage_054",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料产品制造包含调味品制造细分环节",
+      "source_urls": [
+        "https://www.shui5.cn/article/cc/41677.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_005__contains__food_beverage_055",
+      "source": "food_beverage_005",
+      "target": "food_beverage_055",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料产品制造包含休闲食品制造细分环节",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/605244483"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_005__contains__food_beverage_056",
+      "source": "food_beverage_005",
+      "target": "food_beverage_056",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料产品制造包含焙烤食品制造细分环节",
+      "source_urls": [
+        "https://www.shui5.cn/article/cc/41677.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_005__contains__food_beverage_057",
+      "source": "food_beverage_005",
+      "target": "food_beverage_057",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料产品制造包含方便食品制造细分环节",
+      "source_urls": [
+        "https://www.shui5.cn/article/cc/41677.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_005__contains__food_beverage_058",
+      "source": "food_beverage_005",
+      "target": "food_beverage_058",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料产品制造包含肉制品加工细分环节",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/605244483"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_051__contains__food_beverage_0511",
+      "source": "food_beverage_051",
+      "target": "food_beverage_0511",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "酒类制造包含白酒制造细分产品",
+      "source_urls": [
+        "https://www.stats.gov.cn/sj/tjbz/gmjjhyfl/202501/P020250116506795831658.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_051__contains__food_beverage_0512",
+      "source": "food_beverage_051",
+      "target": "food_beverage_0512",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "酒类制造包含啤酒制造细分产品",
+      "source_urls": [
+        "https://www.stats.gov.cn/sj/tjbz/gmjjhyfl/202501/P020250116506795831658.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_052__contains__food_beverage_0521",
+      "source": "food_beverage_052",
+      "target": "food_beverage_0521",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "饮料制造包含包装饮用水制造细分产品",
+      "source_urls": [
+        "https://bg.qianzhan.com/report/keys/c9f37d3f.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_052__contains__food_beverage_0522",
+      "source": "food_beverage_052",
+      "target": "food_beverage_0522",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "饮料制造包含果蔬汁及碳酸饮料制造细分产品",
+      "source_urls": [
+        "https://bg.qianzhan.com/report/keys/c9f37d3f.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_055__contains__food_beverage_0551",
+      "source": "food_beverage_055",
+      "target": "food_beverage_0551",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "休闲食品制造包含坚果炒货制造细分产品",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/605244483"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_006__contains__food_beverage_061",
+      "source": "food_beverage_006",
+      "target": "food_beverage_061",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链物流与仓储服务包含冷链仓储设施与服务环节",
+      "source_urls": [
+        "https://www.ndrc.gov.cn/fggz/fzzlgh/gjjzxgh/202203/t20220325_1320204.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0600"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_006__contains__food_beverage_062",
+      "source": "food_beverage_006",
+      "target": "food_beverage_062",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链物流与仓储服务包含冷链运输装备与服务环节",
+      "source_urls": [
+        "https://www.ndrc.gov.cn/fggz/fzzlgh/gjjzxgh/202203/t20220325_1320204.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0600"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_006__contains__food_beverage_063",
+      "source": "food_beverage_006",
+      "target": "food_beverage_063",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链物流与仓储服务包含冷链包装与温控耗材环节",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/562665464"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0603"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_006__contains__food_beverage_064",
+      "source": "food_beverage_006",
+      "target": "food_beverage_064",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链物流与仓储服务包含冷链信息化与追溯系统环节",
+      "source_urls": [
+        "https://www.ttbz.org.cn/upload/file/20231130/6383694074400474676141707.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0604"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_061__contains__food_beverage_0611",
+      "source": "food_beverage_061",
+      "target": "food_beverage_0611",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链仓储设施与服务依托各类冷库设施实现",
+      "source_urls": [
+        "https://scs.moa.gov.cn/ccll/jszn/202306/t20230621_6430707.htm"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0601"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_062__contains__food_beverage_0621",
+      "source": "food_beverage_062",
+      "target": "food_beverage_0621",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链运输装备与服务包含冷藏车辆及制冷机组制造",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202011051426807760_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0602"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_062__contains__food_beverage_0622",
+      "source": "food_beverage_062",
+      "target": "food_beverage_0622",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链运输装备与服务涵盖实际落地的运输配送服务",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/279931914"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0605"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_063__contains__food_beverage_0631",
+      "source": "food_beverage_063",
+      "target": "food_beverage_0631",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链包装包含保温箱等物理隔绝容器",
+      "source_urls": [
+        "https://www.sf-express.com/chn/sc/express/add-service/pkg-temp"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0603"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_063__contains__food_beverage_0632",
+      "source": "food_beverage_063",
+      "target": "food_beverage_0632",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链包装包含冰袋等主动释冷耗材",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/562665464"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0603"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0611__contains__food_beverage_06111",
+      "source": "food_beverage_0611",
+      "target": "food_beverage_06111",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷库设施按建筑形态包含装配式冷库",
+      "source_urls": [
+        "https://scs.moa.gov.cn/ccll/jszn/202306/t20230621_6430707.htm"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0601"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0611__contains__food_beverage_06112",
+      "source": "food_beverage_0611",
+      "target": "food_beverage_06112",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷库设施按功能形态包含气调冷库",
+      "source_urls": [
+        "https://scs.moa.gov.cn/ccll/jszn/202306/t20230621_6430707.htm"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0601"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0622__contains__food_beverage_06221",
+      "source": "food_beverage_0622",
+      "target": "food_beverage_06221",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链运输服务按网络层级包含干线运输",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/279931914"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0605"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0622__contains__food_beverage_06222",
+      "source": "food_beverage_0622",
+      "target": "food_beverage_06222",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "冷链运输服务按网络层级包含城市配送",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/279931914"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0605"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0611__upstream_downstream__food_beverage_06221",
+      "source": "food_beverage_0611",
+      "target": "food_beverage_06221",
       "relation_type": "upstream_downstream",
       "relation_weight": 0.9,
-      "description": "包装产业为食品加工制造提供外包装及容器耗材",
+      "description": "冷库设施作为上游节点，为干线冷链运输提供前置仓储、分拣及货源集散服务",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://pdf.dfcfw.com/pdf/H3_AP202011051426807760_1.pdf"
       ],
       "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "packaging__upstream_downstream__beverage_mfg",
-      "source": "packaging",
-      "target": "beverage_mfg",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 0.9,
-      "description": "包装产业为饮料及酒水制造提供PET瓶、易拉罐及利乐包等容器",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "food_processing__upstream_downstream__retail_channels",
-      "source": "food_processing",
-      "target": "retail_channels",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "食品加工制造产成品进入流通与零售渠道进行分销",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "food_processing__upstream_downstream__catering",
-      "source": "food_processing",
-      "target": "catering",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 0.8,
-      "description": "食品加工制造产成品（如调味品、半成品）流向餐饮服务环节",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0602"
       ],
       "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
     },
     {
-      "id": "beverage_mfg__upstream_downstream__retail_channels",
-      "source": "beverage_mfg",
-      "target": "retail_channels",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "饮料及酒水制造产成品进入流通与零售渠道进行分销",
-      "source_urls": [
-        "https://finance.sina.cn/2022-09-17/detail-imqqsmrn9431081.d.html?vt=4"
-      ],
-      "evidence_ids": [
-        "ev_002"
-      ],
-      "confidence": 0.95,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "beverage_mfg__upstream_downstream__catering",
-      "source": "beverage_mfg",
-      "target": "catering",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 0.8,
-      "description": "饮料及酒水制造产成品流向餐饮服务环节供店内消费",
-      "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
-      ],
-      "evidence_ids": [
-        "ev_001"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-06-25T10:00:00Z"
-    },
-    {
-      "id": "cold_chain__upstream_downstream__retail_channels",
-      "source": "cold_chain",
-      "target": "retail_channels",
+      "id": "food_beverage_0631__upstream_downstream__food_beverage_06222",
+      "source": "food_beverage_0631",
+      "target": "food_beverage_06222",
       "relation_type": "upstream_downstream",
       "relation_weight": 0.9,
-      "description": "冷链与物流为流通与零售渠道提供生鲜及低温食品的履约支持",
+      "description": "保温包装容器作为耗材供应给城市冷链配送环节，保障末端生鲜履约温控",
       "source_urls": [
-        "https://bg.qianzhan.com/trends/detail/506/210810-0302e60b.html"
+        "https://zhuanlan.zhihu.com/p/562665464"
       ],
       "evidence_ids": [
-        "ev_001"
+        "food_beverage_ev_0603"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_0632__upstream_downstream__food_beverage_06222",
+      "source": "food_beverage_0632",
+      "target": "food_beverage_06222",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 0.9,
+      "description": "蓄冷剂与温控耗材配合保温箱，是城市冷链配送中维持低温环境的关键消耗品",
+      "source_urls": [
+        "https://www.sf-express.com/chn/sc/express/add-service/pkg-temp"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0603"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007__contains__food_beverage_007_01",
+      "source": "food_beverage_007",
+      "target": "food_beverage_007_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "全渠道销售包含线下实体零售渠道分支",
+      "source_urls": [
+        "https://www.foodtalks.cn/news/17352"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_base"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007__contains__food_beverage_007_02",
+      "source": "food_beverage_007",
+      "target": "food_beverage_007_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "全渠道销售包含线上电商与新零售渠道分支",
+      "source_urls": [
+        "https://www.tidesight.com/news/1370604.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_base"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007__contains__food_beverage_007_03",
+      "source": "food_beverage_007",
+      "target": "food_beverage_007_03",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "全渠道销售包含餐饮及特通渠道分支",
+      "source_urls": [
+        "https://www.21jingji.com/article/20260106/herald/5f19ef88b554d2f654a2a441f58acd94.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_base"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01__contains__food_beverage_007_01_01",
+      "source": "food_beverage_007_01",
+      "target": "food_beverage_007_01_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "线下实体零售包含现代商超与连锁便利店",
+      "source_urls": [
+        "https://cif.mofcom.gov.cn/cif/html/upload/20221027133715579_2021-2022%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BE%BF%E5%88%A9%E5%BA%97%E5%8F%91%E5%B1%95%E6%8A%A5%E5%91%8A.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01__contains__food_beverage_007_01_02",
+      "source": "food_beverage_007_01",
+      "target": "food_beverage_007_01_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "线下实体零售包含传统流通与下沉网点",
+      "source_urls": [
+        "https://www.cbndata.com/information/290285"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02__contains__food_beverage_007_02_01",
+      "source": "food_beverage_007_02",
+      "target": "food_beverage_007_02_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "线上电商包含综合电商与垂直电商平台",
+      "source_urls": [
+        "https://www.tidesight.com/news/1370604.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02__contains__food_beverage_007_02_02",
+      "source": "food_beverage_007_02",
+      "target": "food_beverage_007_02_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "线上电商包含内容电商与社区团购",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/433450424"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02__contains__food_beverage_007_02_03",
+      "source": "food_beverage_007_02",
+      "target": "food_beverage_007_02_03",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "线上电商包含O2O即时零售与同城配送",
+      "source_urls": [
+        "https://www.cbndata.com/information/294337"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_03__contains__food_beverage_007_03_01",
+      "source": "food_beverage_007_03",
+      "target": "food_beverage_007_03_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "餐饮及特通渠道包含连锁餐饮与团餐供应链",
+      "source_urls": [
+        "https://www.news.cn/food/20260413/da96be919d86403a8578bbbec7ac077a/c.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_03"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01_01__contains__food_beverage_007_01_01_01",
+      "source": "food_beverage_007_01_01",
+      "target": "food_beverage_007_01_01_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "现代商超包含大型连锁KA卖场",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202602111819863001_1.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_01_01__contains__food_beverage_007_01_01_02",
+      "source": "food_beverage_007_01_01",
+      "target": "food_beverage_007_01_01_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "现代商超包含连锁便利店网络",
+      "source_urls": [
+        "https://cif.mofcom.gov.cn/cif/html/upload/20221027133715579_2021-2022%E5%B9%B4%E4%B8%AD%E5%9B%BD%E4%BE%BF%E5%88%A9%E5%BA%97%E5%8F%91%E5%B1%95%E6%8A%A5%E5%91%8A.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_01_01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007_02_03__contains__food_beverage_007_02_03_01",
+      "source": "food_beverage_007_02_03",
+      "target": "food_beverage_007_02_03_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "O2O即时零售包含前置仓与即时履约网络",
+      "source_urls": [
+        "https://www.cbndata.com/information/294337"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_007_02_03"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008__contains__food_beverage_008_01",
+      "source": "food_beverage_008",
+      "target": "food_beverage_008_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "检验检测与产业支撑服务包含食品安全与质量检测环节",
+      "source_urls": [
+        "https://finance.sina.com.cn/roll/2024-03-25/doc-inapphuq4924479.shtml"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e01"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008__contains__food_beverage_008_02",
+      "source": "food_beverage_008",
+      "target": "food_beverage_008_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "检验检测与产业支撑服务包含认证认可与标准服务环节",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e02"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008__contains__food_beverage_008_03",
+      "source": "food_beverage_008",
+      "target": "food_beverage_008_03",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "检验检测与产业支撑服务包含研发与技术服务环节",
+      "source_urls": [
+        "https://yanfa.foodmate.net/"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e03"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008__contains__food_beverage_008_04",
+      "source": "food_beverage_008",
+      "target": "food_beverage_008_04",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "检验检测与产业支撑服务包含数字化与防伪溯源服务环节",
+      "source_urls": [
+        "https://www.aliyun.com/solution/blockchain/mytc"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e04"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008__contains__food_beverage_008_05",
+      "source": "food_beverage_008",
+      "target": "food_beverage_008_05",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "检验检测与产业支撑服务包含产业咨询与市场研究环节",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202110281525515415_1.pdf"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e05"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01__contains__food_beverage_008_01_01",
+      "source": "food_beverage_008_01",
+      "target": "food_beverage_008_01_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品安全与质量检测包含微生物与致病菌检测",
+      "source_urls": [
+        "https://www.merieuxnutrisciences.com.cn/?page_id=350"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e06"
       ],
       "confidence": 0.9,
-      "updated_at": "2026-06-25T10:00:00Z"
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01__contains__food_beverage_008_01_02",
+      "source": "food_beverage_008_01",
+      "target": "food_beverage_008_01_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品安全与质量检测包含农兽药残留与重金属检测",
+      "source_urls": [
+        "https://www.merieuxnutrisciences.com.cn/?page_id=350"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e07"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01__contains__food_beverage_008_01_03",
+      "source": "food_beverage_008_01",
+      "target": "food_beverage_008_01_03",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品安全与质量检测包含理化指标与营养成分检测",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e08"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_02__contains__food_beverage_008_02_01",
+      "source": "food_beverage_008_02",
+      "target": "food_beverage_008_02_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "认证认可与标准服务包含体系认证与有机认证",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e09"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_02__contains__food_beverage_008_02_02",
+      "source": "food_beverage_008_02",
+      "target": "food_beverage_008_02_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "认证认可与标准服务包含标准制定与合规咨询",
+      "source_urls": [
+        "https://www.cirs-group.com/cn/food/tsyxytpfspzcscqyxchcydjpdyz-sx"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e10"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_03__contains__food_beverage_008_03_01",
+      "source": "food_beverage_008_03",
+      "target": "food_beverage_008_03_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "研发与技术服务包含配方设计与工艺优化",
+      "source_urls": [
+        "https://yanfa.foodmate.net/"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e11"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_03__contains__food_beverage_008_03_02",
+      "source": "food_beverage_008_03",
+      "target": "food_beverage_008_03_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "研发与技术服务包含感官评价与货架期测试",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e12"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_04__contains__food_beverage_008_04_01",
+      "source": "food_beverage_008_04",
+      "target": "food_beverage_008_04_01",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "数字化与防伪溯源服务包含区块链防伪溯源平台",
+      "source_urls": [
+        "https://www.sciopen.com/local/article_pdf/10.7506/spkx1002-6630-20231201-001.pdf"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e13"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_04__contains__food_beverage_008_04_02",
+      "source": "food_beverage_008_04",
+      "target": "food_beverage_008_04_02",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "数字化与防伪溯源服务包含供应链数字化管理SaaS",
+      "source_urls": [
+        "https://www.aliyun.com/solution/blockchain/mytc"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e14"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01__upstream_downstream__food_beverage_008_02_01",
+      "source": "food_beverage_008_01",
+      "target": "food_beverage_008_02_01",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 0.8,
+      "description": "食品安全与质量检测的数据结果是开展体系认证与有机认证的前提基础",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e15"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_03_01__upstream_downstream__food_beverage_008_03_02",
+      "source": "food_beverage_008_03_01",
+      "target": "food_beverage_008_03_02",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 0.9,
+      "description": "配方设计与工艺优化完成后，需进行感官评价与货架期测试以验证产品稳定性",
+      "source_urls": [
+        "https://www.cti-cert.com/service/3116/31737.html"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e16"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008_01_02__upstream_downstream__food_beverage_008_04_01",
+      "source": "food_beverage_008_01_02",
+      "target": "food_beverage_008_04_01",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 0.8,
+      "description": "农兽药残留与重金属检测的质检报告数据作为关键节点信息上链至区块链防伪溯源平台",
+      "source_urls": [
+        "https://www.aliyun.com/solution/blockchain/mytc"
+      ],
+      "evidence_ids": [
+        "ev_fb_008_e17"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
     }
   ]
 }

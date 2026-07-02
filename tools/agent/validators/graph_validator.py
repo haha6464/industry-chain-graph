@@ -146,22 +146,31 @@ def write_markdown_report(report: dict[str, Any], output_path: Path) -> None:
         for item in report["issues"]:
             lines.append(f"- [{item['severity']}] {item['code']} {item.get('item_id', '')}：{item['message']}")
 
-    semantic = report.get("semantic_validation")
-    if semantic:
-        lines.extend(["", "## 百炼校验 Agent", ""] )
-        lines.append(f"- 状态：{semantic.get('validation_status', 'unknown')}")
-        if semantic.get("summary"):
+    format_repair = report.get("format_repair")
+    if format_repair:
+        lines.extend(["", "## 格式修复 Agent", ""] )
+        lines.append(f"- 状态：{format_repair.get('validation_status', 'unknown')}")
+        if format_repair.get("summary"):
             lines.append(f"- 总结：{semantic['summary']}")
-        lines.append(f"- 最小修改数：{len(semantic.get('modifications', []))}")
-        lines.append(f"- 语义复核项：{len(semantic.get('review_items', []))}")
-        if semantic.get("modifications"):
+        lines.append(f"- 最小修改数：{len(format_repair.get('modifications', []))}")
+        lines.append(f"- 格式复核项：{len(format_repair.get('review_items', []))}")
+        if format_repair.get("modifications"):
             lines.extend(["", "### 修改清单", ""] )
-            for item in semantic.get("modifications", []):
+            for item in format_repair.get("modifications", []):
                 lines.append(f"- {item.get('type', 'update')} {item.get('target_id', '')}：{item.get('reason', '')}")
-        if semantic.get("review_items"):
-            lines.extend(["", "### 语义复核项", ""] )
-            for item in semantic.get("review_items", []):
+        if format_repair.get("review_items"):
+            lines.extend(["", "### 格式复核项", ""] )
+            for item in format_repair.get("review_items", []):
                 lines.append(f"- [{item.get('severity', 'warning')}] {item.get('item_id', '')}：{item.get('reason', '')} {item.get('suggestion', '')}")
+
+    quality = report.get("quality_evaluation")
+    if quality:
+        lines.extend(["", "## 阶段质量评估意见", ""])
+        for item in quality.get("items", []):
+            label = item.get("branch_name") or item.get("stage", "")
+            lines.append(f"- {label}：{item.get('status', 'unknown')}，score={item.get('score', '-')}, revised={item.get('revised', False)}。{item.get('summary', '')}")
+            for opinion in item.get("opinions", []) or []:
+                lines.append(f"  - {opinion}")
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -186,3 +195,5 @@ if __name__ == "__main__":
     default_output = Path("data") / "industries" / args.industry_id / "validation_report.md"
     result = validate_industry(args.industry_id, args.graph_file, args.output or default_output)
     print(f"{result['status']}: {result['error_count']} errors, {result['warning_count']} warnings")
+
+

@@ -16,13 +16,14 @@
 自动联网构建食品饮料候选图谱：
 
 ```powershell
-.\scripts\run-agent.ps1 tools\agent\build_graph.py --industry-id food_beverage --industry-name 食品饮料行业
+.\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage skeleton
+.\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage branches
 ```
 
 确认校验通过后写回正式 `graph.json`：
 
 ```powershell
-.\scripts\run-agent.ps1 tools\agent\build_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --apply
+.\scripts\run-agent.ps1 tools\agent\final_validate_graph.py --industry-id food_beverage
 ```
 
 启动前后端查看图谱：
@@ -72,8 +73,16 @@ OPENAI_MODEL=
 
 DASHSCOPE_API_KEY=
 BAILIAN_BASE_URL=
-BAILIAN_MODEL=
+BAILIAN_MODEL=qwen3.7-max
+BAILIAN_SEARCH_STRATEGY=agent_max
+BAILIAN_TIMEOUT_SECONDS=600
+BAILIAN_MAX_RETRIES=1
+BAILIAN_STAGED_MAX_BRANCHES=8
+BAILIAN_ENABLE_THINKING=true
+BAILIAN_ENABLE_CODE_INTERPRETER=false
 ```
+
+其中 `BAILIAN_ENABLE_CODE_INTERPRETER` 默认建议为 `false`，产业链抽取主要依赖联网搜索和网页抽取；打开 code interpreter 会明显拉长构建时间。若百炼长时间无响应，可先将 `BAILIAN_TIMEOUT_SECONDS` 调低到 `300`，或将 `BAILIAN_SEARCH_STRATEGY` 从 `agent_max` 调整为较快策略后重试。
 
 ## 25 个目标行业
 
@@ -118,17 +127,18 @@ BAILIAN_MODEL=
 ### 1. 自动构建候选图谱
 
 ```powershell
-.\scripts\run-agent.ps1 tools\agent\build_graph.py --industry-id food_beverage --industry-name 食品饮料行业
+.\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage skeleton
+.\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage branches
 ```
 
-构建 Agent 会调用 Qwen Responses API，并启用 `web_search`、`web_extractor`、`code_interpreter`。
+构建 Agent 会调用 Qwen Responses API，默认启用 `web_search`、`web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先生成一级骨架，再按一级分支多次小请求扩展，最后合并为候选图谱。`BAILIAN_STAGED_MAX_BRANCHES` 控制最多扩展多少个一级分支。
 
 ### 2. 写回正式图谱
 
 只有硬规则复检无 error，且百炼校验没有 `fail` 时，`--apply` 才会覆盖正式 `graph.json`。
 
 ```powershell
-.\scripts\run-agent.ps1 tools\agent\build_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --apply
+.\scripts\run-agent.ps1 tools\agent\final_validate_graph.py --industry-id food_beverage
 ```
 
 ### 3. 构建产物
@@ -138,19 +148,19 @@ data/industries/food_beverage/search_plan.json
 data/industries/food_beverage/agent_raw_response.txt
 data/industries/food_beverage/pre_validation_candidate_graph.json
 data/industries/food_beverage/validation_agent_raw_response.txt
-data/industries/food_beverage/semantic_validation_report.json
+data/industries/food_beverage/format_repair_report.json
 data/industries/food_beverage/candidate_graph.json
 data/industries/food_beverage/sources.jsonl
 data/industries/food_beverage/validation_report.md
 data/industries/food_beverage/validation_report.json
 data/industries/food_beverage/review_queue.json
-data/industries/food_beverage/build_report.md
+data/industries/food_beverage/
 data/industries/food_beverage/exports/
 ```
 
 - `pre_validation_candidate_graph.json`：百炼抽取后的原始候选图谱。
 - `candidate_graph.json`：百炼校验 Agent 最小修正后的候选图谱。
-- `semantic_validation_report.json`：百炼校验、修改和复核建议。
+- `format_repair_report.json`：硬规则失败时的格式修复报告。
 - `validation_report.md/json`：硬规则 + 百炼校验综合报告。
 - `review_queue.json`：需要人工复核的问题。
 
@@ -264,7 +274,9 @@ data/industries/food_beverage/update_report.md
 ## 后端 Agent API
 
 ```text
-POST /api/agent/build
+POST /api/agent/build-skeleton
+POST /api/agent/build-branches
+POST /api/agent/final-validate
 POST /api/agent/update
 GET  /api/agent/runs/{run_id}
 GET  /api/agent/runs/{run_id}/report
@@ -277,7 +289,7 @@ GET  /api/industries/{industry_id}/agent-artifacts/{artifact_name}
 触发食品饮料构建：
 
 ```powershell
-Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8010/api/agent/build" -ContentType "application/json" -Body '{"industry_id":"food_beverage","industry_name":"食品饮料行业","target_depth":"5-6 层，60-100 个节点，最多 150 个节点"}'
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8010/api/agent/build-skeleton" -ContentType "application/json" -Body '{"industry_id":"food_beverage","industry_name":"食品饮料行业","target_depth":"5-6 层，60-100 个节点，最多 150 个节点"}'
 ```
 
 导出 CSV：
@@ -322,3 +334,5 @@ cd ..
 - 增加批量行业运行脚本，对 25 个行业统一执行构建、校验、更新检查和导出。
 - 为 25 个行业批量运行 Agent 构建，并补齐正式 `graph.json`、校验报告和 CSV 数据包。
 - 继续增强 Agent 工作流页：补充运行进度轮询、复核队列编辑、CSV 文件下载和正式应用前确认。
+
+

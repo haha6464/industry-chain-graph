@@ -1,0 +1,378 @@
+{
+  "industry": "食品饮料行业",
+  "version": "v0.2-staged-build",
+  "schema_version": "standard_industry_graph_v0.2_agent",
+  "generated_at": "2026-07-02T12:00:00Z",
+  "scope": "分阶段产业链图谱构建；不包含公司节点、股票代码、财务指标。",
+  "source_basis": [
+    {
+      "name": "新浪财经-2026年中国饮料行业全景图谱",
+      "url": "https://finance.sina.com.cn/roll/2026-04-21/doc-inhvfivk6377628.shtml",
+      "note": "提供饮料及食品饮料产业链中游核心环节及上下游结构剖析"
+    },
+    {
+      "name": "沙利文-2024中国食品饮料行业白皮书",
+      "url": "https://aigc.idigital.com.cn/djyanbao/%E3%80%90%E6%B2%99%E5%88%A9%E6%96%87%E5%85%AC%E5%8F%B8%E3%80%91%E9%A3%9F%E4%B8%BA%E5%A4%A9%EF%BC%9A2024%E4%B8%AD%E5%9B%BD%E9%A3%9F%E5%93%81%E9%A5%AE%E6%96%99%E8%A1%8C%E4%B8%9A%E7%99%BD%E7%9A%AE%E4%B9%A6-2024-09-09.pdf",
+      "note": "解析食品饮料全产业链各环节发展现状及冷链物流融合趋势"
+    },
+    {
+      "name": "联合资信-食品饮料行业2025年信用风险研究",
+      "url": "https://www.lhratings.com/file/g060863f067.pdf",
+      "note": "分析食品饮料销售渠道、冷链物流成本及产业链信用结构"
+    },
+    {
+      "name": "前瞻产业研究院-食品饮料行业分析报告",
+      "url": "https://bg.qianzhan.com/report/list2/3425.html",
+      "note": "梳理中国食品饮料产业链上下游结构及包装、原材料等环节"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "food_beverage_000",
+      "name": "食品饮料行业",
+      "node_type": "产业链",
+      "tags": [
+        "level_0",
+        "root"
+      ],
+      "industry": "食品饮料行业",
+      "level": 0,
+      "chain_position": "root",
+      "parent_id": "",
+      "description": "涵盖从农产品原料到终端消费者的完整食品饮料生产与流通体系。",
+      "business_description": "涵盖从农产品原料到终端消费者的完整食品饮料生产与流通体系。",
+      "is_key_node": true,
+      "chain_segment": "产业链全景",
+      "source_urls": [
+        "https://finance.sina.com.cn/roll/2026-04-21/doc-inhvfivk6377628.shtml"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0000"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_001",
+      "name": "农副产品及原料供应",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_000",
+      "description": "提供粮食、水果、蔬菜、肉类、奶源、糖类等食品饮料基础农林牧渔原材料。",
+      "business_description": "提供粮食、水果、蔬菜、肉类、奶源、糖类等食品饮料基础农林牧渔原材料。",
+      "is_key_node": true,
+      "chain_segment": "前端原材料",
+      "source_urls": [
+        "https://finance.sina.com.cn/roll/2026-05-05/doc-inhwusxq9997173.shtml"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_002",
+      "name": "食品添加剂与配料",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_000",
+      "description": "提供香精香料、防腐剂、甜味剂、色素等改善食品品质与口感的辅助材料。",
+      "business_description": "提供香精香料、防腐剂、甜味剂、色素等改善食品品质与口感的辅助材料。",
+      "is_key_node": true,
+      "chain_segment": "前端辅料",
+      "source_urls": [
+        "https://www.163.com/dy/article/KS5H1MUO05148U2B.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_003",
+      "name": "食品包装材料与容器",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "food_beverage_000",
+      "description": "提供玻璃瓶、PET塑料、纸盒、金属易拉罐等用于食品保鲜与防护的包装载体。",
+      "business_description": "提供玻璃瓶、PET塑料、纸盒、金属易拉罐等用于食品保鲜与防护的包装载体。",
+      "is_key_node": true,
+      "chain_segment": "前端包材",
+      "source_urls": [
+        "https://bg.qianzhan.com/report/list2/3425.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_004",
+      "name": "食品加工与包装设备",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "support",
+      "parent_id": "food_beverage_000",
+      "description": "提供杀菌、灌装、成型、包装等食品饮料工业化生产所需的机械设备。",
+      "business_description": "提供杀菌、灌装、成型、包装等食品饮料工业化生产所需的机械设备。",
+      "is_key_node": true,
+      "chain_segment": "生产装备",
+      "source_urls": [
+        "https://www.zhanhuiquan.com/info/show?id=229693"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_005",
+      "name": "食品饮料产品制造",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_000",
+      "description": "将原材料加工为白酒、啤酒、乳制品、休闲食品、调味品及软饮料等终端产品。",
+      "business_description": "将原材料加工为白酒、啤酒、乳制品、休闲食品、调味品及软饮料等终端产品。",
+      "is_key_node": true,
+      "chain_segment": "核心制造",
+      "source_urls": [
+        "https://aigc.idigital.com.cn/djyanbao/%E3%80%90%E6%B2%99%E5%88%A9%E6%96%87%E5%85%AC%E5%8F%B8%E3%80%91%E9%A3%9F%E4%B8%BA%E5%A4%A9%EF%BC%9A2024%E4%B8%AD%E5%9B%BD%E9%A3%9F%E5%93%81%E9%A5%AE%E6%96%99%E8%A1%8C%E4%B8%9A%E7%99%BD%E7%9A%AE%E4%B9%A6-2024-09-09.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0005"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_006",
+      "name": "冷链物流与仓储服务",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_000",
+      "description": "提供保鲜、冷藏运输及专业仓储服务，保障短保及温控食品饮料的品质与安全。",
+      "business_description": "提供保鲜、冷藏运输及专业仓储服务，保障短保及温控食品饮料的品质与安全。",
+      "is_key_node": true,
+      "chain_segment": "流通交付",
+      "source_urls": [
+        "https://www.lhratings.com/file/g060863f067.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0006"
+      ],
+      "confidence": 0.9,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_007",
+      "name": "全渠道销售与终端零售",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "food_beverage_000",
+      "description": "涵盖商超、便利店、餐饮渠道、电商平台及零食量贩店等触达消费者的流通网络。",
+      "business_description": "涵盖商超、便利店、餐饮渠道、电商平台及零食量贩店等触达消费者的流通网络。",
+      "is_key_node": true,
+      "chain_segment": "终端渠道",
+      "source_urls": [
+        "https://finance.sina.com.cn/roll/2026-04-21/doc-inhvfivk6377628.shtml"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0007"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_008",
+      "name": "检验检测与产业支撑服务",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "support",
+      "parent_id": "food_beverage_000",
+      "description": "提供食品安全检测、研发设计、数字化营销及碳中和管理等产业配套支撑服务。",
+      "business_description": "提供食品安全检测、研发设计、数字化营销及碳中和管理等产业配套支撑服务。",
+      "is_key_node": true,
+      "chain_segment": "产业支撑",
+      "source_urls": [
+        "https://www.iyiou.com/research/20220331990"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0008"
+      ],
+      "confidence": 0.85,
+      "updated_at": "2026-07-02"
+    }
+  ],
+  "edges": [
+    {
+      "id": "food_beverage_000__contains__food_beverage_001",
+      "source": "food_beverage_000",
+      "target": "food_beverage_001",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含农副产品及原料供应环节",
+      "source_urls": [
+        "https://finance.sina.com.cn/roll/2026-05-05/doc-inhwusxq9997173.shtml"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_000__contains__food_beverage_002",
+      "source": "food_beverage_000",
+      "target": "food_beverage_002",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含食品添加剂与配料环节",
+      "source_urls": [
+        "https://www.163.com/dy/article/KS5H1MUO05148U2B.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_000__contains__food_beverage_003",
+      "source": "food_beverage_000",
+      "target": "food_beverage_003",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含食品包装材料与容器环节",
+      "source_urls": [
+        "https://bg.qianzhan.com/report/list2/3425.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_000__contains__food_beverage_004",
+      "source": "food_beverage_000",
+      "target": "food_beverage_004",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含食品加工与包装设备环节",
+      "source_urls": [
+        "https://www.zhanhuiquan.com/info/show?id=229693"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_000__contains__food_beverage_005",
+      "source": "food_beverage_000",
+      "target": "food_beverage_005",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含食品饮料产品制造环节",
+      "source_urls": [
+        "https://aigc.idigital.com.cn/djyanbao/%E3%80%90%E6%B2%99%E5%88%A9%E6%96%87%E5%85%AC%E5%8F%B8%E3%80%91%E9%A3%9F%E4%B8%BA%E5%A4%A9%EF%BC%9A2024%E4%B8%AD%E5%9B%BD%E9%A3%9F%E5%93%81%E9%A5%AE%E6%96%99%E8%A1%8C%E4%B8%9A%E7%99%BD%E7%9A%AE%E4%B9%A6-2024-09-09.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0005"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_000__contains__food_beverage_006",
+      "source": "food_beverage_000",
+      "target": "food_beverage_006",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含冷链物流与仓储服务环节",
+      "source_urls": [
+        "https://www.lhratings.com/file/g060863f067.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0006"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_000__contains__food_beverage_007",
+      "source": "food_beverage_000",
+      "target": "food_beverage_007",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含全渠道销售与终端零售环节",
+      "source_urls": [
+        "https://finance.sina.com.cn/roll/2026-04-21/doc-inhvfivk6377628.shtml"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0007"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    },
+    {
+      "id": "food_beverage_000__contains__food_beverage_008",
+      "source": "food_beverage_000",
+      "target": "food_beverage_008",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含检验检测与产业支撑服务环节",
+      "source_urls": [
+        "https://www.iyiou.com/research/20220331990"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0008"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-02"
+    }
+  ]
+}

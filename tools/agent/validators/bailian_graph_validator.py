@@ -5,19 +5,8 @@ import os
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
-
 from tools.agent.common import PROJECT_ROOT, standardize_graph
-from tools.agent.search.bailian_responses_agent import BailianAgentError
-
-DEFAULT_BASE_URL = "https://llm-5h22uw9yblw6v1rz.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
-DEFAULT_MODEL = "qwen3.7-max"
-DEFAULT_SEARCH_STRATEGY = "agent_max"
-
-
-def _load_env() -> None:
-    load_dotenv(PROJECT_ROOT / ".env", override=False)
-    load_dotenv(PROJECT_ROOT / "backend" / ".env", override=False)
+from tools.agent.bailian_client import BailianAgentError, call_bailian_responses, load_bailian_env
 
 
 def _response_text(response: Any) -> str:
@@ -64,46 +53,35 @@ def _compact_graph(graph: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_bailian_validation_prompt(graph: dict[str, Any], deterministic_report: dict[str, Any]) -> str:
+    error_issues = [item for item in deterministic_report.get("issues", []) if item.get("severity") == "error"]
     payload = {
         "graph": _compact_graph(graph),
-        "deterministic_validation": deterministic_report,
+        "hard_rule_errors": error_issues,
     }
     return """
-你是一个产业链图谱校验与最小修正 Agent。你的任务不是重新生成整张图，而是在候选图谱基础上做严格校验，并只做必要的最小修改。
+你是产业链图谱格式修复 Agent。请只根据硬规则错误修复 graph 的工程格式问题，不要评价或重构产业链分类质量。
 
-校验规则：
-1. 不允许公司节点、公司列表、股票代码、财务指标、个股信息。
-2. 每个节点和每条关系必须至少有 1 个 URL 来源。
-3. 只允许 contains 和 upstream_downstream 两类关系。
-4. contains 表示父节点 -> 子节点；upstream_downstream 表示上游 -> 下游。
-5. 同一节点对只允许一种主关系。
-6. 节点命名要避免明显同义重复。
-7. level 是数字层级深度，chain_position/chain_segment 是上游、中游、下游、支持等位置标签；不要把 level 简化成上中下游三层。
-8. 如果能通过小修解决问题，请直接修改 graph；如果需要大改或证据不足，放入 review_items，不要臆造。
-9. 候选图谱目标规模为 60-100 个节点，硬上限 150 个节点；校验时不要因为追求简洁而把合理的横向分支压缩掉。
-10. 检查图谱广度：level=1 应覆盖主要一级环节，重要一级环节应有多个二级/三级兄弟分支；如果节点数低于 60 或分支明显偏窄，应添加 review_items 提醒补充广度。
-
-允许的最小修改：
-- 合并明显重复或同义节点，并同步关系引用。
-- 修正明显错误的数字层级、chain_position、chain_segment、parent_id；必要时保留 5-6 层左右的合理细分深度和 60-100 个节点左右的横向广度，不要为了整齐强行压缩。
-- 修正明显反向的上下游关系。
-- 删除明显违反规则的公司/股票/财务节点或关系。
-- 补齐缺失但可由已有来源支持的 description、source_urls、confidence。
-- 对无法确认的问题添加 review_items。
+只允许处理这些问题：
+1. 缺失必填字段、字段类型错误、非法 relation_type。
+2. contains / upstream_downstream 关系方向或引用节点不存在导致的格式错误。
+3. 同一 source-target 存在多种主关系的冲突。
+4. 节点或关系缺少 source_urls 时，只能从同节点、同关系两端节点或 source_basis 中已有 URL 补齐；没有依据则放入 review_items。
+5. 公司字段、股票代码、财务指标等明显违反当前数据格式的内容。
 
 禁止：
-- 大规模重写图谱。
-- 在没有 URL 来源时新增节点或关系。
-- 引入公司字段或公司节点。
-- 输出 Markdown 或解释文字。
+- 不要因为产业链质量、覆盖广度、层级粒度去新增或删除节点。
+- 不要大规模重写图谱。
+- 不要引入新的产业链判断。
+- 不要联网补资料。
+- 不要输出 Markdown 或解释文字。
 
 请返回严格 JSON：
 {
   "validation_status": "pass/needs_review/fail",
-  "summary": "一句话总结",
+  "summary": "一句话说明修复了哪些格式问题",
   "modified_graph": {完整 graph JSON，包含 nodes 和 edges},
   "modifications": [
-    {"type": "merge_node/update_node/update_edge/delete_node/delete_edge", "target_id": "", "reason": "", "source_urls": []}
+    {"type": "update_node/update_edge/delete_node/delete_edge", "target_id": "", "reason": "", "source_urls": []}
   ],
   "review_items": [
     {"severity": "warning/error", "item_id": "", "reason": "", "suggestion": ""}
@@ -112,7 +90,6 @@ def build_bailian_validation_prompt(graph: dict[str, Any], deterministic_report:
 
 输入如下：
 """.strip() + "\n" + json.dumps(payload, ensure_ascii=False)
-
 
 def _check_minimal_change(original: dict[str, Any], modified: dict[str, Any]) -> list[dict[str, Any]]:
     issues = []
@@ -140,36 +117,20 @@ def validate_and_repair_with_bailian(
     deterministic_report: dict[str, Any],
     prompt_path: Path | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any], str]:
-    _load_env()
+    load_bailian_env()
     api_key = os.getenv("DASHSCOPE_API_KEY") or os.getenv("BAILIAN_API_KEY")
     if not api_key:
-        raise BailianAgentError("DASHSCOPE_API_KEY or BAILIAN_API_KEY is required for semantic validation and repair.")
+        raise BailianAgentError("DASHSCOPE_API_KEY or BAILIAN_API_KEY is required for format repair.")
     try:
         from openai import OpenAI
     except ImportError as exc:
-        raise BailianAgentError("openai package is required for semantic validation. Run .\\scripts\\setup-conda.ps1 to update the conda environment.") from exc
+        raise BailianAgentError("openai package is required for format repair. Run .\\scripts\\setup-conda.ps1 to update the conda environment.") from exc
 
     standardized = standardize_graph(graph, industry_id)
     prompt = build_bailian_validation_prompt(standardized, deterministic_report)
     if prompt_path:
         prompt_path.write_text(prompt, encoding="utf-8")
-    client = OpenAI(api_key=api_key, base_url=os.getenv("BAILIAN_BASE_URL", DEFAULT_BASE_URL))
-    response = client.responses.create(
-        model=os.getenv("BAILIAN_MODEL", DEFAULT_MODEL),
-        input=prompt,
-        tools=[
-            {"type": "web_search"},
-            {"type": "web_extractor"},
-            {"type": "code_interpreter"},
-        ],
-        extra_body={
-            "enable_thinking": os.getenv("BAILIAN_ENABLE_THINKING", "true").lower() == "true",
-            "search_options": {
-                "forced_search": True,
-                "search_strategy": os.getenv("BAILIAN_SEARCH_STRATEGY", DEFAULT_SEARCH_STRATEGY),
-            },
-        },
-    )
+    response = call_bailian_responses(prompt, "格式修复", use_search_tools=False)
     raw_text = _response_text(response)
     result = _extract_json_object(raw_text)
     modified_graph = result.get("modified_graph") or standardized
@@ -186,3 +147,5 @@ def validate_and_repair_with_bailian(
         "review_items": review_items,
     }
     return modified_graph, report, raw_text
+
+

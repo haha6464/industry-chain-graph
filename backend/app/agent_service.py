@@ -18,7 +18,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from tools.agent.common import industry_dir, read_json, read_jsonl, standardize_graph, write_json, write_jsonl
 from tools.agent.export_csv import export_graph_csv, export_industry_csv
 from tools.agent.search.search_planner import build_search_plan
-from tools.agent.validators.graph_validator import validate_graph, validate_industry, write_markdown_report
+from tools.agent.validators.graph_validator import validate_graph, write_markdown_report
 
 
 @dataclass(frozen=True)
@@ -38,17 +38,25 @@ ARTIFACT_SPECS = [
     ArtifactSpec("review_queue", "人工复核队列", "review_queue.json", "json"),
     ArtifactSpec("validation_report", "规则校验报告", "validation_report.md", "markdown"),
     ArtifactSpec("validation_report_json", "规则校验数据", "validation_report.json", "json"),
-    ArtifactSpec("semantic_validation_report", "百炼语义校验报告", "semantic_validation_report.json", "json"),
-    ArtifactSpec("build_report", "构建报告", "build_report.md", "markdown"),
+    ArtifactSpec("format_repair_report", "格式修复报告", "format_repair_report.json", "json"),
     ArtifactSpec("update_proposal", "更新提案", "update_proposal.json", "json"),
     ArtifactSpec("update_candidate_graph", "更新候选图谱", "update_candidate_graph.json", "json"),
     ArtifactSpec("update_report", "更新报告", "update_report.md", "markdown"),
     ArtifactSpec("agent_request_prompt", "构建 Agent 请求提示词", "agent_request_prompt.txt", "text"),
     ArtifactSpec("agent_raw_response", "构建 Agent 原始响应", "agent_raw_response.txt", "text"),
+    ArtifactSpec("staged_level1_graph", "分阶段一级骨架", "staged_level1_graph.json", "json"),
+    ArtifactSpec("staged_level1_evaluation", "一级骨架质量评估", "staged_level1_evaluation.json", "json"),
+    ArtifactSpec("staged_branch_fragments", "分阶段分支扩展", "staged_branch_fragments.json", "json"),
+    ArtifactSpec("staged_branch_evaluations", "分支质量评估", "staged_branch_evaluations.json", "json"),
+    ArtifactSpec("staged_quality_opinions", "合并质量意见", "staged_quality_opinions.json", "json"),
+    ArtifactSpec("staged_merged_graph", "分阶段合并图谱", "staged_merged_graph.json", "json"),
+    ArtifactSpec("staged_errors", "分阶段失败记录", "staged_errors.json", "json"),
+    ArtifactSpec("agent_error", "构建 Agent 失败信息", "agent_error.txt", "text"),
     ArtifactSpec("validation_agent_request_prompt", "校验 Agent 请求提示词", "validation_agent_request_prompt.txt", "text"),
     ArtifactSpec("validation_agent_raw_response", "校验 Agent 原始响应", "validation_agent_raw_response.txt", "text"),
     ArtifactSpec("update_agent_request_prompt", "更新 Agent 请求提示词", "update_agent_request_prompt.txt", "text"),
     ArtifactSpec("update_agent_raw_response", "更新 Agent 原始响应", "update_agent_raw_response.txt", "text"),
+    ArtifactSpec("update_agent_error", "更新 Agent 失败信息", "update_agent_error.txt", "text"),
 ]
 ARTIFACT_BY_NAME = {spec.name: spec for spec in ARTIFACT_SPECS}
 
@@ -190,26 +198,53 @@ def run_search_plan(industry_id: str, industry_name: str | None) -> dict[str, An
     return _register_completed_run("search_plan", industry_id, str(plan_path), ["搜索规划已生成。"])
 
 
-def run_validate(industry_id: str) -> dict[str, Any]:
-    report_path = industry_dir(industry_id) / "validation_report.md"
-    validate_industry(industry_id, report_path=report_path)
-    return _register_completed_run("validate", industry_id, str(report_path), ["硬规则校验已完成。"])
-
-
-def run_build(industry_id: str, industry_name: str | None, target_depth: str) -> dict[str, Any]:
+def run_final_validate(industry_id: str) -> dict[str, Any]:
     output_dir = industry_dir(industry_id)
     output_dir.mkdir(parents=True, exist_ok=True)
+    input_path = output_dir / "pre_validation_candidate_graph.json"
+    if not input_path.exists():
+        raise FileNotFoundError("找不到 pre_validation_candidate_graph.json，请先运行构建生成校验前候选图谱。")
     command = [
         sys.executable,
-        "tools/agent/build_graph.py",
+        "tools/agent/final_validate_graph.py",
+        "--industry-id",
+        industry_id,
+    ]
+    return _start_subprocess_run("final_validate", industry_id, command, output_dir / "validation_report.md")
+
+
+def _build_candidate_command(industry_id: str, industry_name: str | None, target_depth: str, stage: str) -> list[str]:
+    command = [
+        sys.executable,
+        "tools/agent/build_candidate_graph.py",
         "--industry-id",
         industry_id,
         "--target-depth",
         target_depth,
+        "--strategy",
+        "staged",
+        "--stage",
+        stage,
     ]
     if industry_name:
         command.extend(["--industry-name", industry_name])
-    return _start_subprocess_run("build", industry_id, command, output_dir / "build_report.md")
+    return command
+
+
+def run_build_skeleton(industry_id: str, industry_name: str | None, target_depth: str) -> dict[str, Any]:
+    output_dir = industry_dir(industry_id)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    command = _build_candidate_command(industry_id, industry_name, target_depth, "skeleton")
+    return _start_subprocess_run("build_skeleton", industry_id, command, output_dir / "staged_level1_evaluation.json")
+
+
+def run_build_branches(industry_id: str, industry_name: str | None, target_depth: str) -> dict[str, Any]:
+    output_dir = industry_dir(industry_id)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    if not (output_dir / "staged_level1_graph.json").exists():
+        raise FileNotFoundError("找不到 staged_level1_graph.json，请先运行一级骨架构建。")
+    command = _build_candidate_command(industry_id, industry_name, target_depth, "branches")
+    return _start_subprocess_run("build_branches", industry_id, command, output_dir / "pre_validation_candidate_graph.json")
 
 
 def run_update(industry_id: str, mode: str) -> dict[str, Any]:
@@ -375,3 +410,27 @@ def read_agent_artifact(industry_id: str, name: str) -> dict[str, Any]:
         "path": str(path),
         "content": content,
     }
+
+def delete_agent_artifact(industry_id: str, name: str) -> dict[str, Any]:
+    spec = ARTIFACT_BY_NAME.get(name)
+    if spec is None:
+        raise FileNotFoundError(f"Unknown artifact: {name}")
+    path = _artifact_path(industry_id, spec)
+    if not path.exists():
+        raise FileNotFoundError(f"Artifact not found: {name}")
+    path.unlink()
+    return {
+        "industry_id": industry_id,
+        "name": spec.name,
+        "label": spec.label,
+        "path": str(path),
+        "deleted": True,
+    }
+
+
+
+
+
+
+
+

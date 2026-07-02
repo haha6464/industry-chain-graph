@@ -2,7 +2,7 @@ import httpx
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.agent_service import apply_candidate_graph, cancel_run, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_build, run_search_plan, run_update, run_validate
+from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_build_branches, run_build_skeleton, run_search_plan, run_final_validate, run_update
 from app.ai_service import AIConfigurationError, answer_with_graph_context
 from app.config import Settings, get_settings
 from app.graph_loader import load_industry_graph, load_manifest
@@ -169,23 +169,31 @@ def create_agent_search_plan(request: AgentRunRequest) -> AgentRunResponse:
     return AgentRunResponse(**result)
 
 
-@app.post("/api/agent/validate", response_model=AgentRunResponse)
-def validate_agent_graph(request: AgentUpdateRequest) -> AgentRunResponse:
+@app.post("/api/agent/final-validate", response_model=AgentRunResponse)
+def final_validate_agent_graph(request: AgentUpdateRequest) -> AgentRunResponse:
     try:
-        result = run_validate(request.industry_id)
+        result = run_final_validate(request.industry_id)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return AgentRunResponse(**result)
 
 
-@app.post("/api/agent/build", response_model=AgentRunResponse)
-def build_agent_graph(request: AgentRunRequest) -> AgentRunResponse:
+@app.post("/api/agent/build-skeleton", response_model=AgentRunResponse)
+def build_agent_skeleton(request: AgentRunRequest) -> AgentRunResponse:
     try:
-        result = run_build(request.industry_id, request.industry_name, request.target_depth)
+        result = run_build_skeleton(request.industry_id, request.industry_name, request.target_depth)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return AgentRunResponse(**result)
 
+
+@app.post("/api/agent/build-branches", response_model=AgentRunResponse)
+def build_agent_branches(request: AgentRunRequest) -> AgentRunResponse:
+    try:
+        result = run_build_branches(request.industry_id, request.industry_name, request.target_depth)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return AgentRunResponse(**result)
 
 @app.post("/api/agent/update", response_model=AgentRunResponse)
 def update_agent_graph(request: AgentUpdateRequest) -> AgentRunResponse:
@@ -258,6 +266,13 @@ def get_agent_artifact(industry_id: str, artifact_name: str) -> AgentArtifactCon
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
+@app.delete("/api/industries/{industry_id}/agent-artifacts/{artifact_name}")
+def delete_industry_agent_artifact(industry_id: str, artifact_name: str) -> dict[str, str | bool]:
+    try:
+        return delete_agent_artifact(industry_id, artifact_name)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
 
 
 @app.post("/api/ask", response_model=AskResponse)
@@ -284,3 +299,10 @@ async def ask(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except httpx.HTTPError as exc:  # type: ignore[name-defined]
         raise HTTPException(status_code=502, detail=f"AI 服务调用失败：{exc}") from exc
+
+
+
+
+
+
+

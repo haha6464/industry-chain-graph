@@ -75,15 +75,22 @@ export async function createSearchPlan(industryId: string, industryName: string)
   });
 }
 
-export async function validateAgentGraph(industryId: string) {
-  return request<AgentRunResponse>("/api/agent/validate", {
+export async function finalValidateAgentGraph(industryId: string) {
+  return request<AgentRunResponse>("/api/agent/final-validate", {
     method: "POST",
     body: JSON.stringify({ industry_id: industryId, mode: "check_only" })
   });
 }
 
-export async function buildAgentGraph(industryId: string, industryName: string, targetDepth = "5-6 层，60-100 个节点，最多 150 个节点") {
-  return request<AgentRunResponse>("/api/agent/build", {
+export async function buildAgentSkeleton(industryId: string, industryName: string, targetDepth = "5-6 层，60-100 个节点，最多 150 个节点") {
+  return request<AgentRunResponse>("/api/agent/build-skeleton", {
+    method: "POST",
+    body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
+  });
+}
+
+export async function buildAgentBranches(industryId: string, industryName: string, targetDepth = "5-6 层，60-100 个节点，最多 150 个节点") {
+  return request<AgentRunResponse>("/api/agent/build-branches", {
     method: "POST",
     body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
   });
@@ -116,6 +123,12 @@ export async function fetchAgentArtifact(industryId: string, artifactName: strin
   return request<AgentArtifactContent>(`/api/industries/${industryId}/agent-artifacts/${artifactName}`);
 }
 
+export async function deleteAgentArtifact(industryId: string, artifactName: string) {
+  return request<{ industry_id: string; name: string; label: string; path: string; deleted: boolean }>(`/api/industries/${industryId}/agent-artifacts/${artifactName}`, {
+    method: "DELETE"
+  });
+}
+
 
 export async function applyCandidateGraph(industryId: string, candidateType: CandidateGraphType) {
   return request<AgentRunResponse>(`/api/industries/${industryId}/apply-candidate`, {
@@ -131,3 +144,10 @@ export async function exportIndustryCsv(industryId: string) {
 export async function fetchIndustryExports(industryId: string) {
   return request<{ industry_id: string; exports: string[] }>(`/api/industries/${industryId}/exports`);
 }
+
+
+
+
+
+
+

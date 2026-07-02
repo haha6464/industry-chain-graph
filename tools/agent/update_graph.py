@@ -98,7 +98,12 @@ def update_graph(industry_id: str, mode: str) -> dict[str, object]:
     graph = load_graph(industry_id)
     existing_sources = read_jsonl(output_dir / "sources.jsonl")
     _log("请求百炼联网搜索并生成增量提案，提示词将写入 update_agent_request_prompt.txt。")
-    proposal, raw_text = call_bailian_update_agent(graph, existing_sources, mode, output_dir / "update_agent_request_prompt.txt")
+    try:
+        proposal, raw_text = call_bailian_update_agent(graph, existing_sources, mode, output_dir / "update_agent_request_prompt.txt")
+    except Exception as exc:
+        (output_dir / "update_agent_error.txt").write_text(f"{type(exc).__name__}: {exc}\n", encoding="utf-8")
+        _log("百炼增量更新失败，错误已写入 update_agent_error.txt。")
+        raise
     proposal["industry_id"] = industry_id
     raw_path = output_dir / "update_agent_raw_response.txt"
     raw_path.write_text(raw_text, encoding="utf-8")
