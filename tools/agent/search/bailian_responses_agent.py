@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 from tools.agent.common import PROJECT_ROOT, content_hash, now_iso
@@ -36,15 +37,76 @@ def _response_text(response: Any) -> str:
     return str(response)
 
 
+def _strip_json_fences(text: str) -> str:
+    cleaned = text.strip()
+    cleaned = re.sub(r"^\s*```(?:json)?\s*", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\s*```\s*$", "", cleaned)
+    return cleaned.strip()
+
+
+def _json_object_candidates(text: str) -> list[str]:
+    cleaned = _strip_json_fences(text)
+    candidates: list[str] = []
+    start: int | None = None
+    depth = 0
+    in_string = False
+    escaped = False
+    for index, char in enumerate(cleaned):
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+        elif char == "{":
+            if depth == 0:
+                start = index
+            depth += 1
+        elif char == "}" and depth:
+            depth -= 1
+            if depth == 0 and start is not None:
+                candidates.append(cleaned[start : index + 1])
+                start = None
+    if candidates:
+        return candidates
+    start_index = cleaned.find("{")
+    end_index = cleaned.rfind("}")
+    if start_index != -1 and end_index > start_index:
+        return [cleaned[start_index : end_index + 1]]
+    return []
+
+
+def _repair_json_text(text: str) -> str:
+    repaired = _strip_json_fences(text)
+    repaired = repaired.replace("“", '"').replace("”", '"')
+    repaired = repaired.replace("，", ",").replace("：", ":")
+    repaired = re.sub(r",\s*([}\]])", r"\1", repaired)
+    repaired = re.sub(
+        r'("(?:[^"\\]|\\.)*"|-?\d+(?:\.\d+)?|true|false|null|\]|\})\s*\n\s*(")',
+        r"\1,\n\2",
+        repaired,
+    )
+    return repaired
+
+
 def _extract_json_object(text: str) -> dict[str, Any]:
-    start = text.find("{")
-    end = text.rfind("}")
-    if start == -1 or end == -1 or end <= start:
+    candidates = _json_object_candidates(text)
+    if not candidates:
         raise BailianAgentError("Qwen response did not contain a JSON object.")
-    try:
-        return json.loads(text[start : end + 1])
-    except json.JSONDecodeError as exc:
-        raise BailianAgentError(f"Qwen response JSON parse failed: {exc}") from exc
+
+    errors: list[str] = []
+    for candidate in candidates:
+        for current in (candidate, _repair_json_text(candidate)):
+            try:
+                return json.loads(current)
+            except json.JSONDecodeError as exc:
+                errors.append(str(exc))
+    preview = _strip_json_fences(text)[:500].replace("\n", "\\n")
+    raise BailianAgentError(f"Qwen response JSON parse failed: {errors[-1]}; preview={preview}") from None
 
 
 def build_bailian_search_prompt(industry_id: str, industry_name: str, target_depth: str) -> str:
@@ -147,6 +209,9 @@ def evidence_from_agent_graph(industry_id: str, graph: dict[str, Any]) -> list[d
             }
         )
     return rows
+
+
+
 
 
 

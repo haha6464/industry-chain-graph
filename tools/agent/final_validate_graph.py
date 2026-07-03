@@ -24,6 +24,27 @@ from tools.agent.validators.graph_validator import validate_graph, write_markdow
 def _log(message: str) -> None:
     print(f"[agent] {message}", flush=True)
 
+_ARTIFACT_LABELS = {
+    "candidate_graph": "候选图谱",
+    "sources": "来源记录",
+    "validation_report": "校验报告",
+    "review_queue": "复核队列",
+    "validation_agent_raw_response": "格式修复原始响应",
+    "format_repair_report": "格式修复报告",
+    "node_csv": "节点 CSV",
+    "edge_csv": "关系 CSV",
+}
+
+
+def _log_result_summary(result: dict[str, Any]) -> None:
+    artifact_labels = [
+        _ARTIFACT_LABELS.get(key, key)
+        for key, value in result.items()
+        if key not in {"industry_id", "input_graph"} and value
+    ]
+    _log(f"完成：{result.get('industry_id', '')}。")
+    if artifact_labels:
+        _log("已生成产物：" + "、".join(artifact_labels) + "。")
 
 def _read_quality_opinions(output_dir: Path) -> dict[str, Any] | None:
     path = output_dir / "staged_quality_opinions.json"
@@ -134,5 +155,6 @@ if __name__ == "__main__":
     parser.add_argument("--graph-file", type=Path)
     args = parser.parse_args()
     result = run_final_validation(args.industry_id, args.graph_file)
-    print(result)
+    _log_result_summary(result)
+
 

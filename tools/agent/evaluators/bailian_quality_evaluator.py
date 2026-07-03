@@ -99,7 +99,18 @@ def _revision_prompt(stage: str, industry_id: str, industry_name: str, graph: di
 def _call_quality_json(prompt: str, purpose: str) -> tuple[dict[str, Any], str]:
     response = call_bailian_responses(prompt, purpose, use_search_tools=False)
     raw_text = _response_text(response)
-    return _extract_json_object(raw_text), raw_text
+    try:
+        return _extract_json_object(raw_text), raw_text
+    except BailianAgentError as exc:
+        return {
+            "status": "needs_revision",
+            "score": 0,
+            "summary": "质量评估返回内容不是可解析 JSON，已保留原始响应供人工复核。",
+            "opinions": ["质量评估 JSON 解析失败，不能自动判定本阶段产业链分类质量。"],
+            "revision_focus": ["请人工查看 evaluation_raw_response，确认是否需要重跑或手动调整。"],
+            "parse_error": True,
+            "parse_error_message": str(exc),
+        }, raw_text
 
 
 def evaluate_seed_graph(industry_name: str, seed_graph: dict[str, Any]) -> tuple[dict[str, Any], str, str]:
@@ -146,5 +157,6 @@ def evaluation_passed(evaluation: dict[str, Any]) -> bool:
         return int(evaluation.get("score", 0)) >= 80 and status != "needs_revision"
     except (TypeError, ValueError):
         return False
+
 
 

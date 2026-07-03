@@ -36,6 +36,29 @@ from tools.agent.search.staged_bailian_builder import (
 def _log(message: str) -> None:
     print(f"[agent] {message}", flush=True)
 
+_ARTIFACT_LABELS = {
+    "search_plan": "搜索计划",
+    "staged_level1_graph": "一级骨架",
+    "staged_level1_evaluation": "骨架评估",
+    "staged_quality_opinions": "质量意见",
+    "agent_raw_response": "原始响应",
+    "pre_validation_candidate_graph": "校验前候选图谱",
+    "staged_branch_fragments": "分支片段",
+    "staged_branch_evaluations": "分支评估",
+    "staged_merged_graph": "分阶段合并图谱",
+    "staged_errors": "分支错误记录",
+}
+
+
+def _log_result_summary(result: dict[str, Any]) -> None:
+    artifact_labels = [
+        _ARTIFACT_LABELS.get(key, key)
+        for key, value in result.items()
+        if key != "industry_id" and value
+    ]
+    _log(f"完成：{result.get('industry_id', '')}。")
+    if artifact_labels:
+        _log("已生成产物：" + "、".join(artifact_labels) + "。")
 
 def _quality_opinions(seed_record: dict[str, Any], branch_records: list[dict[str, Any]]) -> dict[str, Any]:
     items = []
@@ -129,7 +152,9 @@ def build_level1_skeleton(
         "revised": False,
         "graph": seed_graph,
     }
-    if not evaluation_passed(seed_evaluation):
+    if seed_evaluation.get("parse_error"):
+        _log("一级骨架质量评估 JSON 解析失败，保留骨架并跳过自动修正。")
+    elif not evaluation_passed(seed_evaluation):
         _log("一级骨架评估未通过，按评估意见请求修正骨架。")
         revised_seed, revise_raw, revise_prompt = revise_seed_graph(industry_id, resolved_industry_name, seed_graph, seed_evaluation)
         seed_graph = revised_seed
@@ -227,7 +252,9 @@ def build_branch_candidates(
                 "revised": False,
                 "graph": branch_graph,
             }
-            if not evaluation_passed(branch_evaluation):
+            if branch_evaluation.get("parse_error"):
+                _log(f"分支 {branch_name} 质量评估 JSON 解析失败，保留当前分支并跳过自动修正。")
+            elif not evaluation_passed(branch_evaluation):
                 _log(f"分支 {branch_name} 评估未通过，按意见请求修正该分支。")
                 revised_branch, revise_raw, revise_prompt = revise_branch_graph(
                     industry_id,
@@ -329,7 +356,11 @@ if __name__ == "__main__":
         result = build_branch_candidates(args.industry_id, args.industry_name, args.target_depth)
     else:
         result = build_pre_validation_candidate(args.industry_id, args.industry_name, args.target_depth, args.strategy)
-    print(result)
+    _log_result_summary(result)
+
+
+
+
 
 
 

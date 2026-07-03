@@ -88,10 +88,15 @@ def export_industry_csv(industry_id: str, output_dir: Path | None = None) -> dic
     return export_graph_csv(load_graph(industry_id), industry_id, output_dir)
 
 
+def _print_export_summary(result: dict[str, str]) -> None:
+    print(f"[agent] CSV 导出完成：{result.get('industry_id', '')}。", flush=True)
+    print("[agent] 已生成产物：节点 CSV、关系 CSV。", flush=True)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Export mentor CSV files from graph.json.")
     parser.add_argument("--industry-id", required=True)
     parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
     result = export_industry_csv(args.industry_id, args.output_dir)
-    print(result)
+    _print_export_summary(result)
+

@@ -22,6 +22,26 @@ from tools.agent.validators.graph_validator import validate_graph, write_markdow
 def _log(message: str) -> None:
     print(f"[agent] {message}", flush=True)
 
+_ARTIFACT_LABELS = {
+    "proposal": "更新提案",
+    "update_report": "更新报告",
+    "update_candidate_graph": "更新候选图谱",
+    "update_agent_raw_response": "更新原始响应",
+    "node_csv": "节点 CSV",
+    "edge_csv": "关系 CSV",
+}
+
+
+def _log_result_summary(result: dict[str, Any]) -> None:
+    artifact_labels = [
+        _ARTIFACT_LABELS.get(key, key)
+        for key, value in result.items()
+        if key not in {"industry_id", "status", "applied"} and value
+    ]
+    applied_text = "已写回正式图谱" if result.get("applied") else "未写回正式图谱"
+    _log(f"完成：{result.get('industry_id', '')}，状态 {result.get('status', 'unknown')}，{applied_text}。")
+    if artifact_labels:
+        _log("已生成产物：" + "、".join(artifact_labels) + "。")
 
 def _index_by_id(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return {item["id"]: item for item in items if item.get("id")}
@@ -160,4 +180,5 @@ if __name__ == "__main__":
     parser.add_argument("--mode", choices=["check_only", "propose", "apply"], default="check_only")
     args = parser.parse_args()
     result = update_graph(args.industry_id, args.mode)
-    print(result)
+    _log_result_summary(result)
+
