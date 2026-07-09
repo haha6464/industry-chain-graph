@@ -8,7 +8,7 @@ from tools.agent.bailian_client import BailianAgentError, call_bailian_responses
 from tools.agent.common import now_iso, standardize_graph, write_json
 from tools.agent.search.bailian_responses_agent import _extract_json_object, _response_text
 
-DEFAULT_BRANCH_TARGET = "8-12 个新增节点，优先覆盖 level=2/3；只有核心产品、原料、设备等证据充分的分支才展开到 level=4"
+DEFAULT_BRANCH_TARGET = "10-16 个新增节点，必须覆盖 level=2/3；核心分支在证据充分时应继续展开到 level=4/5"
 INVESTMENT_RESEARCH_NODE_POLICY = """
 投研产业链节点口径：
 - 目标读者是证券/金融投研人员，节点应是可用于行业比较、成本拆解、上下游传导、公司业务归因的稳定产业分类单元。
@@ -16,7 +16,7 @@ INVESTMENT_RESEARCH_NODE_POLICY = """
 - 不要抽取：公司/品牌/股票/财务指标、新闻事件、政策标题、报告标题、市场规模/趋势、消费者画像、平台能力、泛咨询服务、纯管理动作、过度技术方案、营销概念。
 - 节点名称必须是行业名词短语，避免“解决方案/平台/体系/网络/SaaS/咨询/研究/管理/服务能力”等泛化能力词单独成节点；确有必要时应上收为更稳定的细分赛道。
 - 同一父节点下兄弟节点粒度要一致：不能把“行业大类”和“单一产品/单项技术/单个服务模式”放在同一级；不能一边是大类，一边是单品、技术方案或运营动作。
-- 深度要均衡：一级分支通常展开到 L3；核心供给、生产/转换、关键材料、核心零部件、专用设备、重要产品/服务分支可到 L4；渠道、物流、检测认证、运维、咨询等支撑分支通常止于 L2-L3，除非有清晰且稳定的产业子类。
+- 深度要均衡但不能过浅：一级分支通常至少展开到 L3；核心供给、生产/转换、关键材料、核心零部件、专用设备、重要产品/服务分支在证据充分时应展开到 L4，少数核心长链可到 L5；渠道、物流、检测认证、运维、咨询等支撑分支通常止于 L3-L4，除非有清晰且稳定的产业子类。
 """.strip()
 
 
@@ -102,7 +102,7 @@ def build_seed_prompt(industry_id: str, industry_name: str, target_depth: str) -
 5. level=1 不要命名为“上游/中游/下游”；名称必须是稳定产业环节，不要用“咨询研究、数字化平台、解决方案、市场服务”等泛服务能力做一级节点。
 6. 只输出 contains 关系：根节点 -> 一级环节。
 7. 每个节点和关系必须保留至少 1 个 URL 来源。
-8. 总体构建目标为：{target_depth}；本阶段只打宽骨架，不深挖。
+8. 总体构建目标为：{target_depth}；本阶段只打宽骨架，不深挖，但需要为后续哪些一级分支可展开到 L4/L5 留出清晰主干。
 
 {_json_schema_hint(industry_id, industry_name)}
 """.strip()
@@ -138,13 +138,13 @@ def build_branch_prompt(
 硬性要求：
 1. 必须联网搜索，不要只依赖模型内部知识。
 2. 不要抽取公司节点，不要公司列表，不要股票代码、财务指标或个股信息。
-3. 输出该分支下的 level=2/3/4 子节点，目标为 {DEFAULT_BRANCH_TARGET}；不要为了凑深度生成不稳定或过细节点。
-4. 重点补横向兄弟分支，不要只沿一条链深挖；同一父节点下兄弟节点的粒度和命名范式必须一致。
-5. 每个新增节点都应通过 parent_id 和 contains 关系挂到该分支或其下级节点。
-6. 可以补充该分支内部明确的 upstream_downstream 关系，但不要用它替代 contains 层级。
-7. 只输出与该分支相关的节点和关系；可以重复输出当前分支节点作为父节点，但不要输出其他一级分支。
+3. 输出该分支下的 level=2/3/4/5 子节点，目标为 {DEFAULT_BRANCH_TARGET}；不要为了凑深度生成不稳定或过细节点，但核心产业链分支不能全部停在 L3。
+4. 先补横向兄弟分支，再选择 1-3 条最核心、证据最充分的子链继续下钻到 L4/L5；同一父节点下兄弟节点的粒度和命名范式必须一致。
+5. 每个新增节点都必须且只能有一个 parent_id，并且只输出一条与 parent_id 完全一致的 contains 父子关系；不要让同一个节点挂到多个父节点。
+6. 原则上以 contains 父子隶属关系为主；仅当同一一级分支内部存在明确工序/流向时，才可补充少量 upstream_downstream，且不要用它替代 contains 层级。
+7. 只输出与该分支相关的节点和关系；可以重复输出当前分支节点作为父节点，但不要输出其他一级分支，也不要建立跨一级分支的 upstream_downstream 关系。若该分支适合深挖，应保证至少一条 contains 路径达到 L4 或 L5。
 8. 每个节点和关系必须保留至少 1 个 URL 来源。
-9. 总体构建目标为：{target_depth}；若当前分支属于渠道、物流、检测认证、运维、咨询等支撑环节，通常止于 L2-L3；若属于核心供给、生产/转换、关键材料、核心零部件、专用设备、重要产品/服务，可在证据充分时到 L4。
+9. 总体构建目标为：{target_depth}；若当前分支属于核心供给、生产/转换、关键材料、核心零部件、专用设备、重要产品/服务，应优先形成 L4 深度，少数关键链条可到 L5；若属于渠道、物流、检测认证、运维、咨询等支撑环节，通常止于 L3-L4，确有稳定产业子类时可到 L5。
 
 {_json_schema_hint(industry_id, industry_name)}
 """.strip()
@@ -237,8 +237,11 @@ def merge_staged_graphs(
     return standardize_graph(merged, industry_id)
 
 
-def staged_branch_limit() -> int:
-    return _env_int("BAILIAN_STAGED_MAX_BRANCHES", 8)
+def staged_branch_limit(total_branches: int) -> int:
+    configured = _env_int("BAILIAN_STAGED_BRANCH_LIMIT", 0)
+    if configured <= 0 or configured >= total_branches:
+        return total_branches
+    return configured
 
 
 def write_staged_artifacts(output_dir, seed_graph: dict[str, Any], fragments: list[dict[str, Any]], merged_graph: dict[str, Any], errors: list[dict[str, Any]]) -> None:
@@ -246,6 +249,11 @@ def write_staged_artifacts(output_dir, seed_graph: dict[str, Any], fragments: li
     write_json(output_dir / "staged_branch_fragments.json", {"items": fragments})
     write_json(output_dir / "staged_merged_graph.json", merged_graph)
     write_json(output_dir / "staged_errors.json", {"items": errors})
+
+
+
+
+
 
 
 

@@ -60,31 +60,38 @@ def _log_result_summary(result: dict[str, Any]) -> None:
     if artifact_labels:
         _log("已生成产物：" + "、".join(artifact_labels) + "。")
 
+def _quality_opinion_item(stage: str, evaluation: dict[str, Any], record: dict[str, Any]) -> dict[str, Any]:
+    initial_status = evaluation.get("status") or "unknown"
+    revised = bool(record.get("revised"))
+    item = {
+        "stage": stage,
+        "status": "auto_revised" if revised else initial_status,
+        "initial_status": initial_status,
+        "revision_status": "auto_revised_not_rechecked" if revised else "not_revised",
+        "score": evaluation.get("score"),
+        "initial_score": evaluation.get("score"),
+        "summary": evaluation.get("summary", ""),
+        "opinions": evaluation.get("opinions", []) or [],
+        "revision_focus": evaluation.get("revision_focus", []) or [],
+        "revised": revised,
+    }
+    if revised:
+        item["revision_note"] = "已按初评意见自动修正，但未再次请求 LLM 打分；请以后续最终图谱和人工复核为准。"
+    return item
+
+
 def _quality_opinions(seed_record: dict[str, Any], branch_records: list[dict[str, Any]]) -> dict[str, Any]:
     items = []
     seed_eval = seed_record.get("evaluation") or {}
-    items.append({
-        "stage": "level1_skeleton",
-        "status": seed_eval.get("status"),
-        "score": seed_eval.get("score"),
-        "summary": seed_eval.get("summary", ""),
-        "opinions": seed_eval.get("opinions", []) or [],
-        "revision_focus": seed_eval.get("revision_focus", []) or [],
-        "revised": bool(seed_record.get("revised")),
-    })
+    items.append(_quality_opinion_item("level1_skeleton", seed_eval, seed_record))
     for record in branch_records:
         branch_eval = record.get("evaluation") or {}
-        items.append({
-            "stage": "branch",
+        item = _quality_opinion_item("branch", branch_eval, record)
+        item.update({
             "branch_id": record.get("branch_id"),
             "branch_name": record.get("branch_name"),
-            "status": branch_eval.get("status"),
-            "score": branch_eval.get("score"),
-            "summary": branch_eval.get("summary", ""),
-            "opinions": branch_eval.get("opinions", []) or [],
-            "revision_focus": branch_eval.get("revision_focus", []) or [],
-            "revised": bool(record.get("revised")),
         })
+        items.append(item)
     return {"items": items}
 
 
@@ -215,15 +222,19 @@ def build_branch_candidates(
     _log(f"准备基于一级骨架扩展分支：{resolved_industry_name}。")
 
     level_one_nodes = [node for node in seed_graph.get("nodes", []) if int(node.get("level", 0)) == 1]
-    branch_limit = staged_branch_limit()
-    _log(f"发现 {len(level_one_nodes)} 个一级分支，最多扩展 {branch_limit} 个。")
+    branch_limit = staged_branch_limit(len(level_one_nodes))
+    if branch_limit >= len(level_one_nodes):
+        _log(f"发现 {len(level_one_nodes)} 个一级分支，将全部扩展。")
+    else:
+        _log(f"发现 {len(level_one_nodes)} 个一级分支，按调试上限扩展 {branch_limit} 个。")
 
     branch_graphs = []
     branch_records: list[dict[str, Any]] = []
     staged_errors = []
-    for index, branch_node in enumerate(level_one_nodes[:branch_limit], start=1):
+    branches_to_expand = level_one_nodes[:branch_limit]
+    for index, branch_node in enumerate(branches_to_expand, start=1):
         branch_name = branch_node.get("name", branch_node.get("id", ""))
-        _log(f"扩展分支 {index}/{min(len(level_one_nodes), branch_limit)}：{branch_name}。")
+        _log(f"扩展分支 {index}/{len(branches_to_expand)}：{branch_name}。")
         try:
             branch_graph, branch_raw_text, branch_prompt = call_bailian_branch_graph(
                 industry_id,
@@ -357,6 +368,9 @@ if __name__ == "__main__":
     else:
         result = build_pre_validation_candidate(args.industry_id, args.industry_name, args.target_depth, args.strategy)
     _log_result_summary(result)
+
+
+
 
 
 

@@ -142,16 +142,71 @@ def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, 
         )
 
     node_lookup = {node["id"]: node for node in nodes}
+
+    def top_level_branch(node_id: str) -> str | None:
+        current_id = node_id
+        visited: set[str] = set()
+        while current_id and current_id not in visited:
+            visited.add(current_id)
+            current = node_lookup.get(current_id)
+            if not current:
+                return None
+            if int(current.get("level", 0)) == 1:
+                return current_id
+            parent_id = current.get("parent_id") or ""
+            if not parent_id:
+                return None
+            current_id = parent_id
+        return None
+
+    raw_edges = sorted(raw_graph.get("edges", []), key=lambda item: 0 if item.get("relation_type") == "contains" else 1)
+
+    for edge in raw_edges:
+        if edge.get("relation_type") != "contains":
+            continue
+        source = edge.get("source")
+        target = edge.get("target")
+        if source in node_lookup and target in node_lookup and not node_lookup[target].get("parent_id"):
+            node_lookup[target]["parent_id"] = source
+
+    parent_contains_pairs = {
+        (node.get("parent_id"), node_id)
+        for node_id, node in node_lookup.items()
+        if node.get("parent_id") and node.get("parent_id") in node_lookup
+    }
+    raw_edge_by_key = {
+        (edge.get("source"), edge.get("target"), edge.get("relation_type")): edge
+        for edge in raw_edges
+    }
+    tree_edges = [
+        raw_edge_by_key.get((source, target, "contains"), {"source": source, "target": target, "relation_type": "contains"})
+        for source, target in sorted(parent_contains_pairs)
+    ]
+    flow_edges = [edge for edge in raw_edges if edge.get("relation_type") == "upstream_downstream"]
+    raw_edges = [*tree_edges, *flow_edges]
+    contains_node_pairs = {frozenset(pair) for pair in parent_contains_pairs}
     edges = []
-    seen_pairs: set[tuple[str, str]] = set()
-    for edge in raw_graph.get("edges", []):
+    seen_node_pairs: set[frozenset[str]] = set()
+    for edge in raw_edges:
         source = edge["source"]
         target = edge["target"]
         relation_type = edge["relation_type"]
-        pair = (source, target)
-        if pair in seen_pairs:
+        if source not in node_lookup or target not in node_lookup:
             continue
-        seen_pairs.add(pair)
+        node_pair = frozenset((source, target))
+        if node_pair in seen_node_pairs:
+            continue
+        if relation_type == "contains":
+            if (source, target) not in parent_contains_pairs:
+                continue
+        elif relation_type == "upstream_downstream":
+            if node_pair in contains_node_pairs:
+                continue
+            source_branch = top_level_branch(source)
+            target_branch = top_level_branch(target)
+            if source_branch and target_branch and source_branch != target_branch:
+                continue
+        seen_node_pairs.add(node_pair)
         edge_urls = edge.get("source_urls") or sorted(
             set(node_lookup.get(source, {}).get("source_urls", []))
             | set(node_lookup.get(target, {}).get("source_urls", []))
@@ -184,3 +239,6 @@ def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, 
     standardized_graph["nodes"] = nodes
     standardized_graph["edges"] = edges
     return standardized_graph
+
+
+

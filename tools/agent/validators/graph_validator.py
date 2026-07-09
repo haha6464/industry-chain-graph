@@ -21,6 +21,7 @@ MIN_CONFIDENCE = 0.5
 MIN_TARGET_NODES = 60
 MAX_TARGET_NODES = 150
 MIN_LEVEL_ONE_NODES = 5
+MIN_TARGET_DEPTH = 4
 
 
 def _norm_name(name: str) -> str:
@@ -112,6 +113,9 @@ def validate_graph(graph: dict[str, Any], industry_id: str) -> dict[str, Any]:
                     seen.add(child_id)
                     queue.append((child_id, depth + 1))
     error_count = sum(1 for item in issues if item["severity"] == "error")
+    if nodes and max_depth < MIN_TARGET_DEPTH:
+        issue("warning", "contains_depth_below_target", f"contains 最大深度仅 {max_depth}，目标图谱应至少存在若干 L4/L5 核心链条。")
+
     warning_count = sum(1 for item in issues if item["severity"] == "warning")
     return {
         "industry": graph.get("industry", industry_id),
@@ -133,7 +137,7 @@ def write_markdown_report(report: dict[str, Any], output_path: Path) -> None:
         f"- 状态：{report['status']}",
         f"- 节点数：{report['node_count']}（目标 60-100，硬上限 150）",
         f"- 关系数：{report['edge_count']}",
-        f"- contains 最大深度：{report['max_contains_depth']}（按 Agent 抽取结果动态记录，不强制 5-6 层）",
+        f"- contains 最大深度：{report['max_contains_depth']}（目标至少存在若干 L4/L5 核心链条）",
         f"- error：{report['error_count']}",
         f"- warning：{report['warning_count']}",
         "",
@@ -151,7 +155,7 @@ def write_markdown_report(report: dict[str, Any], output_path: Path) -> None:
         lines.extend(["", "## 格式修复 Agent", ""] )
         lines.append(f"- 状态：{format_repair.get('validation_status', 'unknown')}")
         if format_repair.get("summary"):
-            lines.append(f"- 总结：{semantic['summary']}")
+            lines.append(f"- 总结：{format_repair['summary']}")
         lines.append(f"- 最小修改数：{len(format_repair.get('modifications', []))}")
         lines.append(f"- 格式复核项：{len(format_repair.get('review_items', []))}")
         if format_repair.get("modifications"):
@@ -168,7 +172,7 @@ def write_markdown_report(report: dict[str, Any], output_path: Path) -> None:
         lines.extend(["", "## 阶段质量评估意见", ""])
         for item in quality.get("items", []):
             label = item.get("branch_name") or item.get("stage", "")
-            lines.append(f"- {label}：{item.get('status', 'unknown')}，score={item.get('score', '-')}, revised={item.get('revised', False)}。{item.get('summary', '')}")
+            lines.append(f"- {label}：status={item.get('status', 'unknown')}，initial={item.get('initial_status', item.get('status', 'unknown'))}，score={item.get('score', '-')}，revision={item.get('revision_status', 'not_revised')}。{item.get('summary', '')}")
             for opinion in item.get("opinions", []) or []:
                 lines.append(f"  - {opinion}")
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -195,5 +199,8 @@ if __name__ == "__main__":
     default_output = Path("data") / "industries" / args.industry_id / "validation_report.md"
     result = validate_industry(args.industry_id, args.graph_file, args.output or default_output)
     print(f"{result['status']}: {result['error_count']} errors, {result['warning_count']} warnings")
+
+
+
 
 

@@ -63,7 +63,7 @@ def build_bailian_update_prompt(graph: dict[str, Any], recent_sources: list[dict
 原则：
 1. 没有足够新增证据就返回 no_change，不要为了更新而更新。
 2. 不允许公司节点、公司列表、股票代码、财务指标、个股信息。
-3. 只允许 contains 和 upstream_downstream 两类关系。
+3. 只允许 contains 和 upstream_downstream 两类关系；以 contains 父子隶属树为主，upstream_downstream 仅允许同一一级分支内部的明确工序/流向，不要建立跨一级分支关系。
 4. 新增或修改节点/关系必须有 URL 来源。
 5. 只做增量 diff，不要重写整张图。
 6. 删除要保守：优先 deprecate，不要直接删除。
@@ -102,4 +102,5 @@ def call_bailian_update_agent(graph: dict[str, Any], recent_sources: list[dict[s
     response = call_bailian_responses(prompt, "增量更新")
     raw_text = _response_text(response)
     return _extract_json_object(raw_text), raw_text
+
 

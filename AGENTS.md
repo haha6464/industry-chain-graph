@@ -158,7 +158,7 @@ industry-chain-graph/
 1. 生成搜索计划 -> search_plan.json
 2. 百炼联网搜索构建一级骨架 -> staged_level1_graph.json
 3. 评估一级骨架质量 -> staged_level1_evaluation.json；未通过时仅修正骨架
-4. 逐个扩展一级分支（最多 BAILIAN_STAGED_MAX_BRANCHES 个） -> staged_branch_fragments.json
+4. 逐个扩展全部一级分支（BAILIAN_STAGED_BRANCH_LIMIT 仅作为调试上限） -> staged_branch_fragments.json
 5. 逐分支评估质量 -> staged_branch_evaluations.json；未通过时仅修正当前分支
 6. 合并图谱与质量意见 -> staged_merged_graph.json / staged_quality_opinions.json
 7. 标准化 -> pre_validation_candidate_graph.json
@@ -236,7 +236,7 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 - `BAILIAN_MODEL` — 模型名，默认 `qwen3.7-max`
 - `BAILIAN_SEARCH_STRATEGY` — 搜索策略，默认 `agent_max`
 - `BAILIAN_TIMEOUT_SECONDS` — 超时秒数，默认 600
-- `BAILIAN_STAGED_MAX_BRANCHES` — 分阶段构建最多扩展多少个一级分支，默认 8
+- `BAILIAN_STAGED_BRANCH_LIMIT` — 分阶段构建调试上限，默认 0 表示扩展全部一级分支；旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用
 - `BAILIAN_ENABLE_THINKING` — 是否开启思考模式，默认 true
 - `BAILIAN_ENABLE_CODE_INTERPRETER` — 是否开启代码解释器，默认 false（通常关闭以节省时间）
 
@@ -310,5 +310,7 @@ cd frontend && npm run build && cd ..
 - **前端复核能力缺失**：已有 `review_queue.json`，但前端还没有复核编辑界面（接受/拒绝/改名/合并/删除）。
 - **批量运行脚本未实现**：25 个行业的批量构建、校验、导出尚无统一脚本。
 - **Neo4j 非前置依赖**：图谱展示直接读 graph.json，Neo4j 仅用于可选的数据库调试和已有的 Cypher 查询逻辑。
+
+
 
 

@@ -77,7 +77,7 @@ BAILIAN_MODEL=qwen3.7-max
 BAILIAN_SEARCH_STRATEGY=agent_max
 BAILIAN_TIMEOUT_SECONDS=600
 BAILIAN_MAX_RETRIES=1
-BAILIAN_STAGED_MAX_BRANCHES=8
+BAILIAN_STAGED_BRANCH_LIMIT=0
 BAILIAN_ENABLE_THINKING=true
 BAILIAN_ENABLE_CODE_INTERPRETER=false
 ```
@@ -131,7 +131,7 @@ BAILIAN_ENABLE_CODE_INTERPRETER=false
 .\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage branches
 ```
 
-构建 Agent 会调用 Qwen Responses API，默认启用 `web_search`、`web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先生成一级骨架，再按一级分支多次小请求扩展，最后合并为候选图谱。`BAILIAN_STAGED_MAX_BRANCHES` 控制最多扩展多少个一级分支。
+构建 Agent 会调用 Qwen Responses API，默认启用 `web_search`、`web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先生成一级骨架，再按一级分支多次小请求扩展，最后合并为候选图谱。`BAILIAN_STAGED_BRANCH_LIMIT` 仅作为调试上限；默认 0 表示扩展全部一级分支。旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用。
 
 ### 2. 写回正式图谱
 
@@ -334,5 +334,7 @@ cd ..
 - 增加批量行业运行脚本，对 25 个行业统一执行构建、校验、更新检查和导出。
 - 为 25 个行业批量运行 Agent 构建，并补齐正式 `graph.json`、校验报告和 CSV 数据包。
 - 继续增强 Agent 工作流页：补充运行进度轮询、复核队列编辑、CSV 文件下载和正式应用前确认。
+
+
 
 

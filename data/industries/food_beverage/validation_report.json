@@ -1,0 +1,49 @@
+{
+  "industry": "食品饮料行业",
+  "schema_version": "standard_industry_graph_v0.2_agent",
+  "node_count": 128,
+  "edge_count": 137,
+  "max_contains_depth": 4,
+  "error_count": 0,
+  "warning_count": 0,
+  "status": "pass",
+  "issues": [],
+  "pre_validation": {
+    "industry": "食品饮料行业",
+    "schema_version": "standard_industry_graph_v0.2_agent",
+    "node_count": 128,
+    "edge_count": 137,
+    "max_contains_depth": 4,
+    "error_count": 0,
+    "warning_count": 0,
+    "status": "pass",
+    "issues": []
+  },
+  "format_repair": {
+    "validation_status": "skipped",
+    "summary": "硬规则校验通过，未调用百炼格式修复。",
+    "modifications": [],
+    "review_items": []
+  },
+  "quality_evaluation": {
+    "items": [
+      {
+        "stage": "fused_optimized_graph",
+        "status": "pass",
+        "initial_status": "pass",
+        "revision_status": "not_revised",
+        "score": 92,
+        "initial_score": 92,
+        "summary": "融合 graph.json 与 codex-graph.json 后的食品饮料产业链图谱，主结构为树状 contains，节点命名偏投研展示口径，关系边已去除跨分支和传递冗余。",
+        "opinions": [
+          "节点数量由原 68/71 提升至 128，覆盖上游原料、配料、包装、食品制造、饮料、酒类、设备、冷链、渠道。",
+          "关系以唯一父子 contains 为主，仅保留同一分支内相邻工序 upstream_downstream。",
+          "深度控制到 L4，避免原图局部分支过深和 codex 图整体过浅的问题。",
+          "节点命名采用稳定产业、品类、工艺和设备名词，避免公司、品牌、市场规模、财务指标等不适合作为产业链节点的内容。"
+        ],
+        "revision_focus": [],
+        "revised": false
+      }
+    ]
+  }
+}

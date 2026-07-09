@@ -128,7 +128,7 @@ def run_final_validation(industry_id: str, graph_file: Path | None = None) -> di
     for item in format_repair_report.get("review_items", []):
         review_queue["items"].append({"type": "format_repair_issue", **item})
     for item in (quality_opinions or {}).get("items", []):
-        if item.get("status") != "pass" or item.get("revised"):
+        if item.get("initial_status", item.get("status")) != "pass" or item.get("revised"):
             review_queue["items"].append({"type": "quality_evaluation_opinion", **item})
     review_queue["status"] = "pending_review" if review_queue["items"] else "clean"
     review_path = output_dir / "review_queue.json"
@@ -156,5 +156,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     result = run_final_validation(args.industry_id, args.graph_file)
     _log_result_summary(result)
+
 
 
