@@ -18,6 +18,8 @@ CHAIN_SEGMENT_LABELS = {
     "support": "支持",
 }
 
+UPSTREAM_DOWNSTREAM_LEVEL_ONE_POSITIONS = {"upstream", "downstream"}
+
 
 def today_iso() -> str:
     return date.today().isoformat()
@@ -107,6 +109,14 @@ def node_type_for(node: dict[str, Any]) -> str:
     return "细分环节"
 
 
+def _is_root_node(node: dict[str, Any]) -> bool:
+    return int(node.get("level", 0)) == 0 or node.get("chain_position") == "root"
+
+
+def _is_level_one_updown(node: dict[str, Any]) -> bool:
+    return int(node.get("level", 0)) == 1 and node.get("chain_position") in UPSTREAM_DOWNSTREAM_LEVEL_ONE_POSITIONS
+
+
 def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, Any]:
     source_urls = default_source_urls(raw_graph)
     evidence_ids = default_evidence_ids(source_urls)
@@ -142,6 +152,8 @@ def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, 
         )
 
     node_lookup = {node["id"]: node for node in nodes}
+    root_ids = [node["id"] for node in nodes if _is_root_node(node)]
+    root_id = root_ids[0] if root_ids else ""
 
     def top_level_branch(node_id: str) -> str | None:
         current_id = node_id
@@ -169,6 +181,16 @@ def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, 
         if source in node_lookup and target in node_lookup and not node_lookup[target].get("parent_id"):
             node_lookup[target]["parent_id"] = source
 
+    # Mentor relation semantics: upstream/downstream is reserved for judging whether
+    # a level=1 branch is upstream or downstream of the industry root. For those
+    # level=1 branches, do not also keep a root contains edge; otherwise the
+    # DOWNSTREAM_OF and SUBORDINATE_TO meanings overlap in CSV/Neo4j.
+    for node in nodes:
+        if _is_level_one_updown(node):
+            node["parent_id"] = ""
+        elif int(node.get("level", 0)) == 1 and not node.get("parent_id") and root_id:
+            node["parent_id"] = root_id
+
     parent_contains_pairs = {
         (node.get("parent_id"), node_id)
         for node_id, node in node_lookup.items()
@@ -182,7 +204,19 @@ def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, 
         raw_edge_by_key.get((source, target, "contains"), {"source": source, "target": target, "relation_type": "contains"})
         for source, target in sorted(parent_contains_pairs)
     ]
-    flow_edges = [edge for edge in raw_edges if edge.get("relation_type") == "upstream_downstream"]
+    level_one_flow_keys: set[tuple[str, str, str]] = set()
+    if root_id:
+        for node in nodes:
+            if not _is_level_one_updown(node):
+                continue
+            if node.get("chain_position") == "upstream":
+                level_one_flow_keys.add((node["id"], "upstream_downstream", root_id))
+            elif node.get("chain_position") == "downstream":
+                level_one_flow_keys.add((root_id, "upstream_downstream", node["id"]))
+    flow_edges = [
+        raw_edge_by_key.get((source, target, relation_type), {"source": source, "target": target, "relation_type": relation_type})
+        for source, relation_type, target in sorted(level_one_flow_keys)
+    ]
     raw_edges = [*tree_edges, *flow_edges]
     contains_node_pairs = {frozenset(pair) for pair in parent_contains_pairs}
     edges = []
@@ -202,9 +236,11 @@ def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, 
         elif relation_type == "upstream_downstream":
             if node_pair in contains_node_pairs:
                 continue
-            source_branch = top_level_branch(source)
-            target_branch = top_level_branch(target)
-            if source_branch and target_branch and source_branch != target_branch:
+            source_level = int(node_lookup[source].get("level", 0))
+            target_level = int(node_lookup[target].get("level", 0))
+            if not ((source_level == 1 and target_level == 0) or (source_level == 0 and target_level == 1)):
+                continue
+            if root_id and source != root_id and target != root_id:
                 continue
         seen_node_pairs.add(node_pair)
         edge_urls = edge.get("source_urls") or sorted(

@@ -9,7 +9,7 @@ from tools.agent.common import PROJECT_ROOT, content_hash, now_iso
 from tools.agent.bailian_client import BailianAgentError, call_bailian_responses
 
 INVESTMENT_RESEARCH_NODE_POLICY = """
-投研产业链节点口径：节点应是可用于行业比较、成本拆解、上下游传导、公司业务归因的稳定产业分类单元；优先抽取上游资源/原材料/关键材料/核心零部件、生产制造或服务交付、关键工艺/技术路线、专用设备/基础设施、产品或服务形态、下游应用/需求场景、必要渠道/物流/检测/认证/运维等细分环节；不要把公司/品牌/股票/财务指标、新闻事件、政策/报告标题、市场规模/趋势、消费者画像、泛咨询服务、平台能力、SaaS/解决方案/体系/网络等概念作为节点；同一父节点下兄弟节点粒度必须一致。
+投研产业链节点口径：节点应是可用于行业比较、成本拆解、上下游传导、公司业务归因的稳定产业分类单元；优先抽取上游资源/原材料/关键材料/核心零部件、稳定产品或服务品类、专用设备/基础设施、下游渠道/应用/需求场景、必要物流/检测/认证/运维等细分环节；不要把公司/品牌/股票/财务指标、新闻事件、政策/报告标题、市场规模/趋势、消费者画像、泛咨询服务、平台能力、SaaS/解决方案/体系/网络、工艺流程步骤等概念作为节点；同一父节点下兄弟节点粒度必须一致；未来会接入公司节点，因此不要设计会让同一公司挂到多个连续工艺步骤的节点，生产制造类内容应优先落到产品品类、材料品类、设备品类、渠道或应用场景。
 """.strip()
 
 
@@ -123,14 +123,16 @@ def build_bailian_search_prompt(industry_id: str, industry_name: str, target_dep
 3. 图谱只允许两类关系：contains 和 upstream_downstream。
 4. contains 的方向是 父节点 -> 子节点；upstream_downstream 的方向是 上游节点 -> 下游节点。
 5. 每个节点和每条关系都必须保留至少 1 个 URL 来源。
-6. 层级必须使用数字 level 表达，构建目标为：{target_depth}。level=0 是行业根节点；level=1 是一级投研产业链环节；level=2/3/4... 是逐级细分的上游供给、关键材料/零部件、工艺/技术路线、设备/基础设施、产品或服务形态、下游应用/需求等稳定产业分类节点。
+6. 层级必须使用数字 level 表达，构建目标为：{target_depth}。level=0 是行业根节点；level=1 是一级投研产业链环节；level=2/3/4... 是逐级细分的上游供给、关键材料/零部件、设备/基础设施、产品或服务形态、下游应用/需求等稳定产业分类节点。
 7. 不要把 level 简单命名为“上游/中游/下游”。上游/中游/下游/支持只用于 chain_position 或 chain_segment，表示节点在产业链中的位置，不代表层级深度。
-8. 每个非根节点都必须且只能有一个 parent_id，并且只输出一条与 parent_id 完全一致的 contains 父子关系，不要让同一节点挂到多个父节点；整体目标是 L0-L5 的 5-6 层图谱。多数一级分支至少展开到 L3，核心供给/生产转换/关键材料/核心零部件/专用设备/重要产品或服务应到 L4，少数核心长链可到 L5；渠道/物流/检测/运维/咨询等支撑环节通常止于 L3-L4，不要硬凑但也不能全图止于 L3。
-9. 图谱要兼顾深度和广度：目标节点数量为 60-100 个，硬上限 150 个；不要只沿少数分支深挖成一条深链，但至少应有若干核心 contains 路径达到 L4/L5。
+8. 每个 L2 及以下节点都必须且只能有一个 parent_id，并且只输出一条与 parent_id 完全一致的 contains 父子关系，不要让同一节点挂到多个父节点；整体目标是 L0-L5 的 5-6 层图谱。多数一级分支至少展开到 L3，核心供给、关键材料、核心零部件、专用设备、重要产品或服务应到 L4，少数稳定品类可到 L5；渠道/物流/检测/运维/咨询等支撑环节通常止于 L3-L4，不要硬凑但也不能全图止于 L3。
+9. 图谱要兼顾深度和广度：目标节点数量为 100 个以上，不设硬上限，但不要用低价值概念堆节点；不要只沿少数分支深挖成一条深链，至少应有若干核心 contains 路径达到 L4。
 10. level=1 应覆盖该行业主要投研分析环节，通常不少于 5 个；每个重要一级环节应尽量展开 3-8 个二级/三级分支；同一分支继续深挖时要保证兄弟节点也有合理覆盖和一致粒度。
-11. 若节点数低于 60，优先补充横向缺失的上游资源/原材料/关键材料/核心零部件、关键工艺/技术路线、专用设备/基础设施、产品或服务形态、下游应用/需求和必要支撑服务等节点，而不是重复拆分同一概念或引入泛服务/平台能力。
-12. 产业链交付以 contains 父子隶属树为主；upstream_downstream 只允许在同一一级分支内部表达明确工序/流向，不替代 contains 层级关系，不建立跨一级分支关系。若两个节点之间已有 contains/SUBORDINATE_TO 关系，就不要再输出 upstream_downstream/DOWNSTREAM_OF。
-13. 输出必须是严格 JSON，不要输出 Markdown、解释文字或代码块。
+11. 若节点数低于 100，优先补充横向缺失的上游资源/原材料/关键材料/核心零部件、专用设备/基础设施、产品或服务形态、下游应用/需求和必要支撑服务等节点，而不是重复拆分同一概念、拆工艺流程步骤或引入泛服务/平台能力。
+12. 关系语义固定：contains 表示分类隶属；upstream_downstream 只允许存在于 L0 和 L1 之间，用于判断一级环节相对行业根节点属于上游还是下游。L2 以下不要输出 upstream_downstream；若两个节点之间已有 contains/SUBORDINATE_TO 关系，就不要再输出 upstream_downstream/DOWNSTREAM_OF。
+13. L0-L1 关系规则：chain_position=upstream 的 L1 parent_id 留空，输出 upstream_downstream：L1 -> L0；chain_position=downstream 的 L1 parent_id 留空，输出 upstream_downstream：L0 -> L1；midstream/support 等非上游下游 L1 parent_id 填行业根节点 id，输出 contains：L0 -> L1。同一 L0-L1 节点对不要同时输出两种关系。
+14. 禁止把单个工艺流程步骤作为节点。请优先使用品类、材料、设备、渠道、应用场景、消费/需求类别等能承接公司主营业务的节点。
+15. 输出必须是严格 JSON，不要输出 Markdown、解释文字或代码块。
 
 请返回如下 JSON 结构：
 {{
@@ -138,12 +140,12 @@ def build_bailian_search_prompt(industry_id: str, industry_name: str, target_dep
   "version": "v0.1-agent-search",
   "schema_version": "standard_industry_graph_v0.2_agent",
   "generated_at": "",
-  "scope": "面向证券/金融投研的标清产业链图谱；目标 60-100 个节点，硬上限 150 个节点；不包含公司节点、股票代码、财务指标、新闻政策、市场趋势或泛服务平台概念。",
+  "scope": "面向证券/金融投研的标清产业链图谱；目标 100 个以上节点；L2 以下只表达分类隶属；不包含公司节点、股票代码、财务指标、新闻政策、市场趋势、泛服务平台概念或工艺流程节点。",
   "source_basis": [{{"name": "资料标题或机构名称", "url": "https://...", "note": "该来源支持的产业链判断"}}],
   "nodes": [{{
     "id": "{industry_id}_001",
     "name": "节点名称",
-    "node_type": "产业链/一级环节/二级环节/细分环节/原材料/产品/工艺/渠道/应用场景",
+    "node_type": "产业链/一级环节/二级环节/细分环节/原材料/材料/产品/设备/渠道/应用场景/支撑服务",
     "tags": ["level_0", "root"],
     "industry": "{industry_name}",
     "level": 0,
@@ -173,7 +175,7 @@ def build_bailian_search_prompt(industry_id: str, industry_name: str, target_dep
 """.strip()
 
 
-def call_bailian_search_agent(industry_id: str, industry_name: str, target_depth: str = "5-6 层，60-100 个节点，最多 150 个节点") -> tuple[dict[str, Any], str]:
+def call_bailian_search_agent(industry_id: str, industry_name: str, target_depth: str = "5-6 层，100 个以上节点，不设硬上限但避免低价值堆节点") -> tuple[dict[str, Any], str]:
     response = call_bailian_responses(
         build_bailian_search_prompt(industry_id, industry_name, target_depth),
         "联网搜索构建",

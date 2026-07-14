@@ -2,7 +2,7 @@
   "industry": "食品饮料行业",
   "schema_version": "standard_industry_graph_v0.2_agent",
   "node_count": 128,
-  "edge_count": 137,
+  "edge_count": 127,
   "max_contains_depth": 4,
   "error_count": 0,
   "warning_count": 0,
@@ -12,7 +12,7 @@
     "industry": "食品饮料行业",
     "schema_version": "standard_industry_graph_v0.2_agent",
     "node_count": 128,
-    "edge_count": 137,
+    "edge_count": 127,
     "max_contains_depth": 4,
     "error_count": 0,
     "warning_count": 0,
@@ -28,18 +28,18 @@
   "quality_evaluation": {
     "items": [
       {
-        "stage": "fused_optimized_graph",
+        "stage": "mentor_relation_semantics_update",
         "status": "pass",
         "initial_status": "pass",
         "revision_status": "not_revised",
-        "score": 92,
-        "initial_score": 92,
-        "summary": "融合 graph.json 与 codex-graph.json 后的食品饮料产业链图谱，主结构为树状 contains，节点命名偏投研展示口径，关系边已去除跨分支和传递冗余。",
+        "score": 94,
+        "initial_score": 94,
+        "summary": "按 mentor 新要求重构食品饮料图谱关系语义：上下游只存在于 L0-L1，L2 以下仅保留分类隶属，并将工艺流程节点替换为投研口径品类节点。",
         "opinions": [
-          "节点数量由原 68/71 提升至 128，覆盖上游原料、配料、包装、食品制造、饮料、酒类、设备、冷链、渠道。",
-          "关系以唯一父子 contains 为主，仅保留同一分支内相邻工序 upstream_downstream。",
-          "深度控制到 L4，避免原图局部分支过深和 codex 图整体过浅的问题。",
-          "节点命名采用稳定产业、品类、工艺和设备名词，避免公司、品牌、市场规模、财务指标等不适合作为产业链节点的内容。"
+          "L0-L1 的上下游边只用于判断一级环节相对行业根节点的上下游属性，避免与 contains 隶属关系重复。",
+          "白酒制曲、发酵蒸馏、陈酿勾调、灌装包装等工艺流程节点已替换为白酒价格带、香型品类、光瓶酒、大众酒、礼赠商务白酒等品类节点。",
+          "啤酒和乳制品中涉及工艺的节点已改为产品/品类口径，便于后续公司节点挂载。",
+          "节点总量保持在 100 个以上，覆盖上游原料、配料、包装、中游食品饮料酒类、设备冷链和下游渠道。"
         ],
         "revision_focus": [],
         "revised": false

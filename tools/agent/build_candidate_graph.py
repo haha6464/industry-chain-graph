@@ -109,7 +109,7 @@ def _load_seed_record(output_dir: Path) -> dict[str, Any]:
 def build_level1_skeleton(
     industry_id: str,
     industry_name: str | None,
-    target_depth: str = "5-6 层，60-100 个节点，最多 150 个节点",
+    target_depth: str = "5-6 层，100 个以上节点，不设硬上限但避免低价值堆节点",
 ) -> dict[str, str]:
     output_dir = industry_dir(industry_id)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -195,7 +195,7 @@ def build_level1_skeleton(
 def build_branch_candidates(
     industry_id: str,
     industry_name: str | None,
-    target_depth: str = "5-6 层，60-100 个节点，最多 150 个节点",
+    target_depth: str = "5-6 层，100 个以上节点，不设硬上限但避免低价值堆节点",
 ) -> dict[str, str]:
     output_dir = industry_dir(industry_id)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -323,7 +323,7 @@ def build_branch_candidates(
 def build_pre_validation_candidate(
     industry_id: str,
     industry_name: str | None,
-    target_depth: str = "5-6 层，60-100 个节点，最多 150 个节点",
+    target_depth: str = "5-6 层，100 个以上节点，不设硬上限但避免低价值堆节点",
     strategy: str = "staged",
 ) -> dict[str, str]:
     if strategy == "single":
@@ -357,7 +357,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Build staged industry graph candidates with separate skeleton and branch stages.")
     parser.add_argument("--industry-id", required=True)
     parser.add_argument("--industry-name")
-    parser.add_argument("--target-depth", default="5-6 层，60-100 个节点，最多 150 个节点")
+    parser.add_argument("--target-depth", default="5-6 层，100 个以上节点，不设硬上限但避免低价值堆节点")
     parser.add_argument("--strategy", choices=["staged", "single"], default="staged")
     parser.add_argument("--stage", choices=["all", "skeleton", "branches"], default="all")
     args = parser.parse_args()

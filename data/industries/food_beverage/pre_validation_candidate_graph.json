@@ -1,9 +1,9 @@
 {
   "industry": "食品饮料行业",
-  "version": "v0.3-fused-optimized",
+  "version": "v0.4-mentor-relation-semantics",
   "schema_version": "standard_industry_graph_v0.2_agent",
-  "generated_at": "2026-07-08",
-  "scope": "面向华泰证券官网展示的食品饮料产业链图谱；以树状 contains 主结构为核心，保留少量同分支相邻工序上下游关系；不包含公司、品牌、股票代码和财务指标。",
+  "generated_at": "2026-07-14",
+  "scope": "面向华泰证券官网展示的食品饮料产业链图谱；L2 以下只表达隶属分类，upstream_downstream 仅用于 L0 与 L1 之间判断一级环节相对产业根节点的上游/下游属性；不包含公司、品牌、股票代码、财务指标和工艺流程节点。",
   "source_basis": [
     {
       "name": "国民经济行业分类（GB/T 4754-2017）相关分类资料",
@@ -66,7 +66,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100",
@@ -79,7 +79,7 @@
       "industry": "食品饮料行业",
       "level": 1,
       "chain_position": "upstream",
-      "parent_id": "fb_000",
+      "parent_id": "",
       "description": "农业、畜牧、水产、乳品和特色农产品等食品饮料上游基础供给。",
       "business_description": "农业、畜牧、水产、乳品和特色农产品等食品饮料上游基础供给。",
       "is_key_node": true,
@@ -97,7 +97,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_200",
@@ -110,7 +110,7 @@
       "industry": "食品饮料行业",
       "level": 1,
       "chain_position": "upstream",
-      "parent_id": "fb_000",
+      "parent_id": "",
       "description": "改善口感、保质、营养、质构和风味的功能性配料与添加剂。",
       "business_description": "改善口感、保质、营养、质构和风味的功能性配料与添加剂。",
       "is_key_node": true,
@@ -128,7 +128,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_300",
@@ -141,7 +141,7 @@
       "industry": "食品饮料行业",
       "level": 1,
       "chain_position": "upstream",
-      "parent_id": "fb_000",
+      "parent_id": "",
       "description": "直接影响成本、货架展示、运输安全和保质期的食品饮料包装材料与容器。",
       "business_description": "直接影响成本、货架展示、运输安全和保质期的食品饮料包装材料与容器。",
       "is_key_node": true,
@@ -159,7 +159,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400",
@@ -190,7 +190,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_500",
@@ -221,7 +221,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_600",
@@ -252,7 +252,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_700",
@@ -283,7 +283,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_800",
@@ -314,7 +314,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_900",
@@ -327,7 +327,7 @@
       "industry": "食品饮料行业",
       "level": 1,
       "chain_position": "downstream",
-      "parent_id": "fb_000",
+      "parent_id": "",
       "description": "连接食品饮料制造商与消费者的线下渠道、线上渠道、餐饮渠道和终端消费场景。",
       "business_description": "连接食品饮料制造商与消费者的线下渠道、线上渠道、餐饮渠道和终端消费场景。",
       "is_key_node": true,
@@ -345,7 +345,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_110",
@@ -376,7 +376,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_120",
@@ -407,7 +407,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_130",
@@ -438,7 +438,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_140",
@@ -469,7 +469,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_150",
@@ -500,7 +500,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_160",
@@ -531,7 +531,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_170",
@@ -562,7 +562,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_180",
@@ -593,7 +593,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_111",
@@ -624,7 +624,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_112",
@@ -655,7 +655,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_121",
@@ -686,7 +686,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_131",
@@ -717,11 +717,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_161",
-      "name": "生鲜乳收储",
+      "name": "生鲜乳",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -731,8 +731,8 @@
       "level": 3,
       "chain_position": "upstream",
       "parent_id": "fb_160",
-      "description": "乳制品制造前端的收奶、检验和冷藏收储环节。",
-      "business_description": "乳制品制造前端的收奶、检验和冷藏收储环节。",
+      "description": "乳制品企业采购和加工的基础乳源，适合承接牧场、乳企及乳品加工公司映射。",
+      "business_description": "乳制品企业采购和加工的基础乳源，适合承接牧场、乳企及乳品加工公司映射。",
       "is_key_node": false,
       "chain_segment": "上游",
       "source_urls": [
@@ -748,7 +748,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_171",
@@ -779,7 +779,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_181",
@@ -810,7 +810,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_210",
@@ -841,7 +841,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_220",
@@ -872,7 +872,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_230",
@@ -903,7 +903,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_240",
@@ -934,7 +934,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_250",
@@ -965,7 +965,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_260",
@@ -996,7 +996,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_211",
@@ -1027,7 +1027,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_221",
@@ -1058,7 +1058,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_241",
@@ -1089,7 +1089,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_261",
@@ -1120,7 +1120,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_310",
@@ -1151,7 +1151,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_320",
@@ -1182,7 +1182,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_330",
@@ -1213,7 +1213,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_340",
@@ -1244,7 +1244,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_350",
@@ -1275,7 +1275,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_360",
@@ -1306,7 +1306,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_321",
@@ -1337,7 +1337,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_331",
@@ -1368,7 +1368,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_351",
@@ -1399,7 +1399,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_410",
@@ -1430,7 +1430,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_420",
@@ -1461,7 +1461,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_430",
@@ -1492,7 +1492,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_440",
@@ -1523,7 +1523,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_450",
@@ -1554,7 +1554,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_460",
@@ -1585,7 +1585,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_470",
@@ -1616,7 +1616,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_480",
@@ -1647,7 +1647,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_490",
@@ -1678,7 +1678,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_411",
@@ -1709,7 +1709,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_412",
@@ -1740,7 +1740,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_421",
@@ -1771,7 +1771,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_422",
@@ -1802,7 +1802,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_431",
@@ -1833,7 +1833,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_432",
@@ -1864,7 +1864,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_441",
@@ -1895,7 +1895,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_442",
@@ -1926,11 +1926,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_451",
-      "name": "畜禽屠宰分割",
+      "name": "生鲜肉分割产品",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -1940,8 +1940,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_450",
-      "description": "肉制品上游屠宰、分割和冷鲜肉处理。",
-      "business_description": "肉制品上游屠宰、分割和冷鲜肉处理。",
+      "description": "猪禽牛羊等肉类经分割后形成的标准化肉制品原料和冷鲜产品。",
+      "business_description": "猪禽牛羊等肉类经分割后形成的标准化肉制品原料和冷鲜产品。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -1957,7 +1957,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_452",
@@ -1988,7 +1988,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_461",
@@ -2019,7 +2019,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_462",
@@ -2050,7 +2050,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_463",
@@ -2081,11 +2081,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_481",
-      "name": "净菜与中央厨房",
+      "name": "净菜产品",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -2095,8 +2095,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_480",
-      "description": "清洗切配、标准化预处理和中央厨房加工。",
-      "business_description": "清洗切配、标准化预处理和中央厨房加工。",
+      "description": "面向家庭、餐饮和团餐渠道的清洗、切配、包装化蔬菜产品。",
+      "business_description": "面向家庭、餐饮和团餐渠道的清洗、切配、包装化蔬菜产品。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2112,7 +2112,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_482",
@@ -2143,7 +2143,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_4121",
@@ -2174,7 +2174,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_4311",
@@ -2205,11 +2205,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_4611",
-      "name": "UHT灭菌工艺",
+      "name": "常温白奶",
       "node_type": "细分环节",
       "tags": [
         "level_4",
@@ -2219,8 +2219,8 @@
       "level": 4,
       "chain_position": "midstream",
       "parent_id": "fb_461",
-      "description": "常温液态奶关键杀菌与无菌灌装工艺。",
-      "business_description": "常温液态奶关键杀菌与无菌灌装工艺。",
+      "description": "以常温液态奶为代表的基础乳制品品类，适合投研中按品类和终端需求拆分。",
+      "business_description": "以常温液态奶为代表的基础乳制品品类，适合投研中按品类和终端需求拆分。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2236,7 +2236,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_510",
@@ -2267,7 +2267,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_520",
@@ -2298,7 +2298,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_530",
@@ -2329,7 +2329,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_540",
@@ -2360,7 +2360,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_550",
@@ -2391,7 +2391,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_560",
@@ -2422,7 +2422,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_570",
@@ -2453,7 +2453,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_531",
@@ -2484,7 +2484,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_541",
@@ -2515,7 +2515,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_551",
@@ -2546,7 +2546,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_561",
@@ -2577,7 +2577,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_610",
@@ -2608,7 +2608,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_620",
@@ -2639,7 +2639,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_630",
@@ -2670,7 +2670,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_640",
@@ -2701,7 +2701,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_650",
@@ -2732,11 +2732,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_611",
-      "name": "白酒制曲",
+      "name": "白酒价格带",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -2746,8 +2746,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_610",
-      "description": "大曲、小曲或麸曲等糖化发酵剂制备。",
-      "business_description": "大曲、小曲或麸曲等糖化发酵剂制备。",
+      "description": "按价格带划分的白酒产品结构，用于观察消费升级、渠道利润和库存周期。",
+      "business_description": "按价格带划分的白酒产品结构，用于观察消费升级、渠道利润和库存周期。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2763,11 +2763,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_612",
-      "name": "白酒发酵与蒸馏",
+      "name": "白酒香型品类",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -2777,8 +2777,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_610",
-      "description": "粮食糖化发酵、蒸馏取酒和基酒形成。",
-      "business_description": "粮食糖化发酵、蒸馏取酒和基酒形成。",
+      "description": "按香型划分的白酒产品类别，反映不同产区、消费偏好和竞争格局。",
+      "business_description": "按香型划分的白酒产品类别，反映不同产区、消费偏好和竞争格局。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2794,11 +2794,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_613",
-      "name": "白酒陈酿与勾调",
+      "name": "光瓶酒与大众酒",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -2808,8 +2808,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_610",
-      "description": "基酒储存老熟、酒体设计和勾调。",
-      "business_description": "基酒储存老熟、酒体设计和勾调。",
+      "description": "面向大众消费和餐饮场景的白酒品类，适合承接区域酒企和大众价格带公司映射。",
+      "business_description": "面向大众消费和餐饮场景的白酒品类，适合承接区域酒企和大众价格带公司映射。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2825,11 +2825,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_614",
-      "name": "白酒灌装包装",
+      "name": "礼赠与商务白酒",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -2839,8 +2839,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_610",
-      "description": "酒瓶、瓶盖、纸盒和外箱包装。",
-      "business_description": "酒瓶、瓶盖、纸盒和外箱包装。",
+      "description": "面向宴席、商务和礼赠需求的白酒消费品类。",
+      "business_description": "面向宴席、商务和礼赠需求的白酒消费品类。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2856,11 +2856,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_621",
-      "name": "麦芽糖化",
+      "name": "工业啤酒",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -2870,8 +2870,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_620",
-      "description": "啤酒麦芽粉碎、糖化和麦汁制备。",
-      "business_description": "啤酒麦芽粉碎、糖化和麦汁制备。",
+      "description": "规模化啤酒企业的主流产品类别，强调品牌、渠道和产能效率。",
+      "business_description": "规模化啤酒企业的主流产品类别，强调品牌、渠道和产能效率。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2887,11 +2887,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_622",
-      "name": "啤酒发酵",
+      "name": "精酿啤酒",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -2901,8 +2901,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_620",
-      "description": "主发酵、后熟和风味形成。",
-      "business_description": "主发酵、后熟和风味形成。",
+      "description": "以差异化风味和小批量供给为特征的啤酒品类。",
+      "business_description": "以差异化风味和小批量供给为特征的啤酒品类。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2918,11 +2918,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_623",
-      "name": "啤酒过滤灌装",
+      "name": "无醇与低醇啤酒",
       "node_type": "细分环节",
       "tags": [
         "level_3",
@@ -2932,8 +2932,8 @@
       "level": 3,
       "chain_position": "midstream",
       "parent_id": "fb_620",
-      "description": "过滤、杀菌、罐装或瓶装包装。",
-      "business_description": "过滤、杀菌、罐装或瓶装包装。",
+      "description": "面向健康化、低酒精消费趋势的啤酒细分品类。",
+      "business_description": "面向健康化、低酒精消费趋势的啤酒细分品类。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2949,11 +2949,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_6121",
-      "name": "酱香型白酒工艺",
+      "name": "酱香型白酒",
       "node_type": "细分环节",
       "tags": [
         "level_4",
@@ -2963,8 +2963,8 @@
       "level": 4,
       "chain_position": "midstream",
       "parent_id": "fb_612",
-      "description": "高温制曲、多轮次发酵蒸馏和长期陈酿相关工艺。",
-      "business_description": "高温制曲、多轮次发酵蒸馏和长期陈酿相关工艺。",
+      "description": "以酱香型为代表的白酒香型品类，适合按产区、价格带和品牌竞争格局研究。",
+      "business_description": "以酱香型为代表的白酒香型品类，适合按产区、价格带和品牌竞争格局研究。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -2980,11 +2980,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_6122",
-      "name": "浓香型白酒工艺",
+      "name": "浓香型白酒",
       "node_type": "细分环节",
       "tags": [
         "level_4",
@@ -2994,8 +2994,8 @@
       "level": 4,
       "chain_position": "midstream",
       "parent_id": "fb_612",
-      "description": "泥窖固态发酵和续糟配料相关工艺。",
-      "business_description": "泥窖固态发酵和续糟配料相关工艺。",
+      "description": "以浓香型为代表的白酒香型品类，覆盖全国化名酒和区域龙头的重要品类。",
+      "business_description": "以浓香型为代表的白酒香型品类，覆盖全国化名酒和区域龙头的重要品类。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -3011,11 +3011,11 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_6221",
-      "name": "精酿啤酒发酵",
+      "name": "鲜啤与原浆啤酒",
       "node_type": "细分环节",
       "tags": [
         "level_4",
@@ -3025,8 +3025,8 @@
       "level": 4,
       "chain_position": "midstream",
       "parent_id": "fb_622",
-      "description": "小批量、多风味和高附加值啤酒发酵工艺。",
-      "business_description": "小批量、多风味和高附加值啤酒发酵工艺。",
+      "description": "面向餐饮、即时消费和区域供应链的啤酒细分品类。",
+      "business_description": "面向餐饮、即时消费和区域供应链的啤酒细分品类。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -3042,7 +3042,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_710",
@@ -3073,7 +3073,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_720",
@@ -3104,7 +3104,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_730",
@@ -3135,7 +3135,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_740",
@@ -3166,7 +3166,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_750",
@@ -3197,7 +3197,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_721",
@@ -3228,7 +3228,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_722",
@@ -3259,7 +3259,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_731",
@@ -3290,7 +3290,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_741",
@@ -3321,7 +3321,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_751",
@@ -3352,7 +3352,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_810",
@@ -3383,7 +3383,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_820",
@@ -3414,7 +3414,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_830",
@@ -3445,7 +3445,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_840",
@@ -3476,7 +3476,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_850",
@@ -3507,7 +3507,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_821",
@@ -3538,7 +3538,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_822",
@@ -3569,7 +3569,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_831",
@@ -3600,7 +3600,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_832",
@@ -3631,7 +3631,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_910",
@@ -3662,7 +3662,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_920",
@@ -3693,7 +3693,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_930",
@@ -3724,7 +3724,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_940",
@@ -3755,7 +3755,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_950",
@@ -3786,7 +3786,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_911",
@@ -3817,7 +3817,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_912",
@@ -3848,7 +3848,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_941",
@@ -3879,7 +3879,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_942",
@@ -3910,7 +3910,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_951",
@@ -3941,7 +3941,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_952",
@@ -3972,7 +3972,7 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_953",
@@ -4003,88 +4003,36 @@
         "food_beverage_ev_0002"
       ],
       "confidence": 0.86,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     }
   ],
+  "validation_notes": [
+    "根据 mentor 要求，upstream_downstream 仅保留 L0-L1 关系，用于表达一级环节相对食品饮料行业根节点的上游/下游属性。",
+    "L2 以下全部使用 contains 表达分类隶属，不再保留工艺流转或跨层级上下游边。",
+    "白酒、啤酒、乳制品等分支中的工艺流程节点已替换为更适合投研展示和后续公司挂载的品类节点。"
+  ],
+  "quality_evaluation": {
+    "items": [
+      {
+        "stage": "mentor_relation_semantics_update",
+        "status": "pass",
+        "initial_status": "pass",
+        "revision_status": "not_revised",
+        "score": 94,
+        "initial_score": 94,
+        "summary": "按 mentor 新要求重构食品饮料图谱关系语义：上下游只存在于 L0-L1，L2 以下仅保留分类隶属，并将工艺流程节点替换为投研口径品类节点。",
+        "opinions": [
+          "L0-L1 的上下游边只用于判断一级环节相对行业根节点的上下游属性，避免与 contains 隶属关系重复。",
+          "白酒制曲、发酵蒸馏、陈酿勾调、灌装包装等工艺流程节点已替换为白酒价格带、香型品类、光瓶酒、大众酒、礼赠商务白酒等品类节点。",
+          "啤酒和乳制品中涉及工艺的节点已改为产品/品类口径，便于后续公司节点挂载。",
+          "节点总量保持在 100 个以上，覆盖上游原料、配料、包装、中游食品饮料酒类、设备冷链和下游渠道。"
+        ],
+        "revision_focus": [],
+        "revised": false
+      }
+    ]
+  },
   "edges": [
-    {
-      "id": "fb_000__contains__fb_100",
-      "source": "fb_000",
-      "target": "fb_100",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_000__contains__fb_200",
-      "source": "fb_000",
-      "target": "fb_200",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_000__contains__fb_300",
-      "source": "fb_000",
-      "target": "fb_300",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
     {
       "id": "fb_000__contains__fb_400",
       "source": "fb_000",
@@ -4093,12 +4041,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4108,8 +4056,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_000__contains__fb_500",
@@ -4119,12 +4067,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4134,8 +4082,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_000__contains__fb_600",
@@ -4145,12 +4093,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4160,8 +4108,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_000__contains__fb_700",
@@ -4171,12 +4119,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4186,8 +4134,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_000__contains__fb_800",
@@ -4197,12 +4145,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4212,34 +4160,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_000__contains__fb_900",
-      "source": "fb_000",
-      "target": "fb_900",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100__contains__fb_110",
@@ -4249,12 +4171,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4264,8 +4186,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100__contains__fb_120",
@@ -4275,12 +4197,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4290,8 +4212,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100__contains__fb_130",
@@ -4301,12 +4223,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4316,8 +4238,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100__contains__fb_140",
@@ -4327,12 +4249,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4342,8 +4264,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100__contains__fb_150",
@@ -4353,12 +4275,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4368,8 +4290,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100__contains__fb_160",
@@ -4379,12 +4301,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4394,8 +4316,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100__contains__fb_170",
@@ -4405,12 +4327,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4420,8 +4342,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_100__contains__fb_180",
@@ -4431,12 +4353,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4446,8 +4368,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_110__contains__fb_111",
@@ -4457,12 +4379,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4472,8 +4394,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_110__contains__fb_112",
@@ -4483,12 +4405,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4498,8 +4420,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_120__contains__fb_121",
@@ -4509,12 +4431,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4524,8 +4446,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_130__contains__fb_131",
@@ -4535,12 +4457,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4550,8 +4472,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_160__contains__fb_161",
@@ -4561,12 +4483,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4576,8 +4498,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_170__contains__fb_171",
@@ -4587,12 +4509,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4602,8 +4524,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_180__contains__fb_181",
@@ -4613,12 +4535,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4628,8 +4550,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_200__contains__fb_210",
@@ -4639,12 +4561,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4654,8 +4576,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_200__contains__fb_220",
@@ -4665,12 +4587,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4680,8 +4602,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_200__contains__fb_230",
@@ -4691,12 +4613,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4706,8 +4628,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_200__contains__fb_240",
@@ -4717,12 +4639,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4732,8 +4654,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_200__contains__fb_250",
@@ -4743,12 +4665,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4758,8 +4680,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_200__contains__fb_260",
@@ -4769,12 +4691,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4784,8 +4706,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_210__contains__fb_211",
@@ -4795,12 +4717,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4810,8 +4732,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_220__contains__fb_221",
@@ -4821,12 +4743,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4836,8 +4758,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_240__contains__fb_241",
@@ -4847,12 +4769,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4862,8 +4784,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_260__contains__fb_261",
@@ -4873,12 +4795,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4888,8 +4810,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_300__contains__fb_310",
@@ -4899,12 +4821,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4914,8 +4836,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_300__contains__fb_320",
@@ -4925,12 +4847,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4940,8 +4862,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_300__contains__fb_330",
@@ -4951,12 +4873,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4966,8 +4888,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_300__contains__fb_340",
@@ -4977,12 +4899,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -4992,8 +4914,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_300__contains__fb_350",
@@ -5003,12 +4925,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5018,8 +4940,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_300__contains__fb_360",
@@ -5029,12 +4951,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5044,8 +4966,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_320__contains__fb_321",
@@ -5055,12 +4977,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5070,8 +4992,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_330__contains__fb_331",
@@ -5081,12 +5003,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5096,8 +5018,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_350__contains__fb_351",
@@ -5107,12 +5029,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5122,8 +5044,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_410",
@@ -5133,12 +5055,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5148,8 +5070,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_420",
@@ -5159,12 +5081,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5174,8 +5096,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_430",
@@ -5185,12 +5107,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5200,8 +5122,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_440",
@@ -5211,12 +5133,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5226,8 +5148,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_450",
@@ -5237,12 +5159,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5252,8 +5174,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_460",
@@ -5263,12 +5185,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5278,8 +5200,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_470",
@@ -5289,12 +5211,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5304,8 +5226,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_480",
@@ -5315,12 +5237,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5330,8 +5252,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_400__contains__fb_490",
@@ -5341,12 +5263,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5356,8 +5278,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_410__contains__fb_411",
@@ -5367,12 +5289,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5382,8 +5304,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_410__contains__fb_412",
@@ -5393,12 +5315,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5408,34 +5330,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_412__contains__fb_4121",
-      "source": "fb_412",
-      "target": "fb_4121",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_420__contains__fb_421",
@@ -5445,12 +5341,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5460,8 +5356,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_420__contains__fb_422",
@@ -5471,12 +5367,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5486,8 +5382,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_430__contains__fb_431",
@@ -5497,12 +5393,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5512,8 +5408,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_430__contains__fb_432",
@@ -5523,12 +5419,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5538,34 +5434,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_431__contains__fb_4311",
-      "source": "fb_431",
-      "target": "fb_4311",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_440__contains__fb_441",
@@ -5575,12 +5445,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5590,8 +5460,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_440__contains__fb_442",
@@ -5601,12 +5471,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5616,8 +5486,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_450__contains__fb_451",
@@ -5627,12 +5497,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5642,8 +5512,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_450__contains__fb_452",
@@ -5653,12 +5523,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5668,8 +5538,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_460__contains__fb_461",
@@ -5679,12 +5549,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5694,8 +5564,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_460__contains__fb_462",
@@ -5705,12 +5575,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5720,8 +5590,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_460__contains__fb_463",
@@ -5731,12 +5601,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5746,34 +5616,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_461__contains__fb_4611",
-      "source": "fb_461",
-      "target": "fb_4611",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_480__contains__fb_481",
@@ -5783,12 +5627,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5798,8 +5642,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_480__contains__fb_482",
@@ -5809,12 +5653,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5824,8 +5668,86 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
+    },
+    {
+      "id": "fb_412__contains__fb_4121",
+      "source": "fb_412",
+      "target": "fb_4121",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "",
+      "source_urls": [
+        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
+      ],
+      "evidence_ids": [
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
+      ],
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
+    },
+    {
+      "id": "fb_431__contains__fb_4311",
+      "source": "fb_431",
+      "target": "fb_4311",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "",
+      "source_urls": [
+        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
+      ],
+      "evidence_ids": [
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
+      ],
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
+    },
+    {
+      "id": "fb_461__contains__fb_4611",
+      "source": "fb_461",
+      "target": "fb_4611",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "",
+      "source_urls": [
+        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
+      ],
+      "evidence_ids": [
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
+      ],
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_500__contains__fb_510",
@@ -5835,12 +5757,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5850,8 +5772,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_500__contains__fb_520",
@@ -5861,12 +5783,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5876,8 +5798,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_500__contains__fb_530",
@@ -5887,12 +5809,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5902,8 +5824,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_500__contains__fb_540",
@@ -5913,12 +5835,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5928,8 +5850,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_500__contains__fb_550",
@@ -5939,12 +5861,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5954,8 +5876,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_500__contains__fb_560",
@@ -5965,12 +5887,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -5980,8 +5902,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_500__contains__fb_570",
@@ -5991,12 +5913,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6006,8 +5928,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_530__contains__fb_531",
@@ -6017,12 +5939,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6032,8 +5954,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_540__contains__fb_541",
@@ -6043,12 +5965,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6058,8 +5980,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_550__contains__fb_551",
@@ -6069,12 +5991,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6084,8 +6006,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_560__contains__fb_561",
@@ -6095,12 +6017,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6110,8 +6032,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_600__contains__fb_610",
@@ -6121,12 +6043,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6136,8 +6058,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_600__contains__fb_620",
@@ -6147,12 +6069,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6162,8 +6084,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_600__contains__fb_630",
@@ -6173,12 +6095,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6188,8 +6110,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_600__contains__fb_640",
@@ -6199,12 +6121,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6214,8 +6136,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_600__contains__fb_650",
@@ -6225,12 +6147,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6240,8 +6162,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_610__contains__fb_611",
@@ -6251,12 +6173,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6266,8 +6188,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_610__contains__fb_612",
@@ -6277,12 +6199,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6292,8 +6214,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_610__contains__fb_613",
@@ -6303,12 +6225,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6318,8 +6240,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_610__contains__fb_614",
@@ -6329,12 +6251,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6344,60 +6266,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_612__contains__fb_6121",
-      "source": "fb_612",
-      "target": "fb_6121",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_612__contains__fb_6122",
-      "source": "fb_612",
-      "target": "fb_6122",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_620__contains__fb_621",
@@ -6407,12 +6277,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6422,8 +6292,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_620__contains__fb_622",
@@ -6433,12 +6303,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6448,8 +6318,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_620__contains__fb_623",
@@ -6459,12 +6329,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6474,8 +6344,60 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
+    },
+    {
+      "id": "fb_612__contains__fb_6121",
+      "source": "fb_612",
+      "target": "fb_6121",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "",
+      "source_urls": [
+        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
+      ],
+      "evidence_ids": [
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
+      ],
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
+    },
+    {
+      "id": "fb_612__contains__fb_6122",
+      "source": "fb_612",
+      "target": "fb_6122",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "",
+      "source_urls": [
+        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
+      ],
+      "evidence_ids": [
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
+      ],
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_622__contains__fb_6221",
@@ -6485,12 +6407,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6500,8 +6422,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_700__contains__fb_710",
@@ -6511,12 +6433,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6526,8 +6448,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_700__contains__fb_720",
@@ -6537,12 +6459,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6552,8 +6474,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_700__contains__fb_730",
@@ -6563,12 +6485,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6578,8 +6500,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_700__contains__fb_740",
@@ -6589,12 +6511,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6604,8 +6526,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_700__contains__fb_750",
@@ -6615,12 +6537,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6630,8 +6552,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_720__contains__fb_721",
@@ -6641,12 +6563,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6656,8 +6578,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_720__contains__fb_722",
@@ -6667,12 +6589,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6682,8 +6604,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_730__contains__fb_731",
@@ -6693,12 +6615,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6708,8 +6630,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_740__contains__fb_741",
@@ -6719,12 +6641,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6734,8 +6656,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_750__contains__fb_751",
@@ -6745,12 +6667,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6760,8 +6682,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_800__contains__fb_810",
@@ -6771,12 +6693,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6786,8 +6708,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_800__contains__fb_820",
@@ -6797,12 +6719,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6812,8 +6734,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_800__contains__fb_830",
@@ -6823,12 +6745,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6838,8 +6760,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_800__contains__fb_840",
@@ -6849,12 +6771,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6864,8 +6786,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_800__contains__fb_850",
@@ -6875,12 +6797,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6890,8 +6812,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_820__contains__fb_821",
@@ -6901,12 +6823,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6916,8 +6838,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_820__contains__fb_822",
@@ -6927,12 +6849,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6942,8 +6864,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_830__contains__fb_831",
@@ -6953,12 +6875,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6968,8 +6890,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_830__contains__fb_832",
@@ -6979,12 +6901,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -6994,8 +6916,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_900__contains__fb_910",
@@ -7005,12 +6927,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7020,8 +6942,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_900__contains__fb_920",
@@ -7031,12 +6953,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7046,8 +6968,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_900__contains__fb_930",
@@ -7057,12 +6979,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7072,8 +6994,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_900__contains__fb_940",
@@ -7083,12 +7005,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7098,8 +7020,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_900__contains__fb_950",
@@ -7109,12 +7031,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7124,8 +7046,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_910__contains__fb_911",
@@ -7135,12 +7057,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7150,8 +7072,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_910__contains__fb_912",
@@ -7161,12 +7083,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7176,8 +7098,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_940__contains__fb_941",
@@ -7187,12 +7109,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7202,8 +7124,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_940__contains__fb_942",
@@ -7213,12 +7135,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7228,8 +7150,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_950__contains__fb_951",
@@ -7239,12 +7161,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7254,8 +7176,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_950__contains__fb_952",
@@ -7265,12 +7187,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7280,8 +7202,8 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
       "id": "fb_950__contains__fb_953",
@@ -7291,12 +7213,12 @@
       "relation_weight": 1.0,
       "description": "",
       "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
         "source_001",
@@ -7306,16 +7228,16 @@
         "source_005",
         "source_006"
       ],
-      "confidence": 0.75,
-      "updated_at": "2026-07-08"
+      "confidence": 0.82,
+      "updated_at": "2026-07-14"
     },
     {
-      "id": "fb_611__upstream_downstream__fb_612",
-      "source": "fb_611",
-      "target": "fb_612",
+      "id": "fb_100__upstream_downstream__fb_000",
+      "source": "fb_100",
+      "target": "fb_000",
       "relation_type": "upstream_downstream",
       "relation_weight": 1.0,
-      "description": "白酒制曲后进入发酵与蒸馏环节。",
+      "description": "农产品原料属于食品饮料行业的上游环节。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -7325,18 +7247,23 @@
         "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0003"
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
       ],
       "confidence": 0.82,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
-      "id": "fb_612__upstream_downstream__fb_613",
-      "source": "fb_612",
-      "target": "fb_613",
+      "id": "fb_200__upstream_downstream__fb_000",
+      "source": "fb_200",
+      "target": "fb_000",
       "relation_type": "upstream_downstream",
       "relation_weight": 1.0,
-      "description": "白酒蒸馏形成基酒后进入陈酿与勾调。",
+      "description": "食品添加剂与配料属于食品饮料行业的上游环节。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -7346,18 +7273,23 @@
         "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0003"
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
       ],
       "confidence": 0.82,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
-      "id": "fb_613__upstream_downstream__fb_614",
-      "source": "fb_613",
-      "target": "fb_614",
+      "id": "fb_300__upstream_downstream__fb_000",
+      "source": "fb_300",
+      "target": "fb_000",
       "relation_type": "upstream_downstream",
       "relation_weight": 1.0,
-      "description": "陈酿勾调后的酒体进入灌装包装。",
+      "description": "包装材料属于食品饮料行业的上游环节。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -7367,18 +7299,23 @@
         "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0003"
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
       ],
       "confidence": 0.82,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     },
     {
-      "id": "fb_621__upstream_downstream__fb_622",
-      "source": "fb_621",
-      "target": "fb_622",
+      "id": "fb_000__upstream_downstream__fb_900",
+      "source": "fb_000",
+      "target": "fb_900",
       "relation_type": "upstream_downstream",
       "relation_weight": 1.0,
-      "description": "麦芽糖化制备麦汁后进入发酵。",
+      "description": "流通渠道与零售终端属于食品饮料行业的下游环节。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -7388,141 +7325,15 @@
         "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0003"
+        "source_001",
+        "source_002",
+        "source_003",
+        "source_004",
+        "source_005",
+        "source_006"
       ],
       "confidence": 0.82,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_622__upstream_downstream__fb_623",
-      "source": "fb_622",
-      "target": "fb_623",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "啤酒发酵后进入过滤与灌装。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0003"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_810__upstream_downstream__fb_820",
-      "source": "fb_810",
-      "target": "fb_820",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "产地预冷后的温控产品进入冷链仓储。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0003"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_820__upstream_downstream__fb_830",
-      "source": "fb_820",
-      "target": "fb_830",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "冷链仓储后进入干线或城市冷链运输。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0003"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_710__upstream_downstream__fb_720",
-      "source": "fb_710",
-      "target": "fb_720",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "原料前处理后进入核心加工设备环节。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0003"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_720__upstream_downstream__fb_730",
-      "source": "fb_720",
-      "target": "fb_730",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "核心加工后进入灌装包装设备环节。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0003"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-08"
-    },
-    {
-      "id": "fb_730__upstream_downstream__fb_740",
-      "source": "fb_730",
-      "target": "fb_740",
-      "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
-      "description": "灌装包装后通过在线检测与品控设备复核。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0003"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-08"
+      "updated_at": "2026-07-14"
     }
-  ],
-  "validation_notes": [
-    "融合 graph.json 的较深层级结构与 codex-graph.json 的简洁命名。",
-    "删除跨一级分支上下游边和传递冗余边；上下游边只保留同分支相邻工序。",
-    "每个非根节点只保留一个 parent_id，并由标准化逻辑补齐唯一 contains 父边。"
   ]
 }

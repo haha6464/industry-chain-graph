@@ -116,7 +116,9 @@ industry-chain-graph/
 **关系方向约定**：
 
 - `contains`：内部存储为 **父节点 -> 子节点**
-- `upstream_downstream`：内部存储为 **上游节点 -> 下游节点**
+- `upstream_downstream`：内部存储为 **上游节点 -> 下游节点**，但当前图谱标准仅允许出现在 **L0 与 L1 之间**，用于判断某个一级环节相对行业根节点属于上游或下游。
+- L2 以下全部使用 `contains` 表示分类隶属，不保留工艺流转或分支内部上下游边，避免 `SUBORDINATE_TO` 与 `DOWNSTREAM_OF` 含义重合。
+- 对 L1 节点：`chain_position=upstream` 时用 `L1 -> L0` 的 `upstream_downstream`；`chain_position=downstream` 时用 `L0 -> L1` 的 `upstream_downstream`；`midstream/support` 等非上下游一级环节用 `contains` 连接根节点。同一 L0-L1 节点对只能二选一。
 - 同一节点对只允许一种主关系
 
 ### 3.4 CSV 导出映射
@@ -269,14 +271,16 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 定义在 `tools/agent/validators/graph_validator.py`：
 
 - `MIN_CONFIDENCE = 0.5` — 节点/关系置信度下限
-- `MIN_TARGET_NODES = 60` — 节点数量下限（低于此值触发 warning）
-- `MAX_TARGET_NODES = 150` — 节点数量硬上限（超过触发 warning）
+- `MIN_TARGET_NODES = 100` — 节点数量下限（低于此值触发 warning）
+- 当前不设置节点数量硬上限；超过 150 不再自动 warning，但仍应避免低价值概念堆节点。
 - `MIN_LEVEL_ONE_NODES = 5` — level=1 一级环节最少数量
 
 ### 7.6 业务约束
 
 - **当前版本不涉及公司信息**：不抽取公司节点，不保留 `company_list`，不处理股票代码、财务指标和个股内容。校验规则会检测并拒绝包含公司字段的节点。
 - **关系类型只有两种**：`contains` 和 `upstream_downstream`。
+- **上下游关系只用于 L0-L1**：L2 以下只允许分类隶属树，不输出分支内部上下游或工艺流转关系。
+- **避免工艺流程节点**：面向投研和后续公司节点挂载，节点应优先是品类、材料、设备、渠道、应用场景、需求类别等稳定分类，不把单个生产动作或连续工艺步骤作为节点。
 - **每个节点和关系必须至少有 1 个 URL 来源**。
 - **候选图谱不自动覆盖正式图谱**：必须通过校验 + 人工确认（或 `--apply` 标志）。
 
