@@ -42,17 +42,24 @@ def _env_int(name: str, default: int) -> int:
         return default
 
 
-def bailian_tools() -> list[dict[str, str]]:
-    tools = [
-        {"type": "web_search"},
-        {"type": "web_extractor"},
-    ]
+def bailian_tools(include_web_extractor: bool = True) -> list[dict[str, str]]:
+    tools = [{"type": "web_search"}]
+    if include_web_extractor:
+        tools.append({"type": "web_extractor"})
     if _env_bool("BAILIAN_ENABLE_CODE_INTERPRETER", False):
         tools.append({"type": "code_interpreter"})
     return tools
 
 
-def call_bailian_responses(prompt: str, purpose: str, use_search_tools: bool = True) -> Any:
+def call_bailian_responses(
+    prompt: str,
+    purpose: str,
+    use_search_tools: bool = True,
+    search_strategy: str | None = None,
+    model: str | None = None,
+    enable_thinking: bool | None = None,
+    include_web_extractor: bool = True,
+) -> Any:
     load_bailian_env()
     api_key = os.getenv("DASHSCOPE_API_KEY") or os.getenv("BAILIAN_API_KEY")
     if not api_key:
@@ -72,12 +79,15 @@ def call_bailian_responses(prompt: str, purpose: str, use_search_tools: bool = T
         timeout=timeout_seconds,
         max_retries=0,
     )
-    tools = bailian_tools() if use_search_tools else []
-    extra_body: dict[str, Any] = {"enable_thinking": _env_bool("BAILIAN_ENABLE_THINKING", True)}
+    tools = bailian_tools(include_web_extractor=include_web_extractor) if use_search_tools else []
+    effective_model = model or os.getenv("BAILIAN_MODEL", DEFAULT_MODEL)
+    effective_enable_thinking = _env_bool("BAILIAN_ENABLE_THINKING", True) if enable_thinking is None else enable_thinking
+    extra_body: dict[str, Any] = {"enable_thinking": effective_enable_thinking}
+    effective_search_strategy = search_strategy or os.getenv("BAILIAN_SEARCH_STRATEGY", DEFAULT_SEARCH_STRATEGY)
     if use_search_tools:
         extra_body["search_options"] = {
             "forced_search": True,
-            "search_strategy": os.getenv("BAILIAN_SEARCH_STRATEGY", DEFAULT_SEARCH_STRATEGY),
+            "search_strategy": effective_search_strategy,
         }
     last_error: Exception | None = None
 
@@ -88,13 +98,13 @@ def call_bailian_responses(prompt: str, purpose: str, use_search_tools: bool = T
         try:
             tool_summary = ",".join(tool["type"] for tool in tools) or "none"
             print(
-                f"[agent] 调用百炼{purpose}：model={os.getenv('BAILIAN_MODEL', DEFAULT_MODEL)}, "
-                f"strategy={os.getenv('BAILIAN_SEARCH_STRATEGY', DEFAULT_SEARCH_STRATEGY)}, "
+                f"[agent] 调用百炼{purpose}：model={effective_model}, "
+                f"strategy={effective_search_strategy}, "
                 f"timeout={timeout_seconds}s, tools={tool_summary}。",
                 flush=True,
             )
             request_kwargs: dict[str, Any] = {
-                "model": os.getenv("BAILIAN_MODEL", DEFAULT_MODEL),
+                "model": effective_model,
                 "input": prompt,
                 "extra_body": extra_body,
             }

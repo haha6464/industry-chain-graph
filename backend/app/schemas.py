@@ -90,6 +90,29 @@ class AgentUpdateRequest(BaseModel):
     mode: Literal["check_only", "propose", "apply"] = "check_only"
 
 
+class CompanyAttachmentRequest(BaseModel):
+    industry_id: str
+
+
+class CompanyAttachmentItem(BaseModel):
+    company_id: str
+    comcode: str
+    name: str
+    short_name: str = ""
+    is_listed: bool | None = None
+    direct_node_ids: list[str] = Field(default_factory=list)
+    direct_node_names: list[str] = Field(default_factory=list)
+
+
+class NodeCompaniesResponse(BaseModel):
+    industry_id: str
+    node_id: str
+    status: Literal["ready", "missing", "stale", "invalid"]
+    message: str = ""
+    total: int = 0
+    limit: int = 50
+    offset: int = 0
+    items: list[CompanyAttachmentItem] = Field(default_factory=list)
 
 
 class ApplyCandidateRequest(BaseModel):

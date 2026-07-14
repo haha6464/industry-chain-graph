@@ -9,6 +9,7 @@ import type {
   GraphFilters,
   GraphResponse,
   Industry,
+  NodeCompaniesResponse,
   RelationType,
   UpdateMode
 } from "./types";
@@ -50,6 +51,11 @@ export async function fetchGraph(industryId: string, filters: GraphFilters) {
 
 export async function fetchNeighbors(industryId: string, nodeId: string) {
   return request<GraphResponse>(`/api/nodes/${nodeId}/neighbors?industry_id=${industryId}`);
+}
+
+export async function fetchNodeCompanies(industryId: string, nodeId: string, limit = 50, offset = 0) {
+  const params = new URLSearchParams({ industry_id: industryId, limit: String(limit), offset: String(offset) });
+  return request<NodeCompaniesResponse>(`/api/nodes/${nodeId}/companies?${params.toString()}`);
 }
 
 export async function askGraph(industryId: string, question: string, filters: GraphFilters) {
@@ -100,6 +106,13 @@ export async function updateAgentGraph(industryId: string, mode: UpdateMode = "c
   return request<AgentRunResponse>("/api/agent/update", {
     method: "POST",
     body: JSON.stringify({ industry_id: industryId, mode })
+  });
+}
+
+export async function attachCompanies(industryId: string) {
+  return request<AgentRunResponse>("/api/agent/attach-companies", {
+    method: "POST",
+    body: JSON.stringify({ industry_id: industryId })
   });
 }
 

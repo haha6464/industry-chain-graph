@@ -50,6 +50,29 @@ export interface GraphResponse {
   edges: GraphEdge[];
 }
 
+export type CompanyAttachmentStatus = "ready" | "missing" | "stale" | "invalid";
+
+export interface CompanyAttachmentItem {
+  company_id: string;
+  comcode: string;
+  name: string;
+  short_name: string;
+  is_listed?: boolean | null;
+  direct_node_ids: string[];
+  direct_node_names: string[];
+}
+
+export interface NodeCompaniesResponse {
+  industry_id: string;
+  node_id: string;
+  status: CompanyAttachmentStatus;
+  message: string;
+  total: number;
+  limit: number;
+  offset: number;
+  items: CompanyAttachmentItem[];
+}
+
 export interface AskResponse {
   answer: string;
   context_nodes: GraphNode[];

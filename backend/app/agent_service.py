@@ -57,6 +57,17 @@ ARTIFACT_SPECS = [
     ArtifactSpec("update_agent_request_prompt", "更新 Agent 请求提示词", "update_agent_request_prompt.txt", "text"),
     ArtifactSpec("update_agent_raw_response", "更新 Agent 原始响应", "update_agent_raw_response.txt", "text"),
     ArtifactSpec("update_agent_error", "更新 Agent 失败信息", "update_agent_error.txt", "text"),
+    ArtifactSpec("company_scope", "公司候选范围", "company_scope.json", "json"),
+    ArtifactSpec("company_attachment_candidate", "公司挂载候选", "company_attachment_candidate.json", "json"),
+    ArtifactSpec("company_attachments", "公司挂载正式附件", "company_attachments.json", "json"),
+    ArtifactSpec("company_attachment_raw_responses", "公司挂载原始响应", "company_attachment_raw_responses.jsonl", "jsonl"),
+    ArtifactSpec("company_scope_request_prompt", "公司范围规划提示词", "company_scope_request_prompt.txt", "text"),
+    ArtifactSpec("company_scope_raw_response", "公司范围规划原始响应", "company_scope_raw_response.txt", "text"),
+    ArtifactSpec("company_attachment_validation_report", "公司挂载规则校验报告", "company_attachment_validation_report.md", "markdown"),
+    ArtifactSpec("company_attachment_validation_report_json", "公司挂载规则校验数据", "company_attachment_validation_report.json", "json"),
+    ArtifactSpec("company_attachment_repair_report", "公司挂载格式修复报告", "company_attachment_repair_report.json", "json"),
+    ArtifactSpec("company_attachment_validation_request_prompt", "公司挂载格式修复提示词", "company_attachment_validation_request_prompt.txt", "text"),
+    ArtifactSpec("company_attachment_validation_raw_response", "公司挂载格式修复原始响应", "company_attachment_validation_raw_response.txt", "text"),
 ]
 ARTIFACT_BY_NAME = {spec.name: spec for spec in ARTIFACT_SPECS}
 
@@ -259,6 +270,16 @@ def run_update(industry_id: str, mode: str) -> dict[str, Any]:
         mode,
     ]
     return _start_subprocess_run("update", industry_id, command, output_dir / "update_report.md")
+
+
+def run_attach_companies(industry_id: str) -> dict[str, Any]:
+    output_dir = industry_dir(industry_id)
+    if not (output_dir / "graph.json").exists():
+        raise FileNotFoundError("找不到正式 graph.json，请先完成最终校验并应用候选主图。")
+    command = [sys.executable, "tools/agent/attach_companies.py", "--industry-id", industry_id]
+    return _start_subprocess_run(
+        "attach_companies", industry_id, command, output_dir / "company_attachment_validation_report.md"
+    )
 
 
 def get_run(run_id: str) -> dict[str, Any]:

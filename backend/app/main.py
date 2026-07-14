@@ -2,8 +2,10 @@ import httpx
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_build_branches, run_build_skeleton, run_search_plan, run_final_validate, run_update
+from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_attach_companies, run_build_branches, run_build_skeleton, run_search_plan, run_final_validate, run_update
 from app.ai_service import AIConfigurationError, answer_with_graph_context
+from tools.agent.common import industry_dir, load_graph
+from tools.agent.company_attachments import aggregate_node_companies, attachment_file_status
 from app.config import Settings, get_settings
 from app.graph_loader import load_industry_graph, load_manifest
 from app.neo4j_client import Neo4jClient, get_neo4j_client
@@ -18,11 +20,13 @@ from app.schemas import (
     AskRequest,
     AskResponse,
     ChainPosition,
+    CompanyAttachmentRequest,
     ExportResponse,
     GraphFilters,
     GraphResponse,
     HealthResponse,
     Industry,
+    NodeCompaniesResponse,
     RelationType,
 )
 
@@ -163,6 +167,38 @@ def get_neighbors(
     return GraphResponse(industry_id=industry_id, nodes=nodes, edges=edges)
 
 
+@app.get("/api/nodes/{node_id}/companies", response_model=NodeCompaniesResponse)
+def get_node_companies(
+    node_id: str,
+    industry_id: str = Query(default="food_beverage"),
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
+) -> NodeCompaniesResponse:
+    try:
+        _, nodes, _ = load_industry_graph(industry_id)
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=404, detail=f"该行业尚未生成正式 graph.json：{industry_id}") from exc
+    if node_id not in {node.id for node in nodes}:
+        raise HTTPException(status_code=404, detail=f"Node not found: {node_id}")
+    graph = load_graph(industry_id)
+    attachment_path = industry_dir(industry_id) / "company_attachments.json"
+    status, payload, message = attachment_file_status(industry_id, graph, attachment_path)
+    if status != "ready" or payload is None:
+        return NodeCompaniesResponse(
+            industry_id=industry_id, node_id=node_id, status=status, message=message, limit=limit, offset=offset
+        )
+    items = aggregate_node_companies(graph, payload, node_id)
+    return NodeCompaniesResponse(
+        industry_id=industry_id,
+        node_id=node_id,
+        status="ready",
+        total=len(items),
+        limit=limit,
+        offset=offset,
+        items=items[offset : offset + limit],
+    )
+
+
 @app.post("/api/agent/search-plan", response_model=AgentRunResponse)
 def create_agent_search_plan(request: AgentRunRequest) -> AgentRunResponse:
     result = run_search_plan(request.industry_id, request.industry_name)
@@ -191,6 +227,15 @@ def build_agent_skeleton(request: AgentRunRequest) -> AgentRunResponse:
 def build_agent_branches(request: AgentRunRequest) -> AgentRunResponse:
     try:
         result = run_build_branches(request.industry_id, request.industry_name, request.target_depth)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return AgentRunResponse(**result)
+
+
+@app.post("/api/agent/attach-companies", response_model=AgentRunResponse)
+def attach_agent_companies(request: CompanyAttachmentRequest) -> AgentRunResponse:
+    try:
+        result = run_attach_companies(request.industry_id)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return AgentRunResponse(**result)
