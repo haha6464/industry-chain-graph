@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { InteractiveNvlWrapper } from "@neo4j-nvl/react";
 import { Bot, CheckCircle2, ChevronDown, ChevronRight, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, Trash2, X } from "lucide-react";
 import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, fetchNodeCompanies, finalValidateAgentGraph, updateAgentGraph } from "./api";
-import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, GraphEdge, GraphFilters, GraphNode, Industry, NodeCompaniesResponse, RelationType, UpdateMode } from "./types";
+import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, CompanyAttachmentItem, GraphEdge, GraphFilters, GraphNode, Industry, NodeCompaniesResponse, RelationType, UpdateMode } from "./types";
 
 const nodeTypeOptions: Array<{ value: ChainPosition; label: string; color: string }> = [
   { value: "root", label: "根节点", color: "#334155" },
@@ -70,6 +70,9 @@ function relationLabel(type: RelationType) {
 function formatPercent(value?: number) {
   return value === undefined || Number.isNaN(value) ? "-" : Math.round(value * 100) + "%";
 }
+function companyGraphNodeId(companyId: string) {
+  return "company:" + companyId;
+}
 function artifactPreview(content: AgentArtifactContent | null) {
   if (!content) return "选择一个产物查看内容。";
   return typeof content.content === "string" ? content.content : JSON.stringify(content.content, null, 2);
@@ -87,7 +90,7 @@ function companyRunProgress(logs: string[]) {
     detail: match[4].replace(/^\s*·\s*/, "")
   };
 }
-export function App() {
+export function App({ offline = false }: { offline?: boolean } = {}) {
   const nvlRef = useRef<any>(null);
   const detailPanelRef = useRef<HTMLElement | null>(null);
   const runLogRef = useRef<HTMLPreElement | null>(null);
@@ -99,9 +102,10 @@ export function App() {
   const [nodes, setNodes] = useState<GraphNode[]>([]);
   const [edges, setEdges] = useState<GraphEdge[]>([]);
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
+  const [selectedCompany, setSelectedCompany] = useState<CompanyAttachmentItem | null>(null);
   const [neighborEdges, setNeighborEdges] = useState<GraphEdge[]>([]);
-  const [companyPanelOpen, setCompanyPanelOpen] = useState(false);
-  const [companyResponse, setCompanyResponse] = useState<NodeCompaniesResponse | null>(null);
+  const [expandedCompanyNodeIds, setExpandedCompanyNodeIds] = useState<string[]>([]);
+  const [companyResponses, setCompanyResponses] = useState<Record<string, NodeCompaniesResponse>>({});
   const [companyLoading, setCompanyLoading] = useState(false);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState<AskResponse | null>(null);
@@ -119,6 +123,8 @@ export function App() {
 
   const industryName = industries.find((industry) => industry.id === industryId)?.name ?? industryId;
   const hasSelectedIndustry = industryId.trim().length > 0;
+  const selectedCompanyResponse = selectedNode ? companyResponses[selectedNode.id] ?? null : null;
+  const selectedCompaniesExpanded = Boolean(selectedNode && expandedCompanyNodeIds.includes(selectedNode.id));
   const existingArtifacts = artifacts.filter((artifact) => artifact.exists);
   const activeCompanyProgress = activeRun?.kind === "attach_companies" ? companyRunProgress(activeRun.logs) : null;
   const levelOptions = useMemo(() => {
@@ -138,7 +144,7 @@ export function App() {
     { id: "skeleton", title: "一级骨架构建", summary: "联网生成 level=1 一级产业链骨架，并立即评估分类质量；不通过时只修骨架。", done: hasArtifact("staged_level1_graph") && hasArtifact("staged_level1_evaluation"), artifacts: ["agent_request_prompt", "staged_level1_graph", "staged_level1_evaluation", "staged_quality_opinions"], action: "skeleton" },
     { id: "branches", title: "分支扩展与评估", summary: "基于一级骨架逐分支扩展，每条分支单独评估；不通过时只修当前分支，最后合并为校验前候选图谱。", done: hasArtifact("pre_validation_candidate_graph"), artifacts: ["staged_branch_fragments", "staged_branch_evaluations", "staged_quality_opinions", "staged_merged_graph", "staged_errors", "agent_raw_response", "pre_validation_candidate_graph"], action: "branches" },
     { id: "validate_repair", title: "最终校验与格式修复", summary: "单轮硬规则校验；只有不通过才请求百炼做格式修复，不再做整图质量审查。", done: hasArtifact("candidate_graph") && hasArtifact("validation_report"), artifacts: ["validation_agent_request_prompt", "validation_agent_raw_response", "format_repair_report", "candidate_graph", "sources", "validation_report", "validation_report_json", "review_queue"], action: "final_validate" },
-    { id: "company_attach", title: "公司节点挂载（硬校验）", summary: "基于正式图谱筛选全链条候选公司，直接挂载到最深节点；父节点展示时自动聚合，不做质量评估。", done: hasArtifact("company_attachments") && hasArtifact("company_attachment_validation_report"), artifacts: ["company_scope", "company_attachment_candidate", "company_attachments", "company_attachment_raw_responses", "company_attachment_validation_report", "company_attachment_validation_report_json", "company_attachment_repair_report"], action: "company_attach" },
+    { id: "company_attach", title: "公司节点挂载（硬校验）", summary: "基于正式图谱筛选全链条候选公司并直接挂载到最深节点；图谱画布按需展开公司，不做质量评估。", done: hasArtifact("company_attachments") && hasArtifact("company_attachment_validation_report"), artifacts: ["company_scope", "company_attachment_candidate", "company_attachments", "company_attachment_raw_responses", "company_attachment_validation_report", "company_attachment_validation_report_json", "company_attachment_repair_report"], action: "company_attach" },
     { id: "update", title: "增量更新", summary: "联网搜索新增证据，默认生成 no_change 或 update_proposal。", done: hasArtifact("update_proposal") || hasArtifact("update_report"), artifacts: ["update_agent_request_prompt", "update_proposal", "update_candidate_graph", "update_report", "update_agent_raw_response"], action: "update" },
     { id: "export", title: "CSV 交付", summary: "按 mentor 格式导出节点 CSV 和关系 CSV。", done: exportPaths.length > 0, artifacts: [], action: "export" }
   ];
@@ -147,7 +153,9 @@ export function App() {
     try {
       const data = await fetchIndustries();
       setIndustries(data);
-      if (data.length > 0) setIndustryId((current) => (data.some((industry) => industry.id === current) ? current : ""));
+      if (data.length > 0) {
+        setIndustryId((current) => (data.some((industry) => industry.id === current) ? current : (offline ? data[0].id : "")));
+      }
     } catch {
       setIndustries([]);
     }
@@ -403,8 +411,8 @@ export function App() {
     setAgentBusy(true);
     try {
       const result = await exportIndustryCsv(industryId);
-      setExportPaths([result.node_csv, result.edge_csv]);
-      setMessage("CSV 导出完成。");
+      setExportPaths([result.node_csv, result.edge_csv, result.company_node_csv, result.company_edge_csv].filter((path): path is string => Boolean(path)));
+      setMessage(result.company_node_csv ? "产业链与公司节点 CSV 导出完成。" : "产业链 CSV 导出完成；未找到有效公司挂载附件。");
       await loadExports();
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "CSV 导出失败");
@@ -442,11 +450,29 @@ export function App() {
     }
   }
   async function handleNodeClick(nodeId: string) {
+    if (nodeId.startsWith("company:")) {
+      const companyId = nodeId.slice("company:".length);
+      const matches = Object.values(companyResponses).flatMap((response) => response.items.filter((item) => item.company_id === companyId));
+      if (matches.length > 0) {
+        const first = matches[0];
+        const attachmentByNode = new Map(first.direct_attachments.map((item) => [item.node_id, item]));
+        matches.slice(1).forEach((item) => item.direct_attachments.forEach((attachment) => attachmentByNode.set(attachment.node_id, attachment)));
+        const directAttachments = Array.from(attachmentByNode.values());
+        setSelectedCompany({
+          ...first,
+          direct_attachments: directAttachments,
+          direct_node_ids: directAttachments.map((item) => item.node_id),
+          direct_node_names: directAttachments.map((item) => item.node_name)
+        });
+        setSelectedNode(null);
+        setNeighborEdges([]);
+      }
+      return;
+    }
     if (!hasSelectedIndustry) return;
     const current = nodes.find((node) => node.id === nodeId) ?? null;
     setSelectedNode(current);
-    setCompanyPanelOpen(false);
-    setCompanyResponse(null);
+    setSelectedCompany(null);
     if (!current) return;
     try {
       const data = await fetchNeighbors(industryId, nodeId);
@@ -457,29 +483,28 @@ export function App() {
   }
   async function handleToggleCompanies() {
     if (!selectedNode) return;
-    if (companyPanelOpen) {
-      setCompanyPanelOpen(false);
+    const nodeId = selectedNode.id;
+    if (expandedCompanyNodeIds.includes(nodeId)) {
+      setExpandedCompanyNodeIds((current) => current.filter((id) => id !== nodeId));
       return;
     }
-    setCompanyPanelOpen(true);
-    if (companyResponse?.node_id === selectedNode.id) return;
-    setCompanyLoading(true);
-    try {
-      setCompanyResponse(await fetchNodeCompanies(industryId, selectedNode.id));
-    } catch (error) {
-      setCompanyResponse({ industry_id: industryId, node_id: selectedNode.id, status: "invalid", message: error instanceof Error ? error.message : "公司列表读取失败", total: 0, limit: 50, offset: 0, items: [] });
-    } finally {
-      setCompanyLoading(false);
+    const cached = companyResponses[nodeId];
+    if (cached?.status === "ready") {
+      setExpandedCompanyNodeIds((current) => [...current, nodeId]);
+      return;
     }
-  }
-  async function handleLoadMoreCompanies() {
-    if (!selectedNode || !companyResponse || companyLoading) return;
     setCompanyLoading(true);
     try {
-      const next = await fetchNodeCompanies(industryId, selectedNode.id, companyResponse.limit, companyResponse.items.length);
-      setCompanyResponse({ ...next, items: [...companyResponse.items, ...next.items], offset: 0 });
+      const response = await fetchNodeCompanies(industryId, nodeId, 500, 0, false);
+      setCompanyResponses((current) => ({ ...current, [nodeId]: response }));
+      if (response.status === "ready") {
+        setExpandedCompanyNodeIds((current) => current.includes(nodeId) ? current : [...current, nodeId]);
+      }
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "加载更多公司失败");
+      setCompanyResponses((current) => ({
+        ...current,
+        [nodeId]: { industry_id: industryId, node_id: nodeId, status: "invalid" as const, message: error instanceof Error ? error.message : "公司节点读取失败", total: 0, limit: 500, offset: 0, items: [] }
+      }));
     } finally {
       setCompanyLoading(false);
     }
@@ -513,14 +538,17 @@ export function App() {
     setDraftFilters(defaultFilters);
     setAppliedFilters(defaultFilters);
     setSelectedNode(null);
+    setSelectedCompany(null);
     setNeighborEdges([]);
-    setCompanyPanelOpen(false);
-    setCompanyResponse(null);
+    setExpandedCompanyNodeIds([]);
+    setCompanyResponses({});
     setSelectedArtifact(null);
     if (hasSelectedIndustry) {
       void loadGraph(defaultFilters);
-      void loadArtifacts();
-      void loadExports();
+      if (!offline) {
+        void loadArtifacts();
+        void loadExports();
+      }
     } else {
       setNodes([]);
       setEdges([]);
@@ -532,7 +560,7 @@ export function App() {
 
   useEffect(() => {
     detailPanelRef.current?.scrollTo({ top: 0, behavior: "auto" });
-  }, [selectedNode?.id]);
+  }, [selectedNode?.id, selectedCompany?.company_id]);
 
   useEffect(() => {
     if (!runLogRef.current) return;
@@ -569,20 +597,51 @@ export function App() {
     return nodeName(edge.target) + " 是 " + nodeName(edge.source) + " 的下游";
   }
 
-  const nvlNodes = useMemo(() => nodes.map((node) => ({
-    id: node.id,
-    caption: node.name,
-    size: node.level === 0 ? 50 : node.is_key_node ? 38 : Math.max(18, 34 - node.level * 3),
-    color: levelColor(node.level, maxVisibleLevel)
-  })), [nodes]);
-  const nvlRelationships = useMemo(() => edges.map((edge) => ({
-    id: edge.id,
-    from: edge.source,
-    to: edge.target,
-    caption: edge.relation_type === "contains" ? "隶属" : "上下游",
-    color: edge.relation_type === "contains" ? "#64748b" : "#dc2626",
-    width: edge.relation_type === "contains" ? 1 : 2
-  })), [edges]);
+  const expandedCompanyGroups = useMemo(
+    () => expandedCompanyNodeIds
+      .map((nodeId) => ({ nodeId, response: companyResponses[nodeId] }))
+      .filter((item): item is { nodeId: string; response: NodeCompaniesResponse } => item.response?.status === "ready"),
+    [expandedCompanyNodeIds, companyResponses]
+  );
+  const companyNvlNodes = useMemo(() => {
+    const result = new Map<string, { id: string; caption: string; size: number; color: string }>();
+    expandedCompanyGroups.forEach(({ response }) => response.items.forEach((company) => {
+      const id = companyGraphNodeId(company.company_id);
+      if (!result.has(id)) result.set(id, { id, caption: company.name, size: 17, color: "#16a34a" });
+    }));
+    return Array.from(result.values());
+  }, [expandedCompanyGroups]);
+  const companyNvlRelationships = useMemo(
+    () => expandedCompanyGroups.flatMap(({ nodeId, response }) => response.items.map((company) => ({
+      id: `${nodeId}__company_attachment__${company.company_id}`,
+      from: nodeId,
+      to: companyGraphNodeId(company.company_id),
+      caption: "公司",
+      color: "#16a34a",
+      width: 1
+    }))),
+    [expandedCompanyGroups]
+  );
+  const nvlNodes = useMemo(() => [
+    ...nodes.map((node) => ({
+      id: node.id,
+      caption: node.name,
+      size: node.level === 0 ? 50 : node.is_key_node ? 38 : Math.max(18, 34 - node.level * 3),
+      color: levelColor(node.level, maxVisibleLevel)
+    })),
+    ...companyNvlNodes
+  ], [nodes, maxVisibleLevel, companyNvlNodes]);
+  const nvlRelationships = useMemo(() => [
+    ...edges.map((edge) => ({
+      id: edge.id,
+      from: edge.source,
+      to: edge.target,
+      caption: edge.relation_type === "contains" ? "隶属" : "上下游",
+      color: edge.relation_type === "contains" ? "#64748b" : "#dc2626",
+      width: edge.relation_type === "contains" ? 1 : 2
+    })),
+    ...companyNvlRelationships
+  ], [edges, companyNvlRelationships]);
 
   const industrySelector = (
     <label className="field">
@@ -596,11 +655,11 @@ export function App() {
   const pageTabs = (
     <div className="page-tabs">
       <button type="button" className={pageMode === "graph" ? "active" : ""} onClick={() => setPageMode("graph")}>图谱展示</button>
-      <button type="button" className={pageMode === "agent" ? "active" : ""} onClick={() => setPageMode("agent")}>Agent 工作流</button>
+      {!offline && <button type="button" className={pageMode === "agent" ? "active" : ""} onClick={() => setPageMode("agent")}>Agent 工作流</button>}
     </div>
   );
 
-  if (pageMode === "agent") {
+  if (!offline && pageMode === "agent") {
     return (
       <main className="agent-page-shell">
         <aside className="workflow-sidebar">
@@ -666,7 +725,7 @@ export function App() {
   return (
     <main className="app-shell graph-page">
       <aside className="sidebar">
-        <div className="brand"><Network size={24} /><div><h1>产业链图谱</h1><span>图谱展示与问答</span></div></div>
+        <div className="brand"><Network size={24} /><div><h1>产业链图谱</h1><span>{offline ? "离线只读展示版" : "图谱展示与问答"}</span></div></div>
         {pageTabs}
         <section className="panel"><div className="panel-title"><Database size={16} /><span>数据</span></div>{industrySelector}<button className="secondary-button" type="button" onClick={() => void loadGraph(defaultFilters)} disabled={graphLoading || !hasSelectedIndustry}><RefreshCw size={15} />刷新图谱</button></section>
         <section className="panel">
@@ -678,8 +737,8 @@ export function App() {
         </section>
       </aside>
       <section className="graph-stage">
-        <header className="stage-header"><div><h2>Neo4j 图谱可视化</h2><p>{message}</p></div><div className="stats"><div className="layout-switch" aria-label="图谱布局"><button type="button" title="力导向布局" className={layoutMode === "forceDirected" ? "active" : ""} onClick={() => setLayoutMode("forceDirected")}>力导向</button><button type="button" title="层级布局" className={layoutMode === "hierarchical" ? "active" : ""} onClick={() => setLayoutMode("hierarchical")}>层级</button></div><span>{nodes.length} 节点</span><span>{edges.length} 关系</span><button type="button" title="重新居中图谱" className="fit-button" onClick={() => nvlRef.current?.fit?.(nodes.map((node) => node.id))} disabled={nodes.length === 0}><RefreshCw size={14} /></button></div></header>
-        <div className="graph-canvas">{nodes.length > 0 ? <InteractiveNvlWrapper ref={nvlRef} nodes={nvlNodes} rels={nvlRelationships} layout={layoutMode} layoutOptions={layoutMode === "hierarchical" ? { direction: "right", packing: "bin" } : { enableCytoscape: true }} nvlOptions={{ disableTelemetry: true, renderer: "canvas", minZoom: 0.02, maxZoom: 8, allowDynamicMinZoom: true }} mouseEventCallbacks={{ onNodeClick: (node: { id: string }) => handleNodeClick(node.id), onPan: true, onZoom: true, onZoomAndPan: true, onDrag: true, onDragStart: true, onDragEnd: true }} /> : <div className="empty-state"><Sparkles size={28} /><span>{graphLoading ? "加载中" : hasSelectedIndustry ? "该行业暂无正式图谱，请到 Agent 工作流生成 graph.json" : "请选择行业后查看图谱"}</span></div>}</div>
+        <header className="stage-header"><div><h2>{offline ? "产业链图谱可视化" : "Neo4j 图谱可视化"}</h2><p>{message}</p></div><div className="stats"><div className="layout-switch" aria-label="图谱布局"><button type="button" title="力导向布局" className={layoutMode === "forceDirected" ? "active" : ""} onClick={() => setLayoutMode("forceDirected")}>力导向</button><button type="button" title="层级布局" className={layoutMode === "hierarchical" ? "active" : ""} onClick={() => setLayoutMode("hierarchical")}>层级</button></div><span>{nodes.length} 节点</span><span>{edges.length} 关系</span><button type="button" title="重新居中图谱" className="fit-button" onClick={() => nvlRef.current?.fit?.(nodes.map((node) => node.id))} disabled={nodes.length === 0}><RefreshCw size={14} /></button></div></header>
+        <div className="graph-canvas">{nodes.length > 0 ? <InteractiveNvlWrapper ref={nvlRef} nodes={nvlNodes} rels={nvlRelationships} layout={layoutMode} layoutOptions={layoutMode === "hierarchical" ? { direction: "right", packing: "bin" } : { enableCytoscape: true }} nvlOptions={{ disableTelemetry: true, renderer: "canvas", minZoom: 0.02, maxZoom: 8, allowDynamicMinZoom: true }} mouseEventCallbacks={{ onNodeClick: (node: { id: string }) => handleNodeClick(node.id), onPan: true, onZoom: true, onZoomAndPan: true, onDrag: true, onDragStart: true, onDragEnd: true }} /> : <div className="empty-state"><Sparkles size={28} /><span>{graphLoading ? "加载中" : hasSelectedIndustry ? (offline ? "该行业未包含在当前离线图谱快照中" : "该行业暂无正式图谱，请到 Agent 工作流生成 graph.json") : "请选择行业后查看图谱"}</span></div>}</div>
       </section>
       <aside className="inspector">
         <section ref={detailPanelRef} className="panel detail-panel">
@@ -695,20 +754,31 @@ export function App() {
             <div className="source-list"><strong>来源 URL</strong>{selectedNode.source_urls.length > 0 ? selectedNode.source_urls.slice(0, 5).map((url) => <a key={url} href={url} target="_blank" rel="noreferrer">{url}</a>) : <span>暂无来源</span>}</div>
             <div className="source-list"><strong>证据 ID</strong>{selectedNode.evidence_ids.length > 0 ? <span>{selectedNode.evidence_ids.join(", ")}</span> : <span>暂无证据</span>}</div>
             <div className="company-attachment">
-              <button type="button" className="company-toggle" onClick={handleToggleCompanies}>{companyPanelOpen ? <ChevronDown size={15} /> : <ChevronRight size={15} />}候选公司{companyResponse?.status === "ready" ? `（${companyResponse.total}）` : ""}</button>
-              {companyPanelOpen && <div className="company-list">
-                {companyLoading && <span className="muted">加载公司列表...</span>}
-                {!companyLoading && companyResponse && companyResponse.status !== "ready" && <span className="muted">{companyResponse.message || "暂无可展示公司附件。"}</span>}
-                {!companyLoading && companyResponse?.status === "ready" && <>
-                  {companyResponse.items.length > 0 ? companyResponse.items.map((company) => <div key={company.company_id} className="company-item"><strong>{company.name}</strong><small>{company.comcode}{company.short_name ? ` · ${company.short_name}` : ""}</small><span>直接挂载：{company.direct_node_names.join("、")}</span></div>) : <span className="muted">该节点及其下级暂无匹配公司。</span>}
-                  {companyResponse.items.length < companyResponse.total && <button type="button" className="secondary-button" onClick={handleLoadMoreCompanies} disabled={companyLoading}>加载更多</button>}
-                </>}
-              </div>}
+              <button type="button" className="company-toggle" onClick={handleToggleCompanies} aria-expanded={selectedCompaniesExpanded}>
+                {selectedCompaniesExpanded ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
+                {selectedCompaniesExpanded ? "收起公司节点" : "展开公司节点"}
+                {selectedCompanyResponse?.status === "ready" ? `（${selectedCompanyResponse.total}）` : ""}
+              </button>
+              {companyLoading && <span className="muted">正在加入图谱...</span>}
+              {!companyLoading && selectedCompanyResponse && selectedCompanyResponse.status !== "ready" && <span className="muted">{selectedCompanyResponse.message || "暂无可展示公司附件。"}</span>}
+              {!companyLoading && selectedCompanyResponse?.status === "ready" && selectedCompanyResponse.total === 0 && <span className="muted">该节点没有直接挂载的公司。</span>}
             </div>
             <div className="neighbor-list"><strong>邻接关系</strong>{otherNeighborEdges.slice(0, 10).map((edge) => <button key={edge.id} type="button" onClick={() => handleNodeClick(edge.source === selectedNode.id ? edge.target : edge.source)}><span>{relationSentence(edge)}</span><small>置信度 {formatPercent(edge.confidence)}</small></button>)}{otherNeighborEdges.length === 0 && <span>暂无其他邻接关系</span>}</div>
-          </> : <p className="muted">点击图谱节点查看描述、层级、来源、证据、置信度和邻接关系。</p>}
+          </> : selectedCompany ? <>
+            <h3>{selectedCompany.name}</h3>
+            <div className="meta-row"><span>公司节点</span><span>{selectedCompany.comcode}</span>{selectedCompany.is_listed !== null && selectedCompany.is_listed !== undefined && <span>{selectedCompany.is_listed ? "上市" : "非上市"}</span>}</div>
+            <dl className="kv-list">
+              <div><dt>公司简称</dt><dd>{selectedCompany.short_name || "-"}</dd></div>
+              <div><dt>申万分类</dt><dd>{Object.values(selectedCompany.sw_industry).filter(Boolean).join(" / ") || "-"}</dd></div>
+              <div><dt>直接挂载数</dt><dd>{selectedCompany.direct_attachments.length}</dd></div>
+            </dl>
+            <div className="node-link-list compact two-col">
+              <strong>直接挂载节点</strong>
+              {selectedCompany.direct_attachments.map((attachment) => <button key={attachment.node_id} type="button" onClick={() => handleNodeClick(attachment.node_id)}>{attachment.node_name}<small>{attachment.reason || "主营业务直接匹配"} · 置信度 {formatPercent(attachment.confidence)}</small></button>)}
+            </div>
+          </> : <p className="muted">点击图谱节点或已展开的公司节点查看审计信息。</p>}
         </section>
-        <section className="panel ask-panel"><div className="panel-title"><Bot size={16} /><span>AI 问答</span></div><textarea value={question} placeholder="例如：该行业的上游主要有哪些？" onChange={(event) => setQuestion(event.target.value)} /><button className="action-button" type="button" title="发送问题" onClick={handleAsk} disabled={asking || !question.trim() || !hasSelectedIndustry}>{asking ? <span className="spinner" /> : <Send size={16} />}<span>{asking ? "思考中" : "发送问题"}</span></button>{asking && <div className="thinking" aria-live="polite"><span>正在基于图谱检索上下文</span><i /><i /><i /></div>}{answer && <div className="answer"><strong>回答</strong><p>{answer.answer}</p><strong>引用节点</strong><div className="chips">{answer.context_nodes.slice(0, 12).map((node) => <span key={node.id}>{node.name}</span>)}</div><strong>引用关系</strong><div className="chips">{answer.context_edges.slice(0, 8).map((edge) => <span key={edge.id}>{relationLabel(edge.relation_type)}</span>)}</div></div>}</section>
+        {!offline && <section className="panel ask-panel"><div className="panel-title"><Bot size={16} /><span>AI 问答</span></div><textarea value={question} placeholder="例如：该行业的上游主要有哪些？" onChange={(event) => setQuestion(event.target.value)} /><button className="action-button" type="button" title="发送问题" onClick={handleAsk} disabled={asking || !question.trim() || !hasSelectedIndustry}>{asking ? <span className="spinner" /> : <Send size={16} />}<span>{asking ? "思考中" : "发送问题"}</span></button>{asking && <div className="thinking" aria-live="polite"><span>正在基于图谱检索上下文</span><i /><i /><i /></div>}{answer && <div className="answer"><strong>回答</strong><p>{answer.answer}</p><strong>引用节点</strong><div className="chips">{answer.context_nodes.slice(0, 12).map((node) => <span key={node.id}>{node.name}</span>)}</div><strong>引用关系</strong><div className="chips">{answer.context_edges.slice(0, 8).map((edge) => <span key={edge.id}>{relationLabel(edge.relation_type)}</span>)}</div></div>}</section>}
       </aside>
     </main>
   );

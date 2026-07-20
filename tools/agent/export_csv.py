@@ -17,6 +17,7 @@ if __package__ is None or __package__ == "":
             break
 
 from tools.agent.common import industry_dir, load_graph, standardize_graph
+from tools.agent.company_attachments import attachment_file_status
 
 def _convert_node_id(node_id: str) -> str:
     """将节点 ID 转换为大写前缀 + 6位数字格式，例如 fb_000 -> FB000000。"""
@@ -29,6 +30,8 @@ def _convert_node_id(node_id: str) -> str:
 
 NODE_FIELDS = ["节点id", "节点类型", "节点名称", "节点标签", "节点行业", "业务描述", "关键节点", "产业链环节"]
 EDGE_FIELDS = ["起点节点id", "起点节点名称", "终点节点id", "终点节点名称", "关系类型", "关系权重", "关系描述"]
+COMPANY_NODE_FIELDS = ["节点code", "节点类型", "节点名称", "证券代码", "生效时间", "失效时间"]
+COMPANY_EDGE_FIELDS = ["起点节点code", "起点节点名称", "终点节点id", "终点节点名称", "主体产业链关系", "开始时间", "结束时间", "数据来源"]
 
 
 def _safe_filename(value: str) -> str:
@@ -110,13 +113,80 @@ def export_graph_csv(graph: dict[str, Any], industry_id: str, output_dir: Path |
     return {"industry_id": industry_id, "node_csv": str(node_path), "edge_csv": str(edge_path)}
 
 
+def export_company_attachment_csv(
+    graph: dict[str, Any], attachments: dict[str, Any], industry_id: str, output_dir: Path | None = None
+) -> dict[str, str]:
+    """Export validated direct company attachments in the mentor's company CSV format."""
+    graph = standardize_graph(graph, industry_id)
+    industry_name = graph.get("industry", industry_id)
+    output_dir = output_dir or industry_dir(industry_id) / "exports"
+    prefix = _safe_filename(industry_name.replace("行业", "") + "产业链图谱")
+    company_node_path = output_dir / f"{prefix}_company_node.csv"
+    company_edge_path = output_dir / f"{prefix}_company_industrynode_edge_node.csv"
+    effective_date = str(attachments.get("generated_at", ""))[:10] or datetime.now().date().isoformat()
+    company_by_id = {str(item.get("company_id")): item for item in attachments.get("companies", [])}
+    node_by_id = {str(item.get("id")): item for item in graph.get("nodes", [])}
+
+    attached_company_ids = {
+        str(item.get("company_id"))
+        for item in attachments.get("attachments", []) or []
+        if item.get("company_id") in company_by_id and item.get("node_id") in node_by_id
+    }
+    company_rows = [
+        {
+            "节点code": company_by_id[company_id].get("comcode", ""),
+            "节点类型": "公司",
+            "节点名称": company_by_id[company_id].get("name", ""),
+            "证券代码": "",
+            "生效时间": effective_date,
+            "失效时间": "",
+        }
+        for company_id in sorted(attached_company_ids, key=lambda item: str(company_by_id[item].get("comcode", "")))
+    ]
+    edge_rows = []
+    seen_pairs: set[tuple[str, str]] = set()
+    for attachment in attachments.get("attachments", []) or []:
+        company_id = str(attachment.get("company_id", ""))
+        node_id = str(attachment.get("node_id", ""))
+        pair = (company_id, node_id)
+        if pair in seen_pairs or company_id not in company_by_id or node_id not in node_by_id:
+            continue
+        seen_pairs.add(pair)
+        company = company_by_id[company_id]
+        node = node_by_id[node_id]
+        edge_rows.append(
+            {
+                "起点节点code": company.get("comcode", ""),
+                "起点节点名称": company.get("name", ""),
+                "终点节点id": _convert_node_id(node_id),
+                "终点节点名称": node.get("name", ""),
+                "主体产业链关系": "BELONGS_TO_IND_NODE",
+                "开始时间": effective_date,
+                "结束时间": "",
+                "数据来源": "联网搜索",
+            }
+        )
+    company_node_path = _write_csv(company_node_path, COMPANY_NODE_FIELDS, company_rows)
+    company_edge_path = _write_csv(company_edge_path, COMPANY_EDGE_FIELDS, edge_rows)
+    return {"company_node_csv": str(company_node_path), "company_edge_csv": str(company_edge_path)}
+
+
 def export_industry_csv(industry_id: str, output_dir: Path | None = None) -> dict[str, str]:
-    return export_graph_csv(load_graph(industry_id), industry_id, output_dir)
+    graph = load_graph(industry_id)
+    result = export_graph_csv(graph, industry_id, output_dir)
+    attachment_path = industry_dir(industry_id) / "company_attachments.json"
+    status, attachments, _ = attachment_file_status(industry_id, graph, attachment_path)
+    if status == "ready" and attachments is not None:
+        result.update(export_company_attachment_csv(graph, attachments, industry_id, output_dir))
+    return result
 
 
 def _print_export_summary(result: dict[str, str]) -> None:
     print(f"[agent] CSV 导出完成：{result.get('industry_id', '')}。", flush=True)
-    print("[agent] 已生成产物：节点 CSV、关系 CSV。", flush=True)
+    labels = ["节点 CSV", "关系 CSV"]
+    if result.get("company_node_csv"):
+        labels.extend(["公司节点 CSV", "公司—产业链节点关系 CSV"])
+    print("[agent] 已生成产物：" + "、".join(labels) + "。", flush=True)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Export mentor CSV files from graph.json.")
@@ -125,7 +195,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     result = export_industry_csv(args.industry_id, args.output_dir)
     _print_export_summary(result)
-
-
 
 

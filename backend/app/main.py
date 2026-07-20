@@ -171,8 +171,9 @@ def get_neighbors(
 def get_node_companies(
     node_id: str,
     industry_id: str = Query(default="food_beverage"),
-    limit: int = Query(default=50, ge=1, le=200),
+    limit: int = Query(default=500, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
+    include_descendants: bool = Query(default=True),
 ) -> NodeCompaniesResponse:
     try:
         _, nodes, _ = load_industry_graph(industry_id)
@@ -187,7 +188,7 @@ def get_node_companies(
         return NodeCompaniesResponse(
             industry_id=industry_id, node_id=node_id, status=status, message=message, limit=limit, offset=offset
         )
-    items = aggregate_node_companies(graph, payload, node_id)
+    items = aggregate_node_companies(graph, payload, node_id, include_descendants=include_descendants)
     return NodeCompaniesResponse(
         industry_id=industry_id,
         node_id=node_id,

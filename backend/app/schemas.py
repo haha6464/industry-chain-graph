@@ -100,8 +100,10 @@ class CompanyAttachmentItem(BaseModel):
     name: str
     short_name: str = ""
     is_listed: bool | None = None
+    sw_industry: dict[str, str] = Field(default_factory=dict)
     direct_node_ids: list[str] = Field(default_factory=list)
     direct_node_names: list[str] = Field(default_factory=list)
+    direct_attachments: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class NodeCompaniesResponse(BaseModel):
@@ -161,3 +163,5 @@ class ExportResponse(BaseModel):
     industry_id: str
     node_csv: str
     edge_csv: str
+    company_node_csv: str | None = None
+    company_edge_csv: str | None = None

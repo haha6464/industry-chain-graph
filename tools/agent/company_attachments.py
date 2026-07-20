@@ -407,18 +407,34 @@ def attachment_file_status(industry_id: str, graph: dict[str, Any], attachment_p
     return "ready", payload, ""
 
 
-def aggregate_node_companies(graph: dict[str, Any], attachments: dict[str, Any], node_id: str) -> list[dict[str, Any]]:
-    visible_node_ids = descendants_for_node(graph, node_id)
+def aggregate_node_companies(
+    graph: dict[str, Any], attachments: dict[str, Any], node_id: str, include_descendants: bool = True
+) -> list[dict[str, Any]]:
+    # Keep the aggregate view available for delivery and non-visual consumers;
+    # the graph canvas explicitly requests direct attachments only.
+    visible_node_ids = descendants_for_node(graph, node_id) if include_descendants else {node_id}
     company_by_id = {str(company.get("company_id")): company for company in attachments.get("companies", [])}
     direct_nodes: dict[str, set[str]] = defaultdict(set)
+    direct_attachment_details: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
     for item in attachments.get("attachments", []) or []:
         if item.get("node_id") in visible_node_ids and item.get("company_id") in company_by_id:
-            direct_nodes[str(item["company_id"])].add(str(item["node_id"]))
+            company_id = str(item["company_id"])
+            node_id = str(item["node_id"])
+            direct_nodes[company_id].add(node_id)
+            direct_attachment_details[company_id][node_id] = {
+                "node_id": node_id,
+                "reason": str(item.get("reason", "")),
+                "confidence": float(item.get("confidence", 0.0)),
+            }
     node_names = {str(node.get("id")): str(node.get("name", node.get("id"))) for node in graph.get("nodes", [])}
     result = []
     for identifier, direct_ids in direct_nodes.items():
         company = dict(company_by_id[identifier])
         company["direct_node_ids"] = sorted(direct_ids)
         company["direct_node_names"] = [node_names.get(item, item) for item in company["direct_node_ids"]]
+        company["direct_attachments"] = [
+            {**direct_attachment_details[identifier][item], "node_name": node_names.get(item, item)}
+            for item in company["direct_node_ids"]
+        ]
         result.append(company)
     return sorted(result, key=lambda item: (str(item.get("name", "")), str(item.get("comcode", ""))))

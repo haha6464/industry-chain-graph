@@ -58,8 +58,10 @@ export interface CompanyAttachmentItem {
   name: string;
   short_name: string;
   is_listed?: boolean | null;
+  sw_industry: Record<string, string>;
   direct_node_ids: string[];
   direct_node_names: string[];
+  direct_attachments: Array<{ node_id: string; node_name: string; reason: string; confidence: number }>;
 }
 
 export interface NodeCompaniesResponse {
@@ -124,4 +126,6 @@ export interface ExportResponse {
   industry_id: string;
   node_csv: string;
   edge_csv: string;
+  company_node_csv?: string | null;
+  company_edge_csv?: string | null;
 }
