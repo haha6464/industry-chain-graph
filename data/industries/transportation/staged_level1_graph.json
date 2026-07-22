@@ -1,0 +1,382 @@
+{
+  "industry": "交通运输行业",
+  "version": "v0.2-staged-build",
+  "schema_version": "standard_industry_graph_v0.2_agent",
+  "generated_at": "2026-07-21T00:00:00Z",
+  "scope": "面向证券/金融投研的分阶段产业链图谱构建；L2 以下只表达分类隶属；不包含公司节点、股票代码、财务指标、新闻事件、政策标题、市场规模、营销概念或工艺流程节点。",
+  "source_basis": [
+    {
+      "name": "申万宏源2021版行业分类标准",
+      "url": "https://www.swsresearch.com/institute_sw/allIndex/downloadCenter/industryType",
+      "note": "交通运输一级行业下设置物流、航空机场、航运港口、铁路公路4个二级行业，验证了按运输方式+物流服务划分的主轴合理性"
+    },
+    {
+      "name": "证监会行业分类标准",
+      "url": "https://finance.sina.cn/sa/2012-11-16/detail-ikftssan6311822.d.html",
+      "note": "交通运输、仓储和邮政业下含铁路运输业、道路运输业、水上运输业、航空运输业等二级分类，覆盖了本设计的全部核心业态"
+    },
+    {
+      "name": "GICS全球行业分类标准",
+      "url": "https://www.msci.com/documents/1296102/11185224/GICS+Methodology+2023.pdf",
+      "note": "Transportation下分Air Freight&Logistics、Airlines、Marine、Ground Transportation、Transportation Infrastructure五个行业，与本设计的赛道划分高度一致"
+    },
+    {
+      "name": "前瞻产业研究院现代物流产业链图谱",
+      "url": "https://bg.qianzhan.com/trends/detail/506/231023-f37ea3c1.html",
+      "note": "现代物流产业链中游环节及上下游分析，支持快递与综合物流赛道的独立性"
+    },
+    {
+      "name": "知乎行业分析：交通运输行业的产业链",
+      "url": "https://zhuanlan.zhihu.com/p/25437580",
+      "note": "明确航空运输的上游为机场、飞机制造等，验证了机场服务作为基础设施的上游属性"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "transportation_000",
+      "name": "交通运输行业",
+      "node_type": "产业链",
+      "tags": [
+        "level_0"
+      ],
+      "industry": "交通运输行业",
+      "level": 0,
+      "chain_position": "root",
+      "parent_id": "",
+      "description": "以各类运输基础设施和运载工具为依托，为人员和货物的空间位移提供运输、中转、仓储、配送及供应链组织服务的行业集合。",
+      "business_description": "以各类运输基础设施和运载工具为依托，为人员和货物的空间位移提供运输、中转、仓储、配送及供应链组织服务的行业集合。",
+      "is_key_node": true,
+      "chain_segment": "root",
+      "source_urls": [
+        "https://www.shui5.cn/article/d1/51971.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0000"
+      ],
+      "confidence": 1.0,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_001",
+      "name": "航空运输",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "交通运输行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "transportation_000",
+      "description": "依托航空器及航线网络，提供旅客与货物空间位移服务的核心运营赛道，包含全服务航司、低成本航司、航空货运及通用航空等。",
+      "business_description": "依托航空器及航线网络，提供旅客与货物空间位移服务的核心运营赛道，包含全服务航司、低成本航司、航空货运及通用航空等。",
+      "is_key_node": true,
+      "chain_segment": "核心运输运营",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/25437580"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_002",
+      "name": "机场服务",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "交通运输行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "",
+      "description": "为航空运输提供起降、停场、旅客吞吐及商业配套等基础设施与地勤服务的赛道，是航空运输网络的核心物理节点。",
+      "business_description": "为航空运输提供起降、停场、旅客吞吐及商业配套等基础设施与地勤服务的赛道，是航空运输网络的核心物理节点。",
+      "is_key_node": true,
+      "chain_segment": "交通基础设施",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/25437580"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0002"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_003",
+      "name": "航运",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "交通运输行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "transportation_000",
+      "description": "利用船舶在海洋及内河提供大宗货物与集装箱运输服务的赛道，涵盖集运、干散货、油轮及特种船运输等。",
+      "business_description": "利用船舶在海洋及内河提供大宗货物与集装箱运输服务的赛道，涵盖集运、干散货、油轮及特种船运输等。",
+      "is_key_node": true,
+      "chain_segment": "核心运输运营",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202410071640183642_1.pdf"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_004",
+      "name": "港口",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "交通运输行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "",
+      "description": "提供船舶停靠、货物装卸、堆存及保税物流等水运基础设施服务的赛道，是航运产业链的核心枢纽与集疏运节点。",
+      "business_description": "提供船舶停靠、货物装卸、堆存及保税物流等水运基础设施服务的赛道，是航运产业链的核心枢纽与集疏运节点。",
+      "is_key_node": true,
+      "chain_segment": "交通基础设施",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/231023-f37ea3c1.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_005",
+      "name": "铁路与轨道交通",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "交通运输行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "transportation_000",
+      "description": "依托铁路轨道网络提供大宗物资货运、高铁与普速客运，以及城市地铁、轻轨等公共交通运营服务的赛道。",
+      "business_description": "依托铁路轨道网络提供大宗物资货运、高铁与普速客运，以及城市地铁、轻轨等公共交通运营服务的赛道。",
+      "is_key_node": true,
+      "chain_segment": "核心运输运营",
+      "source_urls": [
+        "https://finance.sina.cn/sa/2012-11-16/detail-ikftssan6311822.d.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0005"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_006",
+      "name": "公路运营与城市交通",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "交通运输行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "transportation_000",
+      "description": "涵盖高速公路投资运营、道路客货运、城市公交、出租车及网约车、共享出行等依托公路网络开展的运输与出行服务赛道。",
+      "business_description": "涵盖高速公路投资运营、道路客货运、城市公交、出租车及网约车、共享出行等依托公路网络开展的运输与出行服务赛道。",
+      "is_key_node": true,
+      "chain_segment": "核心运输运营",
+      "source_urls": [
+        "https://finance.sina.cn/sa/2012-11-16/detail-ikftssan6311822.d.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0006"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_007",
+      "name": "快递与即时配送",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "交通运输行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "",
+      "description": "面向电商与本地生活需求，提供标准化小件包裹门到门寄递、同城即时配送及末端网络服务的规模化物流赛道。",
+      "business_description": "面向电商与本地生活需求，提供标准化小件包裹门到门寄递、同城即时配送及末端网络服务的规模化物流赛道。",
+      "is_key_node": true,
+      "chain_segment": "终端物流与配送",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/231023-f37ea3c1.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0007"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_008",
+      "name": "综合物流与供应链",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "交通运输行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "",
+      "description": "提供国际货代、合同物流、跨境供应链、大宗商品供应链及专业仓储等定制化、一体化供应链组织与交付服务的赛道。",
+      "business_description": "提供国际货代、合同物流、跨境供应链、大宗商品供应链及专业仓储等定制化、一体化供应链组织与交付服务的赛道。",
+      "is_key_node": true,
+      "chain_segment": "终端物流与供应链",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/231023-f37ea3c1.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0008"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    }
+  ],
+  "edges": [
+    {
+      "id": "transportation_000__contains__transportation_001",
+      "source": "transportation_000",
+      "target": "transportation_001",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "交通运输行业包含航空运输核心运营赛道",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/25437580"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_000__contains__transportation_003",
+      "source": "transportation_000",
+      "target": "transportation_003",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "交通运输行业包含航运核心运营赛道",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202410071640183642_1.pdf"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_000__contains__transportation_005",
+      "source": "transportation_000",
+      "target": "transportation_005",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "交通运输行业包含铁路与轨道交通核心运营赛道",
+      "source_urls": [
+        "https://finance.sina.cn/sa/2012-11-16/detail-ikftssan6311822.d.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0005"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_000__contains__transportation_006",
+      "source": "transportation_000",
+      "target": "transportation_006",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "交通运输行业包含公路运营与城市交通核心运营赛道",
+      "source_urls": [
+        "https://finance.sina.cn/sa/2012-11-16/detail-ikftssan6311822.d.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0006"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_000__upstream_downstream__transportation_007",
+      "source": "transportation_000",
+      "target": "transportation_007",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "快递与即时配送面向终端交付需求，是交通运输行业的下游环节",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/231023-f37ea3c1.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0007"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_000__upstream_downstream__transportation_008",
+      "source": "transportation_000",
+      "target": "transportation_008",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "综合物流与供应链面向一体化交付需求，是交通运输行业的下游环节",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/231023-f37ea3c1.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0008"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_002__upstream_downstream__transportation_000",
+      "source": "transportation_002",
+      "target": "transportation_000",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "机场服务作为基础设施节点，是交通运输行业的上游环节",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/25437580"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0002"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    },
+    {
+      "id": "transportation_004__upstream_downstream__transportation_000",
+      "source": "transportation_004",
+      "target": "transportation_000",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "港口作为水运基础设施节点，是交通运输行业的上游环节",
+      "source_urls": [
+        "https://bg.qianzhan.com/trends/detail/506/231023-f37ea3c1.html"
+      ],
+      "evidence_ids": [
+        "transportation_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-21T00:00:00Z"
+    }
+  ]
+}

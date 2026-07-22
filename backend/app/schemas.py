@@ -82,7 +82,7 @@ class HealthResponse(BaseModel):
 class AgentRunRequest(BaseModel):
     industry_id: str
     industry_name: str | None = None
-    target_depth: str = "5-6 层，60-100 个节点，最多 150 个节点"
+    target_depth: str = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点"
 
 
 class AgentUpdateRequest(BaseModel):

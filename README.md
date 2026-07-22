@@ -131,7 +131,7 @@ BAILIAN_ENABLE_CODE_INTERPRETER=false
 .\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage branches
 ```
 
-构建 Agent 会调用 Qwen Responses API，默认启用 `web_search`、`web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先生成一级骨架，再按一级分支多次小请求扩展，最后合并为候选图谱。`BAILIAN_STAGED_BRANCH_LIMIT` 仅作为调试上限；默认 0 表示扩展全部一级分支。旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用。
+构建 Agent 会调用 Qwen Responses API，默认启用 `web_search`、`web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先研究行业边界和一级主分类轴，再按分类蓝图生成、评估并必要时修正一级骨架；骨架最终评估通过后，才按一级分支多次小请求扩展并合并为候选图谱。`BAILIAN_STAGED_BRANCH_LIMIT` 仅作为调试上限；默认 0 表示扩展全部一级分支。旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用。
 
 ### 2. 写回正式图谱
 
@@ -161,6 +161,10 @@ data/industries/food_beverage/exports/
 - `pre_validation_candidate_graph.json`：百炼抽取后的原始候选图谱。
 - `candidate_graph.json`：百炼校验 Agent 最小修正后的候选图谱。
 - `format_repair_report.json`：硬规则失败时的格式修复报告。
+
+格式修复不启用联网搜索和深度思考，只返回待应用的最小字段补丁；节点数量不足、分类质量等非工程格式问题不会触发百炼调用。
+
+候选图谱应用为正式图谱时只阻断工程格式错误；节点数量、深度和覆盖度等质量提醒会保留在校验报告与复核队列中，但不阻止应用。
 - `validation_report.md/json`：硬规则 + 百炼校验综合报告。
 - `review_queue.json`：需要人工复核的问题。
 
@@ -289,7 +293,7 @@ GET  /api/industries/{industry_id}/agent-artifacts/{artifact_name}
 触发食品饮料构建：
 
 ```powershell
-Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8010/api/agent/build-skeleton" -ContentType "application/json" -Body '{"industry_id":"food_beverage","industry_name":"食品饮料行业","target_depth":"5-6 层，60-100 个节点，最多 150 个节点"}'
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8010/api/agent/build-skeleton" -ContentType "application/json" -Body '{"industry_id":"food_beverage","industry_name":"食品饮料行业","target_depth":"L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点"}'
 ```
 
 导出 CSV：
@@ -330,7 +334,7 @@ cd ..
 
 ## 下一步扩展建议
 
-- 优化百炼抽取和校验 prompt，提高 5-6 层深度、60-100 节点规模、关系方向和最小修图稳定性。
+- 优化百炼抽取和校验 prompt，提高 L0-L4（5 层）深度、120+ 节点规模、关系方向和最小修图稳定性。
 - 增加批量行业运行脚本，对 25 个行业统一执行构建、校验、更新检查和导出。
 - 为 25 个行业批量运行 Agent 构建，并补齐正式 `graph.json`、校验报告和 CSV 数据包。
 - 继续增强 Agent 工作流页：补充运行进度轮询、复核队列编辑、CSV 文件下载和正式应用前确认。

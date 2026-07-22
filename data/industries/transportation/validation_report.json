@@ -1,0 +1,18 @@
+{
+  "industry": "交通运输行业",
+  "schema_version": "standard_industry_graph_v0.2_agent",
+  "node_count": 151,
+  "edge_count": 150,
+  "max_contains_depth": 4,
+  "error_count": 0,
+  "warning_count": 1,
+  "status": "pass",
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "duplicate_node_name",
+      "message": "疑似重复节点名称：transportation_007_006, transportation_008_005。",
+      "item_id": "transportation_007_006"
+    }
+  ]
+}

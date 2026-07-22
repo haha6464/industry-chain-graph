@@ -17,7 +17,7 @@ from tools.agent.common import industry_dir, read_json, standardize_graph, write
 from tools.agent.export_csv import export_graph_csv
 from tools.agent.mergers.graph_merger import build_review_queue
 from tools.agent.search.bailian_responses_agent import evidence_from_agent_graph
-from tools.agent.validators.bailian_graph_validator import validate_and_repair_with_bailian
+from tools.agent.validators.bailian_graph_validator import repairable_hard_rule_errors, validate_and_repair_with_bailian
 from tools.agent.validators.graph_validator import validate_graph, write_markdown_report
 
 
@@ -81,19 +81,55 @@ def run_final_validation(industry_id: str, graph_file: Path | None = None) -> di
     }
     validation_raw_text = "硬规则校验通过，未调用百炼格式修复。\n"
 
-    if initial_validation.get("error_count", 0) > 0:
-        _log("硬规则校验未通过，请求百炼格式修复；提示词将写入 validation_agent_request_prompt.txt。")
+    repairable_errors, unrepairable_errors = repairable_hard_rule_errors(initial_validation)
+    if repairable_errors:
+        _log(f"发现 {len(repairable_errors)} 个可修复工程错误，请求百炼执行无联网最小格式补丁。")
+        repair_input_report = dict(initial_validation)
+        repair_input_report["issues"] = repairable_errors
+        repair_input_report["error_count"] = len(repairable_errors)
         try:
             candidate, format_repair_report, validation_raw_text = validate_and_repair_with_bailian(
                 candidate,
                 industry_id,
-                initial_validation,
+                repair_input_report,
                 output_dir / "validation_agent_request_prompt.txt",
             )
         except Exception as exc:
             (output_dir / "agent_error.txt").write_text(f"{type(exc).__name__}: {exc}\n", encoding="utf-8")
             _log("百炼格式修复失败，错误已写入 agent_error.txt。")
             raise
+        if unrepairable_errors:
+            format_repair_report["validation_status"] = "fail"
+            format_repair_report.setdefault("review_items", []).extend([
+                {
+                    "severity": "error",
+                    "item_id": item.get("item_id", ""),
+                    "reason": item.get("message", "该硬规则错误不属于工程格式修复范围。"),
+                    "suggestion": "返回骨架或分支构建阶段修正，不调用格式修复补业务内容。",
+                }
+                for item in unrepairable_errors
+            ])
+    elif unrepairable_errors:
+        _log("硬规则未通过，但错误不属于格式修复范围；跳过百炼调用并进入人工复核。")
+        validation_raw_text = "硬规则错误不可通过工程格式修复解决，未调用百炼。\n"
+        format_repair_report = {
+            "validation_status": "fail",
+            "summary": "存在节点数量或其他非工程格式问题，未调用百炼格式修复。",
+            "modifications": [],
+            "review_items": [
+                {
+                    "severity": "error",
+                    "item_id": item.get("item_id", ""),
+                    "reason": item.get("message", "该硬规则错误不属于工程格式修复范围。"),
+                    "suggestion": "返回骨架或分支构建阶段修正。",
+                }
+                for item in unrepairable_errors
+            ],
+        }
+        (output_dir / "validation_agent_request_prompt.txt").write_text(
+            "硬规则错误不属于工程格式修复范围，未调用百炼。\n",
+            encoding="utf-8",
+        )
     else:
         (output_dir / "validation_agent_request_prompt.txt").write_text("硬规则校验通过，未调用百炼格式修复。\n", encoding="utf-8")
 

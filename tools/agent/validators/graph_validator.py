@@ -18,7 +18,7 @@ from tools.agent.common import load_graph, standardize_graph, write_json
 
 ALLOWED_RELATIONS = {"contains", "upstream_downstream"}
 MIN_CONFIDENCE = 0.5
-MIN_TARGET_NODES = 100
+MIN_TARGET_NODES = 120
 MIN_LEVEL_ONE_NODES = 5
 MIN_TARGET_DEPTH = 4
 PROCESS_STEP_TERMS = [
@@ -91,7 +91,11 @@ def validate_graph(graph: dict[str, Any], industry_id: str) -> dict[str, Any]:
     node_count = len(nodes)
     level_one_count = sum(1 for node in nodes if node.get("level") == 1)
     if node_count < MIN_TARGET_NODES:
-        issue("warning", "node_count_below_target", f"节点数量 {node_count} 低于目标下限 {MIN_TARGET_NODES}，建议补充横向分支。")
+        issue(
+            "warning",
+            "node_count_below_target",
+            f"节点数量 {node_count} 低于质量目标 {MIN_TARGET_NODES}；允许应用为正式图谱，但建议后续继续扩展。",
+        )
     if nodes and level_one_count < MIN_LEVEL_ONE_NODES:
         issue("warning", "level_one_breadth_low", f"level=1 一级环节仅 {level_one_count} 个，建议覆盖更多主要产业链环节。")
 
@@ -142,7 +146,7 @@ def validate_graph(graph: dict[str, Any], industry_id: str) -> dict[str, Any]:
     max_depth = max(max_depth, max((int(node.get("level", 0)) for node in nodes), default=0))
     error_count = sum(1 for item in issues if item["severity"] == "error")
     if nodes and max_depth < MIN_TARGET_DEPTH:
-        issue("warning", "contains_depth_below_target", f"contains 最大深度仅 {max_depth}，目标图谱应至少存在若干 L4/L5 核心链条。")
+        issue("warning", "contains_depth_below_target", f"contains 最大深度仅 {max_depth}，目标图谱应至少存在若干 L4 核心链条。")
 
     warning_count = sum(1 for item in issues if item["severity"] == "warning")
     return {
@@ -163,9 +167,9 @@ def write_markdown_report(report: dict[str, Any], output_path: Path) -> None:
         f"# {report['industry']} 图谱校验报告",
         "",
         f"- 状态：{report['status']}",
-        f"- 节点数：{report['node_count']}（目标 100+，不设硬上限）",
+        f"- 节点数：{report['node_count']}（通常 120+，不设硬上限）",
         f"- 关系数：{report['edge_count']}",
-        f"- contains 最大深度：{report['max_contains_depth']}（目标至少存在若干 L4/L5 核心链条）",
+        f"- contains 最大深度：{report['max_contains_depth']}（目标至少存在若干 L4 核心链条）",
         f"- error：{report['error_count']}",
         f"- warning：{report['warning_count']}",
         "",

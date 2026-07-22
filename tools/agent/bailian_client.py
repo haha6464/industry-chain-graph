@@ -97,9 +97,10 @@ def call_bailian_responses(
             time.sleep(retry_sleep_seconds)
         try:
             tool_summary = ",".join(tool["type"] for tool in tools) or "none"
+            strategy_summary = effective_search_strategy if use_search_tools else "disabled"
             print(
                 f"[agent] 调用百炼{purpose}：model={effective_model}, "
-                f"strategy={effective_search_strategy}, "
+                f"strategy={strategy_summary}, "
                 f"timeout={timeout_seconds}s, tools={tool_summary}。",
                 flush=True,
             )

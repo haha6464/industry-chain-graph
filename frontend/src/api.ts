@@ -196,14 +196,14 @@ export async function finalValidateAgentGraph(industryId: string) {
   });
 }
 
-export async function buildAgentSkeleton(industryId: string, industryName: string, targetDepth = "5-6 层，60-100 个节点，最多 150 个节点") {
+export async function buildAgentSkeleton(industryId: string, industryName: string, targetDepth = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点") {
   return request<AgentRunResponse>("/api/agent/build-skeleton", {
     method: "POST",
     body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
   });
 }
 
-export async function buildAgentBranches(industryId: string, industryName: string, targetDepth = "5-6 层，60-100 个节点，最多 150 个节点") {
+export async function buildAgentBranches(industryId: string, industryName: string, targetDepth = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点") {
   return request<AgentRunResponse>("/api/agent/build-branches", {
     method: "POST",
     body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })

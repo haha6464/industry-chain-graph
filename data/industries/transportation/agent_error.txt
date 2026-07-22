@@ -1,0 +1,1 @@
+BailianAgentError: 百炼格式修复调用失败，已重试 1 次。可尝试降低 BAILIAN_SEARCH_STRATEGY、关闭 BAILIAN_ENABLE_THINKING、或调小目标节点数后重跑。

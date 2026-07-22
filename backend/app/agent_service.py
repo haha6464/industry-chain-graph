@@ -44,6 +44,7 @@ ARTIFACT_SPECS = [
     ArtifactSpec("update_report", "更新报告", "update_report.md", "markdown"),
     ArtifactSpec("agent_request_prompt", "构建 Agent 请求提示词", "agent_request_prompt.txt", "text"),
     ArtifactSpec("agent_raw_response", "构建 Agent 原始响应", "agent_raw_response.txt", "text"),
+    ArtifactSpec("staged_level1_blueprint", "一级骨架分类蓝图", "staged_level1_blueprint.json", "json"),
     ArtifactSpec("staged_level1_graph", "分阶段一级骨架", "staged_level1_graph.json", "json"),
     ArtifactSpec("staged_level1_evaluation", "一级骨架质量评估", "staged_level1_evaluation.json", "json"),
     ArtifactSpec("staged_branch_fragments", "分阶段分支扩展", "staged_branch_fragments.json", "json"),
@@ -351,7 +352,7 @@ def apply_candidate_graph(industry_id: str, candidate_type: str) -> dict[str, An
     write_markdown_report(validation, validation_path)
     write_json(validation_path.with_suffix(".json"), validation)
     if validation.get("error_count", 1) > 0:
-        raise ValueError(f"候选图谱硬规则校验仍有 {validation.get('error_count')} 个错误，请先修正后再应用。")
+        raise ValueError(f"候选图谱仍有 {validation.get('error_count')} 个工程格式错误，请先修正后再应用。")
 
     write_json(output_dir / "graph.json", candidate)
     if candidate_type == "update_candidate_graph":
@@ -359,7 +360,7 @@ def apply_candidate_graph(industry_id: str, candidate_type: str) -> dict[str, An
     export = export_graph_csv(candidate, industry_id)
     label = "候选图谱" if candidate_type == "candidate_graph" else "更新候选图谱"
     logs = [
-        f"已校验 {filename}，状态：{validation.get('status')}。",
+        f"已校验 {filename}：工程格式错误 {validation.get('error_count', 0)} 个，质量提醒 {validation.get('warning_count', 0)} 个。",
         f"已将{label}写入正式 graph.json。",
         f"已刷新 CSV：{export.get('node_csv')} / {export.get('edge_csv')}。",
     ]

@@ -41,7 +41,12 @@ def repair_company_attachments(
     prompt = build_company_attachment_repair_prompt(payload, report)
     if prompt_path:
         prompt_path.write_text(prompt, encoding="utf-8")
-    response = call_bailian_responses(prompt, "公司挂载格式修复", use_search_tools=False)
+    response = call_bailian_responses(
+        prompt,
+        "公司挂载格式修复",
+        use_search_tools=False,
+        enable_thinking=False,
+    )
     raw_text = _response_text(response)
     result = extract_json_object(raw_text)
     original_by_pair = {

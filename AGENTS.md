@@ -88,7 +88,7 @@ industry-chain-graph/
 | `node_type` | str | `产业链` (level=0) / `产业链环节` (level=1) / `细分环节` (level>=2) |
 | `tags` | list[str] | 如 `["level_1", "upstream"]` |
 | `industry` | str | 所属行业名称 |
-| `level` | int | 数字层级：0=根节点，1=一级环节，2/3/4/5...=逐级细分 |
+| `level` | int | 数字层级：0=根节点，1=一级环节，2/3/4=逐级细分（最大为 L4） |
 | `chain_position` | Literal | `root` / `upstream` / `midstream` / `downstream` / `support` |
 | `chain_segment` | str | 位置标签中文：`root` / `上游` / `中游` / `下游` / `支持` |
 | `parent_id` | str | 父节点 ID（contains 关系中的上级） |
@@ -158,20 +158,23 @@ industry-chain-graph/
 
 ```text
 1. 生成搜索计划 -> search_plan.json
-2. 百炼联网搜索构建一级骨架 -> staged_level1_graph.json
-3. 评估一级骨架质量 -> staged_level1_evaluation.json；未通过时仅修正骨架
-4. 逐个扩展全部一级分支（BAILIAN_STAGED_BRANCH_LIMIT 仅作为调试上限） -> staged_branch_fragments.json
-5. 逐分支评估质量 -> staged_branch_evaluations.json；未通过时仅修正当前分支
-6. 合并图谱与质量意见 -> staged_merged_graph.json / staged_quality_opinions.json
-7. 标准化 -> pre_validation_candidate_graph.json
-8. 单轮硬规则校验；通过则直接生成 candidate_graph.json
-9. 硬规则失败时调用百炼格式修复 -> format_repair_report.json
-10. 生成 validation_report.md/json、review_queue.json、sources.jsonl 和 CSV
+2. 百炼联网研究行业边界与一级主分类轴 -> staged_level1_blueprint.json
+3. 根据分类蓝图构建一级骨架 -> staged_level1_graph.json
+4. 评估一级骨架质量 -> staged_level1_evaluation.json；未通过时仅修正骨架并复评一次
+5. 逐个扩展全部一级分支（BAILIAN_STAGED_BRANCH_LIMIT 仅作为调试上限） -> staged_branch_fragments.json
+6. 逐分支评估质量 -> staged_branch_evaluations.json；未通过时仅修正当前分支
+7. 合并图谱与质量意见 -> staged_merged_graph.json / staged_quality_opinions.json
+8. 标准化 -> pre_validation_candidate_graph.json
+9. 单轮硬规则校验；通过则直接生成 candidate_graph.json
+10. 硬规则失败时，仅对可修复的工程格式错误调用无联网、无思考的百炼最小补丁修复；节点数量等业务问题直接进入复核 -> format_repair_report.json
+11. 生成 validation_report.md/json、review_queue.json、sources.jsonl 和 CSV
 ```
 
 **apply 条件**：最终硬规则 `error_count == 0` 且格式修复未失败时，前端或 `apply-candidate` API 可将 candidate_graph.json 写入正式 graph.json。
 
 single 策略（`--strategy single`）仅作为 CLI 调试路径，前端默认使用 staged 的骨架/分支拆分流程。
+
+已有分支响应因历史 ID 冲突需要重建时，可运行 `build_candidate_graph.py --stage rebuild`；该操作只重分配分支命名空间并重新合并，不调用 LLM。
 
 ### 4.2 增量更新流程
 
@@ -271,7 +274,7 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 定义在 `tools/agent/validators/graph_validator.py`：
 
 - `MIN_CONFIDENCE = 0.5` — 节点/关系置信度下限
-- `MIN_TARGET_NODES = 100` — 节点数量下限（低于此值触发 warning）
+- `MIN_TARGET_NODES = 120` — 节点数量质量目标（低于此值触发 warning，但不阻止应用为正式图谱）
 - 当前不设置节点数量硬上限；超过 150 不再自动 warning，但仍应避免低价值概念堆节点。
 - `MIN_LEVEL_ONE_NODES = 5` — level=1 一级环节最少数量
 
@@ -282,7 +285,10 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 - **上下游关系只用于 L0-L1**：L2 以下只允许分类隶属树，不输出分支内部上下游或工艺流转关系。
 - **避免工艺流程节点**：面向投研和后续公司节点挂载，节点应优先是品类、材料、设备、渠道、应用场景、需求类别等稳定分类，不把单个生产动作或连续工艺步骤作为节点。
 - **每个节点和关系必须至少有 1 个 URL 来源**。
+- **分支节点 ID 必须隔离**：L2 以下节点使用 `{L1_ID}_{序号}`，例如 `transportation_006_001`；跨分支异名同 ID 必须报错，不能在合并时静默覆盖。
+- **空分支不得进入候选图谱**：每个 L1 最少形成 8 个 L2-L4 节点；任一分支失败或未达到最低数量时保留中间产物，但不生成校验前候选图谱。
 - **候选图谱不自动覆盖正式图谱**：必须通过校验 + 人工确认（或 `--apply` 标志）。
+- **正式应用只阻断工程格式错误**：节点数量、深度、覆盖度、命名建议等质量问题保留为 warning 和复核意见，不阻止候选图谱写入正式 `graph.json`。
 
 ### 7.7 运行方式
 
