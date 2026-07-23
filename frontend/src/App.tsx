@@ -772,9 +772,13 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
               <div><dt>申万分类</dt><dd>{Object.values(selectedCompany.sw_industry).filter(Boolean).join(" / ") || "-"}</dd></div>
               <div><dt>直接挂载数</dt><dd>{selectedCompany.direct_attachments.length}</dd></div>
             </dl>
-            <div className="node-link-list compact two-col">
+            <div className="company-description">
+              <strong>公司简介</strong>
+              <p>{selectedCompany.direct_attachments.map((attachment) => attachment.reason).filter(Boolean).join("；") || "暂无公司简介"}</p>
+            </div>
+            <div className="node-link-list company-direct-links">
               <strong>直接挂载节点</strong>
-              {selectedCompany.direct_attachments.map((attachment) => <button key={attachment.node_id} type="button" onClick={() => handleNodeClick(attachment.node_id)}>{attachment.node_name}<small>{attachment.reason || "主营业务直接匹配"} · 置信度 {formatPercent(attachment.confidence)}</small></button>)}
+              {selectedCompany.direct_attachments.map((attachment) => <button key={attachment.node_id} type="button" onClick={() => handleNodeClick(attachment.node_id)}><div className="company-node-name">{attachment.node_name}</div><div className="company-attachment-reason">{attachment.reason || "主营业务直接匹配"}</div><small>置信度 {formatPercent(attachment.confidence)}</small></button>)}
             </div>
           </> : <p className="muted">点击图谱节点或已展开的公司节点查看审计信息。</p>}
         </section>

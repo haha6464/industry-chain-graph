@@ -1024,6 +1024,58 @@ select {
   font-size: 12px;
 }
 
+.company-description {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: grid;
+  gap: 7px;
+  margin-top: 12px;
+  padding: 10px;
+}
+
+.company-description strong {
+  color: #334155;
+  font-size: 13px;
+}
+
+.company-description p {
+  color: #475569;
+  line-height: 1.65;
+  margin: 0;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.node-link-list.company-direct-links button {
+  align-items: stretch;
+  display: grid;
+  gap: 5px;
+  min-height: auto;
+  overflow: visible;
+}
+
+.company-direct-links .company-attachment-reason {
+  background: transparent;
+  border: 0;
+  color: #475569;
+  display: block;
+  font-size: 12px;
+  line-height: 1.55;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  padding: 0;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.company-direct-links button small {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
 @media (max-width: 1280px) {
   .node-link-list.two-col {
     grid-template-columns: 1fr;
