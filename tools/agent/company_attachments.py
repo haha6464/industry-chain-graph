@@ -4,6 +4,7 @@ import csv
 import hashlib
 import json
 import os
+import re
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,8 +14,8 @@ from tools.agent.bailian_client import BailianAgentError, call_bailian_responses
 from tools.agent.common import PROJECT_ROOT, content_hash
 
 
-COMPANY_ATTACHMENT_SCHEMA_VERSION = "industry_company_attachments_v0.1"
-TAXONOMY_COLUMNS = ("indunamesw1", "indunamesw2", "indunamesw3")
+COMPANY_ATTACHMENT_SCHEMA_VERSION = "industry_company_attachments_v0.2"
+TAXONOMY_COLUMNS = ("indunamesw", "indunamesw1", "indunamesw2", "indunamesw3")
 CANDIDATE_CSV_RELATIVE_PATH = "data/company_candidates/申万全量分类结果.csv"
 CANDIDATE_CSV_PATH = PROJECT_ROOT / CANDIDATE_CSV_RELATIVE_PATH
 
@@ -99,6 +100,55 @@ def build_taxonomy_catalog(companies: list[dict[str, Any]]) -> dict[str, list[di
     return catalog
 
 
+def normalize_taxonomy_label(value: str) -> str:
+    """Normalize an SW label for conservative exact matching against graph node names."""
+    normalized = re.sub(r"\s+", "", str(value or "")).strip()
+    normalized = re.sub(r"[ⅠⅡⅢⅣⅤⅥ]+$", "", normalized)
+    return normalized.casefold()
+
+
+def _taxonomy_node_index(graph: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    result: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for node in graph.get("nodes", []) or []:
+        if not node.get("id") or int(node.get("level", 0)) == 0:
+            continue
+        label = normalize_taxonomy_label(str(node.get("name", "")))
+        if label:
+            result[label].append(node)
+    return result
+
+
+def augment_scope_with_graph_taxonomy(
+    scope: dict[str, Any], graph: dict[str, Any], taxonomy_catalog: dict[str, list[dict[str, Any]]]
+) -> dict[str, Any]:
+    """Add auditable exact rules for detailed SW labels omitted from the hierarchy columns."""
+    node_index = _taxonomy_node_index(graph)
+    existing = {
+        (str(rule.get("column", "")), str(value))
+        for rule in scope.get("rules", []) or []
+        for value in rule.get("values", []) or []
+    }
+    values = [
+        str(item["value"])
+        for item in taxonomy_catalog.get("indunamesw", [])
+        if normalize_taxonomy_label(str(item.get("value", ""))) in node_index
+        and ("indunamesw", str(item.get("value", ""))) not in existing
+    ]
+    if not values:
+        return scope
+    completed = dict(scope)
+    completed["rules"] = list(scope.get("rules", []) or []) + [
+        {
+            "column": "indunamesw",
+            "values": values,
+            "reason": "申万原始细分类与图谱非根节点标准化后精确同名，用于补全层级分类缺失的公司",
+            "source": "deterministic_graph_exact_match",
+        }
+    ]
+    completed["deterministic_scope_completion_count"] = len(values)
+    return completed
+
+
 def compact_node_catalog(graph: dict[str, Any]) -> list[dict[str, Any]]:
     nodes = {str(node.get("id")): node for node in graph.get("nodes", []) if node.get("id")}
     result: list[dict[str, Any]] = []
@@ -156,7 +206,7 @@ def build_scope_prompt(graph: dict[str, Any], taxonomy_catalog: dict[str, list[d
 
 这是候选范围过滤，不是公司业务质量评估。选择要兼顾主产业、中上游材料/包装/设备、物流/渠道等图谱已存在的分支；但不要为了覆盖而选择与该图谱无关的过宽分类。优先选择更细的 indunamesw2 或 indunamesw3；只有整个 indunamesw1 均高度相关时才使用一级分类。
 
-仅能返回目录中存在的精确值，且 column 只能是 indunamesw1、indunamesw2、indunamesw3。不同规则按 OR 关系筛选公司。不要输出 Markdown。
+仅能返回目录中存在的精确值，且 column 只能是 indunamesw、indunamesw1、indunamesw2、indunamesw3。indunamesw 是原始申万细分类，部分公司的层级分类为空时应使用它；不同规则按 OR 关系筛选公司。不要输出 Markdown。
 
 返回严格 JSON：
 {
@@ -199,6 +249,40 @@ def select_companies_by_scope(companies: list[dict[str, Any]], scope: dict[str, 
     return selected
 
 
+def build_deterministic_taxonomy_matches(
+    graph: dict[str, Any], companies: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
+    """Create high-precision fallback matches when an SW label equals a graph node name."""
+    node_index = _taxonomy_node_index(graph)
+    results: list[dict[str, Any]] = []
+    for company in companies:
+        matches: dict[str, dict[str, Any]] = {}
+        industries = company.get("sw_industry", {}) or {}
+        for column in TAXONOMY_COLUMNS:
+            taxonomy_value = str(industries.get(column, "")).strip()
+            if not taxonomy_value:
+                continue
+            nodes = node_index.get(normalize_taxonomy_label(taxonomy_value), [])
+            if not nodes:
+                continue
+            deepest_level = max(int(node.get("level", 0)) for node in nodes)
+            for node in nodes:
+                if int(node.get("level", 0)) != deepest_level:
+                    continue
+                node_id = str(node["id"])
+                matches[node_id] = {
+                    "node_id": node_id,
+                    "reason": f"申万分类“{taxonomy_value}”与产业节点“{node.get('name', '')}”精确对应",
+                    "confidence": 0.9,
+                    "match_method": "deterministic_taxonomy_exact",
+                    "taxonomy_column": column,
+                    "taxonomy_value": taxonomy_value,
+                }
+        if matches:
+            results.append({"company_id": str(company["company_id"]), "matched_nodes": list(matches.values())})
+    return results
+
+
 def build_match_prompt(graph: dict[str, Any], companies: list[dict[str, Any]]) -> str:
     payload = {"industry": graph.get("industry"), "nodes": compact_node_catalog(graph), "companies": companies}
     return """
@@ -211,6 +295,7 @@ def build_match_prompt(graph: dict[str, Any], companies: list[dict[str, Any]]) -
 4. 不得返回 level=0 根节点；没有具体匹配时 matched_nodes 返回空数组。
 5. reason 使用不超过 40 个汉字说明主营业务与节点的直接关系；confidence 为 0.5 到 1.0。
 6. 不要输出 Markdown 或公司/节点之外的新数据。
+7. results 必须覆盖输入中的每一家、每个 company_id 恰好出现一次；确认不适合挂载时也要返回该公司，matched_nodes 为空数组。
 
 返回严格 JSON：
 {
@@ -249,7 +334,23 @@ def call_match_agent(graph: dict[str, Any], companies: list[dict[str, Any]]) -> 
     )
     raw_text = _response_text(response)
     result = extract_json_object(raw_text)
-    return list(result.get("results", []) or []), prompt, raw_text
+    returned = {
+        str(item.get("company_id", "")): item
+        for item in result.get("results", []) or []
+        if str(item.get("company_id", ""))
+    }
+    normalized_results = []
+    for company in companies:
+        identifier = str(company["company_id"])
+        item = returned.get(identifier) or {}
+        normalized_results.append(
+            {
+                "company_id": identifier,
+                "matched_nodes": list(item.get("matched_nodes", []) or []),
+                "result_status": "returned" if identifier in returned else "agent_omitted_filled_empty",
+            }
+        )
+    return normalized_results, prompt, raw_text
 
 
 def chunks(items: list[dict[str, Any]], size: int) -> Iterable[list[dict[str, Any]]]:
@@ -344,7 +445,11 @@ def build_attachment_payload(
                 "node_id": node_id,
                 "reason": reason,
                 "confidence": min(1.0, max(0.0, confidence)),
+                "match_method": str(match.get("match_method") or "agent_web_search"),
             }
+            for optional_key in ("taxonomy_column", "taxonomy_value"):
+                if match.get(optional_key):
+                    matches_by_company[current_company_id][node_id][optional_key] = str(match[optional_key])
 
     attachments: list[dict[str, Any]] = []
     attached_company_ids: set[str] = set()
@@ -355,6 +460,7 @@ def build_attachment_payload(
             attachments.append(matches[node_id])
             attached_company_ids.add(current_company_id)
     companies = [company_by_id[identifier] for identifier in sorted(attached_company_ids) if identifier in company_by_id]
+    method_counts = Counter(str(item.get("match_method", "unknown")) for item in attachments)
     return {
         "schema_version": COMPANY_ATTACHMENT_SCHEMA_VERSION,
         "industry_id": industry_id,
@@ -369,6 +475,7 @@ def build_attachment_payload(
         "scope": scope,
         "companies": companies,
         "attachments": attachments,
+        "matching_summary": {"match_method_counts": dict(sorted(method_counts.items()))},
         "unmatched_company_count": max(0, len(selected_companies) - len(attached_company_ids)),
     }
 

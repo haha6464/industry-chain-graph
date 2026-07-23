@@ -17,7 +17,10 @@ if __package__ is None or __package__ == "":
 
 from tools.agent.common import industry_dir, load_graph, write_json, write_jsonl
 from tools.agent.company_attachments import (
+    augment_scope_with_graph_taxonomy,
     build_attachment_payload,
+    build_deterministic_taxonomy_matches,
+    build_taxonomy_catalog,
     call_match_agent,
     call_scope_agent,
     chunks,
@@ -83,6 +86,7 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
 
     _log("生成基于 L0/L1 的申万分类范围规则。")
     scope, scope_prompt, scope_raw = call_scope_agent(graph, companies)
+    scope = augment_scope_with_graph_taxonomy(scope, graph, build_taxonomy_catalog(companies))
     selected_companies = select_companies_by_scope(companies, scope)
     scope_payload = {
         **scope,
@@ -105,7 +109,9 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     )
     _log("公司匹配进度 " + _progress_bar(0, len(batches)))
     raw_rows: list[dict[str, Any]] = []
-    match_results: list[dict[str, Any]] = []
+    match_results = build_deterministic_taxonomy_matches(graph, selected_companies)
+    deterministic_attachment_count = sum(len(item.get("matched_nodes", [])) for item in match_results)
+    _log(f"精确分类兜底预挂载 {deterministic_attachment_count} 条；联网结果如命中更深节点将自动替代浅层挂载。")
     started_at = time.monotonic()
 
     def run_batch(index: int, batch: list[dict[str, Any]]) -> tuple[int, list[dict[str, Any]], str, str]:
@@ -117,7 +123,19 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
         for completed, future in enumerate(concurrent.futures.as_completed(futures), start=1):
             index, results, prompt, raw = future.result()
             match_results.extend(results)
-            raw_rows.append({"batch_index": index, "request_prompt": prompt, "raw_response": raw})
+            raw_rows.append(
+                {
+                    "batch_index": index,
+                    "request_prompt": prompt,
+                    "raw_response": raw,
+                    "normalized_results": results,
+                    "agent_omitted_company_ids": [
+                        item["company_id"]
+                        for item in results
+                        if item.get("result_status") == "agent_omitted_filled_empty"
+                    ],
+                }
+            )
             _log("公司匹配进度 " + _progress_bar(completed, len(batches), time.monotonic() - started_at))
     write_jsonl(output_dir / "company_attachment_raw_responses.jsonl", sorted(raw_rows, key=lambda item: item["batch_index"]))
 

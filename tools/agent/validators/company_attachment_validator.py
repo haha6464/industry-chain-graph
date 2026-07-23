@@ -7,11 +7,13 @@ from tools.agent.company_attachments import (
     CANDIDATE_CSV_PATH,
     COMPANY_ATTACHMENT_SCHEMA_VERSION,
     TAXONOMY_COLUMNS,
+    build_deterministic_taxonomy_matches,
     candidate_index,
     file_sha256,
     graph_fingerprint,
     is_ancestor,
     load_candidate_companies,
+    select_companies_by_scope,
 )
 
 
@@ -96,6 +98,22 @@ def validate_company_attachments(payload: dict[str, Any], graph: dict[str, Any],
             if any(other != node_id and is_ancestor(node_id, other, parents) for other in node_ids):
                 issue("ancestor_descendant_attachment", "同一公司同时挂载了祖先和后代节点。", identifier)
                 break
+    selected_candidates = select_companies_by_scope(list(candidates.values()), payload.get("scope") or {})
+    required_exact_matches = build_deterministic_taxonomy_matches(graph, selected_candidates)
+    for result in required_exact_matches:
+        identifier = str(result.get("company_id", ""))
+        actual_node_ids = attached_nodes.get(identifier, [])
+        for expected in result.get("matched_nodes", []) or []:
+            expected_node_id = str(expected.get("node_id", ""))
+            if not any(
+                actual == expected_node_id or is_ancestor(expected_node_id, actual, parents)
+                for actual in actual_node_ids
+            ):
+                issue(
+                    "obvious_taxonomy_match_missing",
+                    "申万分类与产业节点精确对应，但公司未挂到该节点或其更深后代节点。",
+                    f"{identifier}->{expected_node_id}",
+                )
     error_count = len(issues)
     return {
         "industry_id": industry_id,
