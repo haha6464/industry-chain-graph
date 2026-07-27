@@ -1,0 +1,15 @@
+{
+  "industry_id": "transportation",
+  "attachment_count": 1388,
+  "company_count": 1328,
+  "error_count": 0,
+  "warning_count": 0,
+  "status": "pass",
+  "issues": [],
+  "format_repair": {
+    "validation_status": "skipped",
+    "summary": "硬规则校验通过，未调用格式修复。",
+    "modifications": [],
+    "review_items": []
+  }
+}
