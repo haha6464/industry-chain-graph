@@ -59,7 +59,7 @@ textarea:focus-visible {
 
 .app-shell {
   display: grid;
-  grid-template-columns: 300px minmax(520px, 1fr) 360px;
+  grid-template-columns: 300px minmax(520px, 1fr) var(--inspector-width, 420px);
   height: 100vh;
   min-height: 0;
   overflow: hidden;
@@ -73,6 +73,7 @@ textarea:focus-visible {
 }
 
 .inspector {
+  position: relative;
   border-left: 1px solid #d9e2ec;
   border-right: 0;
   display: grid;
@@ -80,6 +81,48 @@ textarea:focus-visible {
   height: 100vh;
   min-height: 0;
   overflow: hidden;
+}
+
+.inspector-resize-handle {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 12px;
+  border: 0;
+  background: transparent;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.inspector-resize-handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: transparent;
+  transition: background-color 120ms ease, width 120ms ease;
+}
+
+.inspector-resize-handle:hover::before,
+.inspector-resize-handle:focus-visible::before,
+.inspector-resizing .inspector-resize-handle::before {
+  width: 3px;
+  background: #f97316;
+}
+
+.inspector-resize-handle:focus-visible {
+  outline: 2px solid #fdba74;
+  outline-offset: -3px;
+}
+
+body.inspector-resizing,
+body.inspector-resizing * {
+  cursor: col-resize !important;
+  user-select: none !important;
 }
 
 .brand {
@@ -356,15 +399,38 @@ select {
 .l2-flow-lists {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
 }
 
 .l2-flow-lists .neighbor-list {
   align-content: start;
+  min-width: 0;
 }
 
 .l2-flow-lists .neighbor-list button {
+  align-items: stretch;
   border-left: 3px solid #f97316;
+  display: grid;
+  gap: 6px;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.l2-flow-lists .neighbor-list button span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.l2-flow-lists .neighbor-list button small {
+  display: block;
+  line-height: 1.5;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .company-toggle {
@@ -558,6 +624,10 @@ select {
 
   .inspector {
     grid-column: 1 / -1;
+  }
+
+  .inspector-resize-handle {
+    display: none;
   }
 }
 
@@ -857,6 +927,49 @@ select {
 
 .workflow-artifacts button {
   color: #ea580c;
+}
+
+.skeleton-run-options {
+  display: grid;
+  gap: 9px;
+}
+
+.workflow-checkbox {
+  align-items: flex-start;
+  background: #f8fafc;
+  border: 1px solid #dbe4ee;
+  border-radius: 7px;
+  cursor: pointer;
+  display: flex;
+  gap: 9px;
+  padding: 9px;
+}
+
+.workflow-checkbox:has(input:checked) {
+  background: #fff7ed;
+  border-color: #fdba74;
+}
+
+.workflow-checkbox input {
+  accent-color: #ea580c;
+  margin: 2px 0 0;
+}
+
+.workflow-checkbox span {
+  display: grid;
+  gap: 3px;
+}
+
+.workflow-checkbox strong {
+  color: #334155;
+  font-size: 12px;
+}
+
+.workflow-checkbox em {
+  color: #64748b;
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.45;
 }
 
 .button-grid.tight {

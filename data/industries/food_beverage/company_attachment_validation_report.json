@@ -1,9 +1,15 @@
 {
   "industry_id": "food_beverage",
-  "attachment_count": 1319,
-  "company_count": 1308,
+  "attachment_count": 1612,
+  "company_count": 1581,
   "error_count": 0,
   "warning_count": 0,
   "status": "pass",
-  "issues": []
+  "issues": [],
+  "format_repair": {
+    "validation_status": "skipped",
+    "summary": "硬规则校验通过，未调用格式修复。",
+    "modifications": [],
+    "review_items": []
+  }
 }

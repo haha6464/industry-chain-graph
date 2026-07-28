@@ -53,6 +53,7 @@ for (const item of manifest) {
     };
     const currentGraphFingerprint = graphFingerprint(graphFile);
     const currentNodeIds = new Set(graph.nodes.map((node) => node.id));
+    const currentL1NodeIds = new Set(graph.nodes.filter((node) => node.level === 1).map((node) => node.id));
     const currentL2NodeIds = new Set(graph.nodes.filter((node) => node.level === 2).map((node) => node.id));
     try {
       const payload = JSON.parse(await readFile(path.join(root, "data", "industries", item.id, "company_attachments.json"), "utf8"));
@@ -84,6 +85,7 @@ for (const item of manifest) {
         && payload.schema_version === "industry_l2_flow_relations_v0.2_pairwise"
         && payload.graph_fingerprint === currentGraphFingerprint
         && Array.isArray(payload.edges)
+        && Array.isArray(payload.projected_edges)
       ) {
         l2FlowRelations[item.id] = {
           schema_version: payload.schema_version,
@@ -92,7 +94,14 @@ for (const item of manifest) {
             edge.relation_type === "upstream_downstream"
             && currentL2NodeIds.has(edge.source)
             && currentL2NodeIds.has(edge.target)
-          ).map((edge) => ({ ...edge, relation_layer: "l2_flow" }))
+          ).map((edge) => ({ ...edge, relation_layer: "l2_flow" })),
+          projected_edges: (payload.projected_edges ?? []).filter((edge) =>
+            edge.relation_type === "upstream_downstream"
+            && (
+              (currentL1NodeIds.has(edge.source) && currentL2NodeIds.has(edge.target))
+              || (currentL2NodeIds.has(edge.source) && currentL1NodeIds.has(edge.target))
+            )
+          ).map((edge) => ({ ...edge, relation_layer: "l1_l2_flow_projection" }))
         };
       } else {
         console.warn(
@@ -161,4 +170,4 @@ await rm(temporaryDirectory, { recursive: true, force: true });
 console.log(`已生成离线展示包：${outputFile}`);
 console.log(`已内置 ${industries.length} 个行业、${industries.reduce((total, item) => total + item.node_count, 0)} 个节点。`);
 console.log(`已内置 ${Object.keys(companyAttachments).length} 个行业的公司挂载结果。`);
-console.log(`已内置 ${Object.keys(l2FlowRelations).length} 个行业的 L2 上下游关系结果。`);
+console.log(`已内置 ${Object.keys(l2FlowRelations).length} 个行业的 L2 及 L1-L2 投影上下游关系结果。`);

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import { InteractiveNvlWrapper } from "@neo4j-nvl/react";
 import { Bot, CheckCircle2, ChevronDown, ChevronRight, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, Trash2, X } from "lucide-react";
 import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, buildL2FlowRelations, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, fetchNodeCompanies, fetchNodeL2FlowRelations, finalValidateAgentGraph, updateAgentGraph } from "./api";
@@ -16,6 +17,29 @@ type LayoutMode = "forceDirected" | "hierarchical";
 type PageMode = "graph" | "agent";
 const defaultFilters: GraphFilters = { q: "", chain_positions: [], relation_types: [], levels: [] };
 const activeRunStatuses = new Set(["running", "canceling"]);
+const INSPECTOR_WIDTH_STORAGE_KEY = "industry-chain-graph.inspector-width";
+const DEFAULT_INSPECTOR_WIDTH = 420;
+const MIN_INSPECTOR_WIDTH = 320;
+const MAX_INSPECTOR_WIDTH = 720;
+const DESKTOP_LAYOUT_BREAKPOINT = 1280;
+const DESKTOP_SIDEBAR_AND_GRAPH_MIN_WIDTH = 820;
+
+function clampInspectorWidth(value: number) {
+  const boundedValue = Math.min(MAX_INSPECTOR_WIDTH, Math.max(MIN_INSPECTOR_WIDTH, value));
+  if (typeof window === "undefined" || window.innerWidth <= DESKTOP_LAYOUT_BREAKPOINT) return Math.round(boundedValue);
+  const availableWidth = Math.max(MIN_INSPECTOR_WIDTH, window.innerWidth - DESKTOP_SIDEBAR_AND_GRAPH_MIN_WIDTH);
+  return Math.round(Math.min(boundedValue, availableWidth));
+}
+
+function initialInspectorWidth() {
+  if (typeof window === "undefined") return DEFAULT_INSPECTOR_WIDTH;
+  try {
+    const storedWidth = Number(window.localStorage.getItem(INSPECTOR_WIDTH_STORAGE_KEY));
+    return clampInspectorWidth(Number.isFinite(storedWidth) && storedWidth > 0 ? storedWidth : DEFAULT_INSPECTOR_WIDTH);
+  } catch {
+    return clampInspectorWidth(DEFAULT_INSPECTOR_WIDTH);
+  }
+}
 
 function isActiveRun(run: AgentRunResponse | null) {
   return Boolean(run && activeRunStatuses.has(run.status));
@@ -94,6 +118,8 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   const nvlRef = useRef<any>(null);
   const detailPanelRef = useRef<HTMLElement | null>(null);
   const runLogRef = useRef<HTMLPreElement | null>(null);
+  const [inspectorWidth, setInspectorWidth] = useState(initialInspectorWidth);
+  const [inspectorResizing, setInspectorResizing] = useState(false);
   const [pageMode, setPageMode] = useState<PageMode>("graph");
   const [industries, setIndustries] = useState<Industry[]>([]);
   const [industryId, setIndustryId] = useState("");
@@ -115,6 +141,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   const [graphLoading, setGraphLoading] = useState(false);
   const [asking, setAsking] = useState(false);
   const [agentBusy, setAgentBusy] = useState(false);
+  const [useShenwanReference, setUseShenwanReference] = useState(false);
   const [activeRun, setActiveRun] = useState<AgentRunResponse | null>(null);
   const [runDrawerOpen, setRunDrawerOpen] = useState(false);
   const [artifactLoading, setArtifactLoading] = useState(false);
@@ -146,10 +173,10 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   const hasArtifact = (name: string) => artifacts.some((artifact) => artifact.name === name && artifact.exists);
   const workflowSteps = [
     { id: "plan", title: "搜索规划", summary: "生成行业检索 query，并记录 search_plan.json。", done: hasArtifact("search_plan"), artifacts: ["search_plan"], action: "plan" },
-    { id: "skeleton", title: "一级骨架构建", summary: "先研究行业边界与分类轴，再生成 level=1 骨架并完成评估；不通过时修正并复评。", done: hasArtifact("staged_level1_graph") && hasArtifact("staged_level1_evaluation"), artifacts: ["staged_level1_blueprint", "agent_request_prompt", "staged_level1_graph", "staged_level1_evaluation", "staged_quality_opinions"], action: "skeleton" },
+    { id: "skeleton", title: "一级骨架构建", summary: "默认按原流程研究行业边界与分类轴；也可在运行前手动启用申万分类树作为辅助参考。", done: hasArtifact("staged_level1_graph") && hasArtifact("staged_level1_evaluation"), artifacts: ["staged_level1_blueprint", ...(hasArtifact("staged_indunamesw_reference") ? ["staged_indunamesw_reference"] : []), "agent_request_prompt", "staged_level1_graph", "staged_level1_evaluation", "staged_quality_opinions"], action: "skeleton" },
     { id: "branches", title: "分支扩展与评估", summary: "基于一级骨架逐分支扩展，每条分支单独评估；不通过时只修当前分支，最后合并为校验前候选图谱。", done: hasArtifact("pre_validation_candidate_graph"), artifacts: ["staged_branch_fragments", "staged_branch_evaluations", "staged_quality_opinions", "staged_merged_graph", "staged_errors", "agent_raw_response", "pre_validation_candidate_graph"], action: "branches" },
     { id: "validate_repair", title: "最终校验与格式修复", summary: "单轮硬规则校验；只有不通过才请求百炼做格式修复，不再做整图质量审查。", done: hasArtifact("candidate_graph") && hasArtifact("validation_report"), artifacts: ["validation_agent_request_prompt", "validation_agent_raw_response", "format_repair_report", "candidate_graph", "sources", "validation_report", "validation_report_json", "review_queue"], action: "final_validate" },
-    { id: "l2_flow", title: "L2 上下游关系建边", summary: "先从不同 L1 分支召回候选 L2 节点对，再由 qwen3.7-plus 低温三态判定；节点对可批量传输但逐对独立决策，固定脚本建边并复用内容级缓存。", done: hasArtifact("l2_flow_relations") && hasArtifact("l2_flow_relation_validation_report"), artifacts: ["l2_flow_candidate_pairs", "l2_flow_pair_decisions", "l2_flow_relation_candidate", "l2_flow_relations", "l2_flow_relation_raw_responses", "l2_flow_relation_validation_report", "l2_flow_relation_validation_report_json"], action: "l2_flow" },
+    { id: "l2_flow", title: "L2 上下游关系建边", summary: "L2 建边完成后执行确定性跨层投影：A→B 同步生成 parent(A)→B 和 A→parent(B)；后处理不调用模型，也不改变原始 L2 边。", done: hasArtifact("l2_flow_relations") && hasArtifact("l2_flow_relation_validation_report"), artifacts: ["l2_flow_candidate_pairs", "l2_flow_pair_decisions", "l2_flow_relation_candidate", "l2_flow_relations", "l2_flow_relation_raw_responses", "l2_flow_relation_validation_report", "l2_flow_relation_validation_report_json"], action: "l2_flow" },
     { id: "company_attach", title: "公司节点挂载（硬校验）", summary: "在正式主图和 L2 上下游关系完成后，筛选全链条候选公司并挂载到最深节点；图谱画布按需展开公司。", done: hasArtifact("company_attachments") && hasArtifact("company_attachment_validation_report"), artifacts: ["company_scope", "company_attachment_candidate", "company_attachments", "company_attachment_raw_responses", "company_attachment_validation_report", "company_attachment_validation_report_json", "company_attachment_repair_report"], action: "company_attach" },
     { id: "update", title: "增量更新", summary: "联网搜索新增证据，默认生成 no_change 或 update_proposal。", done: hasArtifact("update_proposal") || hasArtifact("update_report"), artifacts: ["update_agent_request_prompt", "update_proposal", "update_candidate_graph", "update_report", "update_agent_raw_response"], action: "update" },
     { id: "export", title: "CSV 交付", summary: "按 mentor 格式导出节点 CSV 和关系 CSV。", done: exportPaths.length > 0, artifacts: [], action: "export" }
@@ -300,7 +327,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     setAgentBusy(true);
     setSelectedArtifact(null);
     try {
-      const result = await buildAgentSkeleton(industryId, industryName);
+      const result = await buildAgentSkeleton(industryId, industryName, useShenwanReference);
       await trackAgentRun(result, "一级骨架构建完成");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "一级骨架构建失败，请检查 DASHSCOPE_API_KEY 和百炼配置。");
@@ -542,7 +569,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     }
   }
   async function handleToggleL2FlowRelations() {
-    if (!selectedNode || selectedNode.level !== 2) return;
+    if (!selectedNode || (selectedNode.level !== 1 && selectedNode.level !== 2)) return;
     const nodeId = selectedNode.id;
     if (expandedL2FlowNodeIds.includes(nodeId)) {
       setExpandedL2FlowNodeIds((current) => current.filter((id) => id !== nodeId));
@@ -563,7 +590,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     } catch (error) {
       setL2FlowResponses((current) => ({
         ...current,
-        [nodeId]: { industry_id: industryId, node_id: nodeId, status: "invalid", message: error instanceof Error ? error.message : "L2 上下游关系读取失败", total: 0, nodes: [], edges: [] }
+        [nodeId]: { industry_id: industryId, node_id: nodeId, status: "invalid", message: error instanceof Error ? error.message : "上下游关系读取失败", total: 0, nodes: [], edges: [] }
       }));
     } finally {
       setL2FlowLoading(false);
@@ -634,6 +661,42 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     const timer = window.setTimeout(() => nvlRef.current?.fit?.(nodes.map((node) => node.id)), 500);
     return () => window.clearTimeout(timer);
   }, [nodes, pageMode]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(INSPECTOR_WIDTH_STORAGE_KEY, String(inspectorWidth));
+    } catch {
+      // Offline file previews and privacy modes may disable localStorage.
+    }
+  }, [inspectorWidth]);
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      if (window.innerWidth > DESKTOP_LAYOUT_BREAKPOINT) {
+        setInspectorWidth((currentWidth) => clampInspectorWidth(currentWidth));
+      }
+    };
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
+
+  useEffect(() => {
+    if (!inspectorResizing) return;
+    const handlePointerMove = (event: PointerEvent) => {
+      setInspectorWidth(clampInspectorWidth(window.innerWidth - event.clientX));
+    };
+    const finishResize = () => setInspectorResizing(false);
+    document.body.classList.add("inspector-resizing");
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", finishResize);
+    window.addEventListener("pointercancel", finishResize);
+    return () => {
+      document.body.classList.remove("inspector-resizing");
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", finishResize);
+      window.removeEventListener("pointercancel", finishResize);
+    };
+  }, [inspectorResizing]);
 
 
   const expandedL2FlowGroups = useMemo(
@@ -736,8 +799,8 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       id: edge.id,
       from: edge.source,
       to: edge.target,
-      caption: "L2 上下游",
-      color: "#f97316",
+      caption: edge.relation_layer === "l1_l2_flow_projection" ? "L1-L2 上下游" : "L2 上下游",
+      color: edge.relation_layer === "l1_l2_flow_projection" ? "#7c3aed" : "#f97316",
       width: 3
     }));
     companyNvlRelationships.forEach((edge) => result.set(edge.id, edge));
@@ -776,7 +839,24 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
                   <p>{step.summary}</p>
                   {step.artifacts.length > 0 && <div className="workflow-artifacts">{step.artifacts.map((artifactName) => { const artifact = artifacts.find((item) => item.name === artifactName); return artifact?.exists ? <button key={artifactName} type="button" onClick={() => handleArtifactOpen(artifactName)}>{artifact.label}</button> : <span key={artifactName}>{artifact?.label ?? artifactName}</span>; })}</div>}
                   {step.action === "plan" && <button type="button" className="action-button" onClick={handleSearchPlan} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Search size={15} />}运行规划</button>}
-                  {step.action === "skeleton" && <button type="button" className="action-button" onClick={handleBuildSkeleton} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Sparkles size={15} />}运行骨架</button>}{step.action === "branches" && <button type="button" className="action-button" onClick={handleBuildBranches} disabled={agentBusy || !hasArtifact("staged_level1_graph")}>{agentBusy ? <span className="spinner" /> : <GitBranch size={15} />}运行分支</button>}
+                  {step.action === "skeleton" && (
+                    <div className="skeleton-run-options">
+                      <label className="workflow-checkbox">
+                        <input
+                          type="checkbox"
+                          checked={useShenwanReference}
+                          onChange={(event) => setUseShenwanReference(event.target.checked)}
+                          disabled={agentBusy}
+                        />
+                        <span>
+                          <strong>参考申万分类</strong>
+                          <em>勾选后会额外调用 qwen3.7-plus 筛选申万分类树；不勾选则完全按原骨架流程运行。</em>
+                        </span>
+                      </label>
+                      <button type="button" className="action-button" onClick={handleBuildSkeleton} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Sparkles size={15} />}运行骨架</button>
+                    </div>
+                  )}
+                  {step.action === "branches" && <button type="button" className="action-button" onClick={handleBuildBranches} disabled={agentBusy || !hasArtifact("staged_level1_graph")}>{agentBusy ? <span className="spinner" /> : <GitBranch size={15} />}运行分支</button>}
                   {step.action === "final_validate" && <div className="button-grid vertical"><button type="button" className="action-button" onClick={handleFinalValidate} disabled={agentBusy || !hasArtifact("pre_validation_candidate_graph")}>{agentBusy ? <span className="spinner" /> : <CheckCircle2 size={15} />}运行最终校验</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("candidate_graph")} disabled={agentBusy || !hasArtifact("candidate_graph")}>应用候选</button></div>}
                   {step.action === "l2_flow" && <button type="button" className="action-button" onClick={handleBuildL2FlowRelations} disabled={agentBusy || !hasArtifact("graph")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行 L2 建边</button>}
                   {step.action === "company_attach" && <button type="button" className="action-button" onClick={handleAttachCompanies} disabled={agentBusy || !hasArtifact("graph") || !hasArtifact("l2_flow_relations")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行公司挂载</button>}
@@ -825,7 +905,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   }
 
   return (
-    <main className="app-shell graph-page">
+    <main className="app-shell graph-page" style={{ "--inspector-width": `${inspectorWidth}px` } as CSSProperties}>
       <aside className="sidebar">
         <div className="brand"><Network size={24} /><div><h1>产业链图谱</h1><span>{offline ? "离线只读展示版" : "图谱展示与问答"}</span></div></div>
         {pageTabs}
@@ -843,6 +923,38 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
         <div className="graph-canvas">{nodes.length > 0 ? <InteractiveNvlWrapper ref={nvlRef} nodes={nvlNodes} rels={nvlRelationships} layout={layoutMode} layoutOptions={layoutMode === "hierarchical" ? { direction: "right", packing: "bin" } : { enableCytoscape: true }} nvlOptions={{ disableTelemetry: true, renderer: "canvas", minZoom: 0.02, maxZoom: 8, allowDynamicMinZoom: true }} mouseEventCallbacks={{ onNodeClick: (node: { id: string }) => handleNodeClick(node.id), onPan: true, onZoom: true, onZoomAndPan: true, onDrag: true, onDragStart: true, onDragEnd: true }} /> : <div className="empty-state"><Sparkles size={28} /><span>{graphLoading ? "加载中" : hasSelectedIndustry ? (offline ? "该行业未包含在当前离线图谱快照中" : "该行业暂无正式图谱，请到 Agent 工作流生成 graph.json") : "请选择行业后查看图谱"}</span></div>}</div>
       </section>
       <aside className="inspector">
+        <div
+          className="inspector-resize-handle"
+          role="separator"
+          aria-label="调整节点审计宽度"
+          aria-orientation="vertical"
+          aria-valuemin={MIN_INSPECTOR_WIDTH}
+          aria-valuemax={MAX_INSPECTOR_WIDTH}
+          aria-valuenow={inspectorWidth}
+          tabIndex={0}
+          title="拖动调整宽度，双击恢复默认宽度"
+          onPointerDown={(event) => {
+            if (event.button !== 0 || window.innerWidth <= DESKTOP_LAYOUT_BREAKPOINT) return;
+            event.preventDefault();
+            setInspectorResizing(true);
+          }}
+          onDoubleClick={() => setInspectorWidth(clampInspectorWidth(DEFAULT_INSPECTOR_WIDTH))}
+          onKeyDown={(event) => {
+            if (event.key === "ArrowLeft") {
+              event.preventDefault();
+              setInspectorWidth((currentWidth) => clampInspectorWidth(currentWidth + 20));
+            } else if (event.key === "ArrowRight") {
+              event.preventDefault();
+              setInspectorWidth((currentWidth) => clampInspectorWidth(currentWidth - 20));
+            } else if (event.key === "Home") {
+              event.preventDefault();
+              setInspectorWidth(clampInspectorWidth(MIN_INSPECTOR_WIDTH));
+            } else if (event.key === "End") {
+              event.preventDefault();
+              setInspectorWidth(clampInspectorWidth(MAX_INSPECTOR_WIDTH));
+            }
+          }}
+        />
         <section ref={detailPanelRef} className="panel detail-panel">
           <div className="panel-title"><Network size={16} /><span>节点审计</span></div>
           {selectedNode ? <>
@@ -855,18 +967,18 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
             <div className="node-link-list compact two-col"><strong>子节点</strong>{childNodes.length > 0 ? childNodes.map((node) => <button key={node.id} type="button" onClick={() => handleNodeClick(node.id)}>{node.name}<small>{node.id}</small></button>) : <span>暂无子节点</span>}</div>
             <div className="source-list"><strong>来源 URL</strong>{selectedNode.source_urls.length > 0 ? selectedNode.source_urls.slice(0, 5).map((url) => <a key={url} href={url} target="_blank" rel="noreferrer">{url}</a>) : <span>暂无来源</span>}</div>
             <div className="source-list"><strong>证据 ID</strong>{selectedNode.evidence_ids.length > 0 ? <span>{selectedNode.evidence_ids.join(", ")}</span> : <span>暂无证据</span>}</div>
-            {selectedNode.level === 2 && <div className="l2-flow-attachment">
+            {(selectedNode.level === 1 || selectedNode.level === 2) && <div className="l2-flow-attachment">
               <button type="button" className="company-toggle" onClick={handleToggleL2FlowRelations} aria-expanded={selectedL2FlowExpanded}>
                 {selectedL2FlowExpanded ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
-                {selectedL2FlowExpanded ? "收起 L2 上下游关系" : "展开 L2 上下游关系"}
+                {selectedL2FlowExpanded ? `收起 L${selectedNode.level} 上下游关系` : `展开 L${selectedNode.level} 上下游关系`}
                 {selectedL2FlowResponse?.status === "ready" ? `（${selectedL2FlowResponse.total}）` : ""}
               </button>
               {l2FlowLoading && <span className="muted">正在加入图谱...</span>}
-              {!l2FlowLoading && selectedL2FlowResponse && selectedL2FlowResponse.status !== "ready" && <span className="muted">{selectedL2FlowResponse.message || "暂无可展示的 L2 上下游关系。"}</span>}
-              {!l2FlowLoading && selectedL2FlowResponse?.status === "ready" && selectedL2FlowResponse.total === 0 && <span className="muted">该节点没有可靠的直接上下游关系。</span>}
+              {!l2FlowLoading && selectedL2FlowResponse && selectedL2FlowResponse.status !== "ready" && <span className="muted">{selectedL2FlowResponse.message || "暂无可展示的上下游关系。"}</span>}
+              {!l2FlowLoading && selectedL2FlowResponse?.status === "ready" && selectedL2FlowResponse.total === 0 && <span className="muted">该节点没有可靠的上下游关系。</span>}
               {selectedL2FlowResponse?.status === "ready" && selectedL2FlowExpanded && <div className="l2-flow-lists">
-                <div className="neighbor-list"><strong>直接上游</strong>{selectedL2UpstreamEdges.map((edge) => <button key={edge.id} type="button" onClick={() => handleNodeClick(edge.source)}><span>{nodeName(edge.source)}</span><small>{edge.description || "直接上游"} · 置信度 {formatPercent(edge.confidence)}</small></button>)}{selectedL2UpstreamEdges.length === 0 && <span>暂无直接上游</span>}</div>
-                <div className="neighbor-list"><strong>直接下游</strong>{selectedL2DownstreamEdges.map((edge) => <button key={edge.id} type="button" onClick={() => handleNodeClick(edge.target)}><span>{nodeName(edge.target)}</span><small>{edge.description || "直接下游"} · 置信度 {formatPercent(edge.confidence)}</small></button>)}{selectedL2DownstreamEdges.length === 0 && <span>暂无直接下游</span>}</div>
+                <div className="neighbor-list"><strong>上游关系</strong>{selectedL2UpstreamEdges.map((edge) => <button key={edge.id} type="button" onClick={() => handleNodeClick(edge.source)}><span>{nodeName(edge.source)}</span><small>{edge.description || "上游关系"} · 置信度 {formatPercent(edge.confidence)}</small></button>)}{selectedL2UpstreamEdges.length === 0 && <span>暂无上游关系</span>}</div>
+                <div className="neighbor-list"><strong>下游关系</strong>{selectedL2DownstreamEdges.map((edge) => <button key={edge.id} type="button" onClick={() => handleNodeClick(edge.target)}><span>{nodeName(edge.target)}</span><small>{edge.description || "下游关系"} · 置信度 {formatPercent(edge.confidence)}</small></button>)}{selectedL2DownstreamEdges.length === 0 && <span>暂无下游关系</span>}</div>
               </div>}
             </div>}
             <div className="company-attachment">

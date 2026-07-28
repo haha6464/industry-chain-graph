@@ -75,7 +75,7 @@ OPENAI_MODEL=
 DASHSCOPE_API_KEY=
 BAILIAN_BASE_URL=
 BAILIAN_MODEL=qwen3.7-max
-BAILIAN_SEARCH_STRATEGY=agent_max
+BAILIAN_SEARCH_STRATEGY=agent
 BAILIAN_TIMEOUT_SECONDS=600
 BAILIAN_MAX_RETRIES=1
 BAILIAN_STAGED_BRANCH_LIMIT=0
@@ -83,7 +83,9 @@ BAILIAN_ENABLE_THINKING=true
 BAILIAN_ENABLE_CODE_INTERPRETER=false
 ```
 
-其中 `BAILIAN_ENABLE_CODE_INTERPRETER` 默认建议为 `false`，产业链抽取主要依赖联网搜索和网页抽取；打开 code interpreter 会明显拉长构建时间。若百炼长时间无响应，可先将 `BAILIAN_TIMEOUT_SECONDS` 调低到 `300`，或将 `BAILIAN_SEARCH_STRATEGY` 从 `agent_max` 调整为较快策略后重试。
+其中 `BAILIAN_ENABLE_CODE_INTERPRETER` 默认建议为 `false`，产业链抽取主要依赖联网搜索；`web_extractor` 已在公共客户端中统一停用。打开 code interpreter 会明显拉长构建时间。若百炼长时间无响应，可先将 `BAILIAN_TIMEOUT_SECONDS` 调低到 `300` 后重试。
+
+百炼 Responses API 的 `web_search` 是非旧版 OpenAI Responses 工具类型，项目固定使用 `openai==2.28.0` 以正确解析搜索工具和最终文本。已有 Conda 环境升级依赖后需要重启后端。
 
 ## 25 个目标行业
 
@@ -132,7 +134,7 @@ BAILIAN_ENABLE_CODE_INTERPRETER=false
 .\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage branches
 ```
 
-构建 Agent 会调用 Qwen Responses API，默认启用 `web_search`、`web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先研究行业边界和一级主分类轴，再按分类蓝图生成、评估并必要时修正一级骨架；骨架最终评估通过后，才按一级分支多次小请求扩展并合并为候选图谱。`BAILIAN_STAGED_BRANCH_LIMIT` 仅作为调试上限；默认 0 表示扩展全部一级分支。旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用。
+构建 Agent 会调用 Qwen Responses API，默认仅启用 `web_search`，所有阶段均停用 `web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先研究行业边界和一级主分类轴，再按分类蓝图生成、评估并必要时修正一级骨架；骨架最终评估通过后，才按一级分支多次小请求扩展并合并为候选图谱。`BAILIAN_STAGED_BRANCH_LIMIT` 仅作为调试上限；默认 0 表示扩展全部一级分支。旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用。
 
 ### 2. 写回正式图谱
 

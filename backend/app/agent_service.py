@@ -36,6 +36,12 @@ ARTIFACT_SPECS = [
     ArtifactSpec("pre_validation_candidate_graph", "校验前候选图谱", "pre_validation_candidate_graph.json", "json"),
     ArtifactSpec("sources", "证据库", "sources.jsonl", "jsonl"),
     ArtifactSpec("search_plan", "搜索计划", "search_plan.json", "json"),
+    ArtifactSpec(
+        "staged_indunamesw_reference",
+        "申万分类预筛选参考",
+        "staged_indunamesw_reference.json",
+        "json",
+    ),
     ArtifactSpec("review_queue", "人工复核队列", "review_queue.json", "json"),
     ArtifactSpec("validation_report", "规则校验报告", "validation_report.md", "markdown"),
     ArtifactSpec("validation_report_json", "规则校验数据", "validation_report.json", "json"),
@@ -233,7 +239,13 @@ def run_final_validate(industry_id: str) -> dict[str, Any]:
     return _start_subprocess_run("final_validate", industry_id, command, output_dir / "validation_report.md")
 
 
-def _build_candidate_command(industry_id: str, industry_name: str | None, target_depth: str, stage: str) -> list[str]:
+def _build_candidate_command(
+    industry_id: str,
+    industry_name: str | None,
+    target_depth: str,
+    stage: str,
+    use_shenwan_reference: bool = False,
+) -> list[str]:
     command = [
         sys.executable,
         "tools/agent/build_candidate_graph.py",
@@ -248,13 +260,26 @@ def _build_candidate_command(industry_id: str, industry_name: str | None, target
     ]
     if industry_name:
         command.extend(["--industry-name", industry_name])
+    if use_shenwan_reference:
+        command.append("--use-shenwan-reference")
     return command
 
 
-def run_build_skeleton(industry_id: str, industry_name: str | None, target_depth: str) -> dict[str, Any]:
+def run_build_skeleton(
+    industry_id: str,
+    industry_name: str | None,
+    target_depth: str,
+    use_shenwan_reference: bool = False,
+) -> dict[str, Any]:
     output_dir = industry_dir(industry_id)
     output_dir.mkdir(parents=True, exist_ok=True)
-    command = _build_candidate_command(industry_id, industry_name, target_depth, "skeleton")
+    command = _build_candidate_command(
+        industry_id,
+        industry_name,
+        target_depth,
+        "skeleton",
+        use_shenwan_reference=use_shenwan_reference,
+    )
     return _start_subprocess_run("build_skeleton", industry_id, command, output_dir / "staged_level1_evaluation.json")
 
 

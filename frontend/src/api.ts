@@ -40,6 +40,7 @@ type OfflineL2FlowRelations = {
   schema_version?: "industry_l2_flow_relations_v0.2_pairwise";
   graph_fingerprint?: string;
   edges: GraphResponse["edges"];
+  projected_edges?: GraphResponse["edges"];
 };
 
 declare global {
@@ -181,12 +182,17 @@ export async function fetchNodeL2FlowRelations(industryId: string, nodeId: strin
   const snapshot = offlineSnapshot();
   if (snapshot) {
     const graph = snapshot.graphs[industryId];
-    if (!graph || !graph.nodes.some((node) => node.id === nodeId)) throw new Error(`Node not found: ${nodeId}`);
+    const selectedNode = graph?.nodes.find((node) => node.id === nodeId);
+    if (!graph || !selectedNode) throw new Error(`Node not found: ${nodeId}`);
+    if (selectedNode.level !== 1 && selectedNode.level !== 2) throw new Error("上下游关系附件只支持 L1 或 L2 节点。");
     const payload = snapshot.l2_flow_relations?.[industryId];
     if (!payload) {
-      return { industry_id: industryId, node_id: nodeId, status: "missing", message: "离线展示包未包含 L2 上下游关系。", total: 0, nodes: [], edges: [] };
+      return { industry_id: industryId, node_id: nodeId, status: "missing", message: "离线展示包未包含上下游关系附件。", total: 0, nodes: [], edges: [] };
     }
-    const edges = payload.edges.filter((edge) => edge.source === nodeId || edge.target === nodeId);
+    const relationEdges = selectedNode.level === 1
+      ? (payload.projected_edges ?? [])
+      : [...payload.edges, ...(payload.projected_edges ?? [])];
+    const edges = relationEdges.filter((edge) => edge.source === nodeId || edge.target === nodeId);
     const relatedIds = new Set([nodeId]);
     edges.forEach((edge) => { relatedIds.add(edge.source); relatedIds.add(edge.target); });
     return {
@@ -232,10 +238,15 @@ export async function finalValidateAgentGraph(industryId: string) {
   });
 }
 
-export async function buildAgentSkeleton(industryId: string, industryName: string, targetDepth = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点") {
+export async function buildAgentSkeleton(industryId: string, industryName: string, useShenwanReference = false, targetDepth = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点") {
   return request<AgentRunResponse>("/api/agent/build-skeleton", {
     method: "POST",
-    body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
+    body: JSON.stringify({
+      industry_id: industryId,
+      industry_name: industryName,
+      target_depth: targetDepth,
+      use_shenwan_reference: useShenwanReference
+    })
   });
 }
 

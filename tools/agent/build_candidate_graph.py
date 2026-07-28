@@ -24,14 +24,18 @@ from tools.agent.evaluators.bailian_quality_evaluator import (
 )
 from tools.agent.search.bailian_responses_agent import build_bailian_search_prompt, call_bailian_search_agent
 from tools.agent.search.search_planner import build_search_plan
+from tools.agent.search.shenwan_industry_reference import build_indunamesw_reference_record
 from tools.agent.search.staged_bailian_builder import (
+    blueprint_chain_position_coverage,
     call_bailian_branch_graph,
     call_bailian_seed_blueprint,
     call_bailian_seed_graph,
+    graph_chain_position_coverage,
     merge_staged_graphs,
     namespace_branch_graph,
     staged_branch_limit,
     validate_branch_expansion,
+    validate_skeleton_chain_position_coverage,
     write_staged_artifacts,
 )
 
@@ -41,6 +45,7 @@ def _log(message: str) -> None:
 
 _ARTIFACT_LABELS = {
     "search_plan": "搜索计划",
+    "staged_indunamesw_reference": "申万分类预筛选参考",
     "staged_level1_blueprint": "一级分类蓝图",
     "staged_level1_graph": "一级骨架",
     "staged_level1_evaluation": "骨架评估",
@@ -123,10 +128,12 @@ def build_level1_skeleton(
     industry_id: str,
     industry_name: str | None,
     target_depth: str = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点",
+    use_shenwan_reference: bool = False,
 ) -> dict[str, str]:
     output_dir = industry_dir(industry_id)
     output_dir.mkdir(parents=True, exist_ok=True)
     for stale_name in [
+        "staged_indunamesw_reference.json",
         "staged_level1_blueprint.json",
         "pre_validation_candidate_graph.json",
         "candidate_graph.json",
@@ -151,10 +158,23 @@ def build_level1_skeleton(
     search_plan = build_search_plan(industry_id, resolved_industry_name)
     write_json(output_dir / "search_plan.json", search_plan)
 
+    indunamesw_reference: dict[str, Any] | None = None
     try:
+        if use_shenwan_reference:
+            _log("已启用申万分类参考：刷新分类树并筛选当前行业的一级骨架参考路径。")
+            indunamesw_reference_record = build_indunamesw_reference_record(resolved_industry_name)
+            write_json(output_dir / "staged_indunamesw_reference.json", indunamesw_reference_record)
+            indunamesw_reference = indunamesw_reference_record["selection"]
+        else:
+            _log("未启用申万分类参考，按原流程研究行业边界并构建一级骨架。")
         _log("研究行业边界并设计一级分类蓝图。")
-        seed_blueprint, blueprint_raw_text, blueprint_prompt = call_bailian_seed_blueprint(resolved_industry_name)
+        seed_blueprint, blueprint_raw_text, blueprint_prompt = call_bailian_seed_blueprint(
+            resolved_industry_name,
+            indunamesw_reference,
+        )
         write_json(output_dir / "staged_level1_blueprint.json", {
+            "use_shenwan_reference": use_shenwan_reference,
+            "chain_position_coverage": blueprint_chain_position_coverage(seed_blueprint),
             "prompt": blueprint_prompt,
             "raw_response": blueprint_raw_text,
             "blueprint": seed_blueprint,
@@ -165,6 +185,7 @@ def build_level1_skeleton(
             resolved_industry_name,
             target_depth,
             seed_blueprint,
+            indunamesw_reference,
         )
     except Exception as exc:
         (output_dir / "agent_error.txt").write_text(f"{type(exc).__name__}: {exc}\n", encoding="utf-8")
@@ -173,6 +194,7 @@ def build_level1_skeleton(
 
     (output_dir / "agent_request_prompt.txt").write_text(seed_prompt, encoding="utf-8")
     seed_graph = standardize_graph(seed_graph, industry_id)
+    validate_skeleton_chain_position_coverage(seed_graph)
 
     _log("评估一级骨架分类质量。")
     seed_evaluation, seed_eval_raw, seed_eval_prompt = evaluate_seed_graph(
@@ -188,9 +210,13 @@ def build_level1_skeleton(
         "evaluation_raw_response": seed_eval_raw,
         "evaluation": seed_evaluation,
         "classification_blueprint": seed_blueprint,
+        "chain_position_coverage": graph_chain_position_coverage(seed_graph),
+        "use_shenwan_reference": use_shenwan_reference,
         "revised": False,
         "graph": seed_graph,
     }
+    if indunamesw_reference:
+        seed_record["industry_classification_reference"] = indunamesw_reference
     if seed_evaluation.get("parse_error"):
         _log("一级骨架质量评估 JSON 解析失败，保留骨架并跳过自动修正。")
     elif not evaluation_passed(seed_evaluation):
@@ -203,6 +229,7 @@ def build_level1_skeleton(
             seed_blueprint,
         )
         seed_graph = revised_seed
+        validate_skeleton_chain_position_coverage(seed_graph)
         _log("复评修正后的一级骨架。")
         post_evaluation, post_eval_raw, post_eval_prompt = evaluate_seed_graph(
             resolved_industry_name,
@@ -216,6 +243,7 @@ def build_level1_skeleton(
             "post_revision_evaluation_prompt": post_eval_prompt,
             "post_revision_evaluation_raw_response": post_eval_raw,
             "post_revision_evaluation": post_evaluation,
+            "chain_position_coverage": graph_chain_position_coverage(seed_graph),
             "graph": seed_graph,
         })
         if evaluation_passed(post_evaluation):
@@ -233,7 +261,7 @@ def build_level1_skeleton(
     write_json(output_dir / "staged_errors.json", {"items": []})
     (output_dir / "agent_raw_response.txt").write_text(json.dumps({"seed": seed_record, "branches": []}, ensure_ascii=False, indent=2), encoding="utf-8")
     _log("一级骨架构建与评估完成；后续可运行分支扩展。")
-    return {
+    result = {
         "industry_id": industry_id,
         "search_plan": str(output_dir / "search_plan.json"),
         "staged_level1_blueprint": str(output_dir / "staged_level1_blueprint.json"),
@@ -242,6 +270,9 @@ def build_level1_skeleton(
         "staged_quality_opinions": str(output_dir / "staged_quality_opinions.json"),
         "agent_raw_response": str(output_dir / "agent_raw_response.txt"),
     }
+    if use_shenwan_reference:
+        result["staged_indunamesw_reference"] = str(output_dir / "staged_indunamesw_reference.json")
+    return result
 
 
 def build_branch_candidates(
@@ -468,6 +499,7 @@ def build_pre_validation_candidate(
     industry_name: str | None,
     target_depth: str = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点",
     strategy: str = "staged",
+    use_shenwan_reference: bool = False,
 ) -> dict[str, str]:
     if strategy == "single":
         output_dir = industry_dir(industry_id)
@@ -491,7 +523,12 @@ def build_pre_validation_candidate(
         write_json(pre_validation_path, candidate)
         return {"industry_id": industry_id, "pre_validation_candidate_graph": str(pre_validation_path)}
 
-    result = build_level1_skeleton(industry_id, industry_name, target_depth)
+    result = build_level1_skeleton(
+        industry_id,
+        industry_name,
+        target_depth,
+        use_shenwan_reference=use_shenwan_reference,
+    )
     result.update(build_branch_candidates(industry_id, industry_name, target_depth))
     return result
 
@@ -503,15 +540,31 @@ if __name__ == "__main__":
     parser.add_argument("--target-depth", default="L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点")
     parser.add_argument("--strategy", choices=["staged", "single"], default="staged")
     parser.add_argument("--stage", choices=["all", "skeleton", "branches", "rebuild"], default="all")
+    parser.add_argument(
+        "--use-shenwan-reference",
+        action="store_true",
+        help="Use the deduplicated Shenwan classification tree as an optional L1 skeleton reference.",
+    )
     args = parser.parse_args()
     if args.stage == "skeleton":
-        result = build_level1_skeleton(args.industry_id, args.industry_name, args.target_depth)
+        result = build_level1_skeleton(
+            args.industry_id,
+            args.industry_name,
+            args.target_depth,
+            use_shenwan_reference=args.use_shenwan_reference,
+        )
     elif args.stage == "branches":
         result = build_branch_candidates(args.industry_id, args.industry_name, args.target_depth)
     elif args.stage == "rebuild":
         result = rebuild_staged_candidate(args.industry_id, args.industry_name)
     else:
-        result = build_pre_validation_candidate(args.industry_id, args.industry_name, args.target_depth, args.strategy)
+        result = build_pre_validation_candidate(
+            args.industry_id,
+            args.industry_name,
+            args.target_depth,
+            args.strategy,
+            use_shenwan_reference=args.use_shenwan_reference,
+        )
     _log_result_summary(result)
 
 

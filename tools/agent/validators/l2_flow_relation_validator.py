@@ -5,9 +5,11 @@ from typing import Any
 from urllib.parse import urlparse
 
 from tools.agent.l2_flow_relations import (
+    L1_L2_FLOW_PROJECTION_LAYER,
     L2_FLOW_RELATION_LAYER,
     L2_FLOW_SCHEMA_VERSION,
     PAIR_VERDICTS,
+    build_l1_l2_projected_edges,
     graph_fingerprint,
 )
 
@@ -165,6 +167,55 @@ def validate_l2_flow_relations(payload: dict[str, Any], graph: dict[str, Any], i
         if pair[0] != pair[1] and (pair[1], pair[0]) in directed_pairs:
             issue("error", "reverse_relation_conflict", "同一 L2 节点对出现相反方向。", f"{pair[0]}<->{pair[1]}")
 
+    projected_edges = payload.get("projected_edges") or []
+    if not isinstance(projected_edges, list):
+        projected_edges = []
+        issue("error", "projected_edges_invalid", "L1-L2 投影关系必须是数组。")
+    expected_projected = build_l1_l2_projected_edges(graph, payload.get("edges", []) or [])
+    expected_projected_by_id = {str(edge["id"]): edge for edge in expected_projected}
+    actual_projected_by_id: dict[str, dict[str, Any]] = {}
+    comparable_fields = (
+        "source",
+        "target",
+        "relation_type",
+        "relation_layer",
+        "relation_weight",
+        "source_urls",
+        "evidence_ids",
+        "confidence",
+        "evidence_basis",
+        "projection_roles",
+        "projected_from_count",
+        "projected_from_edge_ids",
+    )
+    for edge in projected_edges:
+        identifier = str(edge.get("id", ""))
+        source, target = str(edge.get("source", "")), str(edge.get("target", ""))
+        if not identifier:
+            issue("error", "projected_edge_id_missing", "L1-L2 投影关系缺少 ID。")
+            continue
+        if identifier in actual_projected_by_id:
+            issue("error", "duplicate_projected_relation", "同一方向的 L1-L2 投影关系重复。", identifier)
+            continue
+        actual_projected_by_id[identifier] = edge
+        if edge.get("relation_layer") != L1_L2_FLOW_PROJECTION_LAYER:
+            issue("error", "invalid_projected_relation_layer", "L1-L2 投影关系层标记不正确。", identifier)
+        if source not in node_by_id or target not in node_by_id:
+            issue("error", "projected_unknown_endpoint", "L1-L2 投影关系引用了不存在的节点。", identifier)
+        elif {int(node_by_id[source].get("level", -1)), int(node_by_id[target].get("level", -1))} != {1, 2}:
+            issue("error", "projected_endpoint_levels_invalid", "投影关系必须连接一个 L1 节点和一个 L2 节点。", identifier)
+        expected = expected_projected_by_id.get(identifier)
+        if expected is None:
+            issue("error", "projected_relation_without_l2_basis", "L1-L2 投影关系没有对应的 L2 关系依据。", identifier)
+            continue
+        for field in comparable_fields:
+            if edge.get(field) != expected.get(field):
+                issue("error", "projected_attribute_mismatch", f"L1-L2 投影关系字段 {field} 与 L2 来源边不一致。", identifier)
+        if not str(edge.get("description", "")).strip():
+            issue("error", "projected_description_missing", "L1-L2 投影关系缺少说明。", identifier)
+    for identifier in sorted(expected_projected_by_id.keys() - actual_projected_by_id.keys()):
+        issue("error", "l1_l2_projection_missing", "L2 上下游关系未生成完整的 L1-L2 交叉投影。", identifier)
+
     if audit_positive_count > 0:
         issue(
             "warning",
@@ -185,6 +236,7 @@ def validate_l2_flow_relations(payload: dict[str, Any], graph: dict[str, Any], i
         "cache_hit_count": int(summary.get("cache_hit_count", 0) or 0),
         "model_decision_count": int(summary.get("model_decision_count", 0) or 0),
         "relation_count": len(payload.get("edges", []) or []),
+        "projected_relation_count": len(projected_edges),
         "error_count": error_count,
         "warning_count": warning_count,
         "status": "pass" if error_count == 0 else "fail",
@@ -203,6 +255,7 @@ def write_l2_flow_validation_report(report: dict[str, Any]) -> str:
         f"- 缓存命中：{report.get('cache_hit_count', 0)}",
         f"- 模型判定：{report.get('model_decision_count', 0)}",
         f"- 发布关系数：{report.get('relation_count', 0)}",
+        f"- L1-L2 投影关系数：{report.get('projected_relation_count', 0)}",
         f"- error：{report.get('error_count', 0)}",
         f"- warning：{report.get('warning_count', 0)}",
         "",

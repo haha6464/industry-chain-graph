@@ -1,43 +1,105 @@
 {
-  "summary": "覆盖食品饮料核心制造，以及上游农牧渔原料、添加剂与包装，中游生产与冷链设备，下游仓储物流与多元零售餐饮渠道的全产业链分类。",
+  "summary": "覆盖食品饮料行业中游各品类制造、上游农产品原料与包材辅料供应链、以及下游零售电商与餐饮物流渠道的全产业链分类。",
   "rules": [
     {
-      "column": "indunamesw1",
+      "column": "indunamesw3",
       "values": [
-        "食品饮料"
+        "白酒Ⅲ",
+        "啤酒",
+        "其他酒类"
       ],
-      "reason": "覆盖白酒、啤酒、软饮料、乳品、调味品及休闲食品等核心中游制造环节"
-    },
-    {
-      "column": "indunamesw2",
-      "values": [
-        "种植业",
-        "畜禽养殖",
-        "渔业",
-        "农产品加工",
-        "饲料"
-      ],
-      "reason": "覆盖粮食、果蔬、肉禽水产等农产品原料及初加工环节"
+      "reason": "酒类制造"
     },
     {
       "column": "indunamesw3",
       "values": [
-        "玻璃制造",
-        "印刷包装机械",
-        "制冷空调设备",
-        "超市",
-        "百货",
-        "多业态零售"
+        "乳品",
+        "软饮料"
       ],
-      "reason": "覆盖各类包装材料与容器、灌装包装与温控设备、冷链仓储运输以及线上线下与餐饮终端零售渠道"
+      "reason": "乳品与非酒精饮料制造"
     },
     {
-      "column": "indunamesw",
+      "column": "indunamesw3",
+      "values": [
+        "调味发酵品Ⅲ"
+      ],
+      "reason": "调味发酵品制造"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "零食",
+        "烘焙食品"
+      ],
+      "reason": "休闲食品与烘焙制造"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "肉制品",
+        "预加工食品",
+        "熟食",
+        "食品加工",
+        "其他食品"
+      ],
+      "reason": "肉制品、预制便捷食品及其他食品加工"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "粮油加工",
+        "果蔬加工",
+        "其他农产品加工"
+      ],
+      "reason": "上游农产品原料加工"
+    },
+    {
+      "column": "indunamesw3",
       "values": [
         "食品及饲料添加剂",
-        "检测服务"
+        "辅料"
       ],
-      "reason": "覆盖改善风味与质构的食品添加剂以及食品安全品控检测服务"
+      "reason": "上游食品辅料与添加剂"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "纸包装",
+        "塑料包装",
+        "金属包装",
+        "综合包装"
+      ],
+      "reason": "上游核心包装材料"
+    },
+    {
+      "column": "indunamesw2",
+      "values": [
+        "一般零售",
+        "互联网电商"
+      ],
+      "reason": "下游商超便利等线下综合零售与线上电商渠道"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "专业连锁Ⅲ"
+      ],
+      "reason": "下游零食量贩与酒水专卖等专业连锁渠道"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "餐饮"
+      ],
+      "reason": "下游B端餐饮与团餐消费渠道"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "仓储物流",
+        "公路货运"
+      ],
+      "reason": "下游食品饮料流通仓储与干线物流"
     },
     {
       "column": "indunamesw",
@@ -53,6 +115,6 @@
     }
   ],
   "deterministic_scope_completion_count": 5,
-  "candidate_total_count": 45560,
-  "selected_company_count": 1594
+  "candidate_total_count": 45807,
+  "selected_company_count": 2059
 }

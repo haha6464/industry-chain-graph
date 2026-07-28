@@ -1,0 +1,22 @@
+{
+  "industry_id": "food_beverage",
+  "l2_node_count": 56,
+  "evaluated_node_count": 56,
+  "candidate_pair_count": 397,
+  "pair_decision_count": 397,
+  "cache_hit_count": 0,
+  "model_decision_count": 397,
+  "relation_count": 137,
+  "projected_relation_count": 157,
+  "error_count": 0,
+  "warning_count": 1,
+  "status": "pass",
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "candidate_recall_audit_positive",
+      "message": "负样本审计发现 7 个正向关系，建议提高每节点候选数。",
+      "item_id": ""
+    }
+  ]
+}

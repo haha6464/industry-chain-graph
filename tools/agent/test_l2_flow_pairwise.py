@@ -8,7 +8,9 @@ from unittest.mock import patch
 from tools.agent import build_l2_flow_relations as build_command
 from tools.agent.common import write_json
 from tools.agent.l2_flow_relations import (
+    apply_l1_l2_projection,
     build_candidate_pairs,
+    build_l1_l2_projected_edges,
     build_payload,
     call_pair_batch,
     compact_l2_catalog,
@@ -189,12 +191,55 @@ class L2FlowPairwiseTests(unittest.TestCase):
             "candidates_per_node": 1,
             "negative_audit_rate": 0,
         }
-        payload = build_payload("test", self.graph, self.catalog, pairs, decisions, summary)
+        payload = apply_l1_l2_projection(
+            build_payload("test", self.graph, self.catalog, pairs, decisions, summary),
+            self.graph,
+        )
         self.assertEqual(len(payload["edges"]), 1)
         self.assertEqual(payload["edges"][0]["source"], "grain")
         self.assertEqual(payload["edges"][0]["target"], "liquor")
+        self.assertEqual(len(payload["projected_edges"]), 2)
+        projected_pairs = {(edge["source"], edge["target"]) for edge in payload["projected_edges"]}
+        self.assertEqual(projected_pairs, {("l1_raw", "liquor"), ("grain", "l1_product")})
+        self.assertNotIn(("l1_raw", "l1_product"), projected_pairs)
         report = validate_l2_flow_relations(payload, self.graph, "test")
         self.assertEqual(report["error_count"], 0, report["issues"])
+
+    def test_l1_l2_postprocess_creates_cross_projection_without_l1_l1_edge(self) -> None:
+        l2_edges = [
+            {
+                "id": "grain__upstream_downstream__liquor",
+                "source": "grain",
+                "target": "liquor",
+                "relation_type": "upstream_downstream",
+                "relation_layer": "l2_flow",
+                "relation_weight": 1.0,
+                "source_urls": ["https://example.com/grain"],
+                "evidence_ids": ["ev_grain"],
+                "confidence": 0.8,
+            },
+            {
+                "id": "grain__upstream_downstream__candy",
+                "source": "grain",
+                "target": "candy",
+                "relation_type": "upstream_downstream",
+                "relation_layer": "l2_flow",
+                "relation_weight": 1.0,
+                "source_urls": ["https://example.com/candy"],
+                "evidence_ids": ["ev_candy"],
+                "confidence": 0.8,
+            },
+        ]
+        projected = build_l1_l2_projected_edges(self.graph, l2_edges)
+        self.assertEqual(len(projected), 3)
+        projected_by_pair = {(edge["source"], edge["target"]): edge for edge in projected}
+        self.assertNotIn(("l1_raw", "l1_product"), projected_by_pair)
+        self.assertIn(("l1_raw", "liquor"), projected_by_pair)
+        self.assertIn(("l1_raw", "candy"), projected_by_pair)
+        collapsed = projected_by_pair[("grain", "l1_product")]
+        self.assertEqual(collapsed["projected_from_count"], 2)
+        self.assertEqual(collapsed["relation_weight"], 1.0)
+        self.assertEqual(collapsed["confidence"], 0.8)
 
     def test_second_build_reuses_pair_decision_cache_without_model_calls(self) -> None:
         def all_no(catalog_by_id: dict, pairs: list[dict]) -> tuple[dict[str, str], str, str]:

@@ -36,12 +36,16 @@ export interface GraphEdge {
   source: string;
   target: string;
   relation_type: RelationType;
-  relation_layer: "main" | "l2_flow";
+  relation_layer: "main" | "l2_flow" | "l1_l2_flow_projection";
   description: string;
   relation_weight: number;
   source_urls: string[];
   evidence_ids: string[];
   confidence: number;
+  evidence_basis?: string | null;
+  projection_roles?: string[];
+  projected_from_count?: number | null;
+  projected_from_edge_ids?: string[];
   updated_at?: string | null;
 }
 

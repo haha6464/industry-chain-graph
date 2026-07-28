@@ -2,440 +2,369 @@
   "industry": "食品饮料行业",
   "version": "v0.2-staged-build",
   "schema_version": "standard_industry_graph_v0.2_agent",
-  "generated_at": "2026-07-03",
-  "scope": "面向证券/金融投研的分阶段产业链图谱构建；不包含公司节点、股票代码、财务指标、新闻事件、政策标题、市场规模或营销概念。",
+  "generated_at": "2026-07-28T00:00:00Z",
+  "scope": "面向证券/金融投研的分阶段产业链图谱构建；L2 以下只表达分类隶属；不包含公司节点、股票代码、财务指标、新闻事件、政策标题、市场规模、营销概念或工艺流程节点。",
   "source_basis": [
     {
-      "name": "股百科-食品饮料产业链构成",
-      "url": "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-      "note": "详细阐述食品饮料产业链上游包括基础农产品、包装辅料、生产设备三大类；中游为食品制造与饮料制造；下游为线上线下渠道"
+      "name": "知乎-一文读懂食品饮料产业链（小财研究社）",
+      "url": "https://zhuanlan.zhihu.com/p/602270226",
+      "note": "清晰阐述了食品饮料行业处于产业链中游的定位，上游为农产品/添加剂/包装/设备，下游为餐饮/商超/电商等渠道，并将核心业务分为酒类、食品、饮料三大类，支持以产品品类为主轴的分类框架。"
     },
     {
-      "name": "艾媒咨询-饮料产业链分析",
-      "url": "https://yanfa.foodmate.net/news/show-158.html",
-      "note": "饮料产业链上游包括纯碱、食品添加剂、食糖、塑料制品、铝材等原材料；中游为饮料生产制造；下游为商超、便利店、电商等渠道"
-    },
-    {
-      "name": "知乎-食品饮料产业图谱",
-      "url": "https://zhuanlan.zhihu.com/p/605244483",
-      "note": "食品饮料行业整体处于产业链中游，上游为农产品、食品添加剂、食品包装、生产设备；下游为餐饮、商超、酒店、电商等"
-    },
-    {
-      "name": "联合资信-食品饮料行业观察",
+      "name": "联合资信-食品饮料行业观察及2025年信用风险展望",
       "url": "https://www.lhratings.com/file/fe2d6ccd8f0.pdf",
-      "note": "食品饮料行业处于产业链中下游，上游主要是农业、养殖业以及食品添加剂及食品包装等行业，下游通过商超、电商等渠道触达消费者"
+      "note": "权威评级机构对食品饮料行业的信用分析框架，确认了白酒、啤酒、乳品、软饮料、休闲零食、调味品、肉制品等核心子板块，并强调了原材料成本波动对行业的影响，支持上游农产品原料供应链的独立节点设计。"
     },
     {
-      "name": "WTO-食品与饮料价值链",
-      "url": "https://www.wto.org/english/res_e/statis_e/miwi_e/gvc_sectoral_profiles_food_beverage24_e.pdf",
-      "note": "食品饮料行业覆盖食品、饮料的制造、加工、保鲜、仓储和分销，全球价值链涉及农业原料、加工制造、物流配送等环节"
+      "name": "上海高金-食品饮料行业如何穿越周期主题论坛",
+      "url": "https://www.saif.sjtu.edu.cn/show-67-1591.html",
+      "note": "指出食品饮料行业本质是中游制造业，上游大部分是农产品为主的原料，下游则通过零售渠道销售到消费者手中，验证了产业链上中下游的传导逻辑。"
+    },
+    {
+      "name": "国信证券-食品饮料产业链系列报告",
+      "url": "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html",
+      "note": "详细梳理了白酒、啤酒、乳制品、调味品、肉制品等子行业的产业链特征和竞争格局，强调了品牌集中化、消费升级、渠道变革等关键驱动因素，支持按品类展开二级分类的设计思路。"
+    },
+    {
+      "name": "产业洞察-食品饮料行业上下游产业链关联分析",
+      "url": "https://dongfangqb.com/article/8765",
+      "note": "梳理了食品饮料产业链上游种植业、畜牧业，中游加工制造及下游商超、餐饮等渠道的关联关系，印证了农产品原料与流通渠道作为独立一级环节的必要性。"
     }
   ],
   "nodes": [
     {
-      "id": "food_beverage_001",
+      "id": "food_beverage_000",
       "name": "食品饮料行业",
       "node_type": "产业链",
       "tags": [
-        "level_0"
+        "level_0",
+        "root"
       ],
       "industry": "食品饮料行业",
       "level": 0,
       "chain_position": "root",
       "parent_id": "",
-      "description": "涵盖食品制造、饮料制造及相关配套服务的产业链体系",
-      "business_description": "涵盖食品制造、饮料制造及相关配套服务的产业链体系",
+      "description": "涵盖酒类、饮料、调味品、休闲食品、预制食品等品类的制造及直接上游原料供给和下游销售渠道。",
+      "business_description": "涵盖酒类、饮料、调味品、休闲食品、预制食品等品类的制造及直接上游原料供给和下游销售渠道。",
       "is_key_node": true,
       "chain_segment": "行业根节点",
       "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://www.wto.org/english/res_e/statis_e/miwi_e/gvc_sectoral_profiles_food_beverage24_e.pdf"
+        "https://zhuanlan.zhihu.com/p/602270226",
+        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001",
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "food_beverage_001",
+      "name": "酒类制造",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1",
+        "midstream"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_000",
+      "description": "以粮食等为原料，通过发酵、蒸馏、陈酿、勾调等工艺生产含酒精饮品，具备强品牌壁垒与社交消费属性。",
+      "business_description": "以粮食等为原料，通过发酵、蒸馏、陈酿、勾调等工艺生产含酒精饮品，具备强品牌壁垒与社交消费属性。",
+      "is_key_node": true,
+      "chain_segment": "中游核心制造",
+      "source_urls": [
+        "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html",
+        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004",
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "food_beverage_002",
+      "name": "乳品与非酒精饮料制造",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1",
+        "midstream"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_000",
+      "description": "涵盖液态奶、奶粉、奶酪等乳品，以及包装水、茶饮、果汁、植物蛋白饮料和功能饮料等非酒精饮品，具有高频快消和多元消费场景属性。",
+      "business_description": "涵盖液态奶、奶粉、奶酪等乳品，以及包装水、茶饮、果汁、植物蛋白饮料和功能饮料等非酒精饮品，具有高频快消和多元消费场景属性。",
+      "is_key_node": true,
+      "chain_segment": "中游核心制造",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/602270226",
+        "https://dongfangqb.com/article/8765"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001",
+        "food_beverage_ev_0005"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "food_beverage_003",
+      "name": "调味发酵品制造",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1",
+        "midstream"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_000",
+      "description": "厨房刚需品类，具备高复购率与强渠道粘性，B端餐饮定制与C端家庭消费双轮驱动。",
+      "business_description": "厨房刚需品类，具备高复购率与强渠道粘性，B端餐饮定制与C端家庭消费双轮驱动。",
+      "is_key_node": true,
+      "chain_segment": "中游核心制造",
+      "source_urls": [
+        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf",
+        "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002",
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "food_beverage_004",
+      "name": "休闲食品与烘焙制造",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1",
+        "midstream"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_000",
+      "description": "迎合年轻化与碎片化消费趋势，产品迭代快，高度依赖品牌营销与多元化零售渠道触达。",
+      "business_description": "迎合年轻化与碎片化消费趋势，产品迭代快，高度依赖品牌营销与多元化零售渠道触达。",
+      "is_key_node": true,
+      "chain_segment": "中游核心制造",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/602270226",
+        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001",
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "food_beverage_005",
+      "name": "肉制品与预制便捷食品制造",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1",
+        "midstream"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "food_beverage_000",
+      "description": "涵盖肉制品、速冻食品、预制菜和方便食品等深加工品类，连接初级农产品与终端餐桌，并服务家庭便捷消费和餐饮标准化供给。",
+      "business_description": "涵盖肉制品、速冻食品、预制菜和方便食品等深加工品类，连接初级农产品与终端餐桌，并服务家庭便捷消费和餐饮标准化供给。",
+      "is_key_node": true,
+      "chain_segment": "中游核心制造",
+      "source_urls": [
+        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf",
+        "https://dongfangqb.com/article/8765"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0002",
+        "food_beverage_ev_0005"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "food_beverage_006",
+      "name": "食品原料、辅料与包材供应链",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1",
+        "upstream"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "",
+      "description": "涵盖农产品原料、食品添加剂等辅料及纸、塑料、金属、玻璃等核心包材，是决定中游制造成本、品质和供应稳定性的关键上游。",
+      "business_description": "涵盖农产品原料、食品添加剂等辅料及纸、塑料、金属、玻璃等核心包材，是决定中游制造成本、品质和供应稳定性的关键上游。",
+      "is_key_node": true,
+      "chain_segment": "上游原辅料与包材供给",
+      "source_urls": [
+        "https://www.saif.sjtu.edu.cn/show-67-1591.html",
+        "https://dongfangqb.com/article/8765",
+        "https://zhuanlan.zhihu.com/p/602270226"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0003",
+        "food_beverage_ev_0005",
+        "food_beverage_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "food_beverage_007",
+      "name": "食品饮料流通与消费渠道",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1",
+        "downstream"
+      ],
+      "industry": "食品饮料行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "",
+      "description": "涵盖经销批发、商超便利、电商零售、餐饮及团餐等B端与C端消费渠道，是产品实现价值变现并反馈终端需求的关键下游。",
+      "business_description": "涵盖经销批发、商超便利、电商零售、餐饮及团餐等B端与C端消费渠道，是产品实现价值变现并反馈终端需求的关键下游。",
+      "is_key_node": true,
+      "chain_segment": "下游渠道终端",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/602270226",
+        "https://www.saif.sjtu.edu.cn/show-67-1591.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001",
+        "food_beverage_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    }
+  ],
+  "edges": [
+    {
+      "id": "food_beverage_000__contains__food_beverage_001",
+      "source": "food_beverage_000",
+      "target": "food_beverage_001",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含酒类制造这一核心中游品类板块。",
+      "source_urls": [
+        "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0004"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
+    },
+    {
+      "id": "food_beverage_000__contains__food_beverage_002",
+      "source": "food_beverage_000",
+      "target": "food_beverage_002",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "食品饮料行业包含乳品与非酒精饮料制造这一核心中游品类板块。",
+      "source_urls": [
+        "https://zhuanlan.zhihu.com/p/602270226"
       ],
       "evidence_ids": [
         "food_beverage_ev_0001"
       ],
       "confidence": 0.95,
-      "updated_at": "2026-07-03"
+      "updated_at": "2026-07-28T00:00:00Z"
     },
     {
-      "id": "food_beverage_002",
-      "name": "农产品原料供应",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "upstream",
-      "parent_id": "food_beverage_001",
-      "description": "包括粮食、油料、糖料、水果、茶叶、咖啡豆、乳源、畜禽、水产等农产品原料的种植、养殖与初加工",
-      "business_description": "包括粮食、油料、糖料、水果、茶叶、咖啡豆、乳源、畜禽、水产等农产品原料的种植、养殖与初加工",
-      "is_key_node": true,
-      "chain_segment": "上游原材料供给",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.92,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_003",
-      "name": "食品添加剂与配料",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "upstream",
-      "parent_id": "food_beverage_001",
-      "description": "包括甜味剂、代糖、防腐剂、香精香料、增稠剂、酵母、酒曲等食品添加剂与配料的研发与生产",
-      "business_description": "包括甜味剂、代糖、防腐剂、香精香料、增稠剂、酵母、酒曲等食品添加剂与配料的研发与生产",
-      "is_key_node": true,
-      "chain_segment": "上游原材料供给",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://yanfa.foodmate.net/news/show-158.html"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0003"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_004",
-      "name": "食品包装材料",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "upstream",
-      "parent_id": "food_beverage_001",
-      "description": "包括玻璃瓶、金属罐、易拉罐、PET塑料瓶、纸盒、复合包装材料等食品包装材料的研发与生产",
-      "business_description": "包括玻璃瓶、金属罐、易拉罐、PET塑料瓶、纸盒、复合包装材料等食品包装材料的研发与生产",
-      "is_key_node": true,
-      "chain_segment": "上游原材料供给",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://yanfa.foodmate.net/news/show-158.html"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0004"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_005",
-      "name": "食品加工制造",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_001",
-      "description": "涵盖肉制品、乳制品、速冻食品、休闲食品、调味品、烘焙食品等各类食品的工业化加工制造",
-      "business_description": "涵盖肉制品、乳制品、速冻食品、休闲食品、调味品、烘焙食品等各类食品的工业化加工制造",
-      "is_key_node": true,
-      "chain_segment": "中游生产制造",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/605244483",
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.93,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_006",
-      "name": "饮料与酒类制造",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_001",
-      "description": "涵盖包装饮用水、碳酸饮料、果汁饮料、功能饮料、茶饮料、白酒、啤酒、葡萄酒等饮料与酒类的工业化生产",
-      "business_description": "涵盖包装饮用水、碳酸饮料、果汁饮料、功能饮料、茶饮料、白酒、啤酒、葡萄酒等饮料与酒类的工业化生产",
-      "is_key_node": true,
-      "chain_segment": "中游生产制造",
-      "source_urls": [
-        "https://yanfa.foodmate.net/news/show-158.html",
-        "https://zhuanlan.zhihu.com/p/605244483"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0006"
-      ],
-      "confidence": 0.92,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_007",
-      "name": "食品生产装备",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "support",
-      "parent_id": "food_beverage_001",
-      "description": "包括发酵罐、蒸馏塔、杀菌设备、灌装线、包装机、自动化控制系统、检测仪器等食品饮料专用生产装备的研发与制造",
-      "business_description": "包括发酵罐、蒸馏塔、杀菌设备、灌装线、包装机、自动化控制系统、检测仪器等食品饮料专用生产装备的研发与制造",
-      "is_key_node": true,
-      "chain_segment": "基础设施与装备支撑",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://zhuanlan.zhihu.com/p/605244483"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0007"
-      ],
-      "confidence": 0.88,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_008",
-      "name": "冷链物流与仓储",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "support",
-      "parent_id": "food_beverage_001",
-      "description": "包括冷链运输、冷藏仓储、区域配送中心、前置仓等食品饮料物流基础设施与服务体系",
-      "business_description": "包括冷链运输、冷藏仓储、区域配送中心、前置仓等食品饮料物流基础设施与服务体系",
-      "is_key_node": true,
-      "chain_segment": "物流与仓储支撑",
-      "source_urls": [
-        "https://www.wto.org/english/res_e/statis_e/miwi_e/gvc_sectoral_profiles_food_beverage24_e.pdf",
-        "https://www.carbonnt.com/news/75a7a690-e9f5-439f-b17a-68edb51b4b88"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0008"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_009",
-      "name": "流通渠道与零售终端",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_001",
-      "description": "包括商超、便利店、餐饮店、电商平台、社区团购、即时零售等线上线下流通渠道与零售终端",
-      "business_description": "包括商超、便利店、餐饮店、电商平台、社区团购、即时零售等线上线下流通渠道与零售终端",
-      "is_key_node": true,
-      "chain_segment": "下游流通与终端消费",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://yanfa.foodmate.net/news/show-158.html"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0009"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_010",
-      "name": "食品安全检测与认证",
-      "node_type": "一级环节",
-      "tags": [
-        "level_1"
-      ],
-      "industry": "食品饮料行业",
-      "level": 1,
-      "chain_position": "support",
-      "parent_id": "food_beverage_001",
-      "description": "包括食品安全检测、质量认证、合规审核、追溯体系等食品安全保障服务",
-      "business_description": "包括食品安全检测、质量认证、合规审核、追溯体系等食品安全保障服务",
-      "is_key_node": true,
-      "chain_segment": "质量与安全支撑",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0010"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-07-03"
-    }
-  ],
-  "edges": [
-    {
-      "id": "food_beverage_001__contains__food_beverage_002",
-      "source": "food_beverage_001",
-      "target": "food_beverage_002",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "食品饮料行业包含农产品原料供应环节",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.92,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_001__contains__food_beverage_003",
-      "source": "food_beverage_001",
+      "id": "food_beverage_000__contains__food_beverage_003",
+      "source": "food_beverage_000",
       "target": "food_beverage_003",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含食品添加剂与配料环节",
+      "description": "食品饮料行业包含调味发酵品制造这一核心中游品类板块。",
       "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://yanfa.foodmate.net/news/show-158.html"
+        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0003"
+        "food_beverage_ev_0002"
       ],
-      "confidence": 0.9,
-      "updated_at": "2026-07-03"
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
     },
     {
-      "id": "food_beverage_001__contains__food_beverage_004",
-      "source": "food_beverage_001",
+      "id": "food_beverage_000__contains__food_beverage_004",
+      "source": "food_beverage_000",
       "target": "food_beverage_004",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含食品包装材料环节",
+      "description": "食品饮料行业包含休闲食品与烘焙制造这一核心中游品类板块。",
       "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://yanfa.foodmate.net/news/show-158.html"
+        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0004"
+        "food_beverage_ev_0002"
       ],
-      "confidence": 0.9,
-      "updated_at": "2026-07-03"
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
     },
     {
-      "id": "food_beverage_001__contains__food_beverage_005",
-      "source": "food_beverage_001",
+      "id": "food_beverage_000__contains__food_beverage_005",
+      "source": "food_beverage_000",
       "target": "food_beverage_005",
       "relation_type": "contains",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含食品加工制造环节",
+      "description": "食品饮料行业包含肉制品与预制便捷食品制造这一核心中游品类板块。",
       "source_urls": [
-        "https://zhuanlan.zhihu.com/p/605244483",
         "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0005"
+        "food_beverage_ev_0002"
       ],
-      "confidence": 0.93,
-      "updated_at": "2026-07-03"
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
     },
     {
-      "id": "food_beverage_001__contains__food_beverage_006",
-      "source": "food_beverage_001",
-      "target": "food_beverage_006",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "食品饮料行业包含饮料与酒类制造环节",
-      "source_urls": [
-        "https://yanfa.foodmate.net/news/show-158.html",
-        "https://zhuanlan.zhihu.com/p/605244483"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0006"
-      ],
-      "confidence": 0.92,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_001__contains__food_beverage_007",
-      "source": "food_beverage_001",
+      "id": "food_beverage_000__upstream_downstream__food_beverage_007",
+      "source": "food_beverage_000",
       "target": "food_beverage_007",
-      "relation_type": "contains",
+      "relation_type": "upstream_downstream",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含食品生产装备环节",
+      "description": "食品饮料流通与消费渠道是食品饮料行业产品实现终端消费与价值变现的下游关键通路。",
       "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://zhuanlan.zhihu.com/p/605244483"
+        "https://zhuanlan.zhihu.com/p/602270226"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0007"
+        "food_beverage_ev_0001"
       ],
-      "confidence": 0.88,
-      "updated_at": "2026-07-03"
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
     },
     {
-      "id": "food_beverage_001__contains__food_beverage_008",
-      "source": "food_beverage_001",
-      "target": "food_beverage_008",
-      "relation_type": "contains",
+      "id": "food_beverage_006__upstream_downstream__food_beverage_000",
+      "source": "food_beverage_006",
+      "target": "food_beverage_000",
+      "relation_type": "upstream_downstream",
       "relation_weight": 1.0,
-      "description": "食品饮料行业包含冷链物流与仓储环节",
+      "description": "食品原料、辅料与包材供应链是食品饮料行业的关键上游成本与物料供给来源。",
       "source_urls": [
-        "https://www.wto.org/english/res_e/statis_e/miwi_e/gvc_sectoral_profiles_food_beverage24_e.pdf",
-        "https://www.carbonnt.com/news/75a7a690-e9f5-439f-b17a-68edb51b4b88"
+        "https://www.saif.sjtu.edu.cn/show-67-1591.html",
+        "https://zhuanlan.zhihu.com/p/602270226"
       ],
       "evidence_ids": [
-        "food_beverage_ev_0008"
+        "food_beverage_ev_0003",
+        "food_beverage_ev_0001"
       ],
-      "confidence": 0.85,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_001__contains__food_beverage_009",
-      "source": "food_beverage_001",
-      "target": "food_beverage_009",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "食品饮料行业包含流通渠道与零售终端环节",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://yanfa.foodmate.net/news/show-158.html"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0009"
-      ],
-      "confidence": 0.9,
-      "updated_at": "2026-07-03"
-    },
-    {
-      "id": "food_beverage_001__contains__food_beverage_010",
-      "source": "food_beverage_001",
-      "target": "food_beverage_010",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "食品饮料行业包含食品安全检测与认证环节",
-      "source_urls": [
-        "https://www.aigbk.com/article/what_is_the_food_and_beverage_concept_and_its_industry_chain/",
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0010"
-      ],
-      "confidence": 0.85,
-      "updated_at": "2026-07-03"
+      "confidence": 0.95,
+      "updated_at": "2026-07-28T00:00:00Z"
     }
   ]
 }

@@ -16,6 +16,7 @@ from tools.agent.common import content_hash, edge_id, read_jsonl
 
 L2_FLOW_SCHEMA_VERSION = "industry_l2_flow_relations_v0.2_pairwise"
 L2_FLOW_RELATION_LAYER = "l2_flow"
+L1_L2_FLOW_PROJECTION_LAYER = "l1_l2_flow_projection"
 PAIR_PROMPT_VERSION = "l2_pair_tri_state_v0.2"
 PAIR_VERDICTS = {"A_TO_B", "B_TO_A", "NO"}
 DEFAULT_L2_FLOW_MODEL = "qwen3.7-plus"
@@ -376,6 +377,81 @@ def load_pair_decision_cache(path: Path) -> dict[str, dict[str, Any]]:
     }
 
 
+def build_l1_l2_projected_edges(graph: dict[str, Any], l2_edges: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    node_by_id = {str(node.get("id")): node for node in graph.get("nodes", []) if node.get("id")}
+    grouped: dict[tuple[str, str], list[tuple[dict[str, Any], str]]] = {}
+    for edge in l2_edges:
+        source_node = node_by_id.get(str(edge.get("source", "")))
+        target_node = node_by_id.get(str(edge.get("target", "")))
+        if not source_node or not target_node:
+            continue
+        source_parent = str(source_node.get("parent_id") or "")
+        target_parent = str(target_node.get("parent_id") or "")
+        if (
+            int(source_node.get("level", -1)) != 2
+            or int(target_node.get("level", -1)) != 2
+            or source_parent == target_parent
+            or int(node_by_id.get(source_parent, {}).get("level", -1)) != 1
+            or int(node_by_id.get(target_parent, {}).get("level", -1)) != 1
+        ):
+            continue
+        grouped.setdefault((source_parent, str(target_node["id"])), []).append(
+            (edge, "source_parent_to_target")
+        )
+        grouped.setdefault((str(source_node["id"]), target_parent), []).append(
+            (edge, "source_to_target_parent")
+        )
+
+    projected: list[dict[str, Any]] = []
+    for (source, target), source_items in sorted(grouped.items()):
+        source_node, target_node = node_by_id[source], node_by_id[target]
+        source_edges = [item[0] for item in source_items]
+        source_edge_ids = sorted({str(edge.get("id", "")) for edge in source_edges if edge.get("id")})
+        source_urls = sorted(
+            {str(url) for edge in source_edges for url in edge.get("source_urls", []) or [] if url}
+        )
+        evidence_ids = sorted(
+            {str(identifier) for edge in source_edges for identifier in edge.get("evidence_ids", []) or [] if identifier}
+        )
+        projected.append(
+            {
+                "id": edge_id(source, "upstream_downstream", target),
+                "source": source,
+                "target": target,
+                "relation_type": "upstream_downstream",
+                "relation_layer": L1_L2_FLOW_PROJECTION_LAYER,
+                "relation_weight": float(source_edges[0].get("relation_weight", 1.0)),
+                "description": (
+                    f"{source_node.get('name', source)}是{target_node.get('name', target)}的跨层上游投影，"
+                    f"由 {len(source_edge_ids)} 条 L2 上下游关系推导。"
+                ),
+                "source_urls": source_urls,
+                "evidence_ids": evidence_ids,
+                "confidence": min(float(edge.get("confidence", 0.0)) for edge in source_edges),
+                "evidence_basis": "l2_flow_cross_level_projection",
+                "projection_roles": sorted({item[1] for item in source_items}),
+                "projected_from_count": len(source_edge_ids),
+                "projected_from_edge_ids": source_edge_ids,
+                "updated_at": now_iso(),
+            }
+        )
+    return projected
+
+
+def apply_l1_l2_projection(payload: dict[str, Any], graph: dict[str, Any]) -> dict[str, Any]:
+    result = dict(payload)
+    l2_edges = list(payload.get("edges", []) or [])
+    projected_edges = build_l1_l2_projected_edges(graph, l2_edges)
+    result.pop("aggregated_edges", None)
+    result["projected_edges"] = projected_edges
+    result["candidate_summary"] = {
+        **(payload.get("candidate_summary") or {}),
+        "l1_l2_projected_relation_count": len(projected_edges),
+    }
+    result["candidate_summary"].pop("l1_aggregated_relation_count", None)
+    return result
+
+
 def build_payload(
     industry_id: str,
     graph: dict[str, Any],
@@ -480,7 +556,11 @@ def relation_file_status(
         payload = json.loads(relation_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return "invalid", None, "L2 上下游关系文件无法读取。"
-    if payload.get("schema_version") != L2_FLOW_SCHEMA_VERSION or not isinstance(payload.get("edges"), list):
+    if (
+        payload.get("schema_version") != L2_FLOW_SCHEMA_VERSION
+        or not isinstance(payload.get("edges"), list)
+        or not isinstance(payload.get("projected_edges"), list)
+    ):
         return "invalid", payload, "L2 上下游关系文件格式无效。"
     if payload.get("industry_id") != industry_id or payload.get("graph_fingerprint") != graph_fingerprint(graph):
         return "stale", payload, "正式图谱已变化，请重新运行 L2 上下游关系建边。"
@@ -493,6 +573,7 @@ def payload_fingerprint(payload: dict[str, Any]) -> str:
         "industry_id": payload.get("industry_id"),
         "graph_fingerprint": payload.get("graph_fingerprint"),
         "edges": payload.get("edges", []),
+        "projected_edges": payload.get("projected_edges", []),
     }
     return hashlib.sha256(
         json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")

@@ -1,0 +1,49 @@
+{
+  "industry": "食品饮料行业",
+  "schema_version": "standard_industry_graph_v0.2_agent",
+  "node_count": 122,
+  "edge_count": 121,
+  "max_contains_depth": 4,
+  "error_count": 0,
+  "warning_count": 0,
+  "status": "pass",
+  "issues": [],
+  "pre_validation": {
+    "industry": "食品饮料行业",
+    "schema_version": "standard_industry_graph_v0.2_agent",
+    "node_count": 122,
+    "edge_count": 121,
+    "max_contains_depth": 4,
+    "error_count": 0,
+    "warning_count": 0,
+    "status": "pass",
+    "issues": []
+  },
+  "format_repair": {
+    "validation_status": "skipped",
+    "summary": "硬规则校验通过，未调用百炼格式修复。",
+    "modifications": [],
+    "review_items": []
+  },
+  "quality_evaluation": {
+    "items": [
+      {
+        "stage": "mentor_relation_semantics_update",
+        "status": "pass",
+        "initial_status": "pass",
+        "revision_status": "not_revised",
+        "score": 94,
+        "initial_score": 94,
+        "summary": "按 mentor 新要求重构食品饮料图谱关系语义：上下游只存在于 L0-L1，L2 以下仅保留分类隶属，并将工艺流程节点替换为投研口径品类节点。",
+        "opinions": [
+          "L0-L1 的上下游边只用于判断一级环节相对行业根节点的上下游属性，避免与 contains 隶属关系重复。",
+          "白酒分支已收敛至白酒品类节点，不再按价格带、消费场景或香型继续拆分，避免营销口径和过细产品分类进入产业链图谱。",
+          "啤酒和乳制品中涉及工艺的节点已改为产品/品类口径，便于后续公司节点挂载。",
+          "节点总量保持在 100 个以上，覆盖上游原料、配料、包装、中游食品饮料酒类、设备冷链和下游渠道。"
+        ],
+        "revision_focus": [],
+        "revised": false
+      }
+    ]
+  }
+}

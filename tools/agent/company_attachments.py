@@ -511,6 +511,9 @@ def attachment_file_status(industry_id: str, graph: dict[str, Any], attachment_p
         return "invalid", payload, "公司挂载文件格式无效。"
     if payload.get("industry_id") != industry_id or payload.get("graph_fingerprint") != graph_fingerprint(graph):
         return "stale", payload, "正式图谱已变化，请重新运行公司节点挂载。"
+    source = payload.get("candidate_source") or {}
+    if not CANDIDATE_CSV_PATH.exists() or source.get("sha256") != file_sha256(CANDIDATE_CSV_PATH):
+        return "stale", payload, "候选公司 CSV 已更新，请重新运行公司节点挂载。"
     return "ready", payload, ""
 
 

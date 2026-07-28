@@ -10,14 +10,23 @@ from tools.agent.common import PROJECT_ROOT
 
 DEFAULT_BASE_URL = "https://llm-5h22uw9yblw6v1rz.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
 DEFAULT_MODEL = "qwen3.7-max"
-DEFAULT_SEARCH_STRATEGY = "agent_max"
+DEFAULT_SEARCH_STRATEGY = "agent"
 DEFAULT_TIMEOUT_SECONDS = 600
 DEFAULT_MAX_RETRIES = 1
 DEFAULT_RETRY_SLEEP_SECONDS = 3
+MIN_OPENAI_VERSION = (2, 28, 0)
 
 
 class BailianAgentError(RuntimeError):
     pass
+
+
+def _version_tuple(value: str) -> tuple[int, int, int]:
+    parts: list[int] = []
+    for item in value.split(".")[:3]:
+        digits = "".join(char for char in item if char.isdigit())
+        parts.append(int(digits or 0))
+    return tuple((*parts, 0, 0)[:3])
 
 
 def load_bailian_env() -> None:
@@ -42,10 +51,12 @@ def _env_int(name: str, default: int) -> int:
         return default
 
 
-def bailian_tools(include_web_extractor: bool = True) -> list[dict[str, str]]:
+def bailian_tools(include_web_extractor: bool = False) -> list[dict[str, str]]:
     tools = [{"type": "web_search"}]
-    if include_web_extractor:
-        tools.append({"type": "web_extractor"})
+    # web_extractor is intentionally disabled for every Agent stage because it
+    # adds substantial latency. Keep the argument for call-site compatibility.
+    # if include_web_extractor:
+    #     tools.append({"type": "web_extractor"})
     if _env_bool("BAILIAN_ENABLE_CODE_INTERPRETER", False):
         tools.append({"type": "code_interpreter"})
     return tools
@@ -58,7 +69,7 @@ def call_bailian_responses(
     search_strategy: str | None = None,
     model: str | None = None,
     enable_thinking: bool | None = None,
-    include_web_extractor: bool = True,
+    include_web_extractor: bool = False,
     temperature: float | None = None,
     max_output_tokens: int | None = None,
 ) -> Any:
@@ -68,9 +79,15 @@ def call_bailian_responses(
         raise BailianAgentError("DASHSCOPE_API_KEY or BAILIAN_API_KEY is required for Bailian agent calls.")
 
     try:
+        import openai
         from openai import OpenAI
     except ImportError as exc:
         raise BailianAgentError("openai package is required. Run .\\scripts\\setup-conda.ps1 to update the conda environment.") from exc
+    if _version_tuple(str(openai.__version__)) < MIN_OPENAI_VERSION:
+        raise BailianAgentError(
+            "百炼 Responses web_search 需要 openai>=2.28.0；"
+            f"当前版本为 {openai.__version__}。请运行 .\\scripts\\setup-conda.ps1 更新环境后重试。"
+        )
 
     timeout_seconds = _env_int("BAILIAN_TIMEOUT_SECONDS", DEFAULT_TIMEOUT_SECONDS)
     max_retries = _env_int("BAILIAN_MAX_RETRIES", DEFAULT_MAX_RETRIES)

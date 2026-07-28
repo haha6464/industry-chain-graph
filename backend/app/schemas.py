@@ -40,12 +40,16 @@ class GraphEdge(BaseModel):
     source: str
     target: str
     relation_type: RelationType
-    relation_layer: Literal["main", "l2_flow"] = "main"
+    relation_layer: Literal["main", "l2_flow", "l1_l2_flow_projection"] = "main"
     description: str
     relation_weight: float = 1.0
     source_urls: list[str] = Field(default_factory=list)
     evidence_ids: list[str] = Field(default_factory=list)
     confidence: float = 0.0
+    evidence_basis: str | None = None
+    projection_roles: list[str] = Field(default_factory=list)
+    projected_from_count: int | None = None
+    projected_from_edge_ids: list[str] = Field(default_factory=list)
     updated_at: str | None = None
 
 
@@ -84,6 +88,7 @@ class AgentRunRequest(BaseModel):
     industry_id: str
     industry_name: str | None = None
     target_depth: str = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点"
+    use_shenwan_reference: bool = False
 
 
 class AgentUpdateRequest(BaseModel):

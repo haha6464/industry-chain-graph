@@ -216,8 +216,8 @@ def get_node_l2_flow_relations(
     selected = node_by_id.get(node_id)
     if selected is None:
         raise HTTPException(status_code=404, detail=f"Node not found: {node_id}")
-    if selected.level != 2:
-        raise HTTPException(status_code=400, detail="L2 上下游关系只支持 level=2 节点。")
+    if selected.level not in {1, 2}:
+        raise HTTPException(status_code=400, detail="上下游关系附件只支持 level=1 或 level=2 节点。")
     graph = load_graph(industry_id)
     relation_path = industry_dir(industry_id) / "l2_flow_relations.json"
     status, payload, message = relation_file_status(industry_id, graph, relation_path)
@@ -225,8 +225,11 @@ def get_node_l2_flow_relations(
         return NodeL2FlowRelationsResponse(
             industry_id=industry_id, node_id=node_id, status=status, message=message
         )
+    relation_edges = list(payload.get("projected_edges", []))
+    if selected.level == 2:
+        relation_edges.extend(payload.get("edges", []))
     related_edges = [
-        edge for edge in payload.get("edges", [])
+        edge for edge in relation_edges
         if edge.get("source") == node_id or edge.get("target") == node_id
     ]
     related_ids = {node_id}
@@ -261,7 +264,12 @@ def final_validate_agent_graph(request: AgentUpdateRequest) -> AgentRunResponse:
 @app.post("/api/agent/build-skeleton", response_model=AgentRunResponse)
 def build_agent_skeleton(request: AgentRunRequest) -> AgentRunResponse:
     try:
-        result = run_build_skeleton(request.industry_id, request.industry_name, request.target_depth)
+        result = run_build_skeleton(
+            request.industry_id,
+            request.industry_name,
+            request.target_depth,
+            use_shenwan_reference=request.use_shenwan_reference,
+        )
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return AgentRunResponse(**result)

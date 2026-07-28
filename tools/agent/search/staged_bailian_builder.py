@@ -11,6 +11,7 @@ from tools.agent.search.bailian_responses_agent import _extract_json_object, _re
 
 DEFAULT_BRANCH_TARGET = "10-16 个新增节点，必须覆盖 level=2/3；核心产品、材料、设备、渠道或应用分支在证据充分时应继续展开到 level=4"
 MIN_BRANCH_NEW_NODES = 8
+REQUIRED_SKELETON_POSITIONS = frozenset({"upstream", "downstream"})
 SKELETON_CLASSIFICATION_POLICY = """
 一级骨架分类原则：
 - 先判断行业原型，再选择一级分类轴：资源品行业通常按资源/材料/加工/产品/需求拆解；制造业通常按关键供给/核心产品/渠道应用拆解；消费品通常按原料/产品品类/渠道终端拆解；服务与网络型行业通常优先按可投资的业务赛道、服务方式或基础设施类型拆解；综合行业可以使用混合框架，但必须说明主轴，且尽量减少重叠。
@@ -19,6 +20,8 @@ SKELETON_CLASSIFICATION_POLICY = """
 - L1 应尽量互斥、合计完整、粒度相当。若一个一级节点的描述一次性枚举了多个重要可投资赛道，而其他一级节点只是单一要素或窄支撑项，说明骨架失衡，应重新拆分。
 - 每个 L1 都应有清晰的后续展开路径，通常能形成 8-20 个有投研意义的下级节点；避免“一个超大综合分支 + 多个很窄支撑分支”的结构。
 - 一级骨架的目标不是套用固定的“原料-制造-渠道”模板，而是找出该行业最能解释收入池、成本项、供需驱动和公司业务归属的分类方式。
+- “行业分类归属边界”不等于“产业链上下游边界”。重要上游供给、下游渠道、终端应用或需求场景即使归属于其他一级行业，也应按产业链关系评估，不能仅因不在当前行业分类子树下就排除。
+- 每张一级骨架必须同时保留至少 1 个 upstream L1 和至少 1 个 downstream L1；相邻行业中的关键供给与下游渠道可以作为产业链节点，但不得误写成当前行业的核心经营品类。
 """.strip()
 INVESTMENT_RESEARCH_NODE_POLICY = """
 投研产业链节点口径：
@@ -99,18 +102,44 @@ def _json_schema_hint(industry_id: str, industry_name: str) -> str:
 """.strip()
 
 
-def build_seed_blueprint_prompt(industry_name: str) -> str:
+def _blueprint_reference_section(industry_classification_reference: dict[str, Any] | None) -> str:
+    if not industry_classification_reference:
+        return ""
+    return f"""
+申万行业分类参考如下。它由 qwen3.7-plus 从保留 indunamesw1/2/3 等级关系的申万分类树去重表中预筛选得到，只用于帮助发现可能遗漏的核心品类、上下游或应用方向，不是最终交付分类标准：
+{json.dumps(industry_classification_reference, ensure_ascii=False)}
+
+使用要求：分类路径用于理解候选项在申万体系中的上下级语境；预筛选已扫描整张分类树，跨一级行业召回重要上游供给、下游渠道和终端需求。可以重命名、合并、拆分或舍弃这些参考分类，但不得仅因候选路径位于其他申万一级行业而排除重要上下游，也不得为了贴合申万口径而破坏产业链主分类轴、互斥性、粒度一致性或投研交付要求。最终 L1 不要求与申万分类同名或一一对应。
+""".strip()
+
+
+def _seed_reference_section(industry_classification_reference: dict[str, Any] | None) -> str:
+    if not industry_classification_reference:
+        return ""
+    return f"""
+申万行业分类树预筛选参考如下。路径保留候选分类的上下级语境，但它不是最终交付模板，仅用于检查蓝图和骨架是否遗漏重要产业类别；允许按投研产业链口径重命名、合并、拆分或不采用，最终节点不要求与申万名称一致：
+{json.dumps(industry_classification_reference, ensure_ascii=False)}
+""".strip()
+
+
+def build_seed_blueprint_prompt(
+    industry_name: str,
+    industry_classification_reference: dict[str, Any] | None = None,
+) -> str:
     return f"""
 你是券商行业研究员。请联网研究“{industry_name}”，先设计产业链一级骨架的分类蓝图；此时不要生成图谱节点、关系、ID 或其他工程字段，只关注行业边界与分类质量。
 
 {SKELETON_CLASSIFICATION_POLICY}
 
+{_blueprint_reference_section(industry_classification_reference)}
+
 研究要求：
 1. 至少交叉参考权威行业分类或监管统计口径、券商/评级机构行业研究、产业链资料三类来源；不要只依赖一张泛化产业链图。
 2. 明确该行业属于资源品、制造、消费品、服务网络或综合型中的哪种原型，并解释最适合它的一级主分类轴。
-3. 区分核心经营赛道、重要上游供给、下游需求和必要支撑；把相邻行业或通用外包能力列入排除项。
+3. 区分核心经营赛道、重要上游供给、下游渠道/终端需求和必要支撑；行业归属边界与产业链相邻关系要分别判断。相邻行业中的通用外包能力可列入排除项，但对价格、销量或需求传导重要的上游供给和下游渠道不得仅因跨一级行业而排除。
 4. 设计 6-10 个 L1 候选。逐项说明纳入理由、边界、预计下钻方向，并检查重叠、遗漏和粒度失衡。
 5. 特别检查是否存在某个候选分支吞并了大多数核心业务赛道；如有，拆开或改用更合适的主分类轴。
+6. level_one_design 中必须至少有 1 个 chain_position=upstream 和 1 个 chain_position=downstream；若当前行业分类子树没有下游分类，必须继续从完整分类体系及联网资料中寻找渠道、终端应用或需求侧参考。
 
 请返回严格 JSON，不要 Markdown：
 {{
@@ -137,6 +166,7 @@ def build_seed_prompt(
     industry_name: str,
     target_depth: str,
     blueprint: dict[str, Any] | None = None,
+    industry_classification_reference: dict[str, Any] | None = None,
 ) -> str:
     return f"""
 你是证券研究场景的产业链图谱构建 Agent。请联网搜索公开资料，为“{industry_name}”先构建面向金融投研的产业链一级骨架。
@@ -148,6 +178,8 @@ def build_seed_prompt(
 已完成的行业边界与一级分类蓝图如下。除非联网证据表明蓝图存在明显事实错误，否则一级节点应服从其中的行业边界、主分类轴和排除项，不要重新套用通用产业链模板：
 {json.dumps(blueprint or {}, ensure_ascii=False)}
 
+{_seed_reference_section(industry_classification_reference)}
+
 {SKELETON_CLASSIFICATION_POLICY}
 
 {INVESTMENT_RESEARCH_NODE_POLICY}
@@ -156,7 +188,7 @@ def build_seed_prompt(
 1. 必须联网搜索，不要只依赖模型内部知识。
 2. 不要抽取公司节点，不要公司列表，不要股票代码、财务指标或个股信息。
 3. level=0 只能有 1 个行业根节点，名称为“{industry_name}”。
-4. level=1 覆盖该行业主要一级环节，建议 6-10 个，至少 5 个；必须沿用分类蓝图确定的主轴，并兼顾核心经营赛道、重要供给、下游需求与必要支撑。
+4. level=1 覆盖该行业主要一级环节，建议 6-10 个，至少 5 个；必须沿用分类蓝图确定的主轴，并兼顾核心经营赛道、重要供给、下游需求与必要支撑。必须至少输出 1 个 chain_position=upstream 和 1 个 chain_position=downstream 的 L1；餐饮、零售、应用等下游即使属于其他一级行业，也不能仅因行业归属不同而遗漏。
 5. level=1 不要命名为“上游/中游/下游”；名称必须是稳定产业环节，不要用“咨询研究、数字化平台、解决方案、市场服务”等泛服务能力做一级节点。
    同时检查 L1 是否互斥、粒度相当：不要让一个“综合运营/综合制造”节点吞并多个主要赛道，而其余节点只是窄小的材料、能源、运维或 IT 支撑。
 6. level=1 的关系按语义输出：
@@ -228,12 +260,88 @@ def _call_json_prompt(prompt: str, purpose: str) -> tuple[dict[str, Any], str]:
     return _extract_json_object(raw_text), raw_text
 
 
-def call_bailian_seed_blueprint(industry_name: str) -> tuple[dict[str, Any], str, str]:
-    prompt = build_seed_blueprint_prompt(industry_name)
+def _normalized_chain_position(value: Any) -> str:
+    return str(value or "").strip().lower()
+
+
+def blueprint_chain_position_coverage(blueprint: dict[str, Any]) -> dict[str, int]:
+    coverage = {position: 0 for position in ("upstream", "midstream", "downstream", "support")}
+    for item in blueprint.get("level_one_design", []) or []:
+        if not isinstance(item, dict):
+            continue
+        position = _normalized_chain_position(item.get("chain_position"))
+        if position in coverage:
+            coverage[position] += 1
+    return coverage
+
+
+def graph_chain_position_coverage(graph: dict[str, Any]) -> dict[str, int]:
+    coverage = {position: 0 for position in ("upstream", "midstream", "downstream", "support")}
+    for node in graph.get("nodes", []) or []:
+        try:
+            level = int(node.get("level", 0))
+        except (TypeError, ValueError):
+            continue
+        if level != 1:
+            continue
+        position = _normalized_chain_position(node.get("chain_position"))
+        if position in coverage:
+            coverage[position] += 1
+    return coverage
+
+
+def missing_required_skeleton_positions(graph_or_blueprint: dict[str, Any], *, blueprint: bool) -> list[str]:
+    coverage = (
+        blueprint_chain_position_coverage(graph_or_blueprint)
+        if blueprint
+        else graph_chain_position_coverage(graph_or_blueprint)
+    )
+    return sorted(position for position in REQUIRED_SKELETON_POSITIONS if not coverage[position])
+
+
+def validate_skeleton_chain_position_coverage(graph: dict[str, Any]) -> None:
+    missing = missing_required_skeleton_positions(graph, blueprint=False)
+    if missing:
+        raise BailianAgentError(f"一级骨架缺少必要产业链位置：{', '.join(missing)}")
+
+
+def _coverage_correction_prompt(
+    original_prompt: str,
+    previous_payload: dict[str, Any],
+    missing_positions: list[str],
+    payload_name: str,
+) -> str:
+    return f"""
+{original_prompt}
+
+上一次返回的{payload_name}没有满足产业链位置覆盖硬约束，缺少：{json.dumps(missing_positions, ensure_ascii=False)}。
+请完整重写 JSON，而不是只输出补丁。必须补足缺失的 upstream/downstream L1，并保持原有主分类轴、互斥性和粒度一致性。
+特别注意：行业分类归属边界不等于产业链上下游边界。下游渠道、终端应用或需求场景即使位于其他一级行业，也应在产业链骨架中保留；不得以“不属于当前行业分类”为理由排除。
+
+上一次返回：
+{json.dumps(previous_payload, ensure_ascii=False)}
+""".strip()
+
+
+def call_bailian_seed_blueprint(
+    industry_name: str,
+    industry_classification_reference: dict[str, Any] | None = None,
+) -> tuple[dict[str, Any], str, str]:
+    prompt = build_seed_blueprint_prompt(industry_name, industry_classification_reference)
     blueprint, raw_text = _call_json_prompt(prompt, "一级骨架分类蓝图")
     level_one_design = blueprint.get("level_one_design")
     if not blueprint.get("primary_classification_axis") or not isinstance(level_one_design, list) or len(level_one_design) < 5:
         raise BailianAgentError("一级骨架分类蓝图缺少主分类轴或有效 L1 设计")
+    missing = missing_required_skeleton_positions(blueprint, blueprint=True)
+    if missing:
+        prompt = _coverage_correction_prompt(prompt, blueprint, missing, "一级分类蓝图")
+        blueprint, raw_text = _call_json_prompt(prompt, "一级骨架分类蓝图位置覆盖修正")
+        level_one_design = blueprint.get("level_one_design")
+        if not blueprint.get("primary_classification_axis") or not isinstance(level_one_design, list) or len(level_one_design) < 5:
+            raise BailianAgentError("修正后的一级骨架分类蓝图缺少主分类轴或有效 L1 设计")
+        missing = missing_required_skeleton_positions(blueprint, blueprint=True)
+        if missing:
+            raise BailianAgentError(f"一级骨架分类蓝图修正后仍缺少必要产业链位置：{', '.join(missing)}")
     return blueprint, raw_text, prompt
 
 
@@ -242,9 +350,21 @@ def call_bailian_seed_graph(
     industry_name: str,
     target_depth: str,
     blueprint: dict[str, Any] | None = None,
+    industry_classification_reference: dict[str, Any] | None = None,
 ) -> tuple[dict[str, Any], str, str]:
-    prompt = build_seed_prompt(industry_id, industry_name, target_depth, blueprint)
+    prompt = build_seed_prompt(
+        industry_id,
+        industry_name,
+        target_depth,
+        blueprint,
+        industry_classification_reference,
+    )
     graph, raw_text = _call_json_prompt(prompt, "一级骨架构建")
+    missing = missing_required_skeleton_positions(graph, blueprint=False)
+    if missing:
+        prompt = _coverage_correction_prompt(prompt, graph, missing, "一级骨架图谱")
+        graph, raw_text = _call_json_prompt(prompt, "一级骨架位置覆盖修正")
+        validate_skeleton_chain_position_coverage(graph)
     return graph, raw_text, prompt
 
 

@@ -32,6 +32,7 @@ industry-chain-graph/
     build_candidate_graph.py  候选构建入口（--stage skeleton/branches/all）
     final_validate_graph.py    最终硬规则校验 + 必要时格式修复
     build_l2_flow_relations.py L2 上下游关系附件构建入口
+    project_l2_flow_relations.py 已有 L2 边生成 L1-L2 交叉投影的确定性后处理入口
     l2_flow_relations.py       L2 候选召回、节点对三态判定、缓存、固定脚本建边与附件状态
     update_graph.py           增量更新主流程入口
     export_csv.py             mentor 格式 CSV 导出
@@ -41,6 +42,7 @@ industry-chain-graph/
     search/
       search_planner.py         搜索 query 模板与搜索计划生成
       bailian_responses_agent.py  百炼联网搜索构建（single 策略）+ 证据提取
+      shenwan_industry_reference.py 申万分类树去重、行业相关 L1 参考预筛选
       staged_bailian_builder.py   分阶段构建：seed 骨架 + 逐分支扩展 + 合并
     validators/
       graph_validator.py        硬规则校验（确定性规则，不调用 AI）
@@ -50,13 +52,16 @@ industry-chain-graph/
       graph_merger.py           图谱融合、去重、关系冲突检测、复核队列生成
     updaters/
       bailian_update_agent.py   百炼增量更新 Agent
+  data/company_candidates/  公司与申万分类候选数据
+    申万全量分类结果.csv       申万四级分类原始公司映射
+    indunamesw.csv             保留 indunamesw1/2/3 等级路径、去层级后缀并去重的分类树表
   data/industries/          行业数据目录
     manifest.json             25 个行业池登记（id、名称、板块、状态、数据路径）
     {industry_id}/            每个行业一个子目录
       graph.json                正式图谱
       l2_flow_candidate_pairs.json L2 跨分支候选节点对与召回统计
       l2_flow_pair_decisions.jsonl L2 节点对判定缓存（按节点内容哈希复用）
-      l2_flow_relations.json    L2-L2 上下游关系正式附件（前端按需展开）
+      l2_flow_relations.json    L2-L2 上下游关系及其 L1-L2 投影边正式附件（前端按需展开）
       candidate_graph.json      候选图谱
       sources.jsonl             证据库
       exports/                  CSV 导出目录
@@ -123,7 +128,8 @@ industry-chain-graph/
 
 - `contains`：内部存储为 **父节点 -> 子节点**
 - `upstream_downstream`：内部存储为 **上游节点 -> 下游节点**。`graph.json` 主关系仍仅允许出现在 **L0 与 L1 之间**；明确的 L2-L2 横向上下游关系存放在独立 `l2_flow_relations.json` 附件中。
-- L2 以下的主分类树全部使用 `contains`；L2 横向关系附件只允许 L2-L2，不改变 `parent_id`，前端默认隐藏并按选中节点展开。
+- L2 以下的主分类树全部使用 `contains`；L2 横向关系附件保存 L2-L2 原始判定边，并在建边完成后以确定性脚本生成跨层投影：`A(L2) -> B(L2)` 同步得到 `parent(A)(L1) -> B(L2)` 和 `A(L2) -> parent(B)(L1)`。不得生成 L1-L1 边。
+- L1-L2 投影不调用模型、不改变 `parent_id`，并保持 L2 边方向、`relation_type`、`relation_weight` 和置信度；重复投影边去重，来源 URL 和证据取并集，并在 `projected_from_edge_ids` 中保留来源边。
 - 对 L1 节点：`chain_position=upstream` 时用 `L1 -> L0` 的 `upstream_downstream`；`chain_position=downstream` 时用 `L0 -> L1` 的 `upstream_downstream`；`midstream/support` 等非上下游一级环节用 `contains` 连接根节点。同一 L0-L1 节点对只能二选一。
 - 同一节点对只允许一种主关系
 
@@ -164,19 +170,23 @@ industry-chain-graph/
 
 ```text
 1. 生成搜索计划 -> search_plan.json
-2. 百炼联网研究行业边界与一级主分类轴 -> staged_level1_blueprint.json
-3. 根据分类蓝图构建一级骨架 -> staged_level1_graph.json
-4. 评估一级骨架质量 -> staged_level1_evaluation.json；未通过时仅修正骨架并复评一次
-5. 逐个扩展全部一级分支（BAILIAN_STAGED_BRANCH_LIMIT 仅作为调试上限） -> staged_branch_fragments.json
-6. 逐分支评估质量 -> staged_branch_evaluations.json；未通过时仅修正当前分支
-7. 合并图谱与质量意见 -> staged_merged_graph.json / staged_quality_opinions.json
-8. 标准化 -> pre_validation_candidate_graph.json
-9. 单轮硬规则校验；通过则直接生成 candidate_graph.json
-10. 硬规则失败时，仅对可修复的工程格式错误调用无联网、无思考的百炼最小补丁修复；节点数量等业务问题直接进入复核 -> format_repair_report.json
-11. 生成 validation_report.md/json、review_queue.json、sources.jsonl 和 CSV
-12. 人工应用 candidate_graph.json 为正式 graph.json
-13. 对不同 L1 分支的 L2 做本地候选召回；以节点对为语义单元，用无联网、无思考、无工具的低温模型输出 A_TO_B/B_TO_A/NO，固定脚本建边并校验后生成 l2_flow_relations.json
-14. L2 关系附件 ready 后才能运行公司节点挂载
+2. 运行一级骨架时由用户手动选择是否启用申万分类辅助参考；默认关闭。关闭时完全按原流程研究行业边界和分类轴，不刷新去重表、不调用申万筛选模型、不注入申万参考。
+3. 仅在启用时，从申万全量分类结果的 `indunamesw/indunamesw1/indunamesw2/indunamesw3` 四列刷新分类树去重表；保留 `indunamesw1 -> indunamesw2 -> indunamesw3` 等级路径，移除名称末尾的层级罗马数字，并折叠路径中相邻同名层级，例如“食品饮料 -> 白酒Ⅱ -> 白酒Ⅲ”统一为“食品饮料 -> 白酒” -> data/company_candidates/indunamesw.csv
+4. 仅在启用时，调用固定 `qwen3.7-plus`（无思考、无搜索、无工具）扫描整张去重分类树，而不是只看目标行业同一申万一级根节点；必须跨根召回并覆盖 `core/upstream/downstream`，例如零售、电商、餐饮等下游可来自商贸零售或社会服务 -> staged_indunamesw_reference.json；缺角色时自动修正一次
+5. 百炼联网研究行业边界与一级主分类轴；启用申万参考时，筛选结果仅作召回参考，允许重命名、合并、拆分或舍弃，不要求最终 L1 与申万分类一致。“行业归属边界”不得替代“产业链上下游边界”，蓝图必须至少包含 1 个 upstream 和 1 个 downstream L1；缺失时自动修正一次 -> staged_level1_blueprint.json
+6. 根据分类蓝图构建一级骨架；启用时额外参考申万筛选结果。生成结果再次硬检查至少包含 1 个 upstream 和 1 个 downstream L1；缺失时自动修正一次，仍缺失则终止本次骨架构建 -> staged_level1_graph.json
+7. 评估一级骨架质量 -> staged_level1_evaluation.json；未通过时仅修正骨架并复评一次
+8. 逐个扩展全部一级分支（BAILIAN_STAGED_BRANCH_LIMIT 仅作为调试上限） -> staged_branch_fragments.json
+9. 逐分支评估质量 -> staged_branch_evaluations.json；未通过时仅修正当前分支
+10. 合并图谱与质量意见 -> staged_merged_graph.json / staged_quality_opinions.json
+11. 标准化 -> pre_validation_candidate_graph.json
+12. 单轮硬规则校验；通过则直接生成 candidate_graph.json
+13. 硬规则失败时，仅对可修复的工程格式错误调用无联网、无思考的百炼最小补丁修复；节点数量等业务问题直接进入复核 -> format_repair_report.json
+14. 生成 validation_report.md/json、review_queue.json、sources.jsonl 和 CSV
+15. 人工应用 candidate_graph.json 为正式 graph.json
+16. 对不同 L1 分支的 L2 做本地候选召回；以节点对为语义单元，用无联网、无思考、无工具的低温模型输出 A_TO_B/B_TO_A/NO，并由固定脚本生成 L2 边
+17. L2 建边完成后执行确定性后处理：`A(L2) -> B(L2)` 投影为 `parent(A)(L1) -> B(L2)` 和 `A(L2) -> parent(B)(L1)`；重复跨层边去重并合并来源，校验后生成 l2_flow_relations.json
+18. L2 关系附件 ready 后才能运行公司节点挂载
 ```
 
 **apply 条件**：最终硬规则 `error_count == 0` 且格式修复未失败时，前端或 `apply-candidate` API 可将 candidate_graph.json 写入正式 graph.json。
@@ -211,7 +221,7 @@ single 策略（`--strategy single`）仅作为 CLI 调试路径，前端默认�
 | GET | `/api/industries` | 行业列表（从 manifest.json 读取） |
 | GET | `/api/graph` | 获取图谱（支持 q/chain_positions/relation_types/levels 筛选） |
 | GET | `/api/nodes/{node_id}/neighbors` | 获取节点邻居 |
-| GET | `/api/nodes/{node_id}/l2-flow-relations` | 按节点读取 L2 上下游关系附件 |
+| GET | `/api/nodes/{node_id}/l2-flow-relations` | 按 L1/L2 节点读取原始或跨层投影上下游关系附件 |
 | POST | `/api/ask` | 图谱问答 |
 | POST | `/api/agent/search-plan` | 生成搜索计划 |
 | POST | `/api/agent/build-skeleton` | 构建并评估一级骨架 |
@@ -250,7 +260,7 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 **百炼关键配置**（`backend/.env`）：
 
 - `BAILIAN_MODEL` — 模型名，默认 `qwen3.7-max`
-- `BAILIAN_SEARCH_STRATEGY` — 搜索策略，默认 `agent_max`
+- `BAILIAN_SEARCH_STRATEGY` — 搜索策略，默认 `agent`；公共客户端仅启用 `web_search`，所有阶段停用 `web_extractor`
 - `BAILIAN_TIMEOUT_SECONDS` — 超时秒数，默认 600
 - `BAILIAN_STAGED_BRANCH_LIMIT` — 分阶段构建调试上限，默认 0 表示扩展全部一级分支；旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用
 - `BAILIAN_ENABLE_THINKING` — 是否开启思考模式，默认 true
@@ -299,8 +309,9 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 
 - **当前版本不涉及公司信息**：不抽取公司节点，不保留 `company_list`，不处理股票代码、财务指标和个股内容。校验规则会检测并拒绝包含公司字段的节点。
 - **关系类型只有两种**：`contains` 和 `upstream_downstream`。
-- **主图上下游只用于 L0-L1**：`graph.json` 中 L2 以下只保留分类隶属树；独立 `l2_flow_relations.json` 可保存有明确直接业务依据的 L2-L2 上下游关系，但不得改变分类父子关系、不得连接 L3/L4，也不得把连续工艺步骤当作横向节点。
+- **主图上下游只用于 L0-L1**：`graph.json` 中 L2 以下只保留分类隶属树；独立 `l2_flow_relations.json` 保存有明确依据的 L2-L2 上下游边及其确定性 L1-L2 投影边。投影边必须由 L2 边推导，不得生成 L1-L1 边、不得独立调用模型、不得改变分类父子关系或连接 L3/L4。
 - **避免工艺流程节点**：面向投研和后续公司节点挂载，节点应优先是品类、材料、设备、渠道、应用场景、需求类别等稳定分类，不把单个生产动作或连续工艺步骤作为节点。
+- **行业归属不等于产业链边界**：L1 骨架必须至少覆盖 1 个 upstream 和 1 个 downstream。重要供给、渠道、终端应用或需求场景即使位于其他申万一级行业，也应按产业传导关系评估，不能因为不在目标行业申万子树下而遗漏。
 - **每个节点和关系必须至少有 1 个 URL 来源**。
 - **分支节点 ID 必须隔离**：L2 以下节点使用 `{L1_ID}_{序号}`，例如 `transportation_006_001`；跨分支异名同 ID 必须报错，不能在合并时静默覆盖。
 - **空分支不得进入候选图谱**：每个 L1 最少形成 8 个 L2-L4 节点；任一分支失败或未达到最低数量时保留中间产物，但不生成校验前候选图谱。
@@ -313,9 +324,13 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 
 ```powershell
 .\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage skeleton
+.\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage skeleton --use-shenwan-reference
 .\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage branches
 .\scripts\run-agent.ps1 tools\agent\final_validate_graph.py --industry-id food_beverage
+.\scripts\run-agent.ps1 tools\agent\project_l2_flow_relations.py --industry-id food_beverage
 ```
+
+第一条骨架命令是不参考申万的默认原流程；只有显式增加 `--use-shenwan-reference` 才会生成并注入申万分类参考。
 
 语法检查：
 

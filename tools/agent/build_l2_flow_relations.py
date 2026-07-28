@@ -16,6 +16,7 @@ if __package__ is None or __package__ == "":
 from tools.agent.common import industry_dir, load_graph, write_json, write_jsonl
 from tools.agent.l2_flow_relations import (
     PAIR_VERDICTS,
+    apply_l1_l2_projection,
     build_candidate_pairs,
     build_payload,
     call_pair_batch,
@@ -175,10 +176,12 @@ def run_l2_flow_relation_build(industry_id: str) -> dict[str, str]:
                     "cache_key": pair["cache_key"],
                 }
 
-    write_jsonl(
-        output_dir / "l2_flow_relation_raw_responses.jsonl",
-        sorted(raw_rows, key=lambda item: (item["stage"], int(item.get("batch_index", item.get("retry_index", 0))))),
-    )
+    raw_response_path = output_dir / "l2_flow_relation_raw_responses.jsonl"
+    if raw_rows or not raw_response_path.exists():
+        write_jsonl(
+            raw_response_path,
+            sorted(raw_rows, key=lambda item: (item["stage"], int(item.get("batch_index", item.get("retry_index", 0))))),
+        )
 
     updated_cache = dict(cache)
     for decision in pair_decisions.values():
@@ -205,6 +208,8 @@ def run_l2_flow_relation_build(industry_id: str) -> dict[str, str]:
         list(pair_decisions.values()),
         candidate_summary,
     )
+    _log("L2 建边完成，开始执行确定性 L1-L2 跨层投影后处理。")
+    candidate = apply_l1_l2_projection(candidate, graph)
     candidate_path = output_dir / "l2_flow_relation_candidate.json"
     write_json(candidate_path, candidate)
     validation = validate_l2_flow_relations(candidate, graph, industry_id)
@@ -216,7 +221,9 @@ def run_l2_flow_relation_build(industry_id: str) -> dict[str, str]:
     write_json(final_path, candidate)
     _log(
         f"L2 pairwise 建边完成：判定 {validation.get('pair_decision_count', 0)} 对，"
-        f"发布 {validation.get('relation_count', 0)} 条关系，缓存命中 {candidate['candidate_summary']['cache_hit_count']} 对。"
+        f"发布 {validation.get('relation_count', 0)} 条 L2 关系和 "
+        f"{validation.get('projected_relation_count', 0)} 条 L1-L2 投影关系，"
+        f"缓存命中 {candidate['candidate_summary']['cache_hit_count']} 对。"
     )
     return {
         "industry_id": industry_id,

@@ -176,8 +176,28 @@
     "source_order": 40,
     "data_path": "data/industries/food_beverage/graph.json",
     "status": "demo",
-      "node_count": 122,
-      "edge_count": 121
+    "node_count": 136,
+    "edge_count": 135
+  },
+  {
+    "id": "food_beverage_claude",
+    "name": "食品饮料行业（Claude版）",
+    "sector": "必选消费",
+    "source_order": 40,
+    "data_path": "data/industries/food_beverage Claude版/graph.json",
+    "status": "demo",
+    "node_count": 230,
+    "edge_count": 234
+  },
+  {
+    "id": "food_beverage_without_shenwan",
+    "name": "食品饮料行业（未参考申万）",
+    "sector": "必选消费",
+    "source_order": 40,
+    "data_path": "data/industries/food_beverage未参考申万/graph.json",
+    "status": "demo",
+    "node_count": 122,
+    "edge_count": 121
   },
   {
     "id": "agriculture_forestry_animal_fishery",

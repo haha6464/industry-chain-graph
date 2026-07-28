@@ -186,7 +186,11 @@ def export_industry_csv(industry_id: str, output_dir: Path | None = None) -> dic
     graph = load_graph(industry_id)
     relation_path = industry_dir(industry_id) / "l2_flow_relations.json"
     relation_status, relation_payload, _ = relation_file_status(industry_id, graph, relation_path)
-    extra_edges = relation_payload.get("edges", []) if relation_status == "ready" and relation_payload else []
+    extra_edges = (
+        list(relation_payload.get("edges", [])) + list(relation_payload.get("projected_edges", []))
+        if relation_status == "ready" and relation_payload
+        else []
+    )
     result = export_graph_csv(graph, industry_id, output_dir, extra_edges=extra_edges)
     attachment_path = industry_dir(industry_id) / "company_attachments.json"
     status, attachments, _ = attachment_file_status(industry_id, graph, attachment_path)
@@ -209,4 +213,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     result = export_industry_csv(args.industry_id, args.output_dir)
     _print_export_summary(result)
-
