@@ -31,6 +31,8 @@ industry-chain-graph/
   tools/agent/              Agent 工具链（可 CLI 独立运行，也可被后端子进程调用）
     build_candidate_graph.py  候选构建入口（--stage skeleton/branches/all）
     final_validate_graph.py    最终硬规则校验 + 必要时格式修复
+    build_l2_flow_relations.py L2 上下游关系附件构建入口
+    l2_flow_relations.py       L2 候选召回、节点对三态判定、缓存、固定脚本建边与附件状态
     update_graph.py           增量更新主流程入口
     export_csv.py             mentor 格式 CSV 导出
     common.py                 公共工具：路径常量、JSON/JSONL IO、standardize_graph()
@@ -43,6 +45,7 @@ industry-chain-graph/
     validators/
       graph_validator.py        硬规则校验（确定性规则，不调用 AI）
       bailian_graph_validator.py  百炼格式修复（仅硬规则失败时调用）
+      l2_flow_relation_validator.py L2 上下游关系附件硬规则校验
     mergers/
       graph_merger.py           图谱融合、去重、关系冲突检测、复核队列生成
     updaters/
@@ -51,6 +54,9 @@ industry-chain-graph/
     manifest.json             25 个行业池登记（id、名称、板块、状态、数据路径）
     {industry_id}/            每个行业一个子目录
       graph.json                正式图谱
+      l2_flow_candidate_pairs.json L2 跨分支候选节点对与召回统计
+      l2_flow_pair_decisions.jsonl L2 节点对判定缓存（按节点内容哈希复用）
+      l2_flow_relations.json    L2-L2 上下游关系正式附件（前端按需展开）
       candidate_graph.json      候选图谱
       sources.jsonl             证据库
       exports/                  CSV 导出目录
@@ -116,8 +122,8 @@ industry-chain-graph/
 **关系方向约定**：
 
 - `contains`：内部存储为 **父节点 -> 子节点**
-- `upstream_downstream`：内部存储为 **上游节点 -> 下游节点**，但当前图谱标准仅允许出现在 **L0 与 L1 之间**，用于判断某个一级环节相对行业根节点属于上游或下游。
-- L2 以下全部使用 `contains` 表示分类隶属，不保留工艺流转或分支内部上下游边，避免 `SUBORDINATE_TO` 与 `DOWNSTREAM_OF` 含义重合。
+- `upstream_downstream`：内部存储为 **上游节点 -> 下游节点**。`graph.json` 主关系仍仅允许出现在 **L0 与 L1 之间**；明确的 L2-L2 横向上下游关系存放在独立 `l2_flow_relations.json` 附件中。
+- L2 以下的主分类树全部使用 `contains`；L2 横向关系附件只允许 L2-L2，不改变 `parent_id`，前端默认隐藏并按选中节点展开。
 - 对 L1 节点：`chain_position=upstream` 时用 `L1 -> L0` 的 `upstream_downstream`；`chain_position=downstream` 时用 `L0 -> L1` 的 `upstream_downstream`；`midstream/support` 等非上下游一级环节用 `contains` 连接根节点。同一 L0-L1 节点对只能二选一。
 - 同一节点对只允许一种主关系
 
@@ -168,6 +174,9 @@ industry-chain-graph/
 9. 单轮硬规则校验；通过则直接生成 candidate_graph.json
 10. 硬规则失败时，仅对可修复的工程格式错误调用无联网、无思考的百炼最小补丁修复；节点数量等业务问题直接进入复核 -> format_repair_report.json
 11. 生成 validation_report.md/json、review_queue.json、sources.jsonl 和 CSV
+12. 人工应用 candidate_graph.json 为正式 graph.json
+13. 对不同 L1 分支的 L2 做本地候选召回；以节点对为语义单元，用无联网、无思考、无工具的低温模型输出 A_TO_B/B_TO_A/NO，固定脚本建边并校验后生成 l2_flow_relations.json
+14. L2 关系附件 ready 后才能运行公司节点挂载
 ```
 
 **apply 条件**：最终硬规则 `error_count == 0` 且格式修复未失败时，前端或 `apply-candidate` API 可将 candidate_graph.json 写入正式 graph.json。
@@ -202,11 +211,13 @@ single 策略（`--strategy single`）仅作为 CLI 调试路径，前端默认�
 | GET | `/api/industries` | 行业列表（从 manifest.json 读取） |
 | GET | `/api/graph` | 获取图谱（支持 q/chain_positions/relation_types/levels 筛选） |
 | GET | `/api/nodes/{node_id}/neighbors` | 获取节点邻居 |
+| GET | `/api/nodes/{node_id}/l2-flow-relations` | 按节点读取 L2 上下游关系附件 |
 | POST | `/api/ask` | 图谱问答 |
 | POST | `/api/agent/search-plan` | 生成搜索计划 |
 | POST | `/api/agent/build-skeleton` | 构建并评估一级骨架 |
 | POST | `/api/agent/build-branches` | 逐分支扩展、评估并合并校验前候选图谱 |
 | POST | `/api/agent/final-validate` | 最终硬规则校验，必要时格式修复 |
+| POST | `/api/agent/build-l2-flow-relations` | 构建并校验 L2 上下游关系附件 |
 | POST | `/api/agent/update` | 启动更新 |
 | GET | `/api/agent/runs/{run_id}` | 查看运行状态 |
 | POST | `/api/agent/runs/{run_id}/cancel` | 中断运行 |
@@ -244,6 +255,12 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 - `BAILIAN_STAGED_BRANCH_LIMIT` — 分阶段构建调试上限，默认 0 表示扩展全部一级分支；旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用
 - `BAILIAN_ENABLE_THINKING` — 是否开启思考模式，默认 true
 - `BAILIAN_ENABLE_CODE_INTERPRETER` — 是否开启代码解释器，默认 false（通常关闭以节省时间）
+- `BAILIAN_L2_FLOW_MODEL` — L2 上下游节点对判定模型，默认 `qwen3.7-plus`；该环节固定关闭联网、思考和全部工具
+- `BAILIAN_L2_FLOW_TEMPERATURE` — 节点对判定温度，默认 `0.1`，硬校验要求不高于 `0.3`
+- `BAILIAN_L2_FLOW_PAIR_BATCH_SIZE` — 单次请求承载的独立节点对数量，默认 20；模型仍须逐 pair 输出三态结果
+- `BAILIAN_L2_FLOW_MAX_CONCURRENCY` — 节点对批次最大并发数，默认 5
+- `BAILIAN_L2_FLOW_CANDIDATES_PER_NODE` — 本地候选召回时每个 L2 保留的候选数，默认 8
+- `BAILIAN_L2_FLOW_NEGATIVE_AUDIT_RATE` — 未召回节点对的确定性抽检比例，默认 `0.03`
 
 **sys.path 补丁**：`tools/agent/` 下的 CLI 入口文件都有 `sys.path` 自动发现逻辑，通过向上查找 `data/industries/manifest.json` 来定位项目根目录。
 
@@ -282,7 +299,7 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 
 - **当前版本不涉及公司信息**：不抽取公司节点，不保留 `company_list`，不处理股票代码、财务指标和个股内容。校验规则会检测并拒绝包含公司字段的节点。
 - **关系类型只有两种**：`contains` 和 `upstream_downstream`。
-- **上下游关系只用于 L0-L1**：L2 以下只允许分类隶属树，不输出分支内部上下游或工艺流转关系。
+- **主图上下游只用于 L0-L1**：`graph.json` 中 L2 以下只保留分类隶属树；独立 `l2_flow_relations.json` 可保存有明确直接业务依据的 L2-L2 上下游关系，但不得改变分类父子关系、不得连接 L3/L4，也不得把连续工艺步骤当作横向节点。
 - **避免工艺流程节点**：面向投研和后续公司节点挂载，节点应优先是品类、材料、设备、渠道、应用场景、需求类别等稳定分类，不把单个生产动作或连续工艺步骤作为节点。
 - **每个节点和关系必须至少有 1 个 URL 来源**。
 - **分支节点 ID 必须隔离**：L2 以下节点使用 `{L1_ID}_{序号}`，例如 `transportation_006_001`；跨分支异名同 ID 必须报错，不能在合并时静默覆盖。
@@ -311,6 +328,14 @@ conda run -n industry-chain-graph python -m compileall backend\app tools\agent
 ```powershell
 cd frontend && npm run build && cd ..
 ```
+
+导出双击可用的离线 HTML：
+
+```powershell
+cd frontend && npm run build:offline && cd ..
+```
+
+离线 HTML 从各行业当前正式 `graph.json` 生成主图快照；只有 `graph_fingerprint` 与当前主图一致的 `l2_flow_relations.json` 和 `company_attachments.json` 才会被内置，避免导出过期附件。
 
 ## 8. 当前状态与已知限制
 

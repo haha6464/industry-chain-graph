@@ -18,6 +18,7 @@ if __package__ is None or __package__ == "":
 
 from tools.agent.common import industry_dir, load_graph, standardize_graph
 from tools.agent.company_attachments import attachment_file_status
+from tools.agent.l2_flow_relations import relation_file_status
 
 def _convert_node_id(node_id: str) -> str:
     """将节点 ID 转换为大写前缀 + 6位数字格式，例如 fb_000 -> FB000000。"""
@@ -55,7 +56,12 @@ def _write_csv(path: Path, fields: list[str], rows: list[dict[str, Any]]) -> Pat
     return actual_path
 
 
-def export_graph_csv(graph: dict[str, Any], industry_id: str, output_dir: Path | None = None) -> dict[str, str]:
+def export_graph_csv(
+    graph: dict[str, Any],
+    industry_id: str,
+    output_dir: Path | None = None,
+    extra_edges: list[dict[str, Any]] | None = None,
+) -> dict[str, str]:
     graph = standardize_graph(graph, industry_id)
     industry_name = graph.get("industry", industry_id)
     output_dir = output_dir or industry_dir(industry_id) / "exports"
@@ -87,7 +93,12 @@ def export_graph_csv(graph: dict[str, Any], industry_id: str, output_dir: Path |
         )
 
     edge_rows = []
-    for edge in graph.get("edges", []):
+    seen_edge_ids: set[str] = set()
+    for edge in [*graph.get("edges", []), *(extra_edges or [])]:
+        edge_identifier = str(edge.get("id") or f"{edge.get('source')}->{edge.get('target')}")
+        if edge_identifier in seen_edge_ids or edge.get("source") not in node_lookup or edge.get("target") not in node_lookup:
+            continue
+        seen_edge_ids.add(edge_identifier)
         start_id = id_map.get(edge["target"], edge["target"])
         end_id = id_map.get(edge["source"], edge["source"])
         if edge["relation_type"] == "contains":
@@ -173,7 +184,10 @@ def export_company_attachment_csv(
 
 def export_industry_csv(industry_id: str, output_dir: Path | None = None) -> dict[str, str]:
     graph = load_graph(industry_id)
-    result = export_graph_csv(graph, industry_id, output_dir)
+    relation_path = industry_dir(industry_id) / "l2_flow_relations.json"
+    relation_status, relation_payload, _ = relation_file_status(industry_id, graph, relation_path)
+    extra_edges = relation_payload.get("edges", []) if relation_status == "ready" and relation_payload else []
+    result = export_graph_csv(graph, industry_id, output_dir, extra_edges=extra_edges)
     attachment_path = industry_dir(industry_id) / "company_attachments.json"
     status, attachments, _ = attachment_file_status(industry_id, graph, attachment_path)
     if status == "ready" and attachments is not None:
@@ -195,5 +209,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     result = export_industry_csv(args.industry_id, args.output_dir)
     _print_export_summary(result)
-
 

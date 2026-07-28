@@ -347,6 +347,26 @@ select {
   padding-top: 12px;
 }
 
+.l2-flow-attachment {
+  border-top: 1px solid #e2e8f0;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+
+.l2-flow-lists {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.l2-flow-lists .neighbor-list {
+  align-content: start;
+}
+
+.l2-flow-lists .neighbor-list button {
+  border-left: 3px solid #f97316;
+}
+
 .company-toggle {
   align-items: center;
   background: transparent;

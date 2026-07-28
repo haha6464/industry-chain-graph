@@ -36,6 +36,7 @@ export interface GraphEdge {
   source: string;
   target: string;
   relation_type: RelationType;
+  relation_layer: "main" | "l2_flow";
   description: string;
   relation_weight: number;
   source_urls: string[];
@@ -73,6 +74,18 @@ export interface NodeCompaniesResponse {
   limit: number;
   offset: number;
   items: CompanyAttachmentItem[];
+}
+
+export type L2FlowRelationStatus = "ready" | "missing" | "stale" | "invalid";
+
+export interface NodeL2FlowRelationsResponse {
+  industry_id: string;
+  node_id: string;
+  status: L2FlowRelationStatus;
+  message: string;
+  total: number;
+  nodes: GraphNode[];
+  edges: GraphEdge[];
 }
 
 export interface AskResponse {

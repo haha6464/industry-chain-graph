@@ -59,6 +59,8 @@ def call_bailian_responses(
     model: str | None = None,
     enable_thinking: bool | None = None,
     include_web_extractor: bool = True,
+    temperature: float | None = None,
+    max_output_tokens: int | None = None,
 ) -> Any:
     load_bailian_env()
     api_key = os.getenv("DASHSCOPE_API_KEY") or os.getenv("BAILIAN_API_KEY")
@@ -101,7 +103,8 @@ def call_bailian_responses(
             print(
                 f"[agent] 调用百炼{purpose}：model={effective_model}, "
                 f"strategy={strategy_summary}, "
-                f"timeout={timeout_seconds}s, tools={tool_summary}。",
+                f"timeout={timeout_seconds}s, tools={tool_summary}, "
+                f"temperature={temperature if temperature is not None else 'default'}。",
                 flush=True,
             )
             request_kwargs: dict[str, Any] = {
@@ -111,6 +114,10 @@ def call_bailian_responses(
             }
             if tools:
                 request_kwargs["tools"] = tools
+            if temperature is not None:
+                request_kwargs["temperature"] = temperature
+            if max_output_tokens is not None:
+                request_kwargs["max_output_tokens"] = max_output_tokens
             return client.responses.create(**request_kwargs)
         except Exception as exc:  # openai wraps httpx/httpcore errors by version.
             last_error = exc

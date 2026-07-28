@@ -2735,130 +2735,6 @@
       "updated_at": "2026-07-14"
     },
     {
-      "id": "fb_611",
-      "name": "白酒价格带",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "fb_610",
-      "description": "按价格带划分的白酒产品结构，用于观察消费升级、渠道利润和库存周期。",
-      "business_description": "按价格带划分的白酒产品结构，用于观察消费升级、渠道利润和库存周期。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_612",
-      "name": "白酒香型品类",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "fb_610",
-      "description": "按香型划分的白酒产品类别，反映不同产区、消费偏好和竞争格局。",
-      "business_description": "按香型划分的白酒产品类别，反映不同产区、消费偏好和竞争格局。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_613",
-      "name": "光瓶酒与大众酒",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "fb_610",
-      "description": "面向大众消费和餐饮场景的白酒品类，适合承接区域酒企和大众价格带公司映射。",
-      "business_description": "面向大众消费和餐饮场景的白酒品类，适合承接区域酒企和大众价格带公司映射。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_614",
-      "name": "礼赠与商务白酒",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "fb_610",
-      "description": "面向宴席、商务和礼赠需求的白酒消费品类。",
-      "business_description": "面向宴席、商务和礼赠需求的白酒消费品类。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-14"
-    },
-    {
       "id": "fb_621",
       "name": "工业啤酒",
       "node_type": "细分环节",
@@ -2934,68 +2810,6 @@
       "parent_id": "fb_620",
       "description": "面向健康化、低酒精消费趋势的啤酒细分品类。",
       "business_description": "面向健康化、低酒精消费趋势的啤酒细分品类。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_6121",
-      "name": "酱香型白酒",
-      "node_type": "细分环节",
-      "tags": [
-        "level_4",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "fb_612",
-      "description": "以酱香型为代表的白酒香型品类，适合按产区、价格带和品牌竞争格局研究。",
-      "business_description": "以酱香型为代表的白酒香型品类，适合按产区、价格带和品牌竞争格局研究。",
-      "is_key_node": false,
-      "chain_segment": "中游",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_6122",
-      "name": "浓香型白酒",
-      "node_type": "细分环节",
-      "tags": [
-        "level_4",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "midstream",
-      "parent_id": "fb_612",
-      "description": "以浓香型为代表的白酒香型品类，覆盖全国化名酒和区域龙头的重要品类。",
-      "business_description": "以浓香型为代表的白酒香型品类，覆盖全国化名酒和区域龙头的重要品类。",
       "is_key_node": false,
       "chain_segment": "中游",
       "source_urls": [
@@ -4023,7 +3837,7 @@
         "summary": "按 mentor 新要求重构食品饮料图谱关系语义：上下游只存在于 L0-L1，L2 以下仅保留分类隶属，并将工艺流程节点替换为投研口径品类节点。",
         "opinions": [
           "L0-L1 的上下游边只用于判断一级环节相对行业根节点的上下游属性，避免与 contains 隶属关系重复。",
-          "白酒制曲、发酵蒸馏、陈酿勾调、灌装包装等工艺流程节点已替换为白酒价格带、香型品类、光瓶酒、大众酒、礼赠商务白酒等品类节点。",
+          "白酒分支已收敛至白酒品类节点，不再按价格带、消费场景或香型继续拆分，避免营销口径和过细产品分类进入产业链图谱。",
           "啤酒和乳制品中涉及工艺的节点已改为产品/品类口径，便于后续公司节点挂载。",
           "节点总量保持在 100 个以上，覆盖上游原料、配料、包装、中游食品饮料酒类、设备冷链和下游渠道。"
         ],
@@ -4038,7 +3852,7 @@
       "source": "fb_000",
       "target": "fb_400",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4064,7 +3878,7 @@
       "source": "fb_000",
       "target": "fb_500",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4090,7 +3904,7 @@
       "source": "fb_000",
       "target": "fb_600",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4116,7 +3930,7 @@
       "source": "fb_000",
       "target": "fb_700",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4142,7 +3956,7 @@
       "source": "fb_000",
       "target": "fb_800",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4168,7 +3982,7 @@
       "source": "fb_100",
       "target": "fb_110",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4194,7 +4008,7 @@
       "source": "fb_100",
       "target": "fb_120",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4220,7 +4034,7 @@
       "source": "fb_100",
       "target": "fb_130",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4246,7 +4060,7 @@
       "source": "fb_100",
       "target": "fb_140",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4272,7 +4086,7 @@
       "source": "fb_100",
       "target": "fb_150",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4298,7 +4112,7 @@
       "source": "fb_100",
       "target": "fb_160",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4324,7 +4138,7 @@
       "source": "fb_100",
       "target": "fb_170",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4350,7 +4164,7 @@
       "source": "fb_100",
       "target": "fb_180",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4376,7 +4190,7 @@
       "source": "fb_110",
       "target": "fb_111",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4402,7 +4216,7 @@
       "source": "fb_110",
       "target": "fb_112",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4428,7 +4242,7 @@
       "source": "fb_120",
       "target": "fb_121",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4454,7 +4268,7 @@
       "source": "fb_130",
       "target": "fb_131",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4480,7 +4294,7 @@
       "source": "fb_160",
       "target": "fb_161",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4506,7 +4320,7 @@
       "source": "fb_170",
       "target": "fb_171",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4532,7 +4346,7 @@
       "source": "fb_180",
       "target": "fb_181",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4558,7 +4372,7 @@
       "source": "fb_200",
       "target": "fb_210",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4584,7 +4398,7 @@
       "source": "fb_200",
       "target": "fb_220",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4610,7 +4424,7 @@
       "source": "fb_200",
       "target": "fb_230",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4636,7 +4450,7 @@
       "source": "fb_200",
       "target": "fb_240",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4662,7 +4476,7 @@
       "source": "fb_200",
       "target": "fb_250",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4688,7 +4502,7 @@
       "source": "fb_200",
       "target": "fb_260",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4714,7 +4528,7 @@
       "source": "fb_210",
       "target": "fb_211",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4740,7 +4554,7 @@
       "source": "fb_220",
       "target": "fb_221",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4766,7 +4580,7 @@
       "source": "fb_240",
       "target": "fb_241",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4792,7 +4606,7 @@
       "source": "fb_260",
       "target": "fb_261",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4818,7 +4632,7 @@
       "source": "fb_300",
       "target": "fb_310",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4844,7 +4658,7 @@
       "source": "fb_300",
       "target": "fb_320",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4870,7 +4684,7 @@
       "source": "fb_300",
       "target": "fb_330",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4896,7 +4710,7 @@
       "source": "fb_300",
       "target": "fb_340",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4922,7 +4736,7 @@
       "source": "fb_300",
       "target": "fb_350",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4948,7 +4762,7 @@
       "source": "fb_300",
       "target": "fb_360",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -4974,7 +4788,7 @@
       "source": "fb_320",
       "target": "fb_321",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5000,7 +4814,7 @@
       "source": "fb_330",
       "target": "fb_331",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5026,7 +4840,7 @@
       "source": "fb_350",
       "target": "fb_351",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5052,7 +4866,7 @@
       "source": "fb_400",
       "target": "fb_410",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5078,7 +4892,7 @@
       "source": "fb_400",
       "target": "fb_420",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5104,7 +4918,7 @@
       "source": "fb_400",
       "target": "fb_430",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5130,7 +4944,7 @@
       "source": "fb_400",
       "target": "fb_440",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5156,7 +4970,7 @@
       "source": "fb_400",
       "target": "fb_450",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5182,7 +4996,7 @@
       "source": "fb_400",
       "target": "fb_460",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5208,7 +5022,7 @@
       "source": "fb_400",
       "target": "fb_470",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5234,7 +5048,7 @@
       "source": "fb_400",
       "target": "fb_480",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5260,7 +5074,7 @@
       "source": "fb_400",
       "target": "fb_490",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5286,7 +5100,7 @@
       "source": "fb_410",
       "target": "fb_411",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5312,7 +5126,7 @@
       "source": "fb_410",
       "target": "fb_412",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5338,7 +5152,7 @@
       "source": "fb_420",
       "target": "fb_421",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5364,7 +5178,7 @@
       "source": "fb_420",
       "target": "fb_422",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5390,7 +5204,7 @@
       "source": "fb_430",
       "target": "fb_431",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5416,7 +5230,7 @@
       "source": "fb_430",
       "target": "fb_432",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5442,7 +5256,7 @@
       "source": "fb_440",
       "target": "fb_441",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5468,7 +5282,7 @@
       "source": "fb_440",
       "target": "fb_442",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5494,7 +5308,7 @@
       "source": "fb_450",
       "target": "fb_451",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5520,7 +5334,7 @@
       "source": "fb_450",
       "target": "fb_452",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5546,7 +5360,7 @@
       "source": "fb_460",
       "target": "fb_461",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5572,7 +5386,7 @@
       "source": "fb_460",
       "target": "fb_462",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5598,7 +5412,7 @@
       "source": "fb_460",
       "target": "fb_463",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5624,7 +5438,7 @@
       "source": "fb_480",
       "target": "fb_481",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5650,7 +5464,7 @@
       "source": "fb_480",
       "target": "fb_482",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5676,7 +5490,7 @@
       "source": "fb_412",
       "target": "fb_4121",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5702,7 +5516,7 @@
       "source": "fb_431",
       "target": "fb_4311",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5728,7 +5542,7 @@
       "source": "fb_461",
       "target": "fb_4611",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5754,7 +5568,7 @@
       "source": "fb_500",
       "target": "fb_510",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5780,7 +5594,7 @@
       "source": "fb_500",
       "target": "fb_520",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5806,7 +5620,7 @@
       "source": "fb_500",
       "target": "fb_530",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5832,7 +5646,7 @@
       "source": "fb_500",
       "target": "fb_540",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5858,7 +5672,7 @@
       "source": "fb_500",
       "target": "fb_550",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5884,7 +5698,7 @@
       "source": "fb_500",
       "target": "fb_560",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5910,7 +5724,7 @@
       "source": "fb_500",
       "target": "fb_570",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5936,7 +5750,7 @@
       "source": "fb_530",
       "target": "fb_531",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5962,7 +5776,7 @@
       "source": "fb_540",
       "target": "fb_541",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -5988,7 +5802,7 @@
       "source": "fb_550",
       "target": "fb_551",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6014,7 +5828,7 @@
       "source": "fb_560",
       "target": "fb_561",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6040,7 +5854,7 @@
       "source": "fb_600",
       "target": "fb_610",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6066,7 +5880,7 @@
       "source": "fb_600",
       "target": "fb_620",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6092,7 +5906,7 @@
       "source": "fb_600",
       "target": "fb_630",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6118,7 +5932,7 @@
       "source": "fb_600",
       "target": "fb_640",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6144,111 +5958,7 @@
       "source": "fb_600",
       "target": "fb_650",
       "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_610__contains__fb_611",
-      "source": "fb_610",
-      "target": "fb_611",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_610__contains__fb_612",
-      "source": "fb_610",
-      "target": "fb_612",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_610__contains__fb_613",
-      "source": "fb_610",
-      "target": "fb_613",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_610__contains__fb_614",
-      "source": "fb_610",
-      "target": "fb_614",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6274,7 +5984,7 @@
       "source": "fb_620",
       "target": "fb_621",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6300,7 +6010,7 @@
       "source": "fb_620",
       "target": "fb_622",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6326,59 +6036,7 @@
       "source": "fb_620",
       "target": "fb_623",
       "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_612__contains__fb_6121",
-      "source": "fb_612",
-      "target": "fb_6121",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "source_001",
-        "source_002",
-        "source_003",
-        "source_004",
-        "source_005",
-        "source_006"
-      ],
-      "confidence": 0.82,
-      "updated_at": "2026-07-14"
-    },
-    {
-      "id": "fb_612__contains__fb_6122",
-      "source": "fb_612",
-      "target": "fb_6122",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6404,7 +6062,7 @@
       "source": "fb_622",
       "target": "fb_6221",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6430,7 +6088,7 @@
       "source": "fb_700",
       "target": "fb_710",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6456,7 +6114,7 @@
       "source": "fb_700",
       "target": "fb_720",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6482,7 +6140,7 @@
       "source": "fb_700",
       "target": "fb_730",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6508,7 +6166,7 @@
       "source": "fb_700",
       "target": "fb_740",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6534,7 +6192,7 @@
       "source": "fb_700",
       "target": "fb_750",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6560,7 +6218,7 @@
       "source": "fb_720",
       "target": "fb_721",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6586,7 +6244,7 @@
       "source": "fb_720",
       "target": "fb_722",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6612,7 +6270,7 @@
       "source": "fb_730",
       "target": "fb_731",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6638,7 +6296,7 @@
       "source": "fb_740",
       "target": "fb_741",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6664,7 +6322,7 @@
       "source": "fb_750",
       "target": "fb_751",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6690,7 +6348,7 @@
       "source": "fb_800",
       "target": "fb_810",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6716,7 +6374,7 @@
       "source": "fb_800",
       "target": "fb_820",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6742,7 +6400,7 @@
       "source": "fb_800",
       "target": "fb_830",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6768,7 +6426,7 @@
       "source": "fb_800",
       "target": "fb_840",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6794,7 +6452,7 @@
       "source": "fb_800",
       "target": "fb_850",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6820,7 +6478,7 @@
       "source": "fb_820",
       "target": "fb_821",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6846,7 +6504,7 @@
       "source": "fb_820",
       "target": "fb_822",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6872,7 +6530,7 @@
       "source": "fb_830",
       "target": "fb_831",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6898,7 +6556,7 @@
       "source": "fb_830",
       "target": "fb_832",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6924,7 +6582,7 @@
       "source": "fb_900",
       "target": "fb_910",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6950,7 +6608,7 @@
       "source": "fb_900",
       "target": "fb_920",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -6976,7 +6634,7 @@
       "source": "fb_900",
       "target": "fb_930",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7002,7 +6660,7 @@
       "source": "fb_900",
       "target": "fb_940",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7028,7 +6686,7 @@
       "source": "fb_900",
       "target": "fb_950",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7054,7 +6712,7 @@
       "source": "fb_910",
       "target": "fb_911",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7080,7 +6738,7 @@
       "source": "fb_910",
       "target": "fb_912",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7106,7 +6764,7 @@
       "source": "fb_940",
       "target": "fb_941",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7132,7 +6790,7 @@
       "source": "fb_940",
       "target": "fb_942",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7158,7 +6816,7 @@
       "source": "fb_950",
       "target": "fb_951",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7184,7 +6842,7 @@
       "source": "fb_950",
       "target": "fb_952",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7210,7 +6868,7 @@
       "source": "fb_950",
       "target": "fb_953",
       "relation_type": "contains",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7236,7 +6894,7 @@
       "source": "fb_100",
       "target": "fb_000",
       "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "农产品原料属于食品饮料行业的上游环节。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7262,7 +6920,7 @@
       "source": "fb_200",
       "target": "fb_000",
       "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "食品添加剂与配料属于食品饮料行业的上游环节。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7288,7 +6946,7 @@
       "source": "fb_300",
       "target": "fb_000",
       "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "包装材料属于食品饮料行业的上游环节。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
@@ -7314,7 +6972,7 @@
       "source": "fb_000",
       "target": "fb_900",
       "relation_type": "upstream_downstream",
-      "relation_weight": 1.0,
+      "relation_weight": 1,
       "description": "流通渠道与零售终端属于食品饮料行业的下游环节。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",

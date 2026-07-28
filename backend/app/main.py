@@ -2,10 +2,11 @@ import httpx
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_attach_companies, run_build_branches, run_build_skeleton, run_search_plan, run_final_validate, run_update
+from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_attach_companies, run_build_branches, run_build_l2_flow_relations, run_build_skeleton, run_search_plan, run_final_validate, run_update
 from app.ai_service import AIConfigurationError, answer_with_graph_context
 from tools.agent.common import industry_dir, load_graph
 from tools.agent.company_attachments import aggregate_node_companies, attachment_file_status
+from tools.agent.l2_flow_relations import relation_file_status
 from app.config import Settings, get_settings
 from app.graph_loader import load_industry_graph, load_manifest
 from app.neo4j_client import Neo4jClient, get_neo4j_client
@@ -26,6 +27,8 @@ from app.schemas import (
     GraphResponse,
     HealthResponse,
     Industry,
+    L2FlowRelationRequest,
+    NodeL2FlowRelationsResponse,
     NodeCompaniesResponse,
     RelationType,
 )
@@ -200,6 +203,46 @@ def get_node_companies(
     )
 
 
+@app.get("/api/nodes/{node_id}/l2-flow-relations", response_model=NodeL2FlowRelationsResponse)
+def get_node_l2_flow_relations(
+    node_id: str,
+    industry_id: str = Query(default="food_beverage"),
+) -> NodeL2FlowRelationsResponse:
+    try:
+        _, nodes, _ = load_industry_graph(industry_id)
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(status_code=404, detail=f"该行业尚未生成正式 graph.json：{industry_id}") from exc
+    node_by_id = {node.id: node for node in nodes}
+    selected = node_by_id.get(node_id)
+    if selected is None:
+        raise HTTPException(status_code=404, detail=f"Node not found: {node_id}")
+    if selected.level != 2:
+        raise HTTPException(status_code=400, detail="L2 上下游关系只支持 level=2 节点。")
+    graph = load_graph(industry_id)
+    relation_path = industry_dir(industry_id) / "l2_flow_relations.json"
+    status, payload, message = relation_file_status(industry_id, graph, relation_path)
+    if status != "ready" or payload is None:
+        return NodeL2FlowRelationsResponse(
+            industry_id=industry_id, node_id=node_id, status=status, message=message
+        )
+    related_edges = [
+        edge for edge in payload.get("edges", [])
+        if edge.get("source") == node_id or edge.get("target") == node_id
+    ]
+    related_ids = {node_id}
+    for edge in related_edges:
+        related_ids.add(str(edge.get("source", "")))
+        related_ids.add(str(edge.get("target", "")))
+    return NodeL2FlowRelationsResponse(
+        industry_id=industry_id,
+        node_id=node_id,
+        status="ready",
+        total=len(related_edges),
+        nodes=[node for related_id, node in node_by_id.items() if related_id in related_ids],
+        edges=related_edges,
+    )
+
+
 @app.post("/api/agent/search-plan", response_model=AgentRunResponse)
 def create_agent_search_plan(request: AgentRunRequest) -> AgentRunResponse:
     result = run_search_plan(request.industry_id, request.industry_name)
@@ -237,6 +280,15 @@ def build_agent_branches(request: AgentRunRequest) -> AgentRunResponse:
 def attach_agent_companies(request: CompanyAttachmentRequest) -> AgentRunResponse:
     try:
         result = run_attach_companies(request.industry_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return AgentRunResponse(**result)
+
+
+@app.post("/api/agent/build-l2-flow-relations", response_model=AgentRunResponse)
+def build_agent_l2_flow_relations(request: L2FlowRelationRequest) -> AgentRunResponse:
+    try:
+        result = run_build_l2_flow_relations(request.industry_id)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return AgentRunResponse(**result)

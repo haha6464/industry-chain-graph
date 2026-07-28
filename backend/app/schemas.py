@@ -40,6 +40,7 @@ class GraphEdge(BaseModel):
     source: str
     target: str
     relation_type: RelationType
+    relation_layer: Literal["main", "l2_flow"] = "main"
     description: str
     relation_weight: float = 1.0
     source_urls: list[str] = Field(default_factory=list)
@@ -94,6 +95,10 @@ class CompanyAttachmentRequest(BaseModel):
     industry_id: str
 
 
+class L2FlowRelationRequest(BaseModel):
+    industry_id: str
+
+
 class CompanyAttachmentItem(BaseModel):
     company_id: str
     comcode: str
@@ -115,6 +120,16 @@ class NodeCompaniesResponse(BaseModel):
     limit: int = 50
     offset: int = 0
     items: list[CompanyAttachmentItem] = Field(default_factory=list)
+
+
+class NodeL2FlowRelationsResponse(BaseModel):
+    industry_id: str
+    node_id: str
+    status: Literal["ready", "missing", "stale", "invalid"]
+    message: str = ""
+    total: int = 0
+    nodes: list[GraphNode] = Field(default_factory=list)
+    edges: list[GraphEdge] = Field(default_factory=list)
 
 
 class ApplyCandidateRequest(BaseModel):

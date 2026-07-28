@@ -11,6 +11,7 @@ import type {
   GraphResponse,
   Industry,
   NodeCompaniesResponse,
+  NodeL2FlowRelationsResponse,
   RelationType,
   UpdateMode
 } from "./types";
@@ -20,15 +21,25 @@ import type {
 const API_BASE = import.meta.env?.VITE_API_BASE ?? "";
 
 type OfflineSnapshot = {
+  schema_version?: "industry_graph_offline_snapshot_v0.2";
   generated_at: string;
   industries: Industry[];
   graphs: Record<string, GraphResponse>;
   company_attachments?: Record<string, OfflineCompanyAttachments>;
+  l2_flow_relations?: Record<string, OfflineL2FlowRelations>;
 };
 
 type OfflineCompanyAttachments = {
+  schema_version?: string;
+  graph_fingerprint?: string;
   companies: Array<Omit<CompanyAttachmentItem, "direct_node_ids" | "direct_node_names" | "direct_attachments">>;
   attachments: Array<{ company_id: string; node_id: string; reason?: string; confidence?: number }>;
+};
+
+type OfflineL2FlowRelations = {
+  schema_version?: "industry_l2_flow_relations_v0.2_pairwise";
+  graph_fingerprint?: string;
+  edges: GraphResponse["edges"];
 };
 
 declare global {
@@ -166,6 +177,31 @@ export async function fetchNodeCompanies(industryId: string, nodeId: string, lim
   return request<NodeCompaniesResponse>(`/api/nodes/${nodeId}/companies?${params.toString()}`);
 }
 
+export async function fetchNodeL2FlowRelations(industryId: string, nodeId: string): Promise<NodeL2FlowRelationsResponse> {
+  const snapshot = offlineSnapshot();
+  if (snapshot) {
+    const graph = snapshot.graphs[industryId];
+    if (!graph || !graph.nodes.some((node) => node.id === nodeId)) throw new Error(`Node not found: ${nodeId}`);
+    const payload = snapshot.l2_flow_relations?.[industryId];
+    if (!payload) {
+      return { industry_id: industryId, node_id: nodeId, status: "missing", message: "离线展示包未包含 L2 上下游关系。", total: 0, nodes: [], edges: [] };
+    }
+    const edges = payload.edges.filter((edge) => edge.source === nodeId || edge.target === nodeId);
+    const relatedIds = new Set([nodeId]);
+    edges.forEach((edge) => { relatedIds.add(edge.source); relatedIds.add(edge.target); });
+    return {
+      industry_id: industryId,
+      node_id: nodeId,
+      status: "ready",
+      message: "",
+      total: edges.length,
+      nodes: graph.nodes.filter((node) => relatedIds.has(node.id)),
+      edges
+    };
+  }
+  return request<NodeL2FlowRelationsResponse>(`/api/nodes/${nodeId}/l2-flow-relations?industry_id=${industryId}`);
+}
+
 export async function askGraph(industryId: string, question: string, filters: GraphFilters) {
   return request<AskResponse>("/api/ask", {
     method: "POST",
@@ -219,6 +255,13 @@ export async function updateAgentGraph(industryId: string, mode: UpdateMode = "c
 
 export async function attachCompanies(industryId: string) {
   return request<AgentRunResponse>("/api/agent/attach-companies", {
+    method: "POST",
+    body: JSON.stringify({ industry_id: industryId })
+  });
+}
+
+export async function buildL2FlowRelations(industryId: string) {
+  return request<AgentRunResponse>("/api/agent/build-l2-flow-relations", {
     method: "POST",
     body: JSON.stringify({ industry_id: industryId })
   });

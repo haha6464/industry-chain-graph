@@ -17,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from tools.agent.common import industry_dir, read_json, read_jsonl, standardize_graph, write_json, write_jsonl
 from tools.agent.export_csv import export_graph_csv, export_industry_csv
+from tools.agent.l2_flow_relations import relation_file_status
 from tools.agent.search.search_planner import build_search_plan
 from tools.agent.validators.graph_validator import validate_graph, write_markdown_report
 
@@ -58,6 +59,13 @@ ARTIFACT_SPECS = [
     ArtifactSpec("update_agent_request_prompt", "更新 Agent 请求提示词", "update_agent_request_prompt.txt", "text"),
     ArtifactSpec("update_agent_raw_response", "更新 Agent 原始响应", "update_agent_raw_response.txt", "text"),
     ArtifactSpec("update_agent_error", "更新 Agent 失败信息", "update_agent_error.txt", "text"),
+    ArtifactSpec("l2_flow_candidate_pairs", "L2 上下游候选节点对", "l2_flow_candidate_pairs.json", "json"),
+    ArtifactSpec("l2_flow_pair_decisions", "L2 节点对判定缓存", "l2_flow_pair_decisions.jsonl", "jsonl"),
+    ArtifactSpec("l2_flow_relation_candidate", "L2 上下游关系候选", "l2_flow_relation_candidate.json", "json"),
+    ArtifactSpec("l2_flow_relations", "L2 上下游关系正式附件", "l2_flow_relations.json", "json"),
+    ArtifactSpec("l2_flow_relation_raw_responses", "L2 上下游建边原始响应", "l2_flow_relation_raw_responses.jsonl", "jsonl"),
+    ArtifactSpec("l2_flow_relation_validation_report", "L2 上下游关系校验报告", "l2_flow_relation_validation_report.md", "markdown"),
+    ArtifactSpec("l2_flow_relation_validation_report_json", "L2 上下游关系校验数据", "l2_flow_relation_validation_report.json", "json"),
     ArtifactSpec("company_scope", "公司候选范围", "company_scope.json", "json"),
     ArtifactSpec("company_attachment_candidate", "公司挂载候选", "company_attachment_candidate.json", "json"),
     ArtifactSpec("company_attachments", "公司挂载正式附件", "company_attachments.json", "json"),
@@ -277,9 +285,23 @@ def run_attach_companies(industry_id: str) -> dict[str, Any]:
     output_dir = industry_dir(industry_id)
     if not (output_dir / "graph.json").exists():
         raise FileNotFoundError("找不到正式 graph.json，请先完成最终校验并应用候选主图。")
+    graph = read_json(output_dir / "graph.json")
+    status, _, message = relation_file_status(industry_id, graph, output_dir / "l2_flow_relations.json")
+    if status != "ready":
+        raise FileNotFoundError(message or "请先完成 L2 上下游关系建边。")
     command = [sys.executable, "tools/agent/attach_companies.py", "--industry-id", industry_id]
     return _start_subprocess_run(
         "attach_companies", industry_id, command, output_dir / "company_attachment_validation_report.md"
+    )
+
+
+def run_build_l2_flow_relations(industry_id: str) -> dict[str, Any]:
+    output_dir = industry_dir(industry_id)
+    if not (output_dir / "graph.json").exists():
+        raise FileNotFoundError("找不到正式 graph.json，请先完成最终校验并应用候选主图。")
+    command = [sys.executable, "tools/agent/build_l2_flow_relations.py", "--industry-id", industry_id]
+    return _start_subprocess_run(
+        "build_l2_flow_relations", industry_id, command, output_dir / "l2_flow_relation_validation_report.md"
     )
 
 

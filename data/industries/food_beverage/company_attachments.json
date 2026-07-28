@@ -2,7 +2,7 @@
   "schema_version": "industry_company_attachments_v0.2",
   "industry_id": "food_beverage",
   "generated_at": "2026-07-23T13:53:36+00:00",
-  "graph_fingerprint": "f9a5091b8740a645b41216319a8d511e6b0fd7ced9fae9c40b25d869fd4ff3a6",
+  "graph_fingerprint": "b106975e11facf2aa2635dfa107b63029f2058aee1c60f98ed15a24c0bf77651",
   "candidate_source": {
     "path": "data/company_candidates/申万全量分类结果.csv",
     "sha256": "d07dcb6fc919b4491a3b0f1d312ac4dd6580f97946cccafc83001ea3bf685e20",
@@ -18491,8 +18491,8 @@
     },
     {
       "company_id": "sw_362511",
-      "node_id": "fb_6122",
-      "reason": "洋河集团主营浓香型白酒，属于该细分品类",
+      "node_id": "fb_610",
+      "reason": "洋河集团主营浓香型白酒，属于该细分品类；细分口径收敛后归入白酒品类节点",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -18505,8 +18505,8 @@
     },
     {
       "company_id": "sw_4805995",
-      "node_id": "fb_6121",
-      "reason": "主营酱香型白酒制造与销售",
+      "node_id": "fb_610",
+      "reason": "主营酱香型白酒制造与销售；细分口径收敛后归入白酒品类节点",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -18603,8 +18603,8 @@
     },
     {
       "company_id": "sw_2121186",
-      "node_id": "fb_612",
-      "reason": "主营白酒制造，匹配香型品类节点",
+      "node_id": "fb_610",
+      "reason": "主营白酒制造，匹配香型品类节点；细分口径收敛后归入白酒品类节点",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -18700,8 +18700,8 @@
     },
     {
       "company_id": "sw_1071396",
-      "node_id": "fb_6121",
-      "reason": "国台酒业主营酱香型白酒制造",
+      "node_id": "fb_610",
+      "reason": "国台酒业主营酱香型白酒制造；细分口径收敛后归入白酒品类节点",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -18856,8 +18856,8 @@
     },
     {
       "company_id": "sw_377700",
-      "node_id": "fb_612",
-      "reason": "主营浓香型白酒，属于白酒香型细分品类",
+      "node_id": "fb_610",
+      "reason": "主营浓香型白酒，属于白酒香型细分品类；细分口径收敛后归入白酒品类节点",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -18940,8 +18940,8 @@
     },
     {
       "company_id": "sw_319791",
-      "node_id": "fb_6121",
-      "reason": "主营酱香型白酒，属于该细分品类",
+      "node_id": "fb_610",
+      "reason": "主营酱香型白酒，属于该细分品类；细分口径收敛后归入白酒品类节点",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -19194,8 +19194,8 @@
     },
     {
       "company_id": "sw_286697",
-      "node_id": "fb_6122",
-      "reason": "主营浓香型白酒，属于白酒制造细分品类",
+      "node_id": "fb_610",
+      "reason": "主营浓香型白酒，属于白酒制造细分品类；细分口径收敛后归入白酒品类节点",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -19292,8 +19292,8 @@
     },
     {
       "company_id": "sw_1086109",
-      "node_id": "fb_612",
-      "reason": "主营浓香型白酒生产与销售",
+      "node_id": "fb_610",
+      "reason": "主营浓香型白酒生产与销售；细分口径收敛后归入白酒品类节点",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -19383,8 +19383,8 @@
     },
     {
       "company_id": "sw_285392",
-      "node_id": "fb_6121",
-      "reason": "主营酱香型白酒，直接匹配该香型品类节点",
+      "node_id": "fb_610",
+      "reason": "主营酱香型白酒，直接匹配该香型品类节点；细分口径收敛后归入白酒品类节点",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },

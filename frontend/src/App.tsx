@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { InteractiveNvlWrapper } from "@neo4j-nvl/react";
 import { Bot, CheckCircle2, ChevronDown, ChevronRight, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, Trash2, X } from "lucide-react";
-import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, fetchNodeCompanies, finalValidateAgentGraph, updateAgentGraph } from "./api";
-import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, CompanyAttachmentItem, GraphEdge, GraphFilters, GraphNode, Industry, NodeCompaniesResponse, RelationType, UpdateMode } from "./types";
+import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, buildL2FlowRelations, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, fetchNodeCompanies, fetchNodeL2FlowRelations, finalValidateAgentGraph, updateAgentGraph } from "./api";
+import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, CompanyAttachmentItem, GraphEdge, GraphFilters, GraphNode, Industry, NodeCompaniesResponse, NodeL2FlowRelationsResponse, RelationType, UpdateMode } from "./types";
 
 const nodeTypeOptions: Array<{ value: ChainPosition; label: string; color: string }> = [
   { value: "root", label: "根节点", color: "#334155" },
@@ -10,7 +10,7 @@ const nodeTypeOptions: Array<{ value: ChainPosition; label: string; color: strin
 ];
 const relationOptions: Array<{ value: RelationType; label: string }> = [
   { value: "contains", label: "隶属关系" },
-  { value: "upstream_downstream", label: "上下游关系" }
+  { value: "upstream_downstream", label: "一级上下游关系" }
 ];
 type LayoutMode = "forceDirected" | "hierarchical";
 type PageMode = "graph" | "agent";
@@ -104,6 +104,9 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<CompanyAttachmentItem | null>(null);
   const [neighborEdges, setNeighborEdges] = useState<GraphEdge[]>([]);
+  const [expandedL2FlowNodeIds, setExpandedL2FlowNodeIds] = useState<string[]>([]);
+  const [l2FlowResponses, setL2FlowResponses] = useState<Record<string, NodeL2FlowRelationsResponse>>({});
+  const [l2FlowLoading, setL2FlowLoading] = useState(false);
   const [expandedCompanyNodeIds, setExpandedCompanyNodeIds] = useState<string[]>([]);
   const [companyResponses, setCompanyResponses] = useState<Record<string, NodeCompaniesResponse>>({});
   const [companyLoading, setCompanyLoading] = useState(false);
@@ -125,6 +128,8 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   const hasSelectedIndustry = industryId.trim().length > 0;
   const selectedCompanyResponse = selectedNode ? companyResponses[selectedNode.id] ?? null : null;
   const selectedCompaniesExpanded = Boolean(selectedNode && expandedCompanyNodeIds.includes(selectedNode.id));
+  const selectedL2FlowResponse = selectedNode ? l2FlowResponses[selectedNode.id] ?? null : null;
+  const selectedL2FlowExpanded = Boolean(selectedNode && expandedL2FlowNodeIds.includes(selectedNode.id));
   const existingArtifacts = artifacts.filter((artifact) => artifact.exists);
   const activeCompanyProgress = activeRun?.kind === "attach_companies" ? companyRunProgress(activeRun.logs) : null;
   const levelOptions = useMemo(() => {
@@ -144,7 +149,8 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     { id: "skeleton", title: "一级骨架构建", summary: "先研究行业边界与分类轴，再生成 level=1 骨架并完成评估；不通过时修正并复评。", done: hasArtifact("staged_level1_graph") && hasArtifact("staged_level1_evaluation"), artifacts: ["staged_level1_blueprint", "agent_request_prompt", "staged_level1_graph", "staged_level1_evaluation", "staged_quality_opinions"], action: "skeleton" },
     { id: "branches", title: "分支扩展与评估", summary: "基于一级骨架逐分支扩展，每条分支单独评估；不通过时只修当前分支，最后合并为校验前候选图谱。", done: hasArtifact("pre_validation_candidate_graph"), artifacts: ["staged_branch_fragments", "staged_branch_evaluations", "staged_quality_opinions", "staged_merged_graph", "staged_errors", "agent_raw_response", "pre_validation_candidate_graph"], action: "branches" },
     { id: "validate_repair", title: "最终校验与格式修复", summary: "单轮硬规则校验；只有不通过才请求百炼做格式修复，不再做整图质量审查。", done: hasArtifact("candidate_graph") && hasArtifact("validation_report"), artifacts: ["validation_agent_request_prompt", "validation_agent_raw_response", "format_repair_report", "candidate_graph", "sources", "validation_report", "validation_report_json", "review_queue"], action: "final_validate" },
-    { id: "company_attach", title: "公司节点挂载（硬校验）", summary: "基于正式图谱筛选全链条候选公司并直接挂载到最深节点；图谱画布按需展开公司，不做质量评估。", done: hasArtifact("company_attachments") && hasArtifact("company_attachment_validation_report"), artifacts: ["company_scope", "company_attachment_candidate", "company_attachments", "company_attachment_raw_responses", "company_attachment_validation_report", "company_attachment_validation_report_json", "company_attachment_repair_report"], action: "company_attach" },
+    { id: "l2_flow", title: "L2 上下游关系建边", summary: "先从不同 L1 分支召回候选 L2 节点对，再由 qwen3.7-plus 低温三态判定；节点对可批量传输但逐对独立决策，固定脚本建边并复用内容级缓存。", done: hasArtifact("l2_flow_relations") && hasArtifact("l2_flow_relation_validation_report"), artifacts: ["l2_flow_candidate_pairs", "l2_flow_pair_decisions", "l2_flow_relation_candidate", "l2_flow_relations", "l2_flow_relation_raw_responses", "l2_flow_relation_validation_report", "l2_flow_relation_validation_report_json"], action: "l2_flow" },
+    { id: "company_attach", title: "公司节点挂载（硬校验）", summary: "在正式主图和 L2 上下游关系完成后，筛选全链条候选公司并挂载到最深节点；图谱画布按需展开公司。", done: hasArtifact("company_attachments") && hasArtifact("company_attachment_validation_report"), artifacts: ["company_scope", "company_attachment_candidate", "company_attachments", "company_attachment_raw_responses", "company_attachment_validation_report", "company_attachment_validation_report_json", "company_attachment_repair_report"], action: "company_attach" },
     { id: "update", title: "增量更新", summary: "联网搜索新增证据，默认生成 no_change 或 update_proposal。", done: hasArtifact("update_proposal") || hasArtifact("update_report"), artifacts: ["update_agent_request_prompt", "update_proposal", "update_candidate_graph", "update_report", "update_agent_raw_response"], action: "update" },
     { id: "export", title: "CSV 交付", summary: "按 mentor 格式导出节点 CSV 和关系 CSV。", done: exportPaths.length > 0, artifacts: [], action: "export" }
   ];
@@ -352,6 +358,10 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       setMessage("请先在最终校验步骤应用候选图谱，生成正式 graph.json 后再挂载公司。");
       return;
     }
+    if (!hasArtifact("l2_flow_relations")) {
+      setMessage("请先运行 L2 上下游关系建边并通过硬规则校验，再挂载公司。");
+      return;
+    }
     setAgentBusy(true);
     setSelectedArtifact(null);
     try {
@@ -359,6 +369,26 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       await trackAgentRun(result, "公司节点挂载完成");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "公司节点挂载失败");
+    } finally {
+      setAgentBusy(false);
+    }
+  }
+  async function handleBuildL2FlowRelations() {
+    if (!hasSelectedIndustry) {
+      setMessage("请先选择行业。");
+      return;
+    }
+    if (!hasArtifact("graph")) {
+      setMessage("请先应用候选图谱，生成正式 graph.json 后再运行 L2 上下游关系建边。");
+      return;
+    }
+    setAgentBusy(true);
+    setSelectedArtifact(null);
+    try {
+      const result = await buildL2FlowRelations(industryId);
+      await trackAgentRun(result, "L2 上下游关系建边完成");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "L2 上下游关系建边失败");
     } finally {
       setAgentBusy(false);
     }
@@ -470,7 +500,9 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       return;
     }
     if (!hasSelectedIndustry) return;
-    const current = nodes.find((node) => node.id === nodeId) ?? null;
+    const current = nodes.find((node) => node.id === nodeId)
+      ?? Object.values(l2FlowResponses).flatMap((response) => response.nodes).find((node) => node.id === nodeId)
+      ?? null;
     setSelectedNode(current);
     setSelectedCompany(null);
     if (!current) return;
@@ -509,6 +541,34 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       setCompanyLoading(false);
     }
   }
+  async function handleToggleL2FlowRelations() {
+    if (!selectedNode || selectedNode.level !== 2) return;
+    const nodeId = selectedNode.id;
+    if (expandedL2FlowNodeIds.includes(nodeId)) {
+      setExpandedL2FlowNodeIds((current) => current.filter((id) => id !== nodeId));
+      return;
+    }
+    const cached = l2FlowResponses[nodeId];
+    if (cached?.status === "ready") {
+      setExpandedL2FlowNodeIds((current) => current.includes(nodeId) ? current : [...current, nodeId]);
+      return;
+    }
+    setL2FlowLoading(true);
+    try {
+      const response = await fetchNodeL2FlowRelations(industryId, nodeId);
+      setL2FlowResponses((current) => ({ ...current, [nodeId]: response }));
+      if (response.status === "ready") {
+        setExpandedL2FlowNodeIds((current) => current.includes(nodeId) ? current : [...current, nodeId]);
+      }
+    } catch (error) {
+      setL2FlowResponses((current) => ({
+        ...current,
+        [nodeId]: { industry_id: industryId, node_id: nodeId, status: "invalid", message: error instanceof Error ? error.message : "L2 上下游关系读取失败", total: 0, nodes: [], edges: [] }
+      }));
+    } finally {
+      setL2FlowLoading(false);
+    }
+  }
   async function handleAsk() {
     if (!hasSelectedIndustry) {
       setMessage("请先选择行业。");
@@ -540,6 +600,8 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     setSelectedNode(null);
     setSelectedCompany(null);
     setNeighborEdges([]);
+    setExpandedL2FlowNodeIds([]);
+    setL2FlowResponses({});
     setExpandedCompanyNodeIds([]);
     setCompanyResponses({});
     setSelectedArtifact(null);
@@ -574,12 +636,39 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   }, [nodes, pageMode]);
 
 
-  const nodeById = useMemo(() => new Map(nodes.map((node) => [node.id, node])), [nodes]);
+  const expandedL2FlowGroups = useMemo(
+    () => expandedL2FlowNodeIds
+      .map((nodeId) => ({ nodeId, response: l2FlowResponses[nodeId] }))
+      .filter((item): item is { nodeId: string; response: NodeL2FlowRelationsResponse } => item.response?.status === "ready"),
+    [expandedL2FlowNodeIds, l2FlowResponses]
+  );
+  const l2FlowOverlayNodes = useMemo(() => {
+    const result = new Map<string, GraphNode>();
+    expandedL2FlowGroups.forEach(({ response }) => response.nodes.forEach((node) => result.set(node.id, node)));
+    return Array.from(result.values());
+  }, [expandedL2FlowGroups]);
+  const l2FlowOverlayEdges = useMemo(() => {
+    const result = new Map<string, GraphEdge>();
+    expandedL2FlowGroups.forEach(({ response }) => response.edges.forEach((edge) => result.set(edge.id, edge)));
+    return Array.from(result.values());
+  }, [expandedL2FlowGroups]);
+  const nodeById = useMemo(() => {
+    const result = new Map(nodes.map((node) => [node.id, node]));
+    l2FlowOverlayNodes.forEach((node) => result.set(node.id, node));
+    if (selectedNode) result.set(selectedNode.id, selectedNode);
+    return result;
+  }, [nodes, l2FlowOverlayNodes, selectedNode]);
   const parentNode = selectedNode?.parent_id ? nodeById.get(selectedNode.parent_id) : null;
   const childEdges = selectedNode ? neighborEdges.filter((edge) => edge.relation_type === "contains" && edge.source === selectedNode.id) : [];
   const childNodes = childEdges.map((edge) => nodeById.get(edge.target)).filter((node): node is GraphNode => Boolean(node));
   const otherNeighborEdges = selectedNode
     ? neighborEdges.filter((edge) => !(edge.relation_type === "contains" && edge.source === selectedNode.id))
+    : [];
+  const selectedL2UpstreamEdges = selectedNode && selectedL2FlowResponse?.status === "ready"
+    ? selectedL2FlowResponse.edges.filter((edge) => edge.target === selectedNode.id)
+    : [];
+  const selectedL2DownstreamEdges = selectedNode && selectedL2FlowResponse?.status === "ready"
+    ? selectedL2FlowResponse.edges.filter((edge) => edge.source === selectedNode.id)
     : [];
 
   function nodeLabel(nodeId: string) {
@@ -622,26 +711,38 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     }))),
     [expandedCompanyGroups]
   );
-  const nvlNodes = useMemo(() => [
-    ...nodes.map((node) => ({
+  const nvlNodes = useMemo(() => {
+    const result = new Map<string, { id: string; caption: string; size: number; color: string }>();
+    [...nodes, ...l2FlowOverlayNodes].forEach((node) => result.set(node.id, {
       id: node.id,
       caption: node.name,
       size: node.level === 0 ? 50 : node.is_key_node ? 38 : Math.max(18, 34 - node.level * 3),
       color: levelColor(node.level, maxVisibleLevel)
-    })),
-    ...companyNvlNodes
-  ], [nodes, maxVisibleLevel, companyNvlNodes]);
-  const nvlRelationships = useMemo(() => [
-    ...edges.map((edge) => ({
+    }));
+    companyNvlNodes.forEach((node) => result.set(node.id, node));
+    return Array.from(result.values());
+  }, [nodes, l2FlowOverlayNodes, maxVisibleLevel, companyNvlNodes]);
+  const nvlRelationships = useMemo(() => {
+    const result = new Map<string, { id: string; from: string; to: string; caption: string; color: string; width: number }>();
+    edges.forEach((edge) => result.set(edge.id, {
       id: edge.id,
       from: edge.source,
       to: edge.target,
       caption: edge.relation_type === "contains" ? "隶属" : "上下游",
       color: edge.relation_type === "contains" ? "#64748b" : "#dc2626",
       width: edge.relation_type === "contains" ? 1 : 2
-    })),
-    ...companyNvlRelationships
-  ], [edges, companyNvlRelationships]);
+    }));
+    l2FlowOverlayEdges.forEach((edge) => result.set(edge.id, {
+      id: edge.id,
+      from: edge.source,
+      to: edge.target,
+      caption: "L2 上下游",
+      color: "#f97316",
+      width: 3
+    }));
+    companyNvlRelationships.forEach((edge) => result.set(edge.id, edge));
+    return Array.from(result.values());
+  }, [edges, l2FlowOverlayEdges, companyNvlRelationships]);
 
   const industrySelector = (
     <label className="field">
@@ -677,7 +778,8 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
                   {step.action === "plan" && <button type="button" className="action-button" onClick={handleSearchPlan} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Search size={15} />}运行规划</button>}
                   {step.action === "skeleton" && <button type="button" className="action-button" onClick={handleBuildSkeleton} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Sparkles size={15} />}运行骨架</button>}{step.action === "branches" && <button type="button" className="action-button" onClick={handleBuildBranches} disabled={agentBusy || !hasArtifact("staged_level1_graph")}>{agentBusy ? <span className="spinner" /> : <GitBranch size={15} />}运行分支</button>}
                   {step.action === "final_validate" && <div className="button-grid vertical"><button type="button" className="action-button" onClick={handleFinalValidate} disabled={agentBusy || !hasArtifact("pre_validation_candidate_graph")}>{agentBusy ? <span className="spinner" /> : <CheckCircle2 size={15} />}运行最终校验</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("candidate_graph")} disabled={agentBusy || !hasArtifact("candidate_graph")}>应用候选</button></div>}
-                  {step.action === "company_attach" && <button type="button" className="action-button" onClick={handleAttachCompanies} disabled={agentBusy || !hasArtifact("graph")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行公司挂载</button>}
+                  {step.action === "l2_flow" && <button type="button" className="action-button" onClick={handleBuildL2FlowRelations} disabled={agentBusy || !hasArtifact("graph")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行 L2 建边</button>}
+                  {step.action === "company_attach" && <button type="button" className="action-button" onClick={handleAttachCompanies} disabled={agentBusy || !hasArtifact("graph") || !hasArtifact("l2_flow_relations")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行公司挂载</button>}
                   {step.action === "update" && <div className="button-grid tight"><button type="button" className="secondary-button" onClick={() => handleUpdate("check_only")} disabled={agentBusy}>检查</button><button type="button" className="secondary-button" onClick={() => handleUpdate("propose")} disabled={agentBusy}>提案</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("update_candidate_graph")} disabled={agentBusy || !hasArtifact("update_candidate_graph")}>应用候选</button></div>}
                   {step.action === "export" && <button type="button" className="action-button" onClick={handleExport} disabled={agentBusy}><Download size={15} />导出 CSV</button>}
                 </div>
@@ -737,7 +839,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
         </section>
       </aside>
       <section className="graph-stage">
-        <header className="stage-header"><div><h2>{offline ? "产业链图谱可视化" : "Neo4j 图谱可视化"}</h2><p>{message}</p></div><div className="stats"><div className="layout-switch" aria-label="图谱布局"><button type="button" title="力导向布局" className={layoutMode === "forceDirected" ? "active" : ""} onClick={() => setLayoutMode("forceDirected")}>力导向</button><button type="button" title="层级布局" className={layoutMode === "hierarchical" ? "active" : ""} onClick={() => setLayoutMode("hierarchical")}>层级</button></div><span>{nodes.length} 节点</span><span>{edges.length} 关系</span><button type="button" title="重新居中图谱" className="fit-button" onClick={() => nvlRef.current?.fit?.(nodes.map((node) => node.id))} disabled={nodes.length === 0}><RefreshCw size={14} /></button></div></header>
+        <header className="stage-header"><div><h2>{offline ? "产业链图谱可视化" : "Neo4j 图谱可视化"}</h2><p>{message}</p></div><div className="stats"><div className="layout-switch" aria-label="图谱布局"><button type="button" title="力导向布局" className={layoutMode === "forceDirected" ? "active" : ""} onClick={() => setLayoutMode("forceDirected")}>力导向</button><button type="button" title="层级布局" className={layoutMode === "hierarchical" ? "active" : ""} onClick={() => setLayoutMode("hierarchical")}>层级</button></div><span>{nvlNodes.length} 节点</span><span>{nvlRelationships.length} 关系</span><button type="button" title="重新居中图谱" className="fit-button" onClick={() => nvlRef.current?.fit?.(nvlNodes.map((node) => node.id))} disabled={nvlNodes.length === 0}><RefreshCw size={14} /></button></div></header>
         <div className="graph-canvas">{nodes.length > 0 ? <InteractiveNvlWrapper ref={nvlRef} nodes={nvlNodes} rels={nvlRelationships} layout={layoutMode} layoutOptions={layoutMode === "hierarchical" ? { direction: "right", packing: "bin" } : { enableCytoscape: true }} nvlOptions={{ disableTelemetry: true, renderer: "canvas", minZoom: 0.02, maxZoom: 8, allowDynamicMinZoom: true }} mouseEventCallbacks={{ onNodeClick: (node: { id: string }) => handleNodeClick(node.id), onPan: true, onZoom: true, onZoomAndPan: true, onDrag: true, onDragStart: true, onDragEnd: true }} /> : <div className="empty-state"><Sparkles size={28} /><span>{graphLoading ? "加载中" : hasSelectedIndustry ? (offline ? "该行业未包含在当前离线图谱快照中" : "该行业暂无正式图谱，请到 Agent 工作流生成 graph.json") : "请选择行业后查看图谱"}</span></div>}</div>
       </section>
       <aside className="inspector">
@@ -753,6 +855,20 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
             <div className="node-link-list compact two-col"><strong>子节点</strong>{childNodes.length > 0 ? childNodes.map((node) => <button key={node.id} type="button" onClick={() => handleNodeClick(node.id)}>{node.name}<small>{node.id}</small></button>) : <span>暂无子节点</span>}</div>
             <div className="source-list"><strong>来源 URL</strong>{selectedNode.source_urls.length > 0 ? selectedNode.source_urls.slice(0, 5).map((url) => <a key={url} href={url} target="_blank" rel="noreferrer">{url}</a>) : <span>暂无来源</span>}</div>
             <div className="source-list"><strong>证据 ID</strong>{selectedNode.evidence_ids.length > 0 ? <span>{selectedNode.evidence_ids.join(", ")}</span> : <span>暂无证据</span>}</div>
+            {selectedNode.level === 2 && <div className="l2-flow-attachment">
+              <button type="button" className="company-toggle" onClick={handleToggleL2FlowRelations} aria-expanded={selectedL2FlowExpanded}>
+                {selectedL2FlowExpanded ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
+                {selectedL2FlowExpanded ? "收起 L2 上下游关系" : "展开 L2 上下游关系"}
+                {selectedL2FlowResponse?.status === "ready" ? `（${selectedL2FlowResponse.total}）` : ""}
+              </button>
+              {l2FlowLoading && <span className="muted">正在加入图谱...</span>}
+              {!l2FlowLoading && selectedL2FlowResponse && selectedL2FlowResponse.status !== "ready" && <span className="muted">{selectedL2FlowResponse.message || "暂无可展示的 L2 上下游关系。"}</span>}
+              {!l2FlowLoading && selectedL2FlowResponse?.status === "ready" && selectedL2FlowResponse.total === 0 && <span className="muted">该节点没有可靠的直接上下游关系。</span>}
+              {selectedL2FlowResponse?.status === "ready" && selectedL2FlowExpanded && <div className="l2-flow-lists">
+                <div className="neighbor-list"><strong>直接上游</strong>{selectedL2UpstreamEdges.map((edge) => <button key={edge.id} type="button" onClick={() => handleNodeClick(edge.source)}><span>{nodeName(edge.source)}</span><small>{edge.description || "直接上游"} · 置信度 {formatPercent(edge.confidence)}</small></button>)}{selectedL2UpstreamEdges.length === 0 && <span>暂无直接上游</span>}</div>
+                <div className="neighbor-list"><strong>直接下游</strong>{selectedL2DownstreamEdges.map((edge) => <button key={edge.id} type="button" onClick={() => handleNodeClick(edge.target)}><span>{nodeName(edge.target)}</span><small>{edge.description || "直接下游"} · 置信度 {formatPercent(edge.confidence)}</small></button>)}{selectedL2DownstreamEdges.length === 0 && <span>暂无直接下游</span>}</div>
+              </div>}
+            </div>}
             <div className="company-attachment">
               <button type="button" className="company-toggle" onClick={handleToggleCompanies} aria-expanded={selectedCompaniesExpanded}>
                 {selectedCompaniesExpanded ? <ChevronDown size={15} /> : <ChevronRight size={15} />}

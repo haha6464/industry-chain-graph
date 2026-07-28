@@ -16,6 +16,7 @@ if __package__ is None or __package__ == "":
             break
 
 from tools.agent.common import industry_dir, load_graph, write_json, write_jsonl
+from tools.agent.l2_flow_relations import relation_file_status
 from tools.agent.company_attachments import (
     augment_scope_with_graph_taxonomy,
     build_attachment_payload,
@@ -81,6 +82,11 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     if not graph_path.exists():
         raise FileNotFoundError("找不到正式 graph.json，请先完成最终校验并应用候选主图。")
     graph = load_graph(industry_id)
+    relation_status, _, relation_message = relation_file_status(
+        industry_id, graph, output_dir / "l2_flow_relations.json"
+    )
+    if relation_status != "ready":
+        raise FileNotFoundError(relation_message or "请先完成 L2 上下游关系建边。")
     companies = load_candidate_companies()
     _log(f"已读取正式图谱和 {len(companies)} 家候选公司。")
 
