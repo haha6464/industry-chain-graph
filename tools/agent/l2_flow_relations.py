@@ -26,6 +26,11 @@ DEFAULT_CANDIDATES_PER_NODE = 8
 DEFAULT_TEMPERATURE = 0.1
 DEFAULT_NEGATIVE_AUDIT_RATE = 0.03
 ACCEPTED_RELATION_CONFIDENCE = 0.8
+ROLE_CANDIDATE_QUOTAS = {
+    "upstream": (("midstream", 3), ("downstream", 2)),
+    "midstream": (("upstream", 3), ("downstream", 2)),
+    "downstream": (("midstream", 3), ("upstream", 2)),
+}
 
 
 def now_iso() -> str:
@@ -127,11 +132,29 @@ def compact_l2_catalog(graph: dict[str, Any]) -> list[dict[str, Any]]:
             continue
         lineage = _node_lineage(node, node_by_id)
         branch = next((item for item in lineage if int(item.get("level", -1)) == 1), {})
-        descendant_names = [
+        direct_child_names = [
             str(node_by_id[child_id].get("name") or child_id)
             for child_id in children.get(str(node["id"]), [])
             if child_id in node_by_id
         ]
+        descendant_contexts: list[str] = []
+        pending = list(sorted(children.get(str(node["id"]), [])))
+        seen_descendants: set[str] = set()
+        while pending and len(descendant_contexts) < 24:
+            descendant_id = pending.pop(0)
+            if descendant_id in seen_descendants or descendant_id not in node_by_id:
+                continue
+            seen_descendants.add(descendant_id)
+            descendant = node_by_id[descendant_id]
+            descendant_name = str(descendant.get("name") or descendant_id)
+            descendant_description = str(
+                descendant.get("business_description") or descendant.get("description") or ""
+            ).strip()
+            summary = descendant_name
+            if descendant_description:
+                summary += f"：{descendant_description[:240]}"
+            descendant_contexts.append(summary)
+            pending.extend(sorted(children.get(descendant_id, [])))
         item = {
             "id": str(node["id"]),
             "name": str(node.get("name", "")),
@@ -140,11 +163,14 @@ def compact_l2_catalog(graph: dict[str, Any]) -> list[dict[str, Any]]:
             "branch_name": str(branch.get("name", "")),
             "chain_position": str(node.get("chain_position", "support")),
             "description": str(node.get("business_description") or node.get("description") or ""),
-            "direct_child_names": descendant_names[:12],
+            "direct_child_names": direct_child_names[:12],
         }
         item["node_content_hash"] = content_hash(
             json.dumps(item, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         )
+        # Local recall context is intentionally excluded from node_content_hash.
+        # Pair-specific evidence below invalidates only the affected cached decisions.
+        item["descendant_contexts"] = descendant_contexts
         catalog.append(item)
     return sorted(catalog, key=lambda item: (item["path"], item["id"]))
 
@@ -156,6 +182,7 @@ def _normalized_text(node: dict[str, Any]) -> str:
             str(node.get("path", "")),
             str(node.get("description", "")),
             " ".join(str(item) for item in node.get("direct_child_names", []) or []),
+            " ".join(str(item) for item in node.get("descendant_contexts", []) or []),
         ]
     ).lower()
     return re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", raw)
@@ -176,6 +203,27 @@ def _pair_score(left: dict[str, Any], right: dict[str, Any], features: dict[str,
     direct_reference = float(bool(left_name and left_name in right_text)) + float(bool(right_name and right_name in left_text))
     position_bonus = 0.05 if left.get("chain_position") != right.get("chain_position") else 0.0
     return round(overlap + direct_reference * 2.0 + position_bonus, 6)
+
+
+def _pair_recall_evidence(left: dict[str, Any], right: dict[str, Any]) -> list[dict[str, str]]:
+    evidence: list[dict[str, str]] = []
+    for source, target in ((left, right), (right, left)):
+        target_name = str(target.get("name", "")).strip()
+        if not target_name:
+            continue
+        for context in source.get("descendant_contexts", []) or []:
+            context_text = str(context)
+            if target_name in context_text:
+                evidence.append(
+                    {
+                        "source_node_id": str(source.get("id", "")),
+                        "source_node_name": str(source.get("name", "")),
+                        "matched_descendant_context": context_text,
+                    }
+                )
+                if len(evidence) >= 4:
+                    return evidence
+    return evidence
 
 
 def pair_id(node_a_id: str, node_b_id: str) -> str:
@@ -224,6 +272,7 @@ def build_candidate_pairs(
                 "node_a_branch": str(node_by_id[node_a_id].get("branch_name", "")),
                 "node_b_branch": str(node_by_id[node_b_id].get("branch_name", "")),
                 "score": _pair_score(left, right, features),
+                "recall_evidence": _pair_recall_evidence(left, right),
                 "selection_reasons": [],
             }
 
@@ -232,13 +281,22 @@ def build_candidate_pairs(
         incident[pair["node_a_id"]].append(pair)
         incident[pair["node_b_id"]].append(pair)
     selected_ids: set[str] = set()
-    global_slots = max(1, per_node // 2)
     for node_id, pairs in incident.items():
         ranked = sorted(pairs, key=lambda item: (-float(item["score"]), item["pair_id"]))
         selected_for_node: list[dict[str, Any]] = []
-        for pair in ranked[:global_slots]:
-            selected_for_node.append(pair)
-            pair["selection_reasons"].append(f"{node_id}:global_similarity")
+        node_position = str(node_by_id[node_id].get("chain_position", ""))
+        for target_position, quota in ROLE_CANDIDATE_QUOTAS.get(node_position, ()):
+            role_candidates = []
+            for pair in ranked:
+                other_id = pair["node_b_id"] if pair["node_a_id"] == node_id else pair["node_a_id"]
+                if str(node_by_id[other_id].get("chain_position", "")) == target_position:
+                    role_candidates.append(pair)
+            for pair in role_candidates[:quota]:
+                if len(selected_for_node) >= per_node:
+                    break
+                if pair not in selected_for_node:
+                    selected_for_node.append(pair)
+                    pair["selection_reasons"].append(f"{node_id}:role_{target_position}")
         branch_best: dict[str, dict[str, Any]] = {}
         for pair in ranked:
             other_id = pair["node_b_id"] if pair["node_a_id"] == node_id else pair["node_a_id"]
@@ -255,7 +313,7 @@ def build_candidate_pairs(
                 break
             if pair not in selected_for_node:
                 selected_for_node.append(pair)
-                pair["selection_reasons"].append(f"{node_id}:score_fill")
+                pair["selection_reasons"].append(f"{node_id}:global_similarity")
         selected_ids.update(str(pair["pair_id"]) for pair in selected_for_node)
 
     shortlisted_count = len(selected_ids)
@@ -286,13 +344,14 @@ def build_pair_prompt(catalog_by_id: dict[str, dict[str, Any]], pairs: list[dict
         node_a = catalog_by_id[pair["node_a_id"]]
         node_b = catalog_by_id[pair["node_b_id"]]
         fields = ("id", "name", "path", "branch_name", "chain_position", "description", "direct_child_names")
-        pair_inputs.append(
-            {
-                "pair_id": pair["pair_id"],
-                "A": {field: node_a.get(field) for field in fields},
-                "B": {field: node_b.get(field) for field in fields},
-            }
-        )
+        pair_input = {
+            "pair_id": pair["pair_id"],
+            "A": {field: node_a.get(field) for field in fields},
+            "B": {field: node_b.get(field) for field in fields},
+        }
+        if pair.get("recall_evidence"):
+            pair_input["recall_evidence"] = pair["recall_evidence"]
+        pair_inputs.append(pair_input)
     expected = "\n".join(str(item["pair_id"]) for item in pair_inputs)
     return f"""
 你是证券投研产业链 L2 节点对判定器。每个 pair 都是完全独立的判断，只能依据该 pair 中 A、B 两个节点的名称、分类路径、描述和直接子类判断，不得参考其他 pair。
@@ -365,6 +424,8 @@ def decision_cache_key(pair: dict[str, Any], catalog_by_id: dict[str, dict[str, 
         "node_a_hash": catalog_by_id[pair["node_a_id"]]["node_content_hash"],
         "node_b_hash": catalog_by_id[pair["node_b_id"]]["node_content_hash"],
     }
+    if pair.get("recall_evidence"):
+        payload["recall_evidence"] = pair["recall_evidence"]
     return content_hash(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
 
 

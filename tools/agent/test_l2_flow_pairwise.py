@@ -10,6 +10,7 @@ from tools.agent.common import write_json
 from tools.agent.l2_flow_relations import (
     apply_l1_l2_projection,
     build_candidate_pairs,
+    build_pair_prompt,
     build_l1_l2_projected_edges,
     build_payload,
     call_pair_batch,
@@ -126,6 +127,33 @@ class L2FlowPairwiseTests(unittest.TestCase):
             right = self.catalog_by_id[pair["node_b_id"]]
             self.assertNotEqual(left["branch_id"], right["branch_id"])
         self.assertIn(pair_id("grain", "liquor"), {pair["pair_id"] for pair in pairs})
+
+    def test_descendant_description_promotes_obvious_l2_pair(self) -> None:
+        graph = sample_graph()
+        node_by_id = {node["id"]: node for node in graph["nodes"]}
+        node_by_id["grain"].update(name="agricultural_inputs", description="broad upstream materials")
+        node_by_id["liquor"].update(name="liquor", description="distilled consumer product")
+        graph["nodes"].append(
+            {
+                "id": "grain_detail",
+                "name": "cereal_crop",
+                "level": 3,
+                "parent_id": "grain",
+                "chain_position": "upstream",
+                "description": "Cereal crops are a primary raw-material input for liquor production.",
+                "source_urls": ["https://example.com/grain-detail"],
+                "evidence_ids": ["ev_grain_detail"],
+            }
+        )
+        graph["edges"].append(
+            {"source": "grain", "target": "grain_detail", "relation_type": "contains"}
+        )
+        catalog = compact_l2_catalog(graph)
+        catalog_by_id = {node["id"]: node for node in catalog}
+        pairs, _ = build_candidate_pairs(graph, catalog, candidates_per_node=1, negative_audit_rate=0)
+        target = next(pair for pair in pairs if pair["pair_id"] == pair_id("grain", "liquor"))
+        self.assertTrue(target["recall_evidence"])
+        self.assertIn("primary raw-material input for liquor", build_pair_prompt(catalog_by_id, [target]))
 
     def test_parser_is_strict_and_rejects_duplicate_pair_lines(self) -> None:
         first = pair_id("grain", "liquor")

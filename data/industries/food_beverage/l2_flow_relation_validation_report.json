@@ -2,21 +2,14 @@
   "industry_id": "food_beverage",
   "l2_node_count": 33,
   "evaluated_node_count": 33,
-  "candidate_pair_count": 214,
-  "pair_decision_count": 214,
-  "cache_hit_count": 0,
-  "model_decision_count": 214,
-  "relation_count": 82,
-  "projected_relation_count": 87,
+  "candidate_pair_count": 219,
+  "pair_decision_count": 219,
+  "cache_hit_count": 174,
+  "model_decision_count": 45,
+  "relation_count": 131,
+  "projected_relation_count": 93,
   "error_count": 0,
-  "warning_count": 1,
+  "warning_count": 0,
   "status": "pass",
-  "issues": [
-    {
-      "severity": "warning",
-      "code": "candidate_recall_audit_positive",
-      "message": "负样本审计发现 1 个正向关系，建议提高每节点候选数。",
-      "item_id": ""
-    }
-  ]
+  "issues": []
 }

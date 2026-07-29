@@ -1,17 +1,31 @@
 {
   "industry_id": "food_beverage",
-  "generated_at": "2026-07-28T15:36:10+00:00",
+  "generated_at": "2026-07-29T04:21:32+00:00",
   "model": "qwen3.7-plus",
   "temperature": 0.1,
   "summary": {
     "cross_branch_pair_count": 450,
-    "shortlisted_pair_count": 212,
-    "negative_audit_pair_count": 2,
-    "candidate_pair_count": 214,
+    "shortlisted_pair_count": 214,
+    "negative_audit_pair_count": 5,
+    "candidate_pair_count": 219,
     "candidates_per_node": 8,
     "negative_audit_rate": 0.03
   },
   "pairs": [
+    {
+      "pair_id": "p_0151fd980d514e07",
+      "node_a_id": "food_beverage_005_011",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "保健食品制造",
+      "node_b_name": "包装材料",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.069435,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_011:role_upstream"
+      ]
+    },
     {
       "pair_id": "p_016c093ad1ba56cd",
       "node_a_id": "food_beverage_002_001",
@@ -20,36 +34,38 @@
       "node_b_name": "冷链物流与仓储",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.132584,
+      "score": 0.11096,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_001:branch_diversity",
-        "food_beverage_007_013:global_similarity"
+        "food_beverage_007_013:role_midstream"
       ]
     },
     {
-      "pair_id": "p_0232d5063a81495b",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_003_002",
-      "node_a_name": "黄酒",
-      "node_b_name": "复合调味料",
-      "node_a_branch": "酒类制造",
+      "pair_id": "p_02228f3ba2afc0b8",
+      "node_a_id": "food_beverage_002_011",
+      "node_b_id": "food_beverage_003_011",
+      "node_a_name": "含乳饮料",
+      "node_b_name": "基础调味品",
+      "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.145545,
+      "score": 0.11622,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_008:branch_diversity"
+        "food_beverage_003_011:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_04a329d3c13c5894",
-      "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "葡萄酒",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.140276,
+      "pair_id": "p_04b10694274fa760",
+      "node_a_id": "food_beverage_006_017",
+      "node_b_id": "food_beverage_007_009",
+      "node_a_name": "食品添加剂与配料",
+      "node_b_name": "终端消费场景",
+      "node_a_branch": "食品原料、辅料与包材供应链",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.08804,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_007:branch_diversity"
+        "food_beverage_006_017:role_downstream"
       ]
     },
     {
@@ -60,9 +76,39 @@
       "node_b_name": "包装材料",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.097565,
+      "score": 0.069488,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_001:branch_diversity"
+        "food_beverage_003_001:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_05366ca59033e04d",
+      "node_a_id": "food_beverage_002_001",
+      "node_b_id": "food_beverage_005_007",
+      "node_a_name": "包装饮用水",
+      "node_b_name": "方便食品制造",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "肉制品与预制便捷食品制造",
+      "score": 0.133243,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_001:branch_diversity",
+        "food_beverage_005_007:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_066117dadba0cf9f",
+      "node_a_id": "food_beverage_004_004",
+      "node_b_id": "food_beverage_006_001",
+      "node_a_name": "烘焙食品制造",
+      "node_b_name": "农产品原料",
+      "node_a_branch": "休闲食品与烘焙制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.096704,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_004_004:role_upstream"
       ]
     },
     {
@@ -73,9 +119,10 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.121211,
+      "score": 0.094064,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_001:branch_diversity"
+        "food_beverage_003_001:role_downstream"
       ]
     },
     {
@@ -87,35 +134,10 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.138891,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_008:branch_diversity",
-        "food_beverage_007_004:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_07e3cece7040fe9d",
-      "node_a_id": "food_beverage_001_009",
-      "node_b_id": "food_beverage_005_007",
-      "node_a_name": "预调酒",
-      "node_b_name": "方便食品制造",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.130644,
-      "selection_reasons": [
-        "food_beverage_005_007:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_08620de9b7aa7241",
-      "node_a_id": "food_beverage_002_012",
-      "node_b_id": "food_beverage_004_001",
-      "node_a_name": "乳制品制造",
-      "node_b_name": "休闲食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.156931,
-      "selection_reasons": [
-        "food_beverage_004_001:branch_diversity"
+        "food_beverage_001_008:role_downstream",
+        "food_beverage_007_004:role_midstream"
       ]
     },
     {
@@ -126,10 +148,11 @@
       "node_b_name": "复合调味料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.172008,
+      "score": 0.142261,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_011:global_similarity",
-        "food_beverage_003_002:global_similarity"
+        "food_beverage_002_011:branch_diversity",
+        "food_beverage_003_002:branch_diversity"
       ]
     },
     {
@@ -140,9 +163,24 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.105989,
+      "score": 0.103695,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_011:branch_diversity"
+        "food_beverage_003_011:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_0977351082cf3b4f",
+      "node_a_id": "food_beverage_002_009",
+      "node_b_id": "food_beverage_003_001",
+      "node_a_name": "植物蛋白饮料",
+      "node_b_name": "发酵调味品",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "调味发酵品制造",
+      "score": 0.102749,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_009:branch_diversity"
       ]
     },
     {
@@ -153,22 +191,25 @@
       "node_b_name": "食品添加剂与配料",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.095246,
+      "score": 0.11738,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_017:global_similarity"
+        "food_beverage_005_011:role_upstream",
+        "food_beverage_006_017:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_0a806373b91420a3",
-      "node_a_id": "food_beverage_001_002",
-      "node_b_id": "food_beverage_002_007",
-      "node_a_name": "啤酒",
-      "node_b_name": "功能饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.13315,
+      "pair_id": "p_0b288d52b4b05ed3",
+      "node_a_id": "food_beverage_002_009",
+      "node_b_id": "food_beverage_005_011",
+      "node_a_name": "植物蛋白饮料",
+      "node_b_name": "保健食品制造",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "肉制品与预制便捷食品制造",
+      "score": 0.098374,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_002:global_similarity"
+        "food_beverage_002_009:branch_diversity"
       ]
     },
     {
@@ -179,9 +220,10 @@
       "node_b_name": "传统流通渠道",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.119613,
+      "score": 0.101082,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_004:branch_diversity"
+        "food_beverage_005_001:role_downstream"
       ]
     },
     {
@@ -192,22 +234,38 @@
       "node_b_name": "基础调味品",
       "node_a_branch": "酒类制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.145165,
+      "score": 0.117968,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_011:global_similarity"
+        "food_beverage_003_011:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_0f52b7ac154cb34e",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_004_001",
-      "node_a_name": "复合调味料",
-      "node_b_name": "休闲食品制造",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.127775,
+      "pair_id": "p_0d827401b49d6685",
+      "node_a_id": "food_beverage_002_011",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "含乳饮料",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.124076,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_004_001:branch_diversity"
+        "food_beverage_002_011:role_downstream"
+      ]
+    },
+    {
+      "pair_id": "p_0f98e8e370e83985",
+      "node_a_id": "food_beverage_002_012",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "乳制品制造",
+      "node_b_name": "包装材料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.078844,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_012:role_upstream"
       ]
     },
     {
@@ -218,9 +276,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.109514,
+      "score": 0.120045,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_001:branch_diversity",
+        "food_beverage_005_001:role_upstream",
         "food_beverage_006_001:branch_diversity"
       ]
     },
@@ -232,9 +291,11 @@
       "node_b_name": "食品添加剂与配料",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.059822,
+      "score": 0.12235,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_017:branch_diversity"
+        "food_beverage_004_004:role_upstream",
+        "food_beverage_006_017:role_midstream"
       ]
     },
     {
@@ -246,22 +307,23 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
       "score": 0.213896,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_009:global_similarity",
-        "food_beverage_002_011:global_similarity"
+        "food_beverage_002_011:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_154892c89d7b4e8b",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_007_004",
-      "node_a_name": "复合调味料",
-      "node_b_name": "传统流通渠道",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.116649,
+      "pair_id": "p_18638f5af6c60cce",
+      "node_a_id": "food_beverage_002_017",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "即饮咖啡",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.089993,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_004:branch_diversity"
+        "food_beverage_002_017:role_upstream"
       ]
     },
     {
@@ -273,22 +335,10 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
       "score": 0.250313,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_009:global_similarity",
-        "food_beverage_002_002:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_198350f4e72d0ea2",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_007_006",
-      "node_a_name": "复合调味料",
-      "node_b_name": "线上电商渠道",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.114744,
-      "selection_reasons": [
-        "food_beverage_007_006:branch_diversity"
+        "food_beverage_001_009:branch_diversity",
+        "food_beverage_002_002:branch_diversity"
       ]
     },
     {
@@ -299,9 +349,11 @@
       "node_b_name": "终端消费场景",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.124125,
+      "score": 0.10405,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_009:global_similarity"
+        "food_beverage_003_002:role_downstream",
+        "food_beverage_007_009:branch_diversity"
       ]
     },
     {
@@ -312,9 +364,24 @@
       "node_b_name": "发酵调味品",
       "node_a_branch": "酒类制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.146863,
+      "score": 0.148704,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_001:global_similarity"
+        "food_beverage_001_007:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_1be60ef5b379a56a",
+      "node_a_id": "food_beverage_005_007",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "方便食品制造",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.098292,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_007:role_downstream"
       ]
     },
     {
@@ -325,37 +392,26 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.13596,
+      "score": 0.14061,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_002:branch_diversity",
-        "food_beverage_007_005:global_similarity"
+        "food_beverage_003_002:role_downstream",
+        "food_beverage_007_005:role_midstream"
       ]
     },
     {
-      "pair_id": "p_1df7178def6b9f4d",
-      "node_a_id": "food_beverage_005_001",
-      "node_b_id": "food_beverage_007_009",
-      "node_a_name": "速冻食品制造",
-      "node_b_name": "终端消费场景",
-      "node_a_branch": "肉制品与预制便捷食品制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.114517,
+      "pair_id": "p_1d1fd4364f407d90",
+      "node_a_id": "food_beverage_003_001",
+      "node_b_id": "food_beverage_006_001",
+      "node_a_name": "发酵调味品",
+      "node_b_name": "农产品原料",
+      "node_a_branch": "调味发酵品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.115994,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_009:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_1ebce17f74328383",
-      "node_a_id": "food_beverage_004_004",
-      "node_b_id": "food_beverage_005_011",
-      "node_a_name": "烘焙食品制造",
-      "node_b_name": "保健食品制造",
-      "node_a_branch": "休闲食品与烘焙制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.214555,
-      "selection_reasons": [
-        "food_beverage_004_004:global_similarity",
-        "food_beverage_005_011:global_similarity"
+        "food_beverage_003_001:role_upstream",
+        "food_beverage_006_001:branch_diversity"
       ]
     },
     {
@@ -367,8 +423,9 @@
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.124338,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_017:branch_diversity"
+        "food_beverage_002_017:role_downstream"
       ]
     },
     {
@@ -379,9 +436,38 @@
       "node_b_name": "食品添加剂与配料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.094461,
+      "score": 0.114327,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_017:global_similarity"
+        "food_beverage_002_002:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_1f4885abe7a5b746",
+      "node_a_id": "food_beverage_002_001",
+      "node_b_id": "food_beverage_007_005",
+      "node_a_name": "包装饮用水",
+      "node_b_name": "餐饮与团餐渠道",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.129037,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_001:role_downstream"
+      ]
+    },
+    {
+      "pair_id": "p_1faaa13df63e0ca5",
+      "node_a_id": "food_beverage_002_017",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "即饮咖啡",
+      "node_b_name": "包装材料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.088356,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_017:role_upstream"
       ]
     },
     {
@@ -392,10 +478,11 @@
       "node_b_name": "保健食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.1605,
+      "score": 0.12197,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_007:global_similarity",
-        "food_beverage_005_011:global_similarity"
+        "food_beverage_002_007:branch_diversity",
+        "food_beverage_005_011:branch_diversity"
       ]
     },
     {
@@ -406,10 +493,11 @@
       "node_b_name": "预制菜与餐食加工",
       "node_a_branch": "酒类制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.155936,
+      "score": 0.119523,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_001_009:branch_diversity",
-        "food_beverage_005_008:global_similarity"
+        "food_beverage_005_008:branch_diversity"
       ]
     },
     {
@@ -420,9 +508,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.103864,
+      "score": 0.107582,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_008:branch_diversity"
+        "food_beverage_005_008:role_upstream"
       ]
     },
     {
@@ -433,34 +522,8 @@
       "node_b_name": "烘焙食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.223498,
-      "selection_reasons": [
-        "food_beverage_002_012:global_similarity",
-        "food_beverage_004_004:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_2486bfe4a98bf950",
-      "node_a_id": "food_beverage_001_001",
-      "node_b_id": "food_beverage_002_017",
-      "node_a_name": "白酒",
-      "node_b_name": "即饮咖啡",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.143818,
-      "selection_reasons": [
-        "food_beverage_001_001:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_257dc717ad2dc7fa",
-      "node_a_id": "food_beverage_002_012",
-      "node_b_id": "food_beverage_003_002",
-      "node_a_name": "乳制品制造",
-      "node_b_name": "复合调味料",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.142556,
+      "score": 0.094369,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_002_012:branch_diversity"
       ]
@@ -473,9 +536,24 @@
       "node_b_name": "线下现代渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.120598,
+      "score": 0.107426,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_001:global_similarity"
+        "food_beverage_007_001:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_26e316d4f5907d30",
+      "node_a_id": "food_beverage_005_005",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "肉制品加工",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.104335,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_005:role_downstream"
       ]
     },
     {
@@ -487,8 +565,10 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.12696,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_004:global_similarity"
+        "food_beverage_001_009:role_downstream",
+        "food_beverage_007_004:role_midstream"
       ]
     },
     {
@@ -499,22 +579,24 @@
       "node_b_name": "线下现代渠道",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.112383,
+      "score": 0.087067,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_007_001:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_27cbbd343b1acfd3",
-      "node_a_id": "food_beverage_003_001",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "发酵调味品",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.152339,
+      "pair_id": "p_27a570ed816e3d8d",
+      "node_a_id": "food_beverage_002_011",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "含乳饮料",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.114249,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_001:global_similarity"
+        "food_beverage_002_011:role_upstream"
       ]
     },
     {
@@ -525,9 +607,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.106314,
+      "score": 0.10129,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_005:branch_diversity"
+        "food_beverage_005_005:role_upstream"
       ]
     },
     {
@@ -538,24 +621,64 @@
       "node_b_name": "保健食品制造",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.178898,
+      "score": 0.107544,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_004_001:global_similarity",
-        "food_beverage_005_011:global_similarity"
+        "food_beverage_005_011:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_2cf3e423e150e7e1",
-      "node_a_id": "food_beverage_004_004",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "烘焙食品制造",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "休闲食品与烘焙制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.226747,
+      "pair_id": "p_29c7e95c8b1def6f",
+      "node_a_id": "food_beverage_001_001",
+      "node_b_id": "food_beverage_006_001",
+      "node_a_name": "白酒",
+      "node_b_name": "农产品原料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 2.092052,
+      "recall_evidence": [
+        {
+          "source_node_id": "food_beverage_006_001",
+          "source_node_name": "农产品原料",
+          "matched_descendant_context": "粮食作物：小麦、水稻、玉米、高粱等粮食作物，是烘焙、方便食品、白酒、啤酒和淀粉糖的重要基础原料。"
+        },
+        {
+          "source_node_id": "food_beverage_006_001",
+          "source_node_name": "农产品原料",
+          "matched_descendant_context": "酿造用高粱与大麦：白酒和啤酒的重要酿造粮食原料。"
+        }
+      ],
       "selection_reasons": [
-        "food_beverage_004_004:global_similarity",
-        "food_beverage_005_001:global_similarity"
+        "food_beverage_001_001:role_upstream",
+        "food_beverage_006_001:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_2b88bf178b4bb343",
+      "node_a_id": "food_beverage_001_008",
+      "node_b_id": "food_beverage_006_001",
+      "node_a_name": "黄酒",
+      "node_b_name": "农产品原料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.085331,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_008:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_2c9c1eff5d96d4ab",
+      "node_a_id": "food_beverage_002_017",
+      "node_b_id": "food_beverage_005_007",
+      "node_a_name": "即饮咖啡",
+      "node_b_name": "方便食品制造",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "肉制品与预制便捷食品制造",
+      "score": 0.107417,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_017:branch_diversity"
       ]
     },
     {
@@ -566,9 +689,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.133225,
+      "score": 0.122118,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_003:branch_diversity"
+        "food_beverage_002_003:role_upstream"
       ]
     },
     {
@@ -579,9 +703,10 @@
       "node_b_name": "速冻食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.157908,
+      "score": 0.112654,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_005:global_similarity"
+        "food_beverage_002_005:branch_diversity"
       ]
     },
     {
@@ -592,9 +717,25 @@
       "node_b_name": "终端消费场景",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.120221,
+      "score": 0.10947,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_009:score_fill"
+        "food_beverage_007_009:global_similarity"
+      ]
+    },
+    {
+      "pair_id": "p_2f0da7ad999623c5",
+      "node_a_id": "food_beverage_006_001",
+      "node_b_id": "food_beverage_007_013",
+      "node_a_name": "农产品原料",
+      "node_b_name": "冷链物流与仓储",
+      "node_a_branch": "食品原料、辅料与包材供应链",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.094258,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_006_001:role_downstream",
+        "food_beverage_007_013:role_upstream"
       ]
     },
     {
@@ -606,9 +747,10 @@
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.13696,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_002:branch_diversity",
-        "food_beverage_007_005:global_similarity"
+        "food_beverage_002_002:role_downstream",
+        "food_beverage_007_005:role_midstream"
       ]
     },
     {
@@ -620,34 +762,9 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
       "score": 0.197173,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_001:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_300d4ba401118a9f",
-      "node_a_id": "food_beverage_002_002",
-      "node_b_id": "food_beverage_005_008",
-      "node_a_name": "碳酸饮料",
-      "node_b_name": "预制菜与餐食加工",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.150277,
-      "selection_reasons": [
-        "food_beverage_005_008:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_30b67f883bd20b0f",
-      "node_a_id": "food_beverage_001_002",
-      "node_b_id": "food_beverage_002_001",
-      "node_a_name": "啤酒",
-      "node_b_name": "包装饮用水",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.140981,
-      "selection_reasons": [
-        "food_beverage_001_002:global_similarity"
+        "food_beverage_002_001:branch_diversity"
       ]
     },
     {
@@ -658,49 +775,10 @@
       "node_b_name": "速冻食品制造",
       "node_a_branch": "酒类制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.13159,
+      "score": 0.096561,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_001:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_344c9190a6195f4b",
-      "node_a_id": "food_beverage_002_009",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "植物蛋白饮料",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.144749,
-      "selection_reasons": [
-        "food_beverage_002_009:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_36f395a895beb422",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_002_017",
-      "node_a_name": "黄酒",
-      "node_b_name": "即饮咖啡",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.15104,
-      "selection_reasons": [
-        "food_beverage_001_008:global_similarity",
-        "food_beverage_002_017:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_3765b0ada168c560",
-      "node_a_id": "food_beverage_001_002",
-      "node_b_id": "food_beverage_002_017",
-      "node_a_name": "啤酒",
-      "node_b_name": "即饮咖啡",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.132599,
-      "selection_reasons": [
-        "food_beverage_001_002:global_similarity"
+        "deterministic_negative_audit"
       ]
     },
     {
@@ -711,23 +789,10 @@
       "node_b_name": "终端消费场景",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.134975,
+      "score": 0.101968,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_011:branch_diversity",
-        "food_beverage_007_009:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_391855f34ce6f836",
-      "node_a_id": "food_beverage_001_009",
-      "node_b_id": "food_beverage_007_009",
-      "node_a_name": "预调酒",
-      "node_b_name": "终端消费场景",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.121327,
-      "selection_reasons": [
-        "food_beverage_007_009:branch_diversity"
+        "food_beverage_003_011:role_downstream"
       ]
     },
     {
@@ -739,9 +804,10 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.132715,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_009:branch_diversity",
-        "food_beverage_007_005:global_similarity"
+        "food_beverage_001_009:role_downstream",
+        "food_beverage_007_005:branch_diversity"
       ]
     },
     {
@@ -752,35 +818,11 @@
       "node_b_name": "终端消费场景",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.116299,
+      "score": 0.089951,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_004_001:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_3989a827070445fc",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "即饮咖啡",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.141938,
-      "selection_reasons": [
-        "food_beverage_002_017:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_39977c1463c282d2",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_003_011",
-      "node_a_name": "黄酒",
-      "node_b_name": "基础调味品",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.143014,
-      "selection_reasons": [
-        "food_beverage_003_011:global_similarity"
+        "food_beverage_004_001:role_downstream",
+        "food_beverage_007_009:branch_diversity"
       ]
     },
     {
@@ -791,9 +833,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.125974,
+      "score": 0.090209,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_001:branch_diversity"
+        "food_beverage_003_002:role_upstream"
       ]
     },
     {
@@ -805,8 +848,9 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
       "score": 0.152944,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_001:global_similarity"
+        "food_beverage_001_001:branch_diversity"
       ]
     },
     {
@@ -817,22 +861,24 @@
       "node_b_name": "线下现代渠道",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.117152,
+      "score": 0.104623,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_001:global_similarity"
+        "food_beverage_007_001:role_midstream"
       ]
     },
     {
-      "pair_id": "p_3d06ba36d75e16d9",
-      "node_a_id": "food_beverage_002_011",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "含乳饮料",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.156127,
+      "pair_id": "p_3d5f8ad001ea17e5",
+      "node_a_id": "food_beverage_005_011",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "保健食品制造",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.099064,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_011:global_similarity"
+        "food_beverage_005_011:role_downstream"
       ]
     },
     {
@@ -843,22 +889,24 @@
       "node_b_name": "传统流通渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.111392,
+      "score": 0.098545,
+      "recall_evidence": [],
       "selection_reasons": [
-        "deterministic_negative_audit"
+        "food_beverage_002_012:role_downstream"
       ]
     },
     {
-      "pair_id": "p_3fbf049451a824c3",
-      "node_a_id": "food_beverage_002_002",
-      "node_b_id": "food_beverage_007_009",
-      "node_a_name": "碳酸饮料",
-      "node_b_name": "终端消费场景",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.124987,
+      "pair_id": "p_3fc569b42f4730ef",
+      "node_a_id": "food_beverage_005_007",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "方便食品制造",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.067452,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_009:global_similarity"
+        "food_beverage_005_007:role_upstream"
       ]
     },
     {
@@ -869,9 +917,10 @@
       "node_b_name": "线上电商渠道",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.123041,
+      "score": 0.102582,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_006:score_fill"
+        "food_beverage_007_006:global_similarity"
       ]
     },
     {
@@ -883,8 +932,25 @@
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.130909,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_004:global_similarity"
+        "food_beverage_002_002:role_downstream",
+        "food_beverage_007_004:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_45c3d4bfc7d56abb",
+      "node_a_id": "food_beverage_003_011",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "基础调味品",
+      "node_b_name": "包装材料",
+      "node_a_branch": "调味发酵品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.103514,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_003_011:role_upstream",
+        "food_beverage_006_028:branch_diversity"
       ]
     },
     {
@@ -895,10 +961,17 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.140453,
+      "score": 2.120621,
+      "recall_evidence": [
+        {
+          "source_node_id": "food_beverage_006_001",
+          "source_node_name": "农产品原料",
+          "matched_descendant_context": "茶叶与植物原料：茶叶、咖啡豆、坚果、豆类等特色植物原料，支撑茶饮、植物蛋白饮料和休闲食品。"
+        }
+      ],
       "selection_reasons": [
-        "food_beverage_002_009:branch_diversity",
-        "food_beverage_006_001:global_similarity"
+        "food_beverage_002_009:role_upstream",
+        "food_beverage_006_001:role_midstream"
       ]
     },
     {
@@ -909,9 +982,10 @@
       "node_b_name": "线下现代渠道",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.115608,
+      "score": 0.103367,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_001:global_similarity"
+        "food_beverage_007_001:role_midstream"
       ]
     },
     {
@@ -922,10 +996,24 @@
       "node_b_name": "冷链物流与仓储",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.138444,
+      "score": 0.106045,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_008:branch_diversity",
-        "food_beverage_007_013:global_similarity"
+        "food_beverage_007_013:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_47020e2447f2b845",
+      "node_a_id": "food_beverage_001_002",
+      "node_b_id": "food_beverage_002_003",
+      "node_a_name": "啤酒",
+      "node_b_name": "茶饮料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "乳品与非酒精饮料制造",
+      "score": 0.120741,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_002:branch_diversity"
       ]
     },
     {
@@ -937,47 +1025,38 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.130814,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_007:branch_diversity"
+        "food_beverage_001_007:role_downstream",
+        "food_beverage_007_005:global_similarity"
       ]
     },
     {
-      "pair_id": "p_48ce4494f130316a",
-      "node_a_id": "food_beverage_002_007",
-      "node_b_id": "food_beverage_007_006",
-      "node_a_name": "功能饮料",
-      "node_b_name": "线上电商渠道",
+      "pair_id": "p_49537fe8de7aa2ce",
+      "node_a_id": "food_beverage_002_009",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "植物蛋白饮料",
+      "node_b_name": "食品添加剂与配料",
       "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.123601,
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.095062,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_006:global_similarity"
+        "food_beverage_002_009:role_upstream"
       ]
     },
     {
-      "pair_id": "p_4935633206f4efcc",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "黄酒",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.141933,
+      "pair_id": "p_4a81a619971c51b2",
+      "node_a_id": "food_beverage_002_007",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "功能饮料",
+      "node_b_name": "包装材料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.091992,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_008:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_4a60eb9c66674e2d",
-      "node_a_id": "food_beverage_001_009",
-      "node_b_id": "food_beverage_005_005",
-      "node_a_name": "预调酒",
-      "node_b_name": "肉制品加工",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.135857,
-      "selection_reasons": [
-        "food_beverage_005_005:branch_diversity"
+        "food_beverage_002_007:role_upstream"
       ]
     },
     {
@@ -988,22 +1067,38 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.114071,
+      "score": 0.114047,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_002:branch_diversity"
+        "food_beverage_001_002:role_downstream"
       ]
     },
     {
-      "pair_id": "p_4e4bf7b70fb5eeef",
-      "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_002_005",
-      "node_a_name": "葡萄酒",
-      "node_b_name": "果汁与果蔬饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.142134,
+      "pair_id": "p_4edad7c4a64623d0",
+      "node_a_id": "food_beverage_006_017",
+      "node_b_id": "food_beverage_007_001",
+      "node_a_name": "食品添加剂与配料",
+      "node_b_name": "线下现代渠道",
+      "node_a_branch": "食品原料、辅料与包材供应链",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.069142,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_005:score_fill"
+        "food_beverage_007_001:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_4edff817bdc58d5f",
+      "node_a_id": "food_beverage_005_005",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "肉制品加工",
+      "node_b_name": "包装材料",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.071523,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_005:role_upstream"
       ]
     },
     {
@@ -1014,9 +1109,25 @@
       "node_b_name": "速冻食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.165837,
+      "score": 0.121691,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_011:global_similarity"
+        "food_beverage_002_011:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_519bb783c9ed74d5",
+      "node_a_id": "food_beverage_001_001",
+      "node_b_id": "food_beverage_004_001",
+      "node_a_name": "白酒",
+      "node_b_name": "休闲食品制造",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "休闲食品与烘焙制造",
+      "score": 0.125156,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_001:branch_diversity",
+        "food_beverage_004_001:branch_diversity"
       ]
     },
     {
@@ -1027,23 +1138,10 @@
       "node_b_name": "传统流通渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.125766,
+      "score": 0.116256,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_004:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_5459c9b12c20873d",
-      "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_002_001",
-      "node_a_name": "葡萄酒",
-      "node_b_name": "包装饮用水",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.163003,
-      "selection_reasons": [
-        "food_beverage_001_007:global_similarity",
-        "food_beverage_002_001:global_similarity"
+        "food_beverage_002_007:role_downstream"
       ]
     },
     {
@@ -1054,9 +1152,38 @@
       "node_b_name": "烘焙食品制造",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.150578,
+      "score": 0.068281,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_011:global_similarity"
+        "deterministic_negative_audit"
+      ]
+    },
+    {
+      "pair_id": "p_57f82824c042eb47",
+      "node_a_id": "food_beverage_001_007",
+      "node_b_id": "food_beverage_004_001",
+      "node_a_name": "葡萄酒",
+      "node_b_name": "休闲食品制造",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "休闲食品与烘焙制造",
+      "score": 0.109872,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_007:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_5805f4eabca4eb33",
+      "node_a_id": "food_beverage_003_011",
+      "node_b_id": "food_beverage_005_008",
+      "node_a_name": "基础调味品",
+      "node_b_name": "预制菜与餐食加工",
+      "node_a_branch": "调味发酵品制造",
+      "node_b_branch": "肉制品与预制便捷食品制造",
+      "score": 0.09325,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_003_011:branch_diversity"
       ]
     },
     {
@@ -1067,9 +1194,10 @@
       "node_b_name": "复合调味料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.156492,
+      "score": 0.081992,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_003:global_similarity"
+        "food_beverage_002_003:branch_diversity"
       ]
     },
     {
@@ -1080,23 +1208,38 @@
       "node_b_name": "复合调味料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.161165,
+      "score": 0.101929,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_007:global_similarity",
         "food_beverage_003_002:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_5cd50010302b2c0c",
-      "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_002_009",
-      "node_a_name": "葡萄酒",
-      "node_b_name": "植物蛋白饮料",
+      "pair_id": "p_5d03c57376338b23",
+      "node_a_id": "food_beverage_001_009",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "预调酒",
+      "node_b_name": "包装材料",
       "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.142134,
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.092679,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_009:score_fill"
+        "food_beverage_001_009:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_5d41ee0f63084ce9",
+      "node_a_id": "food_beverage_002_003",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "茶饮料",
+      "node_b_name": "包装材料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.102708,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_003:role_upstream"
       ]
     },
     {
@@ -1107,10 +1250,31 @@
       "node_b_name": "速冻食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.194709,
+      "score": 0.094149,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_012:global_similarity",
-        "food_beverage_005_001:global_similarity"
+        "food_beverage_002_012:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_5e62dd7532d30040",
+      "node_a_id": "food_beverage_001_002",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "啤酒",
+      "node_b_name": "包装材料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 2.085407,
+      "recall_evidence": [
+        {
+          "source_node_id": "food_beverage_006_028",
+          "source_node_name": "包装材料",
+          "matched_descendant_context": "铝制两片罐：啤酒和碳酸饮料高频使用的金属包装。"
+        }
+      ],
+      "selection_reasons": [
+        "food_beverage_001_002:role_upstream",
+        "food_beverage_006_028:role_midstream"
       ]
     },
     {
@@ -1121,9 +1285,10 @@
       "node_b_name": "线上电商渠道",
       "node_a_branch": "食品原料、辅料与包材供应链",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.102044,
+      "score": 0.074807,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_006:branch_diversity"
+        "food_beverage_007_006:role_upstream"
       ]
     },
     {
@@ -1134,35 +1299,25 @@
       "node_b_name": "预制菜与餐食加工",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.146298,
+      "score": 0.12002,
+      "recall_evidence": [],
       "selection_reasons": [
+        "food_beverage_003_002:branch_diversity",
         "food_beverage_005_008:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_60b2cf29764181be",
-      "node_a_id": "food_beverage_002_009",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "植物蛋白饮料",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.148662,
-      "selection_reasons": [
-        "food_beverage_002_009:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_60d2ecca2238f7d9",
-      "node_a_id": "food_beverage_001_002",
-      "node_b_id": "food_beverage_003_002",
-      "node_a_name": "啤酒",
-      "node_b_name": "复合调味料",
+      "pair_id": "p_601eb5977cf83760",
+      "node_a_id": "food_beverage_001_008",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "黄酒",
+      "node_b_name": "食品添加剂与配料",
       "node_a_branch": "酒类制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.117127,
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.098187,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_002:branch_diversity"
+        "food_beverage_001_008:role_upstream"
       ]
     },
     {
@@ -1173,63 +1328,69 @@
       "node_b_name": "包装材料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.135087,
+      "score": 0.120423,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_011:branch_diversity",
-        "food_beverage_006_028:global_similarity"
+        "food_beverage_002_011:role_upstream",
+        "food_beverage_006_028:role_midstream"
       ]
     },
     {
-      "pair_id": "p_62c95e6baeeac00d",
-      "node_a_id": "food_beverage_001_001",
-      "node_b_id": "food_beverage_002_007",
-      "node_a_name": "白酒",
-      "node_b_name": "功能饮料",
+      "pair_id": "p_640c20331cf15e64",
+      "node_a_id": "food_beverage_005_008",
+      "node_b_id": "food_beverage_007_005",
+      "node_a_name": "预制菜与餐食加工",
+      "node_b_name": "餐饮与团餐渠道",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.174568,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_008:role_downstream",
+        "food_beverage_007_005:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_64802e5763fe3e56",
+      "node_a_id": "food_beverage_002_005",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "果汁与果蔬饮料",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.108779,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_005:role_downstream"
+      ]
+    },
+    {
+      "pair_id": "p_6621a29aa2d6af8e",
+      "node_a_id": "food_beverage_003_001",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "发酵调味品",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "调味发酵品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.090997,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_003_001:role_downstream"
+      ]
+    },
+    {
+      "pair_id": "p_664665b8131be080",
+      "node_a_id": "food_beverage_001_002",
+      "node_b_id": "food_beverage_007_009",
+      "node_a_name": "啤酒",
+      "node_b_name": "终端消费场景",
       "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.143223,
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.112083,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_001:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_64bcf681e545ef42",
-      "node_a_id": "food_beverage_002_009",
-      "node_b_id": "food_beverage_003_002",
-      "node_a_name": "植物蛋白饮料",
-      "node_b_name": "复合调味料",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.151186,
-      "selection_reasons": [
-        "food_beverage_002_009:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_651185999393bf39",
-      "node_a_id": "food_beverage_002_012",
-      "node_b_id": "food_beverage_005_011",
-      "node_a_name": "乳制品制造",
-      "node_b_name": "保健食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.184239,
-      "selection_reasons": [
-        "food_beverage_002_012:global_similarity",
-        "food_beverage_005_011:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_66cfb6f308d77805",
-      "node_a_id": "food_beverage_002_012",
-      "node_b_id": "food_beverage_005_008",
-      "node_a_name": "乳制品制造",
-      "node_b_name": "预制菜与餐食加工",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.145126,
-      "selection_reasons": [
-        "food_beverage_005_008:score_fill"
+        "food_beverage_001_002:role_downstream",
+        "food_beverage_007_009:role_midstream"
       ]
     },
     {
@@ -1241,61 +1402,51 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.12581,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_001:branch_diversity"
+        "food_beverage_001_001:role_downstream"
       ]
     },
     {
-      "pair_id": "p_6a275d28a1fde284",
-      "node_a_id": "food_beverage_002_005",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "果汁与果蔬饮料",
-      "node_b_name": "烘焙食品制造",
+      "pair_id": "p_691a3f2040b61808",
+      "node_a_id": "food_beverage_002_001",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "包装饮用水",
+      "node_b_name": "传统流通渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.148662,
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.123537,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_005:branch_diversity"
+        "food_beverage_002_001:role_downstream"
       ]
     },
     {
-      "pair_id": "p_6e119212bce1f67f",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_005_011",
-      "node_a_name": "复合调味料",
-      "node_b_name": "保健食品制造",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.141186,
-      "selection_reasons": [
-        "food_beverage_005_011:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_6e17bc1920ae5bd8",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_002_011",
-      "node_a_name": "黄酒",
-      "node_b_name": "含乳饮料",
+      "pair_id": "p_6ab0c260a0a0c446",
+      "node_a_id": "food_beverage_001_009",
+      "node_b_id": "food_beverage_003_011",
+      "node_a_name": "预调酒",
+      "node_b_name": "基础调味品",
       "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.147059,
+      "node_b_branch": "调味发酵品制造",
+      "score": 0.111456,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_008:global_similarity",
-        "food_beverage_002_011:score_fill"
+        "food_beverage_001_009:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_6ea76630910c7ace",
-      "node_a_id": "food_beverage_002_003",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "茶饮料",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.14983,
+      "pair_id": "p_6c0185327be3f1d6",
+      "node_a_id": "food_beverage_005_001",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "速冻食品制造",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.075845,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_003:score_fill"
+        "food_beverage_005_001:role_upstream"
       ]
     },
     {
@@ -1306,74 +1457,52 @@
       "node_b_name": "包装材料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.114775,
+      "score": 0.097655,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_028:branch_diversity"
+        "food_beverage_001_007:role_upstream"
       ]
     },
     {
-      "pair_id": "p_737adc974be3f859",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_002_005",
-      "node_a_name": "黄酒",
-      "node_b_name": "果汁与果蔬饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.140028,
-      "selection_reasons": [
-        "food_beverage_002_005:score_fill"
-      ]
-    },
-    {
-      "pair_id": "p_756f5a117c31c7b4",
-      "node_a_id": "food_beverage_002_003",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "茶饮料",
-      "node_b_name": "烘焙食品制造",
+      "pair_id": "p_73969c2b450936de",
+      "node_a_id": "food_beverage_002_009",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "植物蛋白饮料",
+      "node_b_name": "传统流通渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.15388,
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.112344,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_003:global_similarity"
+        "food_beverage_002_009:role_downstream"
       ]
     },
     {
-      "pair_id": "p_7679d6fc72fcbb60",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_005_005",
-      "node_a_name": "复合调味料",
-      "node_b_name": "肉制品加工",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.141186,
+      "pair_id": "p_7475630029d037ce",
+      "node_a_id": "food_beverage_005_007",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "方便食品制造",
+      "node_b_name": "包装材料",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.069129,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_005:branch_diversity"
+        "food_beverage_005_007:role_upstream"
       ]
     },
     {
-      "pair_id": "p_777c97fdbb8902ac",
-      "node_a_id": "food_beverage_001_002",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "啤酒",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.111214,
+      "pair_id": "p_74a30b40e7445605",
+      "node_a_id": "food_beverage_005_005",
+      "node_b_id": "food_beverage_007_013",
+      "node_a_name": "肉制品加工",
+      "node_b_name": "冷链物流与仓储",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.102548,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_002:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_796f8f0d77373aea",
-      "node_a_id": "food_beverage_002_002",
-      "node_b_id": "food_beverage_005_007",
-      "node_a_name": "碳酸饮料",
-      "node_b_name": "方便食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.151082,
-      "selection_reasons": [
-        "food_beverage_005_007:global_similarity"
+        "food_beverage_007_013:role_midstream"
       ]
     },
     {
@@ -1384,35 +1513,52 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.12581,
+      "score": 0.117007,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_009:branch_diversity"
+        "food_beverage_002_009:role_downstream"
       ]
     },
     {
-      "pair_id": "p_7bb16fb5dc7d092b",
-      "node_a_id": "food_beverage_002_002",
-      "node_b_id": "food_beverage_007_013",
-      "node_a_name": "碳酸饮料",
-      "node_b_name": "冷链物流与仓储",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.118147,
-      "selection_reasons": [
-        "food_beverage_007_013:score_fill"
-      ]
-    },
-    {
-      "pair_id": "p_809926332a23bc13",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "黄酒",
-      "node_b_name": "速冻食品制造",
+      "pair_id": "p_7b8c84b6a4e6aedd",
+      "node_a_id": "food_beverage_001_002",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "啤酒",
+      "node_b_name": "食品添加剂与配料",
       "node_a_branch": "酒类制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.138197,
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.098455,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_008:branch_diversity"
+        "food_beverage_001_002:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_7c11711bfe9fc6e9",
+      "node_a_id": "food_beverage_002_001",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "包装饮用水",
+      "node_b_name": "包装材料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.096607,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_001:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_80959ab35096b096",
+      "node_a_id": "food_beverage_003_011",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "基础调味品",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "调味发酵品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.095032,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_007_004:branch_diversity"
       ]
     },
     {
@@ -1423,9 +1569,17 @@
       "node_b_name": "食品添加剂与配料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.091635,
+      "score": 2.112255,
+      "recall_evidence": [
+        {
+          "source_node_id": "food_beverage_006_017",
+          "source_node_name": "食品添加剂与配料",
+          "matched_descendant_context": "饮料风味香精：茶饮、果味饮料和功能饮料常用风味体系。"
+        }
+      ],
       "selection_reasons": [
-        "food_beverage_006_017:global_similarity"
+        "food_beverage_002_007:role_upstream",
+        "food_beverage_006_017:role_midstream"
       ]
     },
     {
@@ -1436,9 +1590,38 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.106314,
+      "score": 0.090952,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_011:branch_diversity"
+        "food_beverage_005_011:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_838eb15c4fcbcea2",
+      "node_a_id": "food_beverage_005_005",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "肉制品加工",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.066363,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_005:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_84dde18738e03fec",
+      "node_a_id": "food_beverage_002_001",
+      "node_b_id": "food_beverage_005_005",
+      "node_a_name": "包装饮用水",
+      "node_b_name": "肉制品加工",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "肉制品与预制便捷食品制造",
+      "score": 0.12493,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_005:branch_diversity"
       ]
     },
     {
@@ -1449,35 +1632,24 @@
       "node_b_name": "速冻食品制造",
       "node_a_branch": "酒类制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.143577,
+      "score": 0.105357,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_005_001:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_88b8c7e5647b9786",
-      "node_a_id": "food_beverage_001_001",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "白酒",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.135147,
+      "pair_id": "p_899dec45f4e7a49e",
+      "node_a_id": "food_beverage_002_001",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "包装饮用水",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.087206,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_001:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_8a45ae53bd8fa750",
-      "node_a_id": "food_beverage_003_011",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "基础调味品",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.146614,
-      "selection_reasons": [
-        "food_beverage_003_011:global_similarity"
+        "food_beverage_002_001:role_upstream"
       ]
     },
     {
@@ -1489,34 +1661,9 @@
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
       "score": 0.129616,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_011:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_8cc922ab70ab7e40",
-      "node_a_id": "food_beverage_001_001",
-      "node_b_id": "food_beverage_003_002",
-      "node_a_name": "白酒",
-      "node_b_name": "复合调味料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.138587,
-      "selection_reasons": [
-        "food_beverage_001_001:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_8e4b926847dd9767",
-      "node_a_id": "food_beverage_002_001",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "包装饮用水",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.150912,
-      "selection_reasons": [
-        "food_beverage_002_001:global_similarity"
+        "food_beverage_002_011:role_downstream"
       ]
     },
     {
@@ -1527,49 +1674,39 @@
       "node_b_name": "发酵调味品",
       "node_a_branch": "酒类制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.144687,
+      "score": 0.170918,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_001:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_8efeb762e0b9f929",
-      "node_a_id": "food_beverage_002_002",
-      "node_b_id": "food_beverage_003_001",
-      "node_a_name": "碳酸饮料",
-      "node_b_name": "发酵调味品",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.143666,
-      "selection_reasons": [
+        "food_beverage_001_008:branch_diversity",
         "food_beverage_003_001:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_91364e11d3a0f2eb",
-      "node_a_id": "food_beverage_005_001",
-      "node_b_id": "food_beverage_007_013",
-      "node_a_name": "速冻食品制造",
-      "node_b_name": "冷链物流与仓储",
-      "node_a_branch": "肉制品与预制便捷食品制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.137948,
+      "pair_id": "p_90e319c69b062cb8",
+      "node_a_id": "food_beverage_002_012",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "乳制品制造",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.07924,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_001:branch_diversity",
-        "food_beverage_007_013:global_similarity"
+        "food_beverage_002_012:role_upstream"
       ]
     },
     {
-      "pair_id": "p_91475b23a07d9f4d",
-      "node_a_id": "food_beverage_001_002",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "啤酒",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.11422,
+      "pair_id": "p_928105479df0b944",
+      "node_a_id": "food_beverage_005_008",
+      "node_b_id": "food_beverage_007_001",
+      "node_a_name": "预制菜与餐食加工",
+      "node_b_name": "线下现代渠道",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.097986,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_002:branch_diversity"
+        "food_beverage_007_001:branch_diversity"
       ]
     },
     {
@@ -1580,22 +1717,10 @@
       "node_b_name": "线下现代渠道",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.108155,
+      "score": 0.085902,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_007_001:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_9584ca7e66bfecd3",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_002_007",
-      "node_a_name": "黄酒",
-      "node_b_name": "功能饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.150414,
-      "selection_reasons": [
-        "food_beverage_001_008:global_similarity"
       ]
     },
     {
@@ -1606,10 +1731,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.142229,
+      "score": 0.093413,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_002:branch_diversity",
-        "food_beverage_006_001:global_similarity"
+        "food_beverage_002_002:role_upstream"
       ]
     },
     {
@@ -1620,9 +1745,24 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.134465,
+      "score": 0.10808,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_005:global_similarity"
+        "food_beverage_003_011:role_downstream"
+      ]
+    },
+    {
+      "pair_id": "p_962f6409c7e056b5",
+      "node_a_id": "food_beverage_006_017",
+      "node_b_id": "food_beverage_007_006",
+      "node_a_name": "食品添加剂与配料",
+      "node_b_name": "线上电商渠道",
+      "node_a_branch": "食品原料、辅料与包材供应链",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.06886,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_007_006:role_upstream"
       ]
     },
     {
@@ -1633,22 +1773,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.136367,
+      "score": 0.081601,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_007:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_975a2520f800997e",
-      "node_a_id": "food_beverage_002_002",
-      "node_b_id": "food_beverage_003_011",
-      "node_a_name": "碳酸饮料",
-      "node_b_name": "基础调味品",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.142005,
-      "selection_reasons": [
-        "food_beverage_003_011:branch_diversity"
+        "food_beverage_002_007:role_upstream"
       ]
     },
     {
@@ -1659,9 +1787,10 @@
       "node_b_name": "冷链物流与仓储",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.095966,
+      "score": 0.076131,
+      "recall_evidence": [],
       "selection_reasons": [
-        "deterministic_negative_audit"
+        "food_beverage_007_013:branch_diversity"
       ]
     },
     {
@@ -1673,22 +1802,9 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
       "score": 0.160623,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_008:global_similarity",
-        "food_beverage_002_002:score_fill"
-      ]
-    },
-    {
-      "pair_id": "p_989bc068beaca604",
-      "node_a_id": "food_beverage_001_002",
-      "node_b_id": "food_beverage_002_002",
-      "node_a_name": "啤酒",
-      "node_b_name": "碳酸饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.142187,
-      "selection_reasons": [
-        "food_beverage_001_002:global_similarity"
+        "food_beverage_001_008:branch_diversity"
       ]
     },
     {
@@ -1699,9 +1815,24 @@
       "node_b_name": "线上电商渠道",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.123444,
+      "score": 0.104034,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_006:global_similarity"
+        "food_beverage_007_006:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_9a65858aa06ad9af",
+      "node_a_id": "food_beverage_001_001",
+      "node_b_id": "food_beverage_003_001",
+      "node_a_name": "白酒",
+      "node_b_name": "发酵调味品",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "调味发酵品制造",
+      "score": 0.123997,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_001:branch_diversity"
       ]
     },
     {
@@ -1712,9 +1843,10 @@
       "node_b_name": "功能饮料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.20315,
+      "score": 0.177649,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_007:global_similarity"
+        "food_beverage_002_007:branch_diversity"
       ]
     },
     {
@@ -1725,7 +1857,8 @@
       "node_b_name": "冷链物流与仓储",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.100181,
+      "score": 0.093293,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_007_013:branch_diversity"
       ]
@@ -1738,9 +1871,10 @@
       "node_b_name": "包装材料",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.101326,
+      "score": 0.087927,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_004_004:branch_diversity",
+        "food_beverage_004_004:role_upstream",
         "food_beverage_006_028:branch_diversity"
       ]
     },
@@ -1752,9 +1886,24 @@
       "node_b_name": "食品添加剂与配料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.080989,
+      "score": 0.088042,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_017:score_fill"
+        "food_beverage_001_007:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_9cb1cb54aacb9074",
+      "node_a_id": "food_beverage_003_001",
+      "node_b_id": "food_beverage_004_001",
+      "node_a_name": "发酵调味品",
+      "node_b_name": "休闲食品制造",
+      "node_a_branch": "调味发酵品制造",
+      "node_b_branch": "休闲食品与烘焙制造",
+      "score": 0.089862,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_003_001:branch_diversity"
       ]
     },
     {
@@ -1765,9 +1914,10 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "食品原料、辅料与包材供应链",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.107582,
+      "score": 0.081772,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_005:branch_diversity"
+        "food_beverage_007_005:role_upstream"
       ]
     },
     {
@@ -1778,50 +1928,25 @@
       "node_b_name": "复合调味料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.173422,
+      "score": 0.109682,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_002:global_similarity",
-        "food_beverage_003_002:global_similarity"
+        "food_beverage_002_002:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_9dc77fb64b6d0cf0",
-      "node_a_id": "food_beverage_002_012",
-      "node_b_id": "food_beverage_003_001",
-      "node_a_name": "乳制品制造",
-      "node_b_name": "发酵调味品",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.141715,
+      "pair_id": "p_a2a46f4914823b3f",
+      "node_a_id": "food_beverage_003_001",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "发酵调味品",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "调味发酵品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.097412,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_001:score_fill"
-      ]
-    },
-    {
-      "pair_id": "p_9dec9a24825b00c9",
-      "node_a_id": "food_beverage_005_001",
-      "node_b_id": "food_beverage_007_001",
-      "node_a_name": "速冻食品制造",
-      "node_b_name": "线下现代渠道",
-      "node_a_branch": "肉制品与预制便捷食品制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.110741,
-      "selection_reasons": [
-        "food_beverage_007_001:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_a2a470750b05f973",
-      "node_a_id": "food_beverage_001_009",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "预调酒",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.147458,
-      "selection_reasons": [
-        "food_beverage_001_009:branch_diversity",
-        "food_beverage_004_004:branch_diversity"
+        "food_beverage_003_001:role_upstream",
+        "food_beverage_006_017:branch_diversity"
       ]
     },
     {
@@ -1833,9 +1958,23 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
       "score": 0.167248,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_007:global_similarity",
-        "food_beverage_002_017:global_similarity"
+        "food_beverage_001_007:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_a3eada07dff1a1a4",
+      "node_a_id": "food_beverage_002_003",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "茶饮料",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.106831,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_003:role_upstream"
       ]
     },
     {
@@ -1846,10 +1985,10 @@
       "node_b_name": "方便食品制造",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.172033,
+      "score": 0.110891,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_004_001:global_similarity",
-        "food_beverage_005_007:global_similarity"
+        "food_beverage_005_007:branch_diversity"
       ]
     },
     {
@@ -1860,9 +1999,22 @@
       "node_b_name": "包装材料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.131318,
+      "score": 2.126918,
+      "recall_evidence": [
+        {
+          "source_node_id": "food_beverage_006_028",
+          "source_node_name": "包装材料",
+          "matched_descendant_context": "PET饮料瓶：包装水、碳酸饮料和茶饮常用塑料瓶容器。"
+        },
+        {
+          "source_node_id": "food_beverage_006_028",
+          "source_node_name": "包装材料",
+          "matched_descendant_context": "铝制两片罐：啤酒和碳酸饮料高频使用的金属包装。"
+        }
+      ],
       "selection_reasons": [
-        "food_beverage_006_028:global_similarity"
+        "food_beverage_002_002:role_upstream",
+        "food_beverage_006_028:role_midstream"
       ]
     },
     {
@@ -1873,50 +2025,67 @@
       "node_b_name": "保健食品制造",
       "node_a_branch": "酒类制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.135857,
+      "score": 0.101196,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_005_011:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_a6b2822eb420f3ae",
-      "node_a_id": "food_beverage_004_001",
-      "node_b_id": "food_beverage_005_005",
-      "node_a_name": "休闲食品制造",
-      "node_b_name": "肉制品加工",
-      "node_a_branch": "休闲食品与烘焙制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.157851,
+      "pair_id": "p_a72d67ccd7c842e9",
+      "node_a_id": "food_beverage_001_008",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "黄酒",
+      "node_b_name": "包装材料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.09108,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_004_001:global_similarity",
-        "food_beverage_005_005:global_similarity"
+        "food_beverage_001_008:role_upstream"
       ]
     },
     {
-      "pair_id": "p_a8a121c17fdb2df8",
-      "node_a_id": "food_beverage_002_002",
-      "node_b_id": "food_beverage_005_005",
-      "node_a_name": "碳酸饮料",
-      "node_b_name": "肉制品加工",
+      "pair_id": "p_a96ff2a84a115c06",
+      "node_a_id": "food_beverage_005_008",
+      "node_b_id": "food_beverage_007_009",
+      "node_a_name": "预制菜与餐食加工",
+      "node_b_name": "终端消费场景",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.16146,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_008:role_downstream",
+        "food_beverage_007_009:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_a9b484388eecc591",
+      "node_a_id": "food_beverage_002_003",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "茶饮料",
+      "node_b_name": "传统流通渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.157111,
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.110483,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_005:global_similarity"
+        "food_beverage_002_003:role_downstream"
       ]
     },
     {
-      "pair_id": "p_ab5e4512e17e44f7",
-      "node_a_id": "food_beverage_004_004",
-      "node_b_id": "food_beverage_005_007",
-      "node_a_name": "烘焙食品制造",
-      "node_b_name": "方便食品制造",
+      "pair_id": "p_ac57d4d56c21f8c2",
+      "node_a_id": "food_beverage_004_001",
+      "node_b_id": "food_beverage_007_005",
+      "node_a_name": "休闲食品制造",
+      "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "休闲食品与烘焙制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.206322,
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.091859,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_004_004:global_similarity",
-        "food_beverage_005_007:global_similarity"
+        "food_beverage_004_001:role_downstream"
       ]
     },
     {
@@ -1927,9 +2096,10 @@
       "node_b_name": "线下现代渠道",
       "node_a_branch": "食品原料、辅料与包材供应链",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.096747,
+      "score": 0.075177,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_001:branch_diversity"
+        "food_beverage_007_001:role_upstream"
       ]
     },
     {
@@ -1940,10 +2110,10 @@
       "node_b_name": "果汁与果蔬饮料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.218218,
+      "score": 0.181848,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_009:global_similarity",
-        "food_beverage_002_005:global_similarity"
+        "food_beverage_002_005:branch_diversity"
       ]
     },
     {
@@ -1954,9 +2124,24 @@
       "node_b_name": "保健食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.154662,
+      "score": 0.095437,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_003:global_similarity"
+        "food_beverage_002_003:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_b17c59d989edbe39",
+      "node_a_id": "food_beverage_005_008",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "预制菜与餐食加工",
+      "node_b_name": "包装材料",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.072955,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_008:role_upstream"
       ]
     },
     {
@@ -1967,10 +2152,11 @@
       "node_b_name": "速冻食品制造",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.189064,
+      "score": 0.117297,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_004_001:global_similarity",
-        "food_beverage_005_001:global_similarity"
+        "food_beverage_004_001:branch_diversity",
+        "food_beverage_005_001:branch_diversity"
       ]
     },
     {
@@ -1981,10 +2167,10 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.131433,
+      "score": 0.121211,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_007:branch_diversity",
-        "food_beverage_007_005:score_fill"
+        "food_beverage_002_007:role_downstream"
       ]
     },
     {
@@ -1995,10 +2181,10 @@
       "node_b_name": "复合调味料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.163785,
+      "score": 0.092962,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_005:global_similarity",
-        "food_beverage_003_002:global_similarity"
+        "food_beverage_002_005:branch_diversity"
       ]
     },
     {
@@ -2009,9 +2195,24 @@
       "node_b_name": "乳制品制造",
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.16461,
+      "score": 0.108469,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_002_012:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_b385b529fceb3ce6",
+      "node_a_id": "food_beverage_003_011",
+      "node_b_id": "food_beverage_007_006",
+      "node_a_name": "基础调味品",
+      "node_b_name": "线上电商渠道",
+      "node_a_branch": "调味发酵品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.081492,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_007_006:branch_diversity"
       ]
     },
     {
@@ -2022,10 +2223,11 @@
       "node_b_name": "速冻食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.166039,
+      "score": 0.121839,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_002:global_similarity",
-        "food_beverage_005_001:global_similarity"
+        "food_beverage_002_002:branch_diversity",
+        "food_beverage_005_001:branch_diversity"
       ]
     },
     {
@@ -2036,9 +2238,11 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "食品原料、辅料与包材供应链",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.061019,
+      "score": 0.078987,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_017:branch_diversity"
+        "food_beverage_006_017:role_downstream",
+        "food_beverage_007_005:role_upstream"
       ]
     },
     {
@@ -2049,49 +2253,10 @@
       "node_b_name": "复合调味料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.135896,
+      "score": 0.109388,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_017:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_b675803b307dd4c7",
-      "node_a_id": "food_beverage_002_012",
-      "node_b_id": "food_beverage_005_005",
-      "node_a_name": "乳制品制造",
-      "node_b_name": "肉制品加工",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.162564,
-      "selection_reasons": [
-        "food_beverage_005_005:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_b6f1f9ae3de260b5",
-      "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_002_002",
-      "node_a_name": "葡萄酒",
-      "node_b_name": "碳酸饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.163039,
-      "selection_reasons": [
-        "food_beverage_001_007:global_similarity",
-        "food_beverage_002_002:score_fill"
-      ]
-    },
-    {
-      "pair_id": "p_b751bf9b3442707c",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "即饮咖啡",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.159028,
-      "selection_reasons": [
-        "food_beverage_002_017:global_similarity"
+        "deterministic_negative_audit"
       ]
     },
     {
@@ -2102,35 +2267,53 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.120796,
+      "score": 0.102734,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_011:branch_diversity"
+        "food_beverage_005_011:role_downstream"
       ]
     },
     {
-      "pair_id": "p_b9cdb85aa98c5440",
-      "node_a_id": "food_beverage_001_001",
-      "node_b_id": "food_beverage_002_011",
-      "node_a_name": "白酒",
-      "node_b_name": "含乳饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.140028,
-      "selection_reasons": [
-        "food_beverage_001_001:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_ba3e0185214285cd",
-      "node_a_id": "food_beverage_002_002",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "碳酸饮料",
-      "node_b_name": "烘焙食品制造",
+      "pair_id": "p_bafdad3ec466af17",
+      "node_a_id": "food_beverage_002_009",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "植物蛋白饮料",
+      "node_b_name": "包装材料",
       "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.170527,
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.099391,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_002:global_similarity"
+        "food_beverage_002_009:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_bb52ce0ee1171e39",
+      "node_a_id": "food_beverage_001_008",
+      "node_b_id": "food_beverage_004_001",
+      "node_a_name": "黄酒",
+      "node_b_name": "休闲食品制造",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "休闲食品与烘焙制造",
+      "score": 0.123708,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_008:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_bb61e72879c8026a",
+      "node_a_id": "food_beverage_006_001",
+      "node_b_id": "food_beverage_007_009",
+      "node_a_name": "农产品原料",
+      "node_b_name": "终端消费场景",
+      "node_a_branch": "食品原料、辅料与包材供应链",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.089935,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_006_001:role_downstream",
+        "food_beverage_007_009:role_upstream"
       ]
     },
     {
@@ -2141,9 +2324,10 @@
       "node_b_name": "食品添加剂与配料",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.086625,
+      "score": 0.086561,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_017:branch_diversity"
+        "food_beverage_003_002:role_upstream"
       ]
     },
     {
@@ -2154,9 +2338,35 @@
       "node_b_name": "线上电商渠道",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.12476,
+      "score": 0.103819,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_006:global_similarity"
+        "food_beverage_007_006:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_bcb5fae173f9a44b",
+      "node_a_id": "food_beverage_001_002",
+      "node_b_id": "food_beverage_006_001",
+      "node_a_name": "啤酒",
+      "node_b_name": "农产品原料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 2.083307,
+      "recall_evidence": [
+        {
+          "source_node_id": "food_beverage_006_001",
+          "source_node_name": "农产品原料",
+          "matched_descendant_context": "粮食作物：小麦、水稻、玉米、高粱等粮食作物，是烘焙、方便食品、白酒、啤酒和淀粉糖的重要基础原料。"
+        },
+        {
+          "source_node_id": "food_beverage_006_001",
+          "source_node_name": "农产品原料",
+          "matched_descendant_context": "酿造用高粱与大麦：白酒和啤酒的重要酿造粮食原料。"
+        }
+      ],
+      "selection_reasons": [
+        "food_beverage_001_002:role_upstream"
       ]
     },
     {
@@ -2167,10 +2377,10 @@
       "node_b_name": "方便食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.17717,
+      "score": 0.089006,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_012:global_similarity",
-        "food_beverage_005_007:global_similarity"
+        "deterministic_negative_audit"
       ]
     },
     {
@@ -2181,9 +2391,10 @@
       "node_b_name": "复合调味料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.144487,
+      "score": 0.091382,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_001:branch_diversity"
+        "deterministic_negative_audit"
       ]
     },
     {
@@ -2194,35 +2405,38 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.12581,
+      "score": 0.113175,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_005:branch_diversity"
+        "food_beverage_002_005:role_downstream"
       ]
     },
     {
-      "pair_id": "p_bfea8ff445f6ef25",
-      "node_a_id": "food_beverage_002_007",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "功能饮料",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.159689,
-      "selection_reasons": [
-        "food_beverage_002_007:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_c08b8b0d3c0a1c77",
+      "pair_id": "p_c19d2959df2d0439",
       "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_002_011",
+      "node_b_id": "food_beverage_005_005",
       "node_a_name": "葡萄酒",
-      "node_b_name": "含乳饮料",
+      "node_b_name": "肉制品加工",
       "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.14927,
+      "node_b_branch": "肉制品与预制便捷食品制造",
+      "score": 0.100366,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_011:score_fill"
+        "food_beverage_005_005:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_c480628a28b32e44",
+      "node_a_id": "food_beverage_002_011",
+      "node_b_id": "food_beverage_007_009",
+      "node_a_name": "含乳饮料",
+      "node_b_name": "终端消费场景",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.116489,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_007_009:role_midstream"
       ]
     },
     {
@@ -2233,22 +2447,45 @@
       "node_b_name": "烘焙食品制造",
       "node_a_branch": "酒类制造",
       "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.144068,
+      "score": 0.096469,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_007:branch_diversity"
+        "food_beverage_004_004:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_c99aad64e5207c5d",
-      "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_002_003",
-      "node_a_name": "葡萄酒",
-      "node_b_name": "茶饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.147122,
+      "pair_id": "p_c56335c0345533bc",
+      "node_a_id": "food_beverage_002_011",
+      "node_b_id": "food_beverage_006_001",
+      "node_a_name": "含乳饮料",
+      "node_b_name": "农产品原料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 2.125077,
+      "recall_evidence": [
+        {
+          "source_node_id": "food_beverage_006_001",
+          "source_node_name": "农产品原料",
+          "matched_descendant_context": "乳品原料：生鲜乳及乳源原料，支撑液态奶、发酵乳、奶粉和含乳饮料。"
+        }
+      ],
       "selection_reasons": [
-        "food_beverage_002_003:score_fill"
+        "food_beverage_002_011:role_upstream",
+        "food_beverage_006_001:role_midstream"
+      ]
+    },
+    {
+      "pair_id": "p_ca819392d9f16f7a",
+      "node_a_id": "food_beverage_001_007",
+      "node_b_id": "food_beverage_005_007",
+      "node_a_name": "葡萄酒",
+      "node_b_name": "方便食品制造",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "肉制品与预制便捷食品制造",
+      "score": 0.107044,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_007:branch_diversity"
       ]
     },
     {
@@ -2259,9 +2496,24 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.124996,
+      "score": 0.085862,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_007:branch_diversity",
+        "food_beverage_001_007:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_cbc244190c71fbd4",
+      "node_a_id": "food_beverage_004_001",
+      "node_b_id": "food_beverage_006_001",
+      "node_a_name": "休闲食品制造",
+      "node_b_name": "农产品原料",
+      "node_a_branch": "休闲食品与烘焙制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.117336,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_004_001:role_upstream",
         "food_beverage_006_001:branch_diversity"
       ]
     },
@@ -2273,9 +2525,10 @@
       "node_b_name": "包装材料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.131019,
+      "score": 0.10588,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_028:global_similarity"
+        "food_beverage_002_005:role_upstream"
       ]
     },
     {
@@ -2286,7 +2539,8 @@
       "node_b_name": "冷链物流与仓储",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.11333,
+      "score": 0.087398,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_007_013:branch_diversity"
       ]
@@ -2299,8 +2553,10 @@
       "node_b_name": "传统流通渠道",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.121494,
+      "score": 0.102225,
+      "recall_evidence": [],
       "selection_reasons": [
+        "food_beverage_004_004:role_downstream",
         "food_beverage_007_004:branch_diversity"
       ]
     },
@@ -2312,22 +2568,24 @@
       "node_b_name": "包装材料",
       "node_a_branch": "调味发酵品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.126556,
+      "score": 0.080055,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_028:branch_diversity"
+        "food_beverage_003_002:role_upstream"
       ]
     },
     {
-      "pair_id": "p_cfe4893075be2e28",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_007_013",
-      "node_a_name": "复合调味料",
-      "node_b_name": "冷链物流与仓储",
-      "node_a_branch": "调味发酵品制造",
+      "pair_id": "p_cf9388fc94240b94",
+      "node_a_id": "food_beverage_001_007",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "葡萄酒",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "酒类制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.106136,
+      "score": 0.12519,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_013:branch_diversity"
+        "food_beverage_001_007:role_downstream"
       ]
     },
     {
@@ -2338,35 +2596,38 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.124819,
+      "score": 0.104902,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_005:branch_diversity"
+        "food_beverage_005_001:role_downstream"
       ]
     },
     {
-      "pair_id": "p_d108e811971a7e61",
-      "node_a_id": "food_beverage_002_012",
-      "node_b_id": "food_beverage_003_011",
-      "node_a_name": "乳制品制造",
-      "node_b_name": "基础调味品",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.140077,
+      "pair_id": "p_d0dd2234a4a1aeab",
+      "node_a_id": "food_beverage_005_008",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "预制菜与餐食加工",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.117608,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_011:score_fill"
+        "food_beverage_007_004:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_d27a060e96581f2f",
-      "node_a_id": "food_beverage_003_001",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "发酵调味品",
-      "node_b_name": "速冻食品制造",
+      "pair_id": "p_d23494a134fc37ec",
+      "node_a_id": "food_beverage_003_011",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "基础调味品",
+      "node_b_name": "食品添加剂与配料",
       "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.148329,
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.085803,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_003_001:global_similarity"
+        "food_beverage_003_011:role_upstream"
       ]
     },
     {
@@ -2377,35 +2638,54 @@
       "node_b_name": "食品添加剂与配料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.092291,
+      "score": 0.105625,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_017:global_similarity"
+        "food_beverage_001_009:role_upstream",
+        "food_beverage_006_017:branch_diversity"
       ]
     },
     {
-      "pair_id": "p_d380860102b78bac",
-      "node_a_id": "food_beverage_002_007",
-      "node_b_id": "food_beverage_007_001",
-      "node_a_name": "功能饮料",
-      "node_b_name": "线下现代渠道",
+      "pair_id": "p_d56538fa977bfd63",
+      "node_a_id": "food_beverage_005_008",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "预制菜与餐食加工",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "肉制品与预制便捷食品制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.067452,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_005_008:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_d76826b219063dd0",
+      "node_a_id": "food_beverage_001_002",
+      "node_b_id": "food_beverage_003_001",
+      "node_a_name": "啤酒",
+      "node_b_name": "发酵调味品",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "调味发酵品制造",
+      "score": 0.081842,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_002:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_d91ecdecd425b466",
+      "node_a_id": "food_beverage_002_017",
+      "node_b_id": "food_beverage_003_001",
+      "node_a_name": "即饮咖啡",
+      "node_b_name": "发酵调味品",
       "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.116111,
+      "node_b_branch": "调味发酵品制造",
+      "score": 0.11399,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_001:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_d3afc1273833fb08",
-      "node_a_id": "food_beverage_004_004",
-      "node_b_id": "food_beverage_005_008",
-      "node_a_name": "烘焙食品制造",
-      "node_b_name": "预制菜与餐食加工",
-      "node_a_branch": "休闲食品与烘焙制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.169006,
-      "selection_reasons": [
-        "food_beverage_005_008:global_similarity"
+        "food_beverage_002_017:branch_diversity",
+        "food_beverage_003_001:branch_diversity"
       ]
     },
     {
@@ -2416,10 +2696,11 @@
       "node_b_name": "冷链物流与仓储",
       "node_a_branch": "食品原料、辅料与包材供应链",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.147769,
+      "score": 0.089208,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_028:global_similarity",
-        "food_beverage_007_013:global_similarity"
+        "food_beverage_006_028:role_downstream",
+        "food_beverage_007_013:role_upstream"
       ]
     },
     {
@@ -2430,10 +2711,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.138697,
+      "score": 0.103606,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_017:branch_diversity",
-        "food_beverage_006_001:global_similarity"
+        "food_beverage_002_017:role_upstream"
       ]
     },
     {
@@ -2445,8 +2726,9 @@
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
       "score": 0.18545,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_017:global_similarity"
+        "food_beverage_002_017:branch_diversity"
       ]
     },
     {
@@ -2457,9 +2739,10 @@
       "node_b_name": "植物蛋白饮料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.20367,
+      "score": 0.180021,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_009:global_similarity"
+        "food_beverage_002_009:branch_diversity"
       ]
     },
     {
@@ -2470,37 +2753,10 @@
       "node_b_name": "复合调味料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "调味发酵品制造",
-      "score": 0.1624,
+      "score": 0.089818,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_007:global_similarity",
-        "food_beverage_003_002:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_df87d6d943fb24a5",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "复合调味料",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.161644,
-      "selection_reasons": [
-        "food_beverage_003_002:branch_diversity",
-        "food_beverage_005_001:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_dfa945369b8ab7c4",
-      "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_002_007",
-      "node_a_name": "葡萄酒",
-      "node_b_name": "功能饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.152676,
-      "selection_reasons": [
-        "food_beverage_002_007:score_fill"
+        "food_beverage_002_007:branch_diversity"
       ]
     },
     {
@@ -2511,22 +2767,25 @@
       "node_b_name": "终端消费场景",
       "node_a_branch": "食品原料、辅料与包材供应链",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.099654,
+      "score": 0.091695,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_009:branch_diversity"
+        "food_beverage_006_028:role_downstream",
+        "food_beverage_007_009:role_upstream"
       ]
     },
     {
-      "pair_id": "p_e36e235eb3fe5765",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_005_007",
-      "node_a_name": "复合调味料",
-      "node_b_name": "方便食品制造",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.135769,
+      "pair_id": "p_e2bc85b3340a63ae",
+      "node_a_id": "food_beverage_002_002",
+      "node_b_id": "food_beverage_004_001",
+      "node_a_name": "碳酸饮料",
+      "node_b_name": "休闲食品制造",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "休闲食品与烘焙制造",
+      "score": 0.101339,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_007:branch_diversity"
+        "food_beverage_004_001:branch_diversity"
       ]
     },
     {
@@ -2537,9 +2796,66 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.128471,
+      "score": 0.115006,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_003:branch_diversity"
+        "food_beverage_002_003:role_downstream"
+      ]
+    },
+    {
+      "pair_id": "p_e3ea87464a7f54aa",
+      "node_a_id": "food_beverage_004_001",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "休闲食品制造",
+      "node_b_name": "包装材料",
+      "node_a_branch": "休闲食品与烘焙制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.071598,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_004_001:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_e4811156c140b3fd",
+      "node_a_id": "food_beverage_001_001",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "白酒",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.085687,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_001:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_e4bd4f4a318e2e6e",
+      "node_a_id": "food_beverage_001_009",
+      "node_b_id": "food_beverage_006_001",
+      "node_a_name": "预调酒",
+      "node_b_name": "农产品原料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.072941,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_009:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_e4f65f6fb7a0427e",
+      "node_a_id": "food_beverage_001_001",
+      "node_b_id": "food_beverage_006_028",
+      "node_a_name": "白酒",
+      "node_b_name": "包装材料",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.089116,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_001:role_upstream"
       ]
     },
     {
@@ -2550,22 +2866,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.102486,
+      "score": 0.127179,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_012:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_e77b6d625e750792",
-      "node_a_id": "food_beverage_002_007",
-      "node_b_id": "food_beverage_005_001",
-      "node_a_name": "功能饮料",
-      "node_b_name": "速冻食品制造",
-      "node_a_branch": "乳品与非酒精饮料制造",
-      "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.155486,
-      "selection_reasons": [
-        "food_beverage_002_007:score_fill"
+        "food_beverage_002_012:role_upstream"
       ]
     },
     {
@@ -2576,9 +2880,11 @@
       "node_b_name": "烘焙食品制造",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.154991,
+      "score": 0.111503,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_001:global_similarity"
+        "food_beverage_002_001:branch_diversity",
+        "food_beverage_004_004:branch_diversity"
       ]
     },
     {
@@ -2589,9 +2895,10 @@
       "node_b_name": "线上电商渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.128597,
+      "score": 0.106581,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_006:global_similarity"
+        "food_beverage_007_006:role_midstream"
       ]
     },
     {
@@ -2602,36 +2909,10 @@
       "node_b_name": "预制菜与餐食加工",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.149002,
+      "score": 0.123725,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_001:score_fill",
-        "food_beverage_005_008:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_eb34e6aa2dbc4200",
-      "node_a_id": "food_beverage_001_008",
-      "node_b_id": "food_beverage_002_009",
-      "node_a_name": "黄酒",
-      "node_b_name": "植物蛋白饮料",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.140028,
-      "selection_reasons": [
-        "food_beverage_002_009:score_fill"
-      ]
-    },
-    {
-      "pair_id": "p_ec6a88e4927763c4",
-      "node_a_id": "food_beverage_001_009",
-      "node_b_id": "food_beverage_004_001",
-      "node_a_name": "预调酒",
-      "node_b_name": "休闲食品制造",
-      "node_a_branch": "酒类制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.122952,
-      "selection_reasons": [
-        "food_beverage_004_001:branch_diversity"
+        "food_beverage_005_008:branch_diversity"
       ]
     },
     {
@@ -2642,9 +2923,24 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.115984,
+      "score": 0.09348,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_012:branch_diversity"
+        "food_beverage_002_012:role_downstream"
+      ]
+    },
+    {
+      "pair_id": "p_ee3585825588bfb4",
+      "node_a_id": "food_beverage_001_002",
+      "node_b_id": "food_beverage_005_008",
+      "node_a_name": "啤酒",
+      "node_b_name": "预制菜与餐食加工",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "肉制品与预制便捷食品制造",
+      "score": 0.086763,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_002:branch_diversity"
       ]
     },
     {
@@ -2655,9 +2951,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.123348,
+      "score": 0.080689,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_001:branch_diversity"
+        "food_beverage_002_001:role_upstream"
       ]
     },
     {
@@ -2668,8 +2965,10 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.126841,
+      "score": 0.106131,
+      "recall_evidence": [],
       "selection_reasons": [
+        "food_beverage_004_004:role_downstream",
         "food_beverage_007_005:branch_diversity"
       ]
     },
@@ -2681,22 +2980,24 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.118079,
+      "score": 0.101903,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_007:branch_diversity"
+        "food_beverage_005_007:role_downstream"
       ]
     },
     {
-      "pair_id": "p_f35aaf80498fbc84",
-      "node_a_id": "food_beverage_001_009",
-      "node_b_id": "food_beverage_003_002",
-      "node_a_name": "预调酒",
-      "node_b_name": "复合调味料",
+      "pair_id": "p_f37670efcc6852a5",
+      "node_a_id": "food_beverage_001_001",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "白酒",
+      "node_b_name": "传统流通渠道",
       "node_a_branch": "酒类制造",
-      "node_b_branch": "调味发酵品制造",
-      "score": 0.137464,
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.120535,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_009:branch_diversity"
+        "food_beverage_001_001:role_downstream"
       ]
     },
     {
@@ -2707,10 +3008,10 @@
       "node_b_name": "茶饮料",
       "node_a_branch": "酒类制造",
       "node_b_branch": "乳品与非酒精饮料制造",
-      "score": 0.210819,
+      "score": 0.174646,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_001_009:global_similarity",
-        "food_beverage_002_003:global_similarity"
+        "food_beverage_002_003:branch_diversity"
       ]
     },
     {
@@ -2721,9 +3022,25 @@
       "node_b_name": "包装材料",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.099975,
+      "score": 0.074281,
+      "recall_evidence": [],
       "selection_reasons": [
+        "food_beverage_005_001:role_upstream",
         "food_beverage_006_028:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_f5ec11abb5ba9bff",
+      "node_a_id": "food_beverage_004_001",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "休闲食品制造",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "休闲食品与烘焙制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.08941,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_004_001:role_upstream"
       ]
     },
     {
@@ -2734,9 +3051,25 @@
       "node_b_name": "传统流通渠道",
       "node_a_branch": "食品原料、辅料与包材供应链",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.103575,
+      "score": 0.079561,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_007_004:branch_diversity"
+        "food_beverage_007_004:role_upstream"
+      ]
+    },
+    {
+      "pair_id": "p_f6a787646fc0aeaa",
+      "node_a_id": "food_beverage_002_005",
+      "node_b_id": "food_beverage_006_017",
+      "node_a_name": "果汁与果蔬饮料",
+      "node_b_name": "食品添加剂与配料",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品原料、辅料与包材供应链",
+      "score": 0.117975,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_005:role_upstream",
+        "food_beverage_006_017:role_midstream"
       ]
     },
     {
@@ -2747,23 +3080,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.104153,
+      "score": 0.101824,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_007:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_f6ef591f9c8e64a0",
-      "node_a_id": "food_beverage_003_002",
-      "node_b_id": "food_beverage_004_004",
-      "node_a_name": "复合调味料",
-      "node_b_name": "烘焙食品制造",
-      "node_a_branch": "调味发酵品制造",
-      "node_b_branch": "休闲食品与烘焙制造",
-      "score": 0.153243,
-      "selection_reasons": [
-        "food_beverage_003_002:branch_diversity",
-        "food_beverage_004_004:branch_diversity"
+        "food_beverage_005_007:role_upstream"
       ]
     },
     {
@@ -2774,9 +3094,11 @@
       "node_b_name": "肉制品加工",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "肉制品与预制便捷食品制造",
-      "score": 0.176692,
+      "score": 0.121467,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_005:global_similarity"
+        "food_beverage_004_004:branch_diversity",
+        "food_beverage_005_005:branch_diversity"
       ]
     },
     {
@@ -2787,36 +3109,38 @@
       "node_b_name": "餐饮与团餐渠道",
       "node_a_branch": "肉制品与预制便捷食品制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.120796,
+      "score": 0.108398,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_005_005:branch_diversity"
+        "food_beverage_005_005:role_downstream"
       ]
     },
     {
-      "pair_id": "p_fa60480bcfacdd27",
-      "node_a_id": "food_beverage_004_004",
-      "node_b_id": "food_beverage_007_009",
-      "node_a_name": "烘焙食品制造",
-      "node_b_name": "终端消费场景",
-      "node_a_branch": "休闲食品与烘焙制造",
-      "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.129514,
-      "selection_reasons": [
-        "food_beverage_004_004:branch_diversity",
-        "food_beverage_007_009:global_similarity"
-      ]
-    },
-    {
-      "pair_id": "p_fc9147308078fd8e",
-      "node_a_id": "food_beverage_006_001",
+      "pair_id": "p_fb6310ac435c5d7c",
+      "node_a_id": "food_beverage_001_008",
       "node_b_id": "food_beverage_007_005",
-      "node_a_name": "农产品原料",
+      "node_a_name": "黄酒",
       "node_b_name": "餐饮与团餐渠道",
+      "node_a_branch": "酒类制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.129616,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_001_008:role_downstream"
+      ]
+    },
+    {
+      "pair_id": "p_fb7ee7694bd3012b",
+      "node_a_id": "food_beverage_006_017",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "食品添加剂与配料",
+      "node_b_name": "传统流通渠道",
       "node_a_branch": "食品原料、辅料与包材供应链",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.107144,
+      "score": 0.07697,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_006_001:branch_diversity"
+        "food_beverage_007_004:role_upstream"
       ]
     },
     {
@@ -2827,9 +3151,24 @@
       "node_b_name": "线上电商渠道",
       "node_a_branch": "休闲食品与烘焙制造",
       "node_b_branch": "食品饮料流通与消费渠道",
-      "score": 0.119451,
+      "score": 0.086522,
+      "recall_evidence": [],
       "selection_reasons": [
         "food_beverage_007_006:branch_diversity"
+      ]
+    },
+    {
+      "pair_id": "p_fdd34603f58406ec",
+      "node_a_id": "food_beverage_002_017",
+      "node_b_id": "food_beverage_007_004",
+      "node_a_name": "即饮咖啡",
+      "node_b_name": "传统流通渠道",
+      "node_a_branch": "乳品与非酒精饮料制造",
+      "node_b_branch": "食品饮料流通与消费渠道",
+      "score": 0.119165,
+      "recall_evidence": [],
+      "selection_reasons": [
+        "food_beverage_002_017:role_downstream"
       ]
     },
     {
@@ -2840,10 +3179,10 @@
       "node_b_name": "农产品原料",
       "node_a_branch": "乳品与非酒精饮料制造",
       "node_b_branch": "食品原料、辅料与包材供应链",
-      "score": 0.150504,
+      "score": 0.113078,
+      "recall_evidence": [],
       "selection_reasons": [
-        "food_beverage_002_005:global_similarity",
-        "food_beverage_006_001:global_similarity"
+        "food_beverage_002_005:role_upstream"
       ]
     }
   ]
