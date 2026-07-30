@@ -1,8 +1,8 @@
 {
   "schema_version": "industry_company_attachments_v0.2",
   "industry_id": "food_beverage",
-  "generated_at": "2026-07-28T15:47:58+00:00",
-  "graph_fingerprint": "1351864364279f99d180db089948bbdd504515f3d26f2d7952b21b6f6a513f57",
+  "generated_at": "2026-07-30T12:50:39+00:00",
+  "graph_fingerprint": "5a74824237d19d84c32293acd3d06a2bb19e5dc511cc510822370d3705ca7fc5",
   "candidate_source": {
     "path": "data/company_candidates/申万全量分类结果.csv",
     "sha256": "83c51fdb285db60e7a9cb0c8b252b3dff6f7e703dc5e869d5030b4a62ebe29a3",
@@ -22475,8 +22475,8 @@
     },
     {
       "company_id": "sw_776548",
-      "node_id": "food_beverage_006_036",
-      "reason": "主营无菌纸基复合包装，用于乳品饮料",
+      "node_id": "food_beverage_006_035",
+      "reason": "主营无菌纸基复合包装，用于乳品饮料（原节点 food_beverage_006_036 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -22498,8 +22498,8 @@
     },
     {
       "company_id": "sw_3325718",
-      "node_id": "food_beverage_006_036",
-      "reason": "主营无菌纸基复合包装，是乳品及饮料核心包材。",
+      "node_id": "food_beverage_006_035",
+      "reason": "主营无菌纸基复合包装，是乳品及饮料核心包材。（原节点 food_beverage_006_036 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -22953,8 +22953,8 @@
     },
     {
       "company_id": "sw_2171877",
-      "node_id": "food_beverage_006_033",
-      "reason": "主营易拉盖等金属包装，用于食品饮料罐装",
+      "node_id": "food_beverage_006_032",
+      "reason": "主营易拉盖等金属包装，用于食品饮料罐装（原节点 food_beverage_006_033 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -23466,8 +23466,8 @@
     },
     {
       "company_id": "sw_1703057",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶提取物，为即饮茶提供核心原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶提取物，为即饮茶提供核心原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -23557,8 +23557,8 @@
     },
     {
       "company_id": "sw_1069571",
-      "node_id": "food_beverage_002_010",
-      "reason": "主营豆制品加工，核心产品豆奶属于植物蛋白饮料",
+      "node_id": "food_beverage_002_009",
+      "reason": "主营豆制品加工，核心产品豆奶属于植物蛋白饮料（原节点 food_beverage_002_010 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -23690,8 +23690,8 @@
     },
     {
       "company_id": "sw_4580063",
-      "node_id": "food_beverage_006_006",
-      "reason": "主营大豆蛋白及豆粕加工，属于油料作物深加工原料",
+      "node_id": "food_beverage_006_005",
+      "reason": "主营大豆蛋白及豆粕加工，属于油料作物深加工原料（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
@@ -23711,8 +23711,8 @@
     },
     {
       "company_id": "sw_285833",
-      "node_id": "food_beverage_006_027",
-      "reason": "全球酵母龙头，主营烘焙酵母及衍生品",
+      "node_id": "food_beverage_006_026",
+      "reason": "全球酵母龙头，主营烘焙酵母及衍生品（原节点 food_beverage_006_027 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -23816,8 +23816,8 @@
     },
     {
       "company_id": "sw_295576",
-      "node_id": "food_beverage_006_014",
-      "reason": "主营浓缩果汁生产，属果蔬汁原料加工",
+      "node_id": "food_beverage_006_013",
+      "reason": "主营浓缩果汁生产，属果蔬汁原料加工（原节点 food_beverage_006_014 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -24110,8 +24110,8 @@
     },
     {
       "company_id": "sw_869072",
-      "node_id": "food_beverage_006_006",
-      "reason": "主营大豆蛋白及膳食纤维，属于大豆加工副产品",
+      "node_id": "food_beverage_006_005",
+      "reason": "主营大豆蛋白及膳食纤维，属于大豆加工副产品（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -24334,8 +24334,8 @@
     },
     {
       "company_id": "sw_4511724",
-      "node_id": "food_beverage_004_012",
-      "reason": "主营涂层蛋糕等中长保烘焙食品制造",
+      "node_id": "food_beverage_004_006",
+      "reason": "主营涂层蛋糕等中长保烘焙食品制造（原节点 food_beverage_004_012 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -24530,8 +24530,8 @@
     },
     {
       "company_id": "sw_2175983",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶萃取及茶原料，支撑茶饮上游",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶萃取及茶原料，支撑茶饮上游（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
@@ -24747,8 +24747,8 @@
     },
     {
       "company_id": "sw_2247980",
-      "node_id": "food_beverage_003_008",
-      "reason": "主营火锅底料及复合调味料，属于中式复调",
+      "node_id": "food_beverage_003_007",
+      "reason": "主营火锅底料及复合调味料，属于中式复调（原节点 food_beverage_003_008 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -24775,8 +24775,8 @@
     },
     {
       "company_id": "sw_2548858",
-      "node_id": "food_beverage_006_008",
-      "reason": "主营白砂糖及糖浆，属于糖料作物加工品",
+      "node_id": "food_beverage_006_007",
+      "reason": "主营白砂糖及糖浆，属于糖料作物加工品（原节点 food_beverage_006_008 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -24817,8 +24817,8 @@
     },
     {
       "company_id": "sw_4139142",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶加工，属于茶饮上游植物原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶加工，属于茶饮上游植物原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
@@ -24845,8 +24845,8 @@
     },
     {
       "company_id": "sw_521122",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶种植加工，提供茶饮原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶种植加工，提供茶饮原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -24908,8 +24908,8 @@
     },
     {
       "company_id": "sw_863115",
-      "node_id": "food_beverage_004_011",
-      "reason": "主营短保面包及烘焙食品制造",
+      "node_id": "food_beverage_004_005",
+      "reason": "主营短保面包及烘焙食品制造（原节点 food_beverage_004_011 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -25020,8 +25020,8 @@
     },
     {
       "company_id": "sw_2388747",
-      "node_id": "food_beverage_002_008",
-      "reason": "主营电解质水及功能饮料产品",
+      "node_id": "food_beverage_002_007",
+      "reason": "主营电解质水及功能饮料产品（原节点 food_beverage_002_008 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -25083,15 +25083,15 @@
     },
     {
       "company_id": "sw_2347304",
-      "node_id": "food_beverage_006_014",
-      "reason": "主营果蔬加工，提供果汁及浓缩液原料",
+      "node_id": "food_beverage_006_013",
+      "reason": "主营果蔬加工，提供果汁及浓缩液原料（原节点 food_beverage_006_014 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_1689859",
-      "node_id": "food_beverage_006_008",
-      "reason": "糖业集团，提供白砂糖等甜味基础原料",
+      "node_id": "food_beverage_006_007",
+      "reason": "糖业集团，提供白砂糖等甜味基础原料（原节点 food_beverage_006_008 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -25223,8 +25223,8 @@
     },
     {
       "company_id": "sw_2312154",
-      "node_id": "food_beverage_006_008",
-      "reason": "主营糖业，提供白砂糖与糖浆原料",
+      "node_id": "food_beverage_006_007",
+      "reason": "主营糖业，提供白砂糖与糖浆原料（原节点 food_beverage_006_008 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -25314,15 +25314,15 @@
     },
     {
       "company_id": "sw_2843466",
-      "node_id": "food_beverage_006_006",
-      "reason": "主营大豆深加工，生产大豆蛋白及豆粕",
+      "node_id": "food_beverage_006_005",
+      "reason": "主营大豆深加工，生产大豆蛋白及豆粕（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_2552636",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营生鲜乳采集与供应，是乳品上游原料",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营生鲜乳采集与供应，是乳品上游原料（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -25440,8 +25440,8 @@
     },
     {
       "company_id": "sw_1731228",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶加工，提供茶饮萃取原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶加工，提供茶饮萃取原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -25475,8 +25475,8 @@
     },
     {
       "company_id": "sw_2789981",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶种植与加工，提供茶原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶种植与加工，提供茶原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -25531,8 +25531,8 @@
     },
     {
       "company_id": "sw_330469",
-      "node_id": "food_beverage_006_014",
-      "reason": "主营浓缩苹果汁，为果蔬饮料提供核心原料",
+      "node_id": "food_beverage_006_013",
+      "reason": "主营浓缩苹果汁，为果蔬饮料提供核心原料（原节点 food_beverage_006_014 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -25741,8 +25741,8 @@
     },
     {
       "company_id": "sw_2882390",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营蛋液等蛋制品，属乳品及烘焙上游原料",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营蛋液等蛋制品，属乳品及烘焙上游原料（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
@@ -25755,8 +25755,8 @@
     },
     {
       "company_id": "sw_2818205",
-      "node_id": "food_beverage_003_008",
-      "reason": "核心产品为火锅底料及中式复合调味料",
+      "node_id": "food_beverage_003_007",
+      "reason": "核心产品为火锅底料及中式复合调味料（原节点 food_beverage_003_008 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -26091,8 +26091,8 @@
     },
     {
       "company_id": "sw_2844778",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶业，提供茶叶萃取及饮品原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶业，提供茶叶萃取及饮品原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
@@ -26525,8 +26525,8 @@
     },
     {
       "company_id": "sw_5039047",
-      "node_id": "food_beverage_006_008",
-      "reason": "主营白砂糖及糖浆加工制造",
+      "node_id": "food_beverage_006_007",
+      "reason": "主营白砂糖及糖浆加工制造（原节点 food_beverage_006_008 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -26616,8 +26616,8 @@
     },
     {
       "company_id": "sw_2978506",
-      "node_id": "food_beverage_006_024",
-      "reason": "主营果胶生产，属于食品添加剂中的增稠胶体",
+      "node_id": "food_beverage_006_023",
+      "reason": "主营果胶生产，属于食品添加剂中的增稠胶体（原节点 food_beverage_006_024 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -27092,8 +27092,8 @@
     },
     {
       "company_id": "sw_5030438",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营生鲜乳生产，是乳制品加工的基础乳源原料",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营生鲜乳生产，是乳制品加工的基础乳源原料（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -27449,15 +27449,15 @@
     },
     {
       "company_id": "sw_1357601",
-      "node_id": "food_beverage_003_008",
-      "reason": "主营火锅底料等中式复合调味料",
+      "node_id": "food_beverage_003_007",
+      "reason": "主营火锅底料等中式复合调味料（原节点 food_beverage_003_008 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_1921668",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营生鲜乳生产与供应",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营生鲜乳生产与供应（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -27470,15 +27470,15 @@
     },
     {
       "company_id": "sw_610912",
-      "node_id": "food_beverage_006_006",
-      "reason": "主营玉米油及大豆蛋白加工",
+      "node_id": "food_beverage_006_005",
+      "reason": "主营玉米油及大豆蛋白加工（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_2051439",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶种植及茶制品加工",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶种植及茶制品加工（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -27554,8 +27554,8 @@
     },
     {
       "company_id": "sw_1069136",
-      "node_id": "food_beverage_004_011",
-      "reason": "主营短保面包，为短保烘焙细分领域龙头",
+      "node_id": "food_beverage_004_005",
+      "reason": "主营短保面包，为短保烘焙细分领域龙头（原节点 food_beverage_004_011 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -27666,8 +27666,8 @@
     },
     {
       "company_id": "sw_298562",
-      "node_id": "food_beverage_005_003",
-      "reason": "速冻水饺是其标志性大单品",
+      "node_id": "food_beverage_005_002",
+      "reason": "速冻水饺是其标志性大单品（原节点 food_beverage_005_003 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -27862,8 +27862,8 @@
     },
     {
       "company_id": "sw_286145",
-      "node_id": "food_beverage_002_010",
-      "reason": "主营豆奶及植物蛋白饮料，属于该细分品类",
+      "node_id": "food_beverage_002_009",
+      "reason": "主营豆奶及植物蛋白饮料，属于该细分品类（原节点 food_beverage_002_010 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -27876,8 +27876,8 @@
     },
     {
       "company_id": "sw_4703932",
-      "node_id": "food_beverage_006_008",
-      "reason": "主营玉米深加工，生产燃料乙醇及淀粉糖等原料",
+      "node_id": "food_beverage_006_007",
+      "reason": "主营玉米深加工，生产燃料乙醇及淀粉糖等原料（原节点 food_beverage_006_008 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -27897,8 +27897,8 @@
     },
     {
       "company_id": "sw_286695",
-      "node_id": "food_beverage_006_008",
-      "reason": "主营玉米深加工，生产燃料乙醇、淀粉及糖浆",
+      "node_id": "food_beverage_006_007",
+      "reason": "主营玉米深加工，生产燃料乙醇、淀粉及糖浆（原节点 food_beverage_006_008 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -27946,8 +27946,8 @@
     },
     {
       "company_id": "sw_640171",
-      "node_id": "food_beverage_006_006",
-      "reason": "主营大豆压榨及蛋白粕生产",
+      "node_id": "food_beverage_006_005",
+      "reason": "主营大豆压榨及蛋白粕生产（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -27981,8 +27981,8 @@
     },
     {
       "company_id": "sw_3262461",
-      "node_id": "food_beverage_004_012",
-      "reason": "主营中长保糕点及烘焙食品",
+      "node_id": "food_beverage_004_006",
+      "reason": "主营中长保糕点及烘焙食品（原节点 food_beverage_004_012 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -28086,8 +28086,8 @@
     },
     {
       "company_id": "sw_3264195",
-      "node_id": "food_beverage_006_006",
-      "reason": "从事大豆深加工，生产蛋白粕等农产品原料",
+      "node_id": "food_beverage_006_005",
+      "reason": "从事大豆深加工，生产蛋白粕等农产品原料（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -28198,8 +28198,8 @@
     },
     {
       "company_id": "sw_841975",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶种植加工，为茶饮提供萃取原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶种植加工，为茶饮提供萃取原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -28380,8 +28380,8 @@
     },
     {
       "company_id": "sw_1957586",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶加工，属于茶叶萃取原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶加工，属于茶叶萃取原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -28485,8 +28485,8 @@
     },
     {
       "company_id": "sw_3426531",
-      "node_id": "food_beverage_003_008",
-      "reason": "主营火锅底料等复合调味料产品",
+      "node_id": "food_beverage_003_007",
+      "reason": "主营火锅底料等复合调味料产品（原节点 food_beverage_003_008 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -28590,22 +28590,22 @@
     },
     {
       "company_id": "sw_1252251",
-      "node_id": "food_beverage_006_006",
-      "reason": "主营油脂加工装备及工程，核心服务大豆等油料作物加工",
+      "node_id": "food_beverage_006_005",
+      "reason": "主营油脂加工装备及工程，核心服务大豆等油料作物加工（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.8,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_2956404",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶种植及萃取原料，支撑茶饮及植物饮料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶种植及萃取原料，支撑茶饮及植物饮料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_8112649",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营生鲜乳供应，是乳制品制造的基础乳源",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营生鲜乳供应，是乳制品制造的基础乳源（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -28646,8 +28646,8 @@
     },
     {
       "company_id": "sw_886086",
-      "node_id": "food_beverage_006_019",
-      "reason": "主营赤藓糖醇等代糖产品，直接对应糖醇与天然代糖节点",
+      "node_id": "food_beverage_006_018",
+      "reason": "主营赤藓糖醇等代糖产品，直接对应糖醇与天然代糖节点（原节点 food_beverage_006_019 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -28737,8 +28737,8 @@
     },
     {
       "company_id": "sw_4944032",
-      "node_id": "food_beverage_002_008",
-      "reason": "主营益生菌及发酵液，核心应用于功能饮料及乳品",
+      "node_id": "food_beverage_002_007",
+      "reason": "主营益生菌及发酵液，核心应用于功能饮料及乳品（原节点 food_beverage_002_008 已合并至现有父节点）",
       "confidence": 0.75,
       "match_method": "agent_web_search"
     },
@@ -29157,8 +29157,8 @@
     },
     {
       "company_id": "sw_4142759",
-      "node_id": "food_beverage_006_016",
-      "reason": "茶庄集团主营茶叶加工，属茶叶萃取原料上游",
+      "node_id": "food_beverage_006_015",
+      "reason": "茶庄集团主营茶叶加工，属茶叶萃取原料上游（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -29206,8 +29206,8 @@
     },
     {
       "company_id": "sw_2539097",
-      "node_id": "food_beverage_006_024",
-      "reason": "主营瓜尔胶等增稠剂，匹配增稠胶体节点",
+      "node_id": "food_beverage_006_023",
+      "reason": "主营瓜尔胶等增稠剂，匹配增稠胶体节点（原节点 food_beverage_006_024 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -29493,8 +29493,8 @@
     },
     {
       "company_id": "sw_770526",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营生鲜乳供应",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营生鲜乳供应（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -29605,8 +29605,8 @@
     },
     {
       "company_id": "sw_1328513",
-      "node_id": "food_beverage_006_014",
-      "reason": "主营浓缩果汁，是果蔬汁原料加工核心环节",
+      "node_id": "food_beverage_006_013",
+      "reason": "主营浓缩果汁，是果蔬汁原料加工核心环节（原节点 food_beverage_006_014 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -29640,15 +29640,15 @@
     },
     {
       "company_id": "sw_1730797",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶加工，为茶饮料提供萃取原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶加工，为茶饮料提供萃取原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_308592",
-      "node_id": "food_beverage_006_014",
-      "reason": "主营浓缩果汁生产，是果蔬汁核心原料",
+      "node_id": "food_beverage_006_013",
+      "reason": "主营浓缩果汁生产，是果蔬汁核心原料（原节点 food_beverage_006_014 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -29675,8 +29675,8 @@
     },
     {
       "company_id": "sw_4313623",
-      "node_id": "food_beverage_006_027",
-      "reason": "主营烘焙酵母及益生菌，属于发酵配料",
+      "node_id": "food_beverage_006_026",
+      "reason": "主营烘焙酵母及益生菌，属于发酵配料（原节点 food_beverage_006_027 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -29801,15 +29801,15 @@
     },
     {
       "company_id": "sw_4122364",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶种植及加工，提供茶饮原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶种植及加工，提供茶饮原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_4226869",
-      "node_id": "food_beverage_006_019",
-      "reason": "主营三氯蔗糖等甜味剂，属于代糖配料",
+      "node_id": "food_beverage_006_018",
+      "reason": "主营三氯蔗糖等甜味剂，属于代糖配料（原节点 food_beverage_006_019 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -29955,8 +29955,8 @@
     },
     {
       "company_id": "sw_1759652",
-      "node_id": "food_beverage_003_008",
-      "reason": "主营卤制食品及底料，涉及中式复合调味",
+      "node_id": "food_beverage_003_007",
+      "reason": "主营卤制食品及底料，涉及中式复合调味（原节点 food_beverage_003_008 已合并至现有父节点）",
       "confidence": 0.75,
       "match_method": "agent_web_search"
     },
@@ -30004,8 +30004,8 @@
     },
     {
       "company_id": "sw_891642",
-      "node_id": "food_beverage_006_006",
-      "reason": "主营大豆深加工及蛋白产品，属油料作物加工",
+      "node_id": "food_beverage_006_005",
+      "reason": "主营大豆深加工及蛋白产品，属油料作物加工（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
@@ -30389,8 +30389,8 @@
     },
     {
       "company_id": "sw_584543",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营种业及生鲜乳供应，属乳品上游原料",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营种业及生鲜乳供应，属乳品上游原料（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -30431,8 +30431,8 @@
     },
     {
       "company_id": "sw_776794",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营生鲜乳生产，是乳制品制造的基础原料供给方。",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营生鲜乳生产，是乳制品制造的基础原料供给方。（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -30480,8 +30480,8 @@
     },
     {
       "company_id": "sw_3356550",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶种植与加工，提供茶饮及萃取产品的基础原料。",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶种植与加工，提供茶饮及萃取产品的基础原料。（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
@@ -30676,8 +30676,8 @@
     },
     {
       "company_id": "sw_776473",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营棉花加工，属农产品原料上游供给",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营棉花加工，属农产品原料上游供给（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.6,
       "match_method": "agent_web_search"
     },
@@ -30823,8 +30823,8 @@
     },
     {
       "company_id": "sw_348780",
-      "node_id": "food_beverage_002_004",
-      "reason": "主营无糖茶饮料（如茶里王），属于无糖茶饮",
+      "node_id": "food_beverage_002_003",
+      "reason": "主营无糖茶饮料（如茶里王），属于无糖茶饮（原节点 food_beverage_002_004 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -31019,8 +31019,8 @@
     },
     {
       "company_id": "sw_9547829",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营牧场运营，提供生鲜乳原料供给",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营牧场运营，提供生鲜乳原料供给（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -31152,8 +31152,8 @@
     },
     {
       "company_id": "sw_320618",
-      "node_id": "food_beverage_002_010",
-      "reason": "维维品牌核心产品为豆奶及植物蛋白饮料",
+      "node_id": "food_beverage_002_009",
+      "reason": "维维品牌核心产品为豆奶及植物蛋白饮料（原节点 food_beverage_002_010 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -31292,8 +31292,8 @@
     },
     {
       "company_id": "sw_8325011",
-      "node_id": "food_beverage_006_021",
-      "reason": "产品广泛应用于茶饮、咖啡等饮料风味体系",
+      "node_id": "food_beverage_006_020",
+      "reason": "产品广泛应用于茶饮、咖啡等饮料风味体系（原节点 food_beverage_006_021 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
@@ -31355,8 +31355,8 @@
     },
     {
       "company_id": "sw_624227",
-      "node_id": "food_beverage_006_014",
-      "reason": "主营番茄产业，提供果蔬汁及加工原料",
+      "node_id": "food_beverage_006_013",
+      "reason": "主营番茄产业，提供果蔬汁及加工原料（原节点 food_beverage_006_014 已合并至现有父节点）",
       "confidence": 0.8,
       "match_method": "agent_web_search"
     },
@@ -31418,8 +31418,8 @@
     },
     {
       "company_id": "sw_2116048",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营有机生鲜乳生产，是乳制品上游核心原料",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营有机生鲜乳生产，是乳制品上游核心原料（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 1.0,
       "match_method": "agent_web_search"
     },
@@ -32405,8 +32405,8 @@
     },
     {
       "company_id": "sw_6251430",
-      "node_id": "food_beverage_006_006",
-      "reason": "主营大豆蛋白加工，属于油料作物中的大豆及蛋白粕上游原料",
+      "node_id": "food_beverage_006_005",
+      "reason": "主营大豆蛋白加工，属于油料作物中的大豆及蛋白粕上游原料（原节点 food_beverage_006_006 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -32496,8 +32496,8 @@
     },
     {
       "company_id": "sw_6923738",
-      "node_id": "food_beverage_003_008",
-      "reason": "主营藤椒油及复合调味料，核心为火锅底料",
+      "node_id": "food_beverage_003_007",
+      "reason": "主营藤椒油及复合调味料，核心为火锅底料（原节点 food_beverage_003_008 已合并至现有父节点）",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
@@ -32734,8 +32734,8 @@
     },
     {
       "company_id": "sw_7244548",
-      "node_id": "food_beverage_003_008",
-      "reason": "主营辣椒制品及火锅底料等复合调味料",
+      "node_id": "food_beverage_003_007",
+      "reason": "主营辣椒制品及火锅底料等复合调味料（原节点 food_beverage_003_008 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -32783,15 +32783,15 @@
     },
     {
       "company_id": "sw_1367131",
-      "node_id": "food_beverage_006_012",
-      "reason": "主营规模化牧场运营，提供生鲜乳原料",
+      "node_id": "food_beverage_006_011",
+      "reason": "主营规模化牧场运营，提供生鲜乳原料（原节点 food_beverage_006_012 已合并至现有父节点）",
       "confidence": 1.0,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_901377",
-      "node_id": "food_beverage_004_012",
-      "reason": "主营麻花等中长保糕点类休闲食品",
+      "node_id": "food_beverage_004_006",
+      "reason": "主营麻花等中长保糕点类休闲食品（原节点 food_beverage_004_012 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -32811,8 +32811,8 @@
     },
     {
       "company_id": "sw_1164902",
-      "node_id": "food_beverage_006_016",
-      "reason": "主营茶叶加工，提供茶饮萃取原料",
+      "node_id": "food_beverage_006_015",
+      "reason": "主营茶叶加工，提供茶饮萃取原料（原节点 food_beverage_006_016 已合并至现有父节点）",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
@@ -32888,8 +32888,8 @@
     },
     {
       "company_id": "sw_6168908",
-      "node_id": "food_beverage_006_027",
-      "reason": "提供烘焙用奶油、果酱等原料及解决方案",
+      "node_id": "food_beverage_006_026",
+      "reason": "提供烘焙用奶油、果酱等原料及解决方案（原节点 food_beverage_006_027 已合并至现有父节点）",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },

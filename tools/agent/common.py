@@ -117,6 +117,47 @@ def _is_level_one_updown(node: dict[str, Any]) -> bool:
     return int(node.get("level", 0)) == 1 and node.get("chain_position") in UPSTREAM_DOWNSTREAM_LEVEL_ONE_POSITIONS
 
 
+def remove_singleton_contains_leaf_nodes(
+    nodes: list[dict[str, Any]], edges: list[dict[str, Any]]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, str]]]:
+    """Remove redundant leaf nodes that are the only contains child of a non-root parent."""
+    node_by_id = {node["id"]: node for node in nodes}
+    children_by_parent: dict[str, list[str]] = {}
+    for edge in edges:
+        if edge.get("relation_type") != "contains":
+            continue
+        parent_id = edge.get("source")
+        child_id = edge.get("target")
+        if parent_id in node_by_id and child_id in node_by_id:
+            children_by_parent.setdefault(parent_id, []).append(child_id)
+
+    removable_ids: set[str] = set()
+    removals: list[dict[str, str]] = []
+    for parent_id, child_ids in children_by_parent.items():
+        if len(child_ids) != 1 or int(node_by_id[parent_id].get("level", 0)) == 0:
+            continue
+        child_id = child_ids[0]
+        if children_by_parent.get(child_id) or int(node_by_id[child_id].get("level", 0)) < 2:
+            continue
+        removable_ids.add(child_id)
+        removals.append(
+            {
+                "parent_id": parent_id,
+                "parent_name": str(node_by_id[parent_id].get("name", parent_id)),
+                "child_id": child_id,
+                "child_name": str(node_by_id[child_id].get("name", child_id)),
+            }
+        )
+
+    if not removable_ids:
+        return nodes, edges, removals
+    return (
+        [node for node in nodes if node["id"] not in removable_ids],
+        [edge for edge in edges if edge.get("source") not in removable_ids and edge.get("target") not in removable_ids],
+        removals,
+    )
+
+
 def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, Any]:
     source_urls = default_source_urls(raw_graph)
     evidence_ids = default_evidence_ids(source_urls)
@@ -263,6 +304,8 @@ def standardize_graph(raw_graph: dict[str, Any], industry_id: str) -> dict[str, 
                 "updated_at": edge.get("updated_at") or updated_at,
             }
         )
+
+    nodes, edges, _ = remove_singleton_contains_leaf_nodes(nodes, edges)
 
     standardized_graph = dict(raw_graph)
     standardized_graph["version"] = raw_graph.get("version", "v0.1-demo")
