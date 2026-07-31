@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { InteractiveNvlWrapper } from "@neo4j-nvl/react";
 import { Bot, CheckCircle2, ChevronDown, ChevronRight, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, Trash2, X } from "lucide-react";
-import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, buildL2FlowRelations, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportAllOfflineGraphs, exportCurrentOfflineGraph, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, fetchNodeCompanies, fetchNodeL2FlowRelations, finalValidateAgentGraph, updateAgentGraph } from "./api";
+import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, buildL2FlowRelations, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportAllOfflineGraphs, exportCurrentOfflineGraph, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchNeighbors, fetchNodeCompanies, fetchNodeL2FlowRelations, finalValidateAgentGraph, updateAgentGraph } from "./api";
 import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, CompanyAttachmentItem, GraphEdge, GraphFilters, GraphNode, Industry, NodeCompaniesResponse, NodeL2FlowRelationsResponse, RelationType, UpdateMode } from "./types";
 
 const nodeTypeOptions: Array<{ value: ChainPosition; label: string; color: string }> = [
@@ -149,7 +149,6 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   const [artifactLoading, setArtifactLoading] = useState(false);
   const [artifacts, setArtifacts] = useState<AgentArtifact[]>([]);
   const [selectedArtifact, setSelectedArtifact] = useState<AgentArtifactContent | null>(null);
-  const [exportPaths, setExportPaths] = useState<string[]>([]);
   const [message, setMessage] = useState("选择行业后会直接加载正式图谱；未构建行业请切到 Agent 工作流生成 graph.json。");
   const [layoutMode, setLayoutMode] = useState<LayoutMode>("forceDirected");
 
@@ -180,8 +179,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     { id: "validate_repair", title: "最终校验与格式修复", summary: "单轮硬规则校验；只有不通过才请求百炼做格式修复，不再做整图质量审查。", done: hasArtifact("candidate_graph") && hasArtifact("validation_report"), artifacts: ["validation_agent_request_prompt", "validation_agent_raw_response", "format_repair_report", "candidate_graph", "sources", "validation_report", "validation_report_json", "review_queue"], action: "final_validate" },
     { id: "l2_flow", title: "L2 上下游关系建边", summary: "L2 建边完成后执行确定性跨层投影：A→B 同步生成 parent(A)→B 和 A→parent(B)；后处理不调用模型，也不改变原始 L2 边。", done: hasArtifact("l2_flow_relations") && hasArtifact("l2_flow_relation_validation_report"), artifacts: ["l2_flow_candidate_pairs", "l2_flow_pair_decisions", "l2_flow_relation_candidate", "l2_flow_relations", "l2_flow_relation_raw_responses", "l2_flow_relation_validation_report", "l2_flow_relation_validation_report_json"], action: "l2_flow" },
     { id: "company_attach", title: "公司节点挂载（硬校验）", summary: "在正式主图和 L2 上下游关系完成后，筛选全链条候选公司并挂载到最深节点；图谱画布按需展开公司。", done: hasArtifact("company_attachments") && hasArtifact("company_attachment_validation_report"), artifacts: ["company_scope", "company_attachment_candidate", "company_attachments", "company_attachment_raw_responses", "company_attachment_validation_report", "company_attachment_validation_report_json", "company_attachment_repair_report"], action: "company_attach" },
-    { id: "update", title: "增量更新", summary: "联网搜索新增证据，默认生成 no_change 或 update_proposal。", done: hasArtifact("update_proposal") || hasArtifact("update_report"), artifacts: ["update_agent_request_prompt", "update_proposal", "update_candidate_graph", "update_report", "update_agent_raw_response"], action: "update" },
-    { id: "export", title: "CSV 交付", summary: "按 mentor 格式导出节点 CSV 和关系 CSV。", done: exportPaths.length > 0, artifacts: [], action: "export" }
+    { id: "update", title: "增量更新", summary: "联网搜索新增证据，默认生成 no_change 或 update_proposal。", done: hasArtifact("update_proposal") || hasArtifact("update_report"), artifacts: ["update_agent_request_prompt", "update_proposal", "update_candidate_graph", "update_report", "update_agent_raw_response"], action: "update" }
   ];
 
   async function loadIndustries() {
@@ -244,18 +242,6 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       // Keep the current artifact list while a long-running Agent call is still in flight.
     }
   }
-  async function loadExports() {
-    if (!hasSelectedIndustry) {
-      setExportPaths([]);
-      return;
-    }
-    try {
-      const data = await fetchIndustryExports(industryId);
-      setExportPaths(data.exports);
-    } catch {
-      setExportPaths([]);
-    }
-  }
   async function trackAgentRun(initialRun: AgentRunResponse, successMessage: string, afterDone?: () => Promise<void>) {
     setActiveRun(initialRun);
     setRunDrawerOpen(true);
@@ -274,7 +260,6 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       }
       setAgentBusy(false);
       await loadArtifacts();
-      await loadExports();
       if (current.status === "completed") {
         setMessage(successMessage + "：run " + current.run_id + "。");
         if (afterDone) await afterDone();
@@ -453,7 +438,6 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       setRunDrawerOpen(true);
       setMessage(label + "已应用为正式图谱：run " + result.run_id + "。");
       await loadArtifacts();
-      await loadExports();
       await loadGraph();
     } catch (error) {
       setMessage(error instanceof Error ? error.message : label + "应用失败");
@@ -462,23 +446,6 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     }
   }
 
-  async function handleExport() {
-    if (!hasSelectedIndustry) {
-      setMessage("请先选择行业。");
-      return;
-    }
-    setAgentBusy(true);
-    try {
-      const result = await exportIndustryCsv(industryId);
-      setExportPaths([result.industry_node_csv, result.industrynode_edge_csv, result.industrynode_industry_edge_csv, result.industrynode_node_csv, result.company_node_csv, result.company_edge_csv].filter((path): path is string => Boolean(path)));
-      setMessage(result.company_node_csv ? "六类产业链与公司 CSV 导出完成。" : "四类产业链 CSV 导出完成；未找到有效公司挂载附件。");
-      await loadExports();
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "CSV 导出失败");
-    } finally {
-      setAgentBusy(false);
-    }
-  }
   async function handleOfflineExport(scope: "current" | "all") {
     if (scope === "current" && !hasSelectedIndustry) {
       setMessage("请先选择行业。");
@@ -523,7 +490,6 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       setMessage("已删除产物：" + selectedArtifact.label + "。");
       setSelectedArtifact(null);
       await loadArtifacts();
-      await loadExports();
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "产物删除失败");
     } finally {
@@ -682,13 +648,11 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       void loadGraph(defaultFilters);
       if (!offline) {
         void loadArtifacts();
-        void loadExports();
       }
     } else {
       setNodes([]);
       setEdges([]);
       setArtifacts([]);
-      setExportPaths([]);
       setMessage("请选择行业后查看图谱。");
     }
   }, [industryId]);
@@ -875,7 +839,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
         <aside className="workflow-sidebar">
           <div className="brand"><GitBranch size={24} /><div><h1>Agent 工作流</h1><span>构建、校验、更新、导出</span></div></div>
           {pageTabs}
-          <section className="panel"><div className="panel-title"><Database size={16} /><span>行业</span></div>{industrySelector}<button type="button" className="secondary-button" onClick={() => { void loadArtifacts(); void loadExports(); }} disabled={artifactLoading}><RefreshCw size={15} />刷新产物</button></section>
+          <section className="panel"><div className="panel-title"><Database size={16} /><span>行业</span></div>{industrySelector}<button type="button" className="secondary-button" onClick={() => { void loadArtifacts(); }} disabled={artifactLoading}><RefreshCw size={15} />刷新产物</button></section>
           <section className="workflow-list" aria-label="Agent 工作流状态">
             {workflowSteps.map((step, index) => (
               <article key={step.id} className={"workflow-step " + (step.done ? "done" : "pending")}>
@@ -907,14 +871,13 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
                   {step.action === "l2_flow" && <button type="button" className="action-button" onClick={handleBuildL2FlowRelations} disabled={agentBusy || !hasArtifact("graph")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行 L2 建边</button>}
                   {step.action === "company_attach" && <button type="button" className="action-button" onClick={handleAttachCompanies} disabled={agentBusy || !hasArtifact("graph") || !hasArtifact("l2_flow_relations")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行公司挂载</button>}
                   {step.action === "update" && <div className="button-grid tight"><button type="button" className="secondary-button" onClick={() => handleUpdate("check_only")} disabled={agentBusy}>检查</button><button type="button" className="secondary-button" onClick={() => handleUpdate("propose")} disabled={agentBusy}>提案</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("update_candidate_graph")} disabled={agentBusy || !hasArtifact("update_candidate_graph")}>应用候选</button></div>}
-                  {step.action === "export" && <button type="button" className="action-button" onClick={handleExport} disabled={agentBusy}><Download size={15} />导出 CSV</button>}
                 </div>
               </article>
             ))}
           </section>
         </aside>
         <section className="artifact-workspace">
-          <header className="stage-header"><div><h2>Agent 产物展示</h2><p>{message}</p></div><div className="stats"><span>{existingArtifacts.length} 个产物</span><span>{exportPaths.length} 个 CSV</span>{activeRun && <button type="button" className={"run-drawer-toggle " + (isActiveRun(activeRun) ? "live" : "")} onClick={() => setRunDrawerOpen(true)}><Terminal size={14} />运行监控</button>}</div></header>
+          <header className="stage-header"><div><h2>Agent 产物展示</h2><p>{message}</p></div><div className="stats"><span>{existingArtifacts.length} 个产物</span>{activeRun && <button type="button" className={"run-drawer-toggle " + (isActiveRun(activeRun) ? "live" : "")} onClick={() => setRunDrawerOpen(true)}><Terminal size={14} />运行监控</button>}</div></header>
           <div className="artifact-layout">
             <aside className="artifact-index">
               <div className="panel-title"><FileText size={16} /><span>文件</span></div>
@@ -923,7 +886,6 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
                 {!artifactLoading && existingArtifacts.length === 0 && <span className="muted">暂无 Agent 产物。运行构建或更新后会出现在这里。</span>}
                 {artifactLoading && <span className="muted">读取中...</span>}
               </div>
-              {exportPaths.length > 0 && <div className="path-list"><strong>CSV 导出</strong>{exportPaths.map((item) => <span key={item}>{item}</span>)}</div>}
             </aside>
             <section className="artifact-reader"><div className="artifact-reader-header"><div><h3>{selectedArtifact?.label ?? "产物预览"}</h3><span>{selectedArtifact?.path ?? "选择左侧文件或工作流节点中的产物"}</span></div>{selectedArtifact && <button type="button" className="artifact-delete-button" title="删除当前产物" aria-label="删除当前产物" onClick={handleArtifactDelete} disabled={artifactLoading}><Trash2 size={15} /></button>}</div><pre className="artifact-viewer full">{artifactPreview(selectedArtifact)}</pre></section>
           </div>
