@@ -15,11 +15,10 @@ if __package__ is None or __package__ == "":
             sys.path.insert(0, str(parent))
             break
 
-from tools.agent.common import industry_dir, load_graph
+from tools.agent.common import PROJECT_ROOT, industry_dir, load_graph, load_manifest
 from tools.agent.company_attachments import (
     ancestors_for_node,
     attachment_file_status,
-    descendants_for_node,
     filter_listed_attachments,
 )
 from tools.agent.l2_flow_relations import relation_file_status
@@ -40,6 +39,14 @@ INDUSTRY_EXPORT_METADATA: dict[str, dict[str, str]] = {
 
 def _safe_filename(value: str) -> str:
     return "".join(ch for ch in value if ch not in r'<>:"/\\|?*').strip() or "industry"
+
+
+def delivery_output_dir(industry_id: str) -> Path:
+    """Return the only persistent location for an industry's delivery CSVs."""
+    item = next((entry for entry in load_manifest() if str(entry.get("id")) == industry_id), None)
+    if item is None:
+        raise ValueError(f"未知行业：{industry_id}")
+    return PROJECT_ROOT / "deliverables" / f"{_safe_filename(str(item.get('name') or industry_id))}图谱"
 
 
 def _write_csv(path: Path, fields: list[str], rows: list[dict[str, Any]]) -> Path:
@@ -77,6 +84,8 @@ def _delivery_node_id(node_id: str, industry_id: str, industry_code: str) -> str
 
 
 def _node_chain_segment(node: dict[str, Any]) -> str:
+    if int(node.get("level", -1)) != 1:
+        return ""
     return {
         "upstream": "上游",
         "midstream": "中游",
@@ -100,7 +109,7 @@ def export_graph_csv(
     metadata = _industry_metadata(industry_id)
     industry_name, industry_code = metadata["name"], metadata["code"]
     effective_date = str(graph.get("generated_at", ""))[:10] or datetime.now().date().isoformat()
-    output_dir = output_dir or industry_dir(industry_id) / "exports"
+    output_dir = output_dir or delivery_output_dir(industry_id)
     prefix = _safe_filename(industry_name)
     industry_node_path = output_dir / f"{prefix}_industry_node.csv"
     edge_path = output_dir / f"{prefix}_industrynode_edge.csv"
@@ -111,35 +120,25 @@ def export_graph_csv(
         for node in graph.get("nodes", [])
     }
 
-    direct_company_names_by_node: dict[str, set[str]] = {}
-    if company_attachments:
-        company_by_id = {str(item.get("company_id")): item for item in company_attachments.get("companies", []) or []}
-        for attachment in company_attachments.get("attachments", []) or []:
-            node_id = str(attachment.get("node_id", ""))
-            company = company_by_id.get(str(attachment.get("company_id", "")))
-            if node_id in id_map and company:
-                company_name = str(company.get("name", "")).strip()
-                if company_name:
-                    direct_company_names_by_node.setdefault(node_id, set()).add(company_name)
-
     node_rows = []
     node_lookup = {}
     for node in graph.get("nodes", []):
         raw_id = str(node["id"])
         converted_id = id_map[raw_id]
         node_lookup[raw_id] = node
-        aggregated_company_names = set()
-        for descendant_id in descendants_for_node(graph, raw_id):
-            aggregated_company_names.update(direct_company_names_by_node.get(descendant_id, set()))
         node_rows.append(
             {
                 "节点id": converted_id,
-                "节点类型": node.get("node_type", "产业链环节"),
+                # Mentor delivery convention: every industry-graph node uses the
+                # same node type; hierarchy is expressed exclusively by level_N.
+                "节点类型": "产业链",
                 "节点名称": node["name"],
-                "节点标签": ";".join(node.get("tags", [])),
+                "节点标签": f"level_{int(node.get('level', 0))}",
                 "节点行业": industry_name,
                 "业务描述": node.get("business_description") or node.get("description", ""),
-                "公司列表": ";".join(sorted(aggregated_company_names)),
+                # Company relationships are delivered in their dedicated CSV;
+                # this column is intentionally blank in the mentor template.
+                "公司列表": "",
                 "关键节点": "TRUE" if node.get("is_key_node") else "FALSE",
                 "产业链环节": _node_chain_segment(node),
                 "节点行业code": industry_code,
@@ -239,7 +238,7 @@ def export_company_attachment_csv(
     # Keep the complete formal graph for the same reason as ``export_graph_csv``.
     graph = dict(graph)
     metadata = _industry_metadata(industry_id)
-    output_dir = output_dir or industry_dir(industry_id) / "exports"
+    output_dir = output_dir or delivery_output_dir(industry_id)
     prefix = _safe_filename(metadata["name"])
     company_node_path = output_dir / f"{prefix}_company_node.csv"
     company_edge_path = output_dir / f"{prefix}_company_industrynode_edge_node.csv"

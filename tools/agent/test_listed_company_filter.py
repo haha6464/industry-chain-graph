@@ -195,7 +195,14 @@ class CompanyAggregationTest(unittest.TestCase):
             with Path(company_result["company_edge_csv"]).open(encoding="utf-8-sig", newline="") as file:
                 company_edges = list(csv.DictReader(file))
         root_row = next(row for row in node_rows if row["节点id"] == "FOOD000000")
-        self.assertEqual(root_row["公司列表"], "sw_listed股份有限公司")
+        self.assertEqual(root_row["公司列表"], "")
+        self.assertEqual(root_row["节点类型"], "产业链")
+        self.assertEqual(root_row["节点标签"], "level_0")
+        l1_row = next(row for row in node_rows if row["节点id"] == "FOOD000001")
+        l2_row = next(row for row in node_rows if row["节点id"] == "FOOD000002")
+        self.assertEqual(l1_row["产业链环节"], "上游")
+        self.assertEqual(l2_row["节点标签"], "level_2")
+        self.assertEqual(l2_row["产业链环节"], "")
         self.assertEqual(
             {row["终点节点id"] for row in company_edges},
             {"FOOD000000", "FOOD000001"},

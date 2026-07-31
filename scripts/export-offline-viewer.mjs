@@ -8,7 +8,7 @@
  * and a delivery directory for every industry that has a formal graph.
  */
 import { execFileSync } from "node:child_process";
-import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -96,10 +96,9 @@ function renderHtml(snapshot, title, script, style) {
 </html>`;
 }
 
-function refreshIndustryCsv(industryId) {
-  const script = "from tools.agent.export_csv import export_industry_csv; import sys; export_industry_csv(sys.argv[1])";
+function refreshIndustryCsv(industryId, targetDirectory) {
   try {
-    execFileSync(process.env.PYTHON ?? "python", ["-c", script, industryId], {
+    execFileSync(process.env.PYTHON ?? "python", ["tools/agent/export_csv.py", "--industry-id", industryId, "--output-dir", targetDirectory], {
       cwd: root,
       encoding: "utf8",
       stdio: "pipe"
@@ -198,15 +197,14 @@ const [script, style] = await Promise.all([
   readFile(path.join(temporaryDirectory, "viewer.css"), "utf8")
 ]);
 
-async function copyCsvDeliverables(entry) {
+async function buildIndustryDelivery(entry) {
   const targetDirectory = path.join(outputDirectory, deliveryDirectoryName(entry.item));
-  await rm(targetDirectory, { recursive: true, force: true });
   await mkdir(targetDirectory, { recursive: true });
+  refreshIndustryCsv(entry.item.id, targetDirectory);
   const snapshot = snapshotFor([entry], graphs, companyAttachments, l2FlowRelations);
   const htmlPath = path.join(targetDirectory, deliveryHtmlName(entry.item));
   await writeFile(htmlPath, renderHtml(snapshot, `${entry.item.name}图谱`, script, style), "utf8");
 
-  const sourceDirectory = path.join(root, "data", "industries", entry.item.id, "exports");
   const csvSuffixes = [
     "industry_node.csv",
     "industrynode_edge.csv",
@@ -214,19 +212,11 @@ async function copyCsvDeliverables(entry) {
     "industrynode_node.csv",
     ...(companyAttachments[entry.item.id] ? ["company_node.csv", "company_industrynode_edge_node.csv"] : [])
   ];
-  const availableCsvNames = await readdir(sourceDirectory);
+  const availableCsvNames = await readdir(targetDirectory);
   const csvNames = csvSuffixes.map((suffix) => availableCsvNames.find((filename) => filename.endsWith(`_${suffix}`))).filter(Boolean);
   if (csvNames.length !== csvSuffixes.length) {
     const missing = csvSuffixes.filter((suffix) => !csvNames.some((filename) => filename.endsWith(`_${suffix}`)));
     throw new Error(`缺少 ${entry.item.id} 的交付 CSV：${missing.join("、")}`);
-  }
-  for (const filename of csvNames) {
-    const source = path.join(sourceDirectory, filename);
-    try {
-      await copyFile(source, path.join(targetDirectory, filename));
-    } catch (error) {
-      throw new Error(`复制 ${entry.item.id} 的交付 CSV 失败（${filename}）：${error.message}`);
-    }
   }
   console.log(`已生成行业交付目录：${targetDirectory}（HTML + ${csvNames.length} 个 CSV）`);
 }
@@ -248,8 +238,7 @@ if (exportAll) {
     await rm(path.join(outputDirectory, obsoleteFile), { force: true });
   }
 }
-for (const entry of deliveryEntries) refreshIndustryCsv(entry.item.id);
-for (const entry of deliveryEntries) await copyCsvDeliverables(entry);
+for (const entry of deliveryEntries) await buildIndustryDelivery(entry);
 if (exportAll) {
   const rootHtml = path.join(outputDirectory, "25行业产业链图谱.html");
   await writeFile(rootHtml, renderHtml(snapshotFor(deliveryEntries, graphs, companyAttachments, l2FlowRelations), "25行业产业链图谱", script, style), "utf8");

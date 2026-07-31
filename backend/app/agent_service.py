@@ -18,7 +18,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from tools.agent.common import industry_dir, load_graph, read_json, read_jsonl, standardize_graph, write_json, write_jsonl
 from tools.agent.company_attachments import attachment_file_status
-from tools.agent.export_csv import export_graph_csv, export_industry_csv
+from tools.agent.export_csv import delivery_output_dir, export_graph_csv, export_industry_csv
 from tools.agent.l2_flow_relations import relation_file_status
 from tools.agent.search.search_planner import build_search_plan
 from tools.agent.validators.graph_validator import validate_graph, write_markdown_report
@@ -462,10 +462,10 @@ def apply_candidate_graph(industry_id: str, candidate_type: str) -> dict[str, An
 
 
 def list_exports(industry_id: str) -> list[str]:
-    exports_dir = industry_dir(industry_id) / "exports"
-    if not exports_dir.exists():
+    delivery_dir = delivery_output_dir(industry_id)
+    if not delivery_dir.exists():
         return []
-    return [str(path) for path in sorted(exports_dir.glob("*.csv"))]
+    return [str(path) for path in sorted(delivery_dir.glob("*.csv"))]
 
 
 def read_report(path_value: str) -> str:
