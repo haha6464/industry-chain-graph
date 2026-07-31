@@ -297,6 +297,15 @@ select {
   background: #ea580c;
 }
 
+.offline-export-panel {
+  display: grid;
+  gap: 9px;
+}
+
+.offline-export-panel .panel-title {
+  margin-bottom: 1px;
+}
+
 .graph-stage {
   display: grid;
   grid-template-rows: auto 1fr;

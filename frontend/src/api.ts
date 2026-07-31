@@ -330,6 +330,14 @@ export async function exportIndustryCsv(industryId: string) {
   return request<ExportResponse>(`/api/industries/${industryId}/export-csv`, { method: "POST" });
 }
 
+export async function exportCurrentOfflineGraph(industryId: string) {
+  return request<AgentRunResponse>(`/api/industries/${industryId}/export-offline`, { method: "POST" });
+}
+
+export async function exportAllOfflineGraphs() {
+  return request<AgentRunResponse>("/api/export-offline/all", { method: "POST" });
+}
+
 export async function fetchIndustryExports(industryId: string) {
   return request<{ industry_id: string; exports: string[] }>(`/api/industries/${industryId}/exports`);
 }

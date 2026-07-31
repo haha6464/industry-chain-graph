@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { InteractiveNvlWrapper } from "@neo4j-nvl/react";
 import { Bot, CheckCircle2, ChevronDown, ChevronRight, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, Trash2, X } from "lucide-react";
-import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, buildL2FlowRelations, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, fetchNodeCompanies, fetchNodeL2FlowRelations, finalValidateAgentGraph, updateAgentGraph } from "./api";
+import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, buildL2FlowRelations, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportAllOfflineGraphs, exportCurrentOfflineGraph, exportIndustryCsv, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchIndustryExports, fetchNeighbors, fetchNodeCompanies, fetchNodeL2FlowRelations, finalValidateAgentGraph, updateAgentGraph } from "./api";
 import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, CompanyAttachmentItem, GraphEdge, GraphFilters, GraphNode, Industry, NodeCompaniesResponse, NodeL2FlowRelationsResponse, RelationType, UpdateMode } from "./types";
 
 const nodeTypeOptions: Array<{ value: ChainPosition; label: string; color: string }> = [
@@ -479,6 +479,28 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       setAgentBusy(false);
     }
   }
+  async function handleOfflineExport(scope: "current" | "all") {
+    if (scope === "current" && !hasSelectedIndustry) {
+      setMessage("请先选择行业。");
+      return;
+    }
+    if (scope === "all" && !window.confirm("将刷新全部正式图谱的交付目录和 CSV，并覆盖已有离线 HTML。是否继续？")) return;
+    setAgentBusy(true);
+    setSelectedArtifact(null);
+    try {
+      const result = scope === "current"
+        ? await exportCurrentOfflineGraph(industryId)
+        : await exportAllOfflineGraphs();
+      const successMessage = scope === "current"
+        ? `已生成「${industryName}图谱」交付目录（HTML + CSV）`
+        : "已生成全部行业交付目录和 25行业产业链图谱.html";
+      await trackAgentRun(result, successMessage);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "离线图谱导出失败");
+    } finally {
+      setAgentBusy(false);
+    }
+  }
   async function handleArtifactOpen(name: string) {
     if (!hasSelectedIndustry) {
       setMessage("请先选择行业。");
@@ -934,6 +956,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
         <div className="brand"><Network size={24} /><div><h1>产业链图谱</h1><span>{offline ? "离线只读展示版" : "图谱展示与问答"}</span></div></div>
         {pageTabs}
         <section className="panel"><div className="panel-title"><Database size={16} /><span>数据</span></div>{industrySelector}<button className="secondary-button" type="button" onClick={() => void loadGraph(defaultFilters)} disabled={graphLoading || !hasSelectedIndustry}><RefreshCw size={15} />刷新图谱</button></section>
+        {!offline && <section className="panel offline-export-panel"><div className="panel-title"><Download size={16} /><span>离线交付</span></div><button className="action-button" type="button" onClick={() => void handleOfflineExport("current")} disabled={agentBusy || !hasSelectedIndustry}><Download size={15} />导出当前图谱</button><button className="secondary-button" type="button" onClick={() => void handleOfflineExport("all")} disabled={agentBusy}><Download size={15} />导出所有图谱</button><small className="filter-hint">当前行业导出为“行业名图谱”目录；全部导出会在交付根目录生成“25行业产业链图谱.html”。</small></section>}
         <section className="panel">
           <div className="panel-title"><Filter size={16} /><span>筛选</span></div>
           <label className="field"><span>关键词</span><div className="search-box"><Search size={16} /><input placeholder="节点名称或简介" value={draftFilters.q} onChange={(event) => setDraftFilters({ ...draftFilters, q: event.target.value })} onKeyDown={(event) => { if (event.key === "Enter") applyFilters(draftFilters); }} /></div></label>
