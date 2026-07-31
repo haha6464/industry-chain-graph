@@ -3,6 +3,7 @@ __pycache__/
 .conda/
 .env
 .pytest_cache/
+.runtime/
 dist/
 node_modules/
 .DS_Store

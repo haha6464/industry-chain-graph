@@ -17,7 +17,7 @@ if __package__ is None or __package__ == "":
             break
 
 from tools.agent.common import industry_dir, load_graph, standardize_graph
-from tools.agent.company_attachments import attachment_file_status
+from tools.agent.company_attachments import attachment_file_status, filter_listed_attachments
 from tools.agent.l2_flow_relations import relation_file_status
 
 def _convert_node_id(node_id: str) -> str:
@@ -125,9 +125,27 @@ def export_graph_csv(
 
 
 def export_company_attachment_csv(
-    graph: dict[str, Any], attachments: dict[str, Any], industry_id: str, output_dir: Path | None = None
+    graph: dict[str, Any],
+    attachments: dict[str, Any],
+    industry_id: str,
+    output_dir: Path | None = None,
+    listed_only: bool = True,
 ) -> dict[str, str]:
-    """Export validated direct company attachments in the mentor's company CSV format."""
+    """Export validated direct company attachments in the mentor's company CSV format.
+
+    Non-listed companies are dropped by default. The filtering reuses
+    ``filter_listed_attachments`` so the CSV and the filter workflow can never
+    disagree about what counts as listed.
+    """
+    if listed_only:
+        attachments, stats = filter_listed_attachments(attachments)
+        if stats["company_removed"] or stats["attachment_removed"]:
+            print(
+                f"[agent] CSV 仅导出上市公司：公司 {stats['company_count_before']} → "
+                f"{stats['company_count_after']}，挂载 {stats['attachment_count_before']} → "
+                f"{stats['attachment_count_after']}。",
+                flush=True,
+            )
     graph = standardize_graph(graph, industry_id)
     industry_name = graph.get("industry", industry_id)
     output_dir = output_dir or industry_dir(industry_id) / "exports"
@@ -182,7 +200,9 @@ def export_company_attachment_csv(
     return {"company_node_csv": str(company_node_path), "company_edge_csv": str(company_edge_path)}
 
 
-def export_industry_csv(industry_id: str, output_dir: Path | None = None) -> dict[str, str]:
+def export_industry_csv(
+    industry_id: str, output_dir: Path | None = None, listed_only: bool = True
+) -> dict[str, str]:
     graph = load_graph(industry_id)
     relation_path = industry_dir(industry_id) / "l2_flow_relations.json"
     relation_status, relation_payload, _ = relation_file_status(industry_id, graph, relation_path)
@@ -195,7 +215,11 @@ def export_industry_csv(industry_id: str, output_dir: Path | None = None) -> dic
     attachment_path = industry_dir(industry_id) / "company_attachments.json"
     status, attachments, _ = attachment_file_status(industry_id, graph, attachment_path)
     if status == "ready" and attachments is not None:
-        result.update(export_company_attachment_csv(graph, attachments, industry_id, output_dir))
+        result.update(
+            export_company_attachment_csv(
+                graph, attachments, industry_id, output_dir, listed_only=listed_only
+            )
+        )
     return result
 
 
@@ -210,6 +234,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Export mentor CSV files from graph.json.")
     parser.add_argument("--industry-id", required=True)
     parser.add_argument("--output-dir", type=Path)
+    parser.add_argument(
+        "--include-unlisted",
+        action="store_true",
+        help="公司 CSV 同时导出非上市公司（默认只导出上市公司）。",
+    )
     args = parser.parse_args()
-    result = export_industry_csv(args.industry_id, args.output_dir)
+    result = export_industry_csv(args.industry_id, args.output_dir, listed_only=not args.include_unlisted)
     _print_export_summary(result)

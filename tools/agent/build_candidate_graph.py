@@ -11,6 +11,7 @@ if __package__ is None or __package__ == "":
             break
 
 import argparse
+import concurrent.futures
 import json
 from typing import Any
 
@@ -33,6 +34,7 @@ from tools.agent.search.staged_bailian_builder import (
     graph_chain_position_coverage,
     merge_staged_graphs,
     namespace_branch_graph,
+    staged_branch_concurrency,
     staged_branch_limit,
     validate_branch_expansion,
     validate_skeleton_chain_position_coverage,
@@ -275,6 +277,86 @@ def build_level1_skeleton(
     return result
 
 
+def _expand_one_branch(
+    industry_id: str,
+    industry_name: str,
+    target_depth: str,
+    seed_graph: dict[str, Any],
+    seed_blueprint: dict[str, Any],
+    branch_node: dict[str, Any],
+    index: int,
+    total: int,
+) -> dict[str, Any]:
+    """扩展并评估单个一级分支。只读入参，不写共享状态，可安全并发调用。"""
+    branch_name = branch_node.get("name", branch_node.get("id", ""))
+    _log(f"开始扩展分支 {index}/{total}：{branch_name}。")
+    try:
+        branch_graph, branch_raw_text, branch_prompt = call_bailian_branch_graph(
+            industry_id,
+            industry_name,
+            target_depth,
+            seed_graph,
+            branch_node,
+            seed_blueprint,
+        )
+        branch_graph = namespace_branch_graph(branch_graph, branch_node)
+        branch_graph = standardize_graph(branch_graph, industry_id)
+        validate_branch_expansion(branch_graph, branch_node, min_new_nodes=1)
+        _log(f"评估分支 {branch_name} 分类质量。")
+        branch_evaluation, branch_eval_raw, branch_eval_prompt = evaluate_branch_graph(
+            industry_name,
+            seed_graph,
+            branch_node,
+            branch_graph,
+            seed_blueprint,
+        )
+        branch_record: dict[str, Any] = {
+            "branch_id": branch_node.get("id"),
+            "branch_name": branch_name,
+            "status": "ok",
+            "prompt": branch_prompt,
+            "raw_response": branch_raw_text,
+            "evaluation_prompt": branch_eval_prompt,
+            "evaluation_raw_response": branch_eval_raw,
+            "evaluation": branch_evaluation,
+            "revised": False,
+            "graph": branch_graph,
+        }
+        if branch_evaluation.get("parse_error"):
+            _log(f"分支 {branch_name} 质量评估 JSON 解析失败，保留当前分支并跳过自动修正。")
+        elif not evaluation_passed(branch_evaluation):
+            _log(f"分支 {branch_name} 评估未通过，按意见请求修正该分支。")
+            revised_branch, revise_raw, revise_prompt = revise_branch_graph(
+                industry_id,
+                industry_name,
+                branch_node,
+                branch_graph,
+                branch_evaluation,
+                seed_blueprint,
+            )
+            branch_graph = namespace_branch_graph(revised_branch, branch_node)
+            branch_graph = standardize_graph(branch_graph, industry_id)
+            branch_record.update({
+                "revised": True,
+                "revision_prompt": revise_prompt,
+                "revision_raw_response": revise_raw,
+                "graph": branch_graph,
+            })
+        else:
+            _log(f"分支 {branch_name} 评估通过，保留意见但不请求修正。")
+        validate_branch_expansion(branch_graph, branch_node)
+        _log(f"分支 {branch_name} 完成，候选节点 {len(branch_graph.get('nodes', []))} 个。")
+        return branch_record
+    except Exception as exc:
+        _log(f"分支 {branch_name} 扩展或评估失败，已记录后继续其他分支。")
+        return {
+            "branch_id": branch_node.get("id"),
+            "branch_name": branch_name,
+            "status": "failed",
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+
+
 def build_branch_candidates(
     industry_id: str,
     industry_name: str | None,
@@ -320,76 +402,46 @@ def build_branch_candidates(
     else:
         _log(f"发现 {len(level_one_nodes)} 个一级分支，按调试上限扩展 {branch_limit} 个。")
 
-    branch_graphs = []
-    branch_records: list[dict[str, Any]] = []
-    staged_errors = []
     branches_to_expand = level_one_nodes[:branch_limit]
-    for index, branch_node in enumerate(branches_to_expand, start=1):
-        branch_name = branch_node.get("name", branch_node.get("id", ""))
-        _log(f"扩展分支 {index}/{len(branches_to_expand)}：{branch_name}。")
-        try:
-            branch_graph, branch_raw_text, branch_prompt = call_bailian_branch_graph(
-                industry_id,
-                resolved_industry_name,
-                target_depth,
-                seed_graph,
-                branch_node,
-                seed_blueprint,
-            )
-            branch_graph = namespace_branch_graph(branch_graph, branch_node)
-            branch_graph = standardize_graph(branch_graph, industry_id)
-            validate_branch_expansion(branch_graph, branch_node, min_new_nodes=1)
-            _log(f"评估分支 {branch_name} 分类质量。")
-            branch_evaluation, branch_eval_raw, branch_eval_prompt = evaluate_branch_graph(
-                resolved_industry_name,
-                seed_graph,
-                branch_node,
-                branch_graph,
-                seed_blueprint,
-            )
-            branch_record: dict[str, Any] = {
-                "branch_id": branch_node.get("id"),
-                "branch_name": branch_name,
-                "status": "ok",
-                "prompt": branch_prompt,
-                "raw_response": branch_raw_text,
-                "evaluation_prompt": branch_eval_prompt,
-                "evaluation_raw_response": branch_eval_raw,
-                "evaluation": branch_evaluation,
-                "revised": False,
-                "graph": branch_graph,
-            }
-            if branch_evaluation.get("parse_error"):
-                _log(f"分支 {branch_name} 质量评估 JSON 解析失败，保留当前分支并跳过自动修正。")
-            elif not evaluation_passed(branch_evaluation):
-                _log(f"分支 {branch_name} 评估未通过，按意见请求修正该分支。")
-                revised_branch, revise_raw, revise_prompt = revise_branch_graph(
+    max_workers = staged_branch_concurrency(len(branches_to_expand))
+    _log(f"并行扩展一级分支，最大并发 {max_workers}；分支之间互不依赖，日志可能交叉输出。")
+
+    records_by_index: dict[int, dict[str, Any]] = {}
+    if branches_to_expand:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {
+                executor.submit(
+                    _expand_one_branch,
                     industry_id,
                     resolved_industry_name,
-                    branch_node,
-                    branch_graph,
-                    branch_evaluation,
+                    target_depth,
+                    seed_graph,
                     seed_blueprint,
-                )
-                branch_graph = namespace_branch_graph(revised_branch, branch_node)
-                branch_graph = standardize_graph(branch_graph, industry_id)
-                branch_record.update({
-                    "revised": True,
-                    "revision_prompt": revise_prompt,
-                    "revision_raw_response": revise_raw,
-                    "graph": branch_graph,
-                })
-            else:
-                _log(f"分支 {branch_name} 评估通过，保留意见但不请求修正。")
-            validate_branch_expansion(branch_graph, branch_node)
-            branch_graphs.append(branch_graph)
-            branch_records.append(branch_record)
-            _log(f"分支 {branch_name} 完成，候选节点 {len(branch_graph.get('nodes', []))} 个。")
-        except Exception as exc:
-            error = {"branch_id": branch_node.get("id"), "branch_name": branch_name, "error": f"{type(exc).__name__}: {exc}"}
-            staged_errors.append(error)
-            branch_records.append({"branch_id": branch_node.get("id"), "branch_name": branch_name, "status": "failed", "error": error["error"]})
-            _log(f"分支 {branch_name} 扩展或评估失败，已记录后继续其他分支。")
+                    branch_node,
+                    index,
+                    len(branches_to_expand),
+                ): index
+                for index, branch_node in enumerate(branches_to_expand, start=1)
+            }
+            for completed, future in enumerate(concurrent.futures.as_completed(futures), start=1):
+                index = futures[future]
+                records_by_index[index] = future.result()
+                _log(f"分支进度 {completed}/{len(branches_to_expand)}。")
+
+    # 按一级骨架顺序回填，保证产物与串行实现完全一致。
+    branch_records: list[dict[str, Any]] = [
+        records_by_index[index] for index in range(1, len(branches_to_expand) + 1)
+    ]
+    branch_graphs = [record["graph"] for record in branch_records if record.get("status") == "ok"]
+    staged_errors = [
+        {
+            "branch_id": record.get("branch_id"),
+            "branch_name": record.get("branch_name"),
+            "error": record.get("error"),
+        }
+        for record in branch_records
+        if record.get("status") != "ok"
+    ]
 
     extracted_candidate = merge_staged_graphs(industry_id, resolved_industry_name, seed_graph, branch_graphs)
     quality_opinions = _quality_opinions(seed_record, branch_records)

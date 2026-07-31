@@ -72,6 +72,16 @@ textarea:focus-visible {
   padding: 18px;
 }
 
+/* .app-shell is a 100vh grid with overflow:hidden, so the sidebar has to scroll
+   its own overflow — otherwise the lower filter groups are clipped and
+   unreachable on short viewports. */
+.sidebar {
+  height: 100vh;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
 .inspector {
   position: relative;
   border-left: 1px solid #d9e2ec;
@@ -363,6 +373,23 @@ select {
   color: #ffffff;
 }
 
+.company-scope-switch {
+  margin-top: 2px;
+  width: 100%;
+}
+
+.company-scope-switch button {
+  flex: 1;
+}
+
+.filter-hint {
+  color: #64748b;
+  display: block;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
 .graph-canvas {
   background: #f1f5f9;
   height: calc(100vh - 79px);
@@ -618,12 +645,25 @@ select {
     min-width: 0;
   }
 
+  /* The inspector wraps onto a second row here, which a 100vh overflow:hidden
+     container would clip, so let the whole shell scroll instead. */
   .app-shell {
     grid-template-columns: 280px 1fr;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .sidebar {
+    height: auto;
+    max-height: 100vh;
+    position: sticky;
+    top: 0;
   }
 
   .inspector {
     grid-column: 1 / -1;
+    height: auto;
   }
 
   .inspector-resize-handle {
