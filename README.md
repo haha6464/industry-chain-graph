@@ -79,6 +79,7 @@ BAILIAN_SEARCH_STRATEGY=agent
 BAILIAN_TIMEOUT_SECONDS=600
 BAILIAN_MAX_RETRIES=1
 BAILIAN_STAGED_BRANCH_LIMIT=0
+BAILIAN_STAGED_BRANCH_MAX_CONCURRENCY=4
 BAILIAN_ENABLE_THINKING=true
 BAILIAN_ENABLE_CODE_INTERPRETER=false
 ```
@@ -134,7 +135,7 @@ BAILIAN_ENABLE_CODE_INTERPRETER=false
 .\scripts\run-agent.ps1 tools\agent\build_candidate_graph.py --industry-id food_beverage --industry-name 食品饮料行业 --stage branches
 ```
 
-构建 Agent 会调用 Qwen Responses API，默认仅启用 `web_search`，所有阶段均停用 `web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先研究行业边界和一级主分类轴，再按分类蓝图生成、评估并必要时修正一级骨架；骨架最终评估通过后，才按一级分支多次小请求扩展并合并为候选图谱。`BAILIAN_STAGED_BRANCH_LIMIT` 仅作为调试上限；默认 0 表示扩展全部一级分支。旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用。
+构建 Agent 会调用 Qwen Responses API，默认仅启用 `web_search`，所有阶段均停用 `web_extractor`；`code_interpreter` 可通过 `BAILIAN_ENABLE_CODE_INTERPRETER=true` 手动开启，但通常会显著增加耗时。构建默认采用分阶段 staged 策略：先研究行业边界和一级主分类轴，再按分类蓝图生成、评估并必要时修正一级骨架；骨架最终评估通过后，才按一级分支多次小请求扩展并合并为候选图谱。`BAILIAN_STAGED_BRANCH_LIMIT` 仅作为调试上限；默认 0 表示扩展全部一级分支。旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用。分支之间互不依赖，默认并行扩展，并发数由 `BAILIAN_STAGED_BRANCH_MAX_CONCURRENCY` 控制（默认 4，设为 0 表示所有分支一次性并发，设为 1 退回串行）；并发时日志会交叉输出，但分支产物仍按一级骨架顺序写入。
 
 ### 2. 写回正式图谱
 

@@ -176,8 +176,8 @@ industry-chain-graph/
 5. 百炼联网研究行业边界与一级主分类轴；启用申万参考时，筛选结果仅作召回参考，允许重命名、合并、拆分或舍弃，不要求最终 L1 与申万分类一致。“行业归属边界”不得替代“产业链上下游边界”，蓝图必须至少包含 1 个 upstream 和 1 个 downstream L1；缺失时自动修正一次 -> staged_level1_blueprint.json
 6. 根据分类蓝图构建一级骨架；启用时额外参考申万筛选结果。生成结果再次硬检查至少包含 1 个 upstream 和 1 个 downstream L1；缺失时自动修正一次，仍缺失则终止本次骨架构建 -> staged_level1_graph.json
 7. 评估一级骨架质量 -> staged_level1_evaluation.json；未通过时仅修正骨架并复评一次
-8. 逐个扩展全部一级分支（BAILIAN_STAGED_BRANCH_LIMIT 仅作为调试上限） -> staged_branch_fragments.json
-9. 逐分支评估质量 -> staged_branch_evaluations.json；未通过时仅修正当前分支
+8. 并行扩展全部一级分支（BAILIAN_STAGED_BRANCH_LIMIT 仅作为调试上限，BAILIAN_STAGED_BRANCH_MAX_CONCURRENCY 控制并发数） -> staged_branch_fragments.json
+9. 逐分支评估质量（与该分支的扩展在同一个并发任务内完成） -> staged_branch_evaluations.json；未通过时仅修正当前分支
 10. 合并图谱与质量意见 -> staged_merged_graph.json / staged_quality_opinions.json
 11. 标准化 -> pre_validation_candidate_graph.json
 12. 单轮硬规则校验；通过则直接生成 candidate_graph.json
@@ -263,6 +263,7 @@ Agent 工具既支持 CLI 直接运行（通过 `scripts/run-agent.ps1` 包装�
 - `BAILIAN_SEARCH_STRATEGY` — 搜索策略，默认 `agent`；公共客户端仅启用 `web_search`，所有阶段停用 `web_extractor`
 - `BAILIAN_TIMEOUT_SECONDS` — 超时秒数，默认 600
 - `BAILIAN_STAGED_BRANCH_LIMIT` — 分阶段构建调试上限，默认 0 表示扩展全部一级分支；旧的 `BAILIAN_STAGED_MAX_BRANCHES` 不再使用
+- `BAILIAN_STAGED_BRANCH_MAX_CONCURRENCY` — 一级分支并行扩展的最大并发数，默认 4；0 表示所有分支一次性并发，1 表示退回串行
 - `BAILIAN_ENABLE_THINKING` — 是否开启思考模式，默认 true
 - `BAILIAN_ENABLE_CODE_INTERPRETER` — 是否开启代码解释器，默认 false（通常关闭以节省时间）
 - `BAILIAN_L2_FLOW_MODEL` — L2 上下游节点对判定模型，默认 `qwen3.7-plus`；该环节固定关闭联网、思考和全部工具

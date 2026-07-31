@@ -14,6 +14,7 @@ const relationOptions: Array<{ value: RelationType; label: string }> = [
   { value: "upstream_downstream", label: "一级上下游关系" }
 ];
 type LayoutMode = "forceDirected" | "hierarchical";
+type CompanyScope = "listed" | "all";
 type PageMode = "graph" | "agent";
 const defaultFilters: GraphFilters = { q: "", chain_positions: [], relation_types: [], levels: [] };
 const activeRunStatuses = new Set(["running", "canceling"]);
@@ -136,6 +137,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   const [expandedCompanyNodeIds, setExpandedCompanyNodeIds] = useState<string[]>([]);
   const [companyResponses, setCompanyResponses] = useState<Record<string, NodeCompaniesResponse>>({});
   const [companyLoading, setCompanyLoading] = useState(false);
+  const [companyScope, setCompanyScope] = useState<CompanyScope>("listed");
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState<AskResponse | null>(null);
   const [graphLoading, setGraphLoading] = useState(false);
@@ -554,7 +556,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     }
     setCompanyLoading(true);
     try {
-      const response = await fetchNodeCompanies(industryId, nodeId, 500, 0, false);
+      const response = await fetchNodeCompanies(industryId, nodeId, 500, 0, false, companyScope === "listed");
       setCompanyResponses((current) => ({ ...current, [nodeId]: response }));
       if (response.status === "ready") {
         setExpandedCompanyNodeIds((current) => current.includes(nodeId) ? current : [...current, nodeId]);
@@ -564,6 +566,28 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
         ...current,
         [nodeId]: { industry_id: industryId, node_id: nodeId, status: "invalid" as const, message: error instanceof Error ? error.message : "公司节点读取失败", total: 0, limit: 500, offset: 0, items: [] }
       }));
+    } finally {
+      setCompanyLoading(false);
+    }
+  }
+  async function handleCompanyScopeChange(scope: CompanyScope) {
+    if (scope === companyScope) return;
+    setCompanyScope(scope);
+    // Cached responses were fetched under the previous scope, so drop them and
+    // refetch whatever is currently expanded on the canvas.
+    setCompanyResponses({});
+    setSelectedCompany(null);
+    const expanded = expandedCompanyNodeIds;
+    if (expanded.length === 0) return;
+    setCompanyLoading(true);
+    try {
+      const responses = await Promise.all(
+        expanded.map((nodeId) => fetchNodeCompanies(industryId, nodeId, 500, 0, false, scope === "listed"))
+      );
+      setCompanyResponses(Object.fromEntries(expanded.map((nodeId, index) => [nodeId, responses[index]])));
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "切换公司范围失败");
+      setExpandedCompanyNodeIds([]);
     } finally {
       setCompanyLoading(false);
     }
@@ -915,6 +939,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
           <label className="field"><span>关键词</span><div className="search-box"><Search size={16} /><input placeholder="节点名称或简介" value={draftFilters.q} onChange={(event) => setDraftFilters({ ...draftFilters, q: event.target.value })} onKeyDown={(event) => { if (event.key === "Enter") applyFilters(draftFilters); }} /></div></label>
           <div className="filter-group"><span>节点类型</span>{nodeTypeOptions.map((option) => <label key={option.value} className="check-row"><input type="checkbox" checked={draftFilters.chain_positions.includes(option.value)} onChange={() => setDraftFilters({ ...draftFilters, chain_positions: toggleValue(draftFilters.chain_positions, option.value) })} /><span className="dot" style={{ backgroundColor: option.color }} />{option.label}</label>)}{levelOptions.map((level) => <label key={level} className="check-row"><input type="checkbox" checked={draftFilters.levels.includes(level)} onChange={() => setDraftFilters({ ...draftFilters, levels: toggleValue(draftFilters.levels, level) })} /><span className="dot" style={{ backgroundColor: levelColor(level, maxVisibleLevel) }} />L{level}</label>)}</div>
           <div className="filter-group"><span>关系类型</span>{relationOptions.map((option) => <label key={option.value} className="check-row"><input type="checkbox" checked={draftFilters.relation_types.includes(option.value)} onChange={() => setDraftFilters({ ...draftFilters, relation_types: toggleValue(draftFilters.relation_types, option.value) })} />{option.label}</label>)}</div>
+          <div className="filter-group"><span>公司范围</span><div className="layout-switch company-scope-switch" aria-label="公司范围"><button type="button" title="只显示上市公司（含境外上市）" className={companyScope === "listed" ? "active" : ""} onClick={() => void handleCompanyScopeChange("listed")} disabled={companyLoading}>仅上市</button><button type="button" title="显示全部挂载公司" className={companyScope === "all" ? "active" : ""} onClick={() => void handleCompanyScopeChange("all")} disabled={companyLoading}>全部</button></div><small className="filter-hint">{companyScope === "listed" ? "展开节点时只挂载上市公司。" : "展开节点时挂载全部公司，含非上市主体。"}</small></div>
           <div className="toolbar"><button type="button" title="应用筛选" onClick={() => applyFilters(draftFilters)} disabled={graphLoading || !hasSelectedIndustry}>{graphLoading ? <span className="spinner dark" /> : <Search size={16} />}</button><button type="button" title="重置筛选" onClick={() => applyFilters(defaultFilters)} disabled={graphLoading || !hasSelectedIndustry}><RefreshCw size={16} /></button></div>
         </section>
       </aside>

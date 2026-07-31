@@ -49,6 +49,16 @@ declare global {
   }
 }
 
+/**
+ * Mirror of `is_listed_company` in tools/agent/company_attachments.py — keep the
+ * two in sync. A blank `islisted` in the source CSV marks a non-listed entity
+ * (group parents and subsidiaries), not missing data, so only an explicit flag
+ * counts as listed. Overseas-listed companies are included.
+ */
+export function isListedCompany(company: { is_listed?: boolean | null; is_abroad_listed?: boolean | null }) {
+  return company.is_listed === true || company.is_abroad_listed === true;
+}
+
 function offlineSnapshot() {
   return typeof window === "undefined" ? undefined : window.__INDUSTRY_GRAPH_OFFLINE_SNAPSHOT__;
 }
@@ -130,7 +140,7 @@ export async function fetchNeighbors(industryId: string, nodeId: string) {
   return request<GraphResponse>(`/api/nodes/${nodeId}/neighbors?industry_id=${industryId}`);
 }
 
-export async function fetchNodeCompanies(industryId: string, nodeId: string, limit = 500, offset = 0, includeDescendants = true): Promise<NodeCompaniesResponse> {
+export async function fetchNodeCompanies(industryId: string, nodeId: string, limit = 500, offset = 0, includeDescendants = true, listedOnly = false): Promise<NodeCompaniesResponse> {
   const snapshot = offlineSnapshot();
   if (snapshot) {
     const graph = snapshot.graphs[industryId];
@@ -153,7 +163,11 @@ export async function fetchNodeCompanies(industryId: string, nodeId: string, lim
       }
     }
     const nodeNames = new Map(graph.nodes.map((node) => [node.id, node.name]));
-    const companies = new Map(payload.companies.map((company) => [company.company_id, company]));
+    const companies = new Map(
+      payload.companies
+        .filter((company) => !listedOnly || isListedCompany(company))
+        .map((company) => [company.company_id, company])
+    );
     const matched = new Map<string, Array<{ node_id: string; node_name: string; reason: string; confidence: number }>>();
     payload.attachments.forEach((attachment) => {
       if (!visibleNodeIds.has(attachment.node_id) || !companies.has(attachment.company_id)) return;
@@ -174,7 +188,7 @@ export async function fetchNodeCompanies(industryId: string, nodeId: string, lim
     })).sort((left, right) => left.name.localeCompare(right.name, "zh-CN") || left.comcode.localeCompare(right.comcode));
     return { industry_id: industryId, node_id: nodeId, status: "ready", message: "", total: items.length, limit, offset, items: items.slice(offset, offset + limit) };
   }
-  const params = new URLSearchParams({ industry_id: industryId, limit: String(limit), offset: String(offset), include_descendants: String(includeDescendants) });
+  const params = new URLSearchParams({ industry_id: industryId, limit: String(limit), offset: String(offset), include_descendants: String(includeDescendants), listed_only: String(listedOnly) });
   return request<NodeCompaniesResponse>(`/api/nodes/${nodeId}/companies?${params.toString()}`);
 }
 

@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_attach_companies, run_build_branches, run_build_l2_flow_relations, run_build_skeleton, run_search_plan, run_final_validate, run_update
 from app.ai_service import AIConfigurationError, answer_with_graph_context
 from tools.agent.common import industry_dir, load_graph
-from tools.agent.company_attachments import aggregate_node_companies, attachment_file_status
+from tools.agent.company_attachments import aggregate_node_companies, attachment_file_status, filter_listed_attachments
 from tools.agent.l2_flow_relations import relation_file_status
 from app.config import Settings, get_settings
 from app.graph_loader import load_industry_graph, load_manifest
@@ -177,6 +177,7 @@ def get_node_companies(
     limit: int = Query(default=500, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
     include_descendants: bool = Query(default=True),
+    listed_only: bool = Query(default=False),
 ) -> NodeCompaniesResponse:
     try:
         _, nodes, _ = load_industry_graph(industry_id)
@@ -191,6 +192,8 @@ def get_node_companies(
         return NodeCompaniesResponse(
             industry_id=industry_id, node_id=node_id, status=status, message=message, limit=limit, offset=offset
         )
+    if listed_only:
+        payload, _ = filter_listed_attachments(payload)
     items = aggregate_node_companies(graph, payload, node_id, include_descendants=include_descendants)
     return NodeCompaniesResponse(
         industry_id=industry_id,

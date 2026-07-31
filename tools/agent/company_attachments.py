@@ -480,6 +480,76 @@ def build_attachment_payload(
     }
 
 
+def is_listed_company(company: dict[str, Any]) -> bool:
+    """A company counts as listed only when the source CSV explicitly flags it.
+
+    ``islisted`` is blank for roughly half of 申万全量分类结果.csv, and that blank
+    marks non-listed entities rather than missing data: the listed entity always
+    carries its own ``islisted=1`` row, while group parents and subsidiaries
+    (华为投资控股、茅台集团、中芯国际(上海)) stay blank. Overseas-listed companies
+    are kept because a handful carry only ``isabroadlisted=1``.
+    """
+    return company.get("is_listed") is True or company.get("is_abroad_listed") is True
+
+
+def filter_listed_attachments(payload: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Drop non-listed companies and every attachment that referenced them.
+
+    Returns the filtered payload plus a statistics block. Metadata that
+    ``attachment_file_status`` validates (schema_version, industry_id,
+    graph_fingerprint, candidate_source, scope) is carried over untouched so the
+    filtered file stays servable without re-running the attachment agent.
+    """
+    companies = payload.get("companies", []) or []
+    attachments = payload.get("attachments", []) or []
+
+    listed_companies = [company for company in companies if is_listed_company(company)]
+    listed_ids = {str(company.get("company_id")) for company in listed_companies}
+    listed_attachments = [item for item in attachments if str(item.get("company_id")) in listed_ids]
+
+    # Only keep companies that still carry at least one attachment, mirroring how
+    # build_payload assembles the company list from attached ids.
+    attached_ids = {str(item.get("company_id")) for item in listed_attachments}
+    retained_companies = [
+        company for company in listed_companies if str(company.get("company_id")) in attached_ids
+    ]
+
+    domestic = sum(1 for company in retained_companies if company.get("is_listed") is True)
+    abroad_only = sum(
+        1 for company in retained_companies
+        if company.get("is_listed") is not True and company.get("is_abroad_listed") is True
+    )
+    removed_flag_counts = Counter(
+        "is_listed=false" if company.get("is_listed") is False else "is_listed=null"
+        for company in companies if not is_listed_company(company)
+    )
+    stats = {
+        "company_count_before": len(companies),
+        "company_count_after": len(retained_companies),
+        "company_removed": len(companies) - len(retained_companies),
+        "attachment_count_before": len(attachments),
+        "attachment_count_after": len(listed_attachments),
+        "attachment_removed": len(attachments) - len(listed_attachments),
+        "listed_domestic_count": domestic,
+        "listed_abroad_only_count": abroad_only,
+        "removed_flag_counts": dict(sorted(removed_flag_counts.items())),
+    }
+
+    method_counts = Counter(str(item.get("match_method", "unknown")) for item in listed_attachments)
+    filtered = {
+        **payload,
+        "companies": retained_companies,
+        "attachments": listed_attachments,
+        "matching_summary": {"match_method_counts": dict(sorted(method_counts.items()))},
+        "listed_filter": {
+            "applied_at": now_iso(),
+            "rule": "is_listed is True or is_abroad_listed is True",
+            **stats,
+        },
+    }
+    return filtered, stats
+
+
 def descendants_for_node(graph: dict[str, Any], node_id: str) -> set[str]:
     children: dict[str, list[str]] = defaultdict(list)
     parents = _parent_map(graph)

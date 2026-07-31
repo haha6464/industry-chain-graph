@@ -5,12 +5,13 @@ import json
 import os
 from typing import Any
 
-from tools.agent.bailian_client import BailianAgentError, call_bailian_responses
+from tools.agent.bailian_client import BailianAgentError, call_bailian_responses, load_bailian_env
 from tools.agent.common import now_iso, standardize_graph, write_json
 from tools.agent.search.bailian_responses_agent import _extract_json_object, _response_text
 
 DEFAULT_BRANCH_TARGET = "10-16 个新增节点，必须覆盖 level=2/3；核心产品、材料、设备、渠道或应用分支在证据充分时应继续展开到 level=4"
 MIN_BRANCH_NEW_NODES = 8
+DEFAULT_BRANCH_MAX_CONCURRENCY = 4
 REQUIRED_SKELETON_POSITIONS = frozenset({"upstream", "downstream"})
 SKELETON_CLASSIFICATION_POLICY = """
 一级骨架分类原则：
@@ -39,6 +40,8 @@ INVESTMENT_RESEARCH_NODE_POLICY = """
 
 
 def _env_int(name: str, default: int) -> int:
+    # 分支阶段可能在任何一次百炼调用之前就读取配置，这里自己确保 .env 已加载。
+    load_bailian_env()
     value = os.getenv(name)
     if not value:
         return default
@@ -517,6 +520,14 @@ def staged_branch_limit(total_branches: int) -> int:
     if configured <= 0 or configured >= total_branches:
         return total_branches
     return configured
+
+
+def staged_branch_concurrency(pending_branches: int) -> int:
+    """并行扩展一级分支时的最大并发数；<=0 表示所有分支一次性并发。"""
+    configured = _env_int("BAILIAN_STAGED_BRANCH_MAX_CONCURRENCY", DEFAULT_BRANCH_MAX_CONCURRENCY)
+    if configured <= 0:
+        return max(1, pending_branches)
+    return max(1, min(configured, pending_branches))
 
 
 def write_staged_artifacts(output_dir, seed_graph: dict[str, Any], fragments: list[dict[str, Any]], merged_graph: dict[str, Any], errors: list[dict[str, Any]]) -> None:
