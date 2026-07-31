@@ -481,19 +481,19 @@ def build_attachment_payload(
 
 
 def is_listed_company(company: dict[str, Any]) -> bool:
-    """A company counts as listed only when the source CSV explicitly flags it.
+    """Return whether the company is listed in mainland China.
 
     ``islisted`` is blank for roughly half of 申万全量分类结果.csv, and that blank
     marks non-listed entities rather than missing data: the listed entity always
     carries its own ``islisted=1`` row, while group parents and subsidiaries
-    (华为投资控股、茅台集团、中芯国际(上海)) stay blank. Overseas-listed companies
-    are kept because a handful carry only ``isabroadlisted=1``.
+    (华为投资控股、茅台集团、中芯国际(上海)) stay blank. ``isabroadlisted`` is
+    intentionally not sufficient: the delivery scope is domestic listed companies.
     """
-    return company.get("is_listed") is True or company.get("is_abroad_listed") is True
+    return company.get("is_listed") is True
 
 
 def filter_listed_attachments(payload: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Drop non-listed companies and every attachment that referenced them.
+    """Keep domestic listed companies and their direct attachments only.
 
     Returns the filtered payload plus a statistics block. Metadata that
     ``attachment_file_status`` validates (schema_version, industry_id,
@@ -516,7 +516,7 @@ def filter_listed_attachments(payload: dict[str, Any]) -> tuple[dict[str, Any], 
 
     domestic = sum(1 for company in retained_companies if company.get("is_listed") is True)
     abroad_only = sum(
-        1 for company in retained_companies
+        1 for company in companies
         if company.get("is_listed") is not True and company.get("is_abroad_listed") is True
     )
     removed_flag_counts = Counter(
@@ -543,7 +543,7 @@ def filter_listed_attachments(payload: dict[str, Any]) -> tuple[dict[str, Any], 
         "matching_summary": {"match_method_counts": dict(sorted(method_counts.items()))},
         "listed_filter": {
             "applied_at": now_iso(),
-            "rule": "is_listed is True or is_abroad_listed is True",
+            "rule": "is_listed is True (domestic listed company only)",
             **stats,
         },
     }

@@ -141,8 +141,10 @@ export interface AgentArtifactContent {
 
 export interface ExportResponse {
   industry_id: string;
-  node_csv: string;
-  edge_csv: string;
+  industry_node_csv: string;
+  industrynode_edge_csv: string;
+  industrynode_industry_edge_csv: string;
+  industrynode_node_csv: string;
   company_node_csv?: string | null;
   company_edge_csv?: string | null;
 }

@@ -409,7 +409,7 @@ def apply_candidate_graph(industry_id: str, candidate_type: str) -> dict[str, An
     logs = [
         f"已校验 {filename}：工程格式错误 {validation.get('error_count', 0)} 个，质量提醒 {validation.get('warning_count', 0)} 个。",
         f"已将{label}写入正式 graph.json。",
-        f"已刷新 CSV：{export.get('node_csv')} / {export.get('edge_csv')}。",
+        f"已刷新 CSV：{export.get('industrynode_node_csv')} / {export.get('industrynode_edge_csv')}。",
     ]
     return _register_completed_run("apply_candidate", industry_id, str(validation_path), logs)
 

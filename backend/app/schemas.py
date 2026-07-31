@@ -181,7 +181,9 @@ class AgentArtifactContent(BaseModel):
 
 class ExportResponse(BaseModel):
     industry_id: str
-    node_csv: str
-    edge_csv: str
+    industry_node_csv: str
+    industrynode_edge_csv: str
+    industrynode_industry_edge_csv: str
+    industrynode_node_csv: str
     company_node_csv: str | None = None
     company_edge_csv: str | None = None
