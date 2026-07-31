@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from tools.agent.bailian_client import BailianAgentError, call_bailian_responses
-from tools.agent.common import PROJECT_ROOT, content_hash
+from tools.agent.common import PROJECT_ROOT, content_hash, remove_singleton_contains_leaf_nodes
 
 
 COMPANY_ATTACHMENT_SCHEMA_VERSION = "industry_company_attachments_v0.2"
@@ -671,6 +671,50 @@ def prune_graph_to_company_coverage(
         ],
     }
     return pruned_graph, rebased_attachments, report
+
+
+def collapse_company_attached_singleton_leaves(
+    graph: dict[str, Any], attachments: dict[str, Any]
+) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, str]]]:
+    """Apply the final-validation singleton rule without losing company evidence.
+
+    When coverage pruning leaves a non-root parent with one contains child, the
+    child is a redundant naming layer.  Direct company attachments on that child
+    are moved to the parent before the child is removed.
+    """
+    nodes, edges, removals = remove_singleton_contains_leaf_nodes(
+        list(graph.get("nodes", [])), list(graph.get("edges", []))
+    )
+    if not removals:
+        return graph, attachments, []
+    parent_by_removed_node = {str(item["child_id"]): str(item["parent_id"]) for item in removals}
+    deduplicated_attachments: dict[tuple[str, str], dict[str, Any]] = {}
+    for item in attachments.get("attachments", []) or []:
+        company_id = str(item.get("company_id", ""))
+        direct_node_id = str(item.get("node_id", ""))
+        target_node_id = parent_by_removed_node.get(direct_node_id, direct_node_id)
+        updated = {**item, "node_id": target_node_id}
+        pair = (company_id, target_node_id)
+        # Prefer a pre-existing direct attachment on the surviving parent.
+        if pair not in deduplicated_attachments or direct_node_id == target_node_id:
+            deduplicated_attachments[pair] = updated
+    compacted_graph = {**graph, "nodes": nodes, "edges": edges}
+    compacted_attachments = {
+        **attachments,
+        "generated_at": now_iso(),
+        "graph_fingerprint": graph_fingerprint(compacted_graph),
+        "attachments": list(deduplicated_attachments.values()),
+        "singleton_leaf_compaction": {
+            "applied_at": now_iso(),
+            "rule": "非根节点仅保留一个 contains 子节点时，删除子节点并将其公司直接挂载上移到父节点。",
+            "removed_node_count": len(removals),
+            "moved_attachment_count": sum(
+                1 for item in attachments.get("attachments", []) or []
+                if str(item.get("node_id", "")) in parent_by_removed_node
+            ),
+        },
+    }
+    return compacted_graph, compacted_attachments, removals
 
 
 def attachment_file_status(industry_id: str, graph: dict[str, Any], attachment_path: Path) -> tuple[str, dict[str, Any] | None, str]:

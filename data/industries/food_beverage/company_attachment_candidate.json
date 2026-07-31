@@ -1,8 +1,8 @@
 {
   "schema_version": "industry_company_attachments_v0.2",
   "industry_id": "food_beverage",
-  "generated_at": "2026-07-31T06:39:40+00:00",
-  "graph_fingerprint": "76f7463da456cc260cd7896ee79432f9171ee51109851d7bdb75c340100fdb53",
+  "generated_at": "2026-07-31T07:03:02+00:00",
+  "graph_fingerprint": "b158e70a6c927cd3758805eb07a8dd70c36669f787c2ce55873056ad4f27838b",
   "candidate_source": {
     "path": "data/company_candidates/申万全量分类结果.csv",
     "sha256": "83c51fdb285db60e7a9cb0c8b252b3dff6f7e703dc5e869d5030b4a62ebe29a3",
@@ -10165,7 +10165,7 @@
     },
     {
       "company_id": "sw_285865",
-      "node_id": "food_beverage_001_003",
+      "node_id": "food_beverage_001_002",
       "reason": "主营工业啤酒生产与销售，属规模化啤酒品类",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -10416,7 +10416,7 @@
     },
     {
       "company_id": "sw_6920735",
-      "node_id": "food_beverage_001_003",
+      "node_id": "food_beverage_001_002",
       "reason": "全球领先啤酒制造商，主营工业啤酒",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -10458,7 +10458,7 @@
     },
     {
       "company_id": "sw_286696",
-      "node_id": "food_beverage_001_003",
+      "node_id": "food_beverage_001_002",
       "reason": "主营啤酒生产与销售，属于工业啤酒制造范畴",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -10493,7 +10493,7 @@
     },
     {
       "company_id": "sw_286042",
-      "node_id": "food_beverage_001_003",
+      "node_id": "food_beverage_001_002",
       "reason": "主营啤酒生产与销售，属于工业啤酒品类",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -10682,14 +10682,14 @@
     },
     {
       "company_id": "sw_382503",
-      "node_id": "food_beverage_001_003",
+      "node_id": "food_beverage_001_002",
       "reason": "主营啤酒制造，属于规模化工业啤酒品类",
       "confidence": 0.95,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_286601",
-      "node_id": "food_beverage_001_003",
+      "node_id": "food_beverage_001_002",
       "reason": "主营工业啤酒，属于规模化啤酒制造",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -10710,7 +10710,7 @@
     },
     {
       "company_id": "sw_286623",
-      "node_id": "food_beverage_001_003",
+      "node_id": "food_beverage_001_002",
       "reason": "重庆啤酒主营工业化啤酒品牌，属工业啤酒细分",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -10976,7 +10976,7 @@
     },
     {
       "company_id": "sw_1124826",
-      "node_id": "food_beverage_003_013",
+      "node_id": "food_beverage_003_011",
       "reason": "主营骨汤提取物及鸡精等鲜味基础调味品",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -11130,7 +11130,7 @@
     },
     {
       "company_id": "sw_351853",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "通过餐厅提供餐饮服务",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -11151,7 +11151,7 @@
     },
     {
       "company_id": "sw_7860093",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "涉及酒类终端消费场景服务",
       "confidence": 0.75,
       "match_method": "agent_web_search"
@@ -11361,7 +11361,7 @@
     },
     {
       "company_id": "sw_2454883",
-      "node_id": "food_beverage_007_017",
+      "node_id": "food_beverage_007_015",
       "reason": "提供保税仓储服务，匹配销地冷库节点",
       "confidence": 0.75,
       "match_method": "agent_web_search"
@@ -11508,7 +11508,7 @@
     },
     {
       "company_id": "sw_8192814",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "新式茶饮品牌，核心业务为餐饮门店消费",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -11753,7 +11753,7 @@
     },
     {
       "company_id": "sw_3282755",
-      "node_id": "food_beverage_006_003",
+      "node_id": "food_beverage_006_002",
       "reason": "主营面粉加工，是烘焙及面制食品的核心原料",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -12306,7 +12306,7 @@
     },
     {
       "company_id": "sw_338902",
-      "node_id": "food_beverage_003_013",
+      "node_id": "food_beverage_003_011",
       "reason": "主营味精及氨基酸，属于基础调味品中的鲜味剂",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -12453,7 +12453,7 @@
     },
     {
       "company_id": "sw_2009958",
-      "node_id": "food_beverage_005_016",
+      "node_id": "food_beverage_005_011",
       "reason": "主营阿胶制品，属于营养补充保健食品",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -12670,7 +12670,7 @@
     },
     {
       "company_id": "sw_308738",
-      "node_id": "food_beverage_003_013",
+      "node_id": "food_beverage_003_011",
       "reason": "全球主要味精生产商，属于基础调味品制造",
       "confidence": 1.0,
       "match_method": "agent_web_search"
@@ -12999,7 +12999,7 @@
     },
     {
       "company_id": "sw_286449",
-      "node_id": "food_beverage_003_013",
+      "node_id": "food_beverage_003_011",
       "reason": "主营味精等食品添加剂，属于基础调味品",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -13671,7 +13671,7 @@
     },
     {
       "company_id": "sw_286720",
-      "node_id": "food_beverage_003_013",
+      "node_id": "food_beverage_003_011",
       "reason": "主营味精、鸡精等鲜味基础调味品",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -13930,7 +13930,7 @@
     },
     {
       "company_id": "sw_3390073",
-      "node_id": "food_beverage_005_016",
+      "node_id": "food_beverage_005_011",
       "reason": "主营大麦若叶等营养补充食品制造",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -14000,7 +14000,7 @@
     },
     {
       "company_id": "sw_3362998",
-      "node_id": "food_beverage_005_014",
+      "node_id": "food_beverage_005_007",
       "reason": "全球领先的方便面及冲泡食品制造商",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -14028,7 +14028,7 @@
     },
     {
       "company_id": "sw_348780",
-      "node_id": "food_beverage_005_014",
+      "node_id": "food_beverage_005_007",
       "reason": "主营方便面产品（如来一桶），属于方便面与冲泡食品",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -14077,7 +14077,7 @@
     },
     {
       "company_id": "sw_3020074",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营面馆餐饮服务，属于餐饮消费场景",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -14091,14 +14091,14 @@
     },
     {
       "company_id": "sw_472185",
-      "node_id": "food_beverage_005_016",
+      "node_id": "food_beverage_005_011",
       "reason": "主营减肥茶等保健功能食品",
       "confidence": 0.85,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_294032",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营快餐连锁餐饮服务",
       "confidence": 0.95,
       "match_method": "agent_web_search"
@@ -14140,7 +14140,7 @@
     },
     {
       "company_id": "sw_285254",
-      "node_id": "food_beverage_005_014",
+      "node_id": "food_beverage_005_007",
       "reason": "主营方便面，属于方便食品制造核心品类",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -14539,14 +14539,14 @@
     },
     {
       "company_id": "sw_326720",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营餐饮服务，属于餐饮消费场景",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_316040",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营餐饮服务，属于餐饮消费场景",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -14595,7 +14595,7 @@
     },
     {
       "company_id": "sw_5228070",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营餐饮业务，属于餐饮消费场景",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -14630,7 +14630,7 @@
     },
     {
       "company_id": "sw_4106769",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营餐饮门店服务，属于餐饮消费场景",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -14742,14 +14742,14 @@
     },
     {
       "company_id": "sw_1882798",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营餐饮业务，属于餐饮消费场景",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_7736429",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营连锁餐饮业务，属于餐饮消费场景",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -14847,7 +14847,7 @@
     },
     {
       "company_id": "sw_2610345",
-      "node_id": "food_beverage_005_016",
+      "node_id": "food_beverage_005_011",
       "reason": "主营营养补充食品及保健食品，符合该节点定义",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -14931,14 +14931,14 @@
     },
     {
       "company_id": "sw_7980063",
-      "node_id": "food_beverage_005_014",
+      "node_id": "food_beverage_005_007",
       "reason": "主营方便面及冲泡类方便食品制造",
       "confidence": 0.9,
       "match_method": "agent_web_search"
     },
     {
       "company_id": "sw_5163114",
-      "node_id": "food_beverage_007_019",
+      "node_id": "food_beverage_007_018",
       "reason": "主营大宗农产品物流，涉及干线冷链运输",
       "confidence": 0.7,
       "match_method": "agent_web_search"
@@ -14952,7 +14952,7 @@
     },
     {
       "company_id": "sw_2553426",
-      "node_id": "food_beverage_007_011",
+      "node_id": "food_beverage_007_009",
       "reason": "主营餐饮服务，属于餐饮消费场景",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -15155,7 +15155,7 @@
     },
     {
       "company_id": "sw_3356184",
-      "node_id": "food_beverage_005_016",
+      "node_id": "food_beverage_005_011",
       "reason": "主营阿胶生物制品，属于营养补充类保健食品",
       "confidence": 0.9,
       "match_method": "agent_web_search"
@@ -15295,5 +15295,11 @@
     "nodes_before": 114,
     "nodes_after": 91,
     "removed_node_count": 23
+  },
+  "singleton_leaf_compaction": {
+    "applied_at": "2026-07-31T07:03:02+00:00",
+    "rule": "非根节点仅保留一个 contains 子节点时，删除子节点并将其公司直接挂载上移到父节点。",
+    "removed_node_count": 8,
+    "moved_attachment_count": 36
   }
 }

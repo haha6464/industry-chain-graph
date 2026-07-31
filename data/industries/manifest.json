@@ -176,8 +176,8 @@
     "source_order": 40,
     "data_path": "data/industries/food_beverage/graph.json",
     "status": "demo",
-    "node_count": 91,
-    "edge_count": 90
+    "node_count": 83,
+    "edge_count": 82
   },
   {
     "id": "food_beverage_claude",

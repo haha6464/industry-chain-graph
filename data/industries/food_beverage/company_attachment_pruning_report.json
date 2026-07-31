@@ -2,9 +2,9 @@
   "generated_at": "2026-07-31T06:39:40+00:00",
   "rule": "保留直接挂载节点及其分类父节点、L0-L1 主图上下游聚合父节点；删除无公司可聚合节点。",
   "nodes_before": 114,
-  "nodes_after": 91,
+  "nodes_after": 83,
   "edges_before": 113,
-  "edges_after": 90,
+  "edges_after": 82,
   "direct_attachment_count": 733,
   "removed_nodes": [
     {
@@ -184,5 +184,58 @@
     "warning_count": 0,
     "status": "pass",
     "issues": []
+  },
+  "singleton_leaf_compaction": {
+    "rule": "非根节点仅保留一个 contains 子节点时，删除子节点并将公司挂载上移到父节点。",
+    "removed_nodes": [
+      {
+        "parent_id": "food_beverage_001_002",
+        "parent_name": "啤酒",
+        "child_id": "food_beverage_001_003",
+        "child_name": "工业啤酒"
+      },
+      {
+        "parent_id": "food_beverage_003_011",
+        "parent_name": "基础调味品",
+        "child_id": "food_beverage_003_013",
+        "child_name": "味精与鸡精"
+      },
+      {
+        "parent_id": "food_beverage_005_007",
+        "parent_name": "方便食品制造",
+        "child_id": "food_beverage_005_014",
+        "child_name": "方便面与冲泡食品"
+      },
+      {
+        "parent_id": "food_beverage_005_011",
+        "parent_name": "保健食品制造",
+        "child_id": "food_beverage_005_016",
+        "child_name": "营养补充食品"
+      },
+      {
+        "parent_id": "food_beverage_006_002",
+        "parent_name": "粮食作物",
+        "child_id": "food_beverage_006_003",
+        "child_name": "制粉用小麦"
+      },
+      {
+        "parent_id": "food_beverage_007_009",
+        "parent_name": "终端消费场景",
+        "child_id": "food_beverage_007_011",
+        "child_name": "餐饮消费"
+      },
+      {
+        "parent_id": "food_beverage_007_015",
+        "parent_name": "冷链仓储",
+        "child_id": "food_beverage_007_017",
+        "child_name": "销地冷库"
+      },
+      {
+        "parent_id": "food_beverage_007_018",
+        "parent_name": "冷链运输",
+        "child_id": "food_beverage_007_019",
+        "child_name": "干线冷链运输"
+      }
+    ]
   }
 }

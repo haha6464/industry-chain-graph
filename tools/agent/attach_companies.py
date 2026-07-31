@@ -25,6 +25,7 @@ from tools.agent.company_attachments import (
     build_taxonomy_catalog,
     call_match_agent,
     call_scope_agent,
+    collapse_company_attached_singleton_leaves,
     chunks,
     configured_batch_size,
     configured_max_concurrency,
@@ -254,6 +255,13 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
 
     _log("按父级聚合规则裁剪未挂载产业链节点。")
     pruned_graph, candidate, pruning_report = prune_graph_to_company_coverage(graph, candidate)
+    pruned_graph, candidate, singleton_removals = collapse_company_attached_singleton_leaves(pruned_graph, candidate)
+    pruning_report["singleton_leaf_compaction"] = {
+        "rule": "非根节点仅保留一个 contains 子节点时，删除子节点并将公司挂载上移到父节点。",
+        "removed_nodes": singleton_removals,
+    }
+    if singleton_removals:
+        _log(f"已压缩 {len(singleton_removals)} 个仅有唯一子分类的节点层级，并上移公司挂载。")
     graph_validation = validate_graph(pruned_graph, industry_id)
     if graph_validation.get("error_count", 0) > 0:
         raise RuntimeError(f"公司覆盖裁剪后的图谱硬规则校验失败：{graph_validation.get('error_count', 0)} 个错误。")

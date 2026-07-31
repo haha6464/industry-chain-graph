@@ -8,6 +8,7 @@ from tempfile import TemporaryDirectory
 from tools.agent.company_attachments import (
     aggregate_node_companies,
     ancestors_for_node,
+    collapse_company_attached_singleton_leaves,
     descendants_for_node,
     filter_domestic_listed_companies,
     filter_listed_attachments,
@@ -223,6 +224,18 @@ class CompanyAggregationTest(unittest.TestCase):
         )
         self.assertEqual(report["removed_nodes"], [{"id": "food_beverage_003", "name": "非隶属流向节点", "level": 2}])
         self.assertEqual(rebased_attachments["graph_fingerprint"], graph_fingerprint(pruned_graph))
+
+    def test_singleton_leaf_compaction_moves_company_to_parent(self):
+        attachments = {
+            "companies": [company("sw_listed", True)],
+            "attachments": [attachment("sw_listed", "food_beverage_002")],
+        }
+        compacted_graph, compacted_attachments, removals = collapse_company_attached_singleton_leaves(
+            self.GRAPH, attachments
+        )
+        self.assertEqual([item["child_id"] for item in removals], ["food_beverage_002"])
+        self.assertNotIn("food_beverage_002", {node["id"] for node in compacted_graph["nodes"]})
+        self.assertEqual(compacted_attachments["attachments"][0]["node_id"], "food_beverage_001")
 
 
 if __name__ == "__main__":
