@@ -2,8 +2,8 @@
   "schema_version": "industry_l2_flow_relations_v0.2_pairwise",
   "industry_id": "food_beverage",
   "industry": "食品饮料行业",
-  "generated_at": "2026-07-30T12:50:39+00:00",
-  "graph_fingerprint": "5a74824237d19d84c32293acd3d06a2bb19e5dc511cc510822370d3705ca7fc5",
+  "generated_at": "2026-07-31T06:39:40Z",
+  "graph_fingerprint": "76f7463da456cc260cd7896ee79432f9171ee51109851d7bdb75c340100fdb53",
   "generation_config": {
     "model": "qwen3.7-plus",
     "prompt_version": "l2_pair_tri_state_v0.2",
@@ -30,7 +30,6 @@
     "food_beverage_002_009",
     "food_beverage_002_011",
     "food_beverage_002_012",
-    "food_beverage_002_017",
     "food_beverage_003_001",
     "food_beverage_003_002",
     "food_beverage_003_011",
@@ -55,19 +54,19 @@
     "cross_branch_pair_count": 450,
     "shortlisted_pair_count": 214,
     "negative_audit_pair_count": 5,
-    "candidate_pair_count": 219,
+    "candidate_pair_count": 209,
     "candidates_per_node": 8,
     "negative_audit_rate": 0.03,
-    "pair_decision_count": 219,
+    "pair_decision_count": 209,
     "cache_hit_count": 174,
-    "model_decision_count": 45,
+    "model_decision_count": 35,
     "negative_audit_positive_count": 0,
     "verdict_counts": {
-      "A_TO_B": 62,
-      "B_TO_A": 69,
-      "NO": 88
+      "A_TO_B": 60,
+      "B_TO_A": 66,
+      "NO": 83
     },
-    "l1_l2_projected_relation_count": 93
+    "l1_l2_projected_relation_count": 91
   },
   "pair_decisions": [
     {
@@ -308,17 +307,6 @@
       ]
     },
     {
-      "pair_id": "p_18638f5af6c60cce",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_006_017",
-      "verdict": "B_TO_A",
-      "decision_source": "model_batch",
-      "cache_key": "55ed3e8ee7105d3f981b44c11cb1317f6c9b9cf0efb2347c403778350324e2e3",
-      "selection_reasons": [
-        "food_beverage_002_017:role_upstream"
-      ]
-    },
-    {
       "pair_id": "p_18d0a48ebbbc912c",
       "node_a_id": "food_beverage_001_009",
       "node_b_id": "food_beverage_002_002",
@@ -389,17 +377,6 @@
       ]
     },
     {
-      "pair_id": "p_1ed6ba62b26f4a7b",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_007_005",
-      "verdict": "A_TO_B",
-      "decision_source": "cache",
-      "cache_key": "fcd667c4b5f02415be108ff358e756aaea85f71592eda89bd892521511cb6dbd",
-      "selection_reasons": [
-        "food_beverage_002_017:role_downstream"
-      ]
-    },
-    {
       "pair_id": "p_1f1fe66a880884d7",
       "node_a_id": "food_beverage_002_002",
       "node_b_id": "food_beverage_006_017",
@@ -419,17 +396,6 @@
       "cache_key": "f8ee2d0a74f46ac66cda6150fd3e26ece304c218cef68b60f0b53e91e8a0fb9e",
       "selection_reasons": [
         "food_beverage_002_001:role_downstream"
-      ]
-    },
-    {
-      "pair_id": "p_1faaa13df63e0ca5",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_006_028",
-      "verdict": "B_TO_A",
-      "decision_source": "model_batch",
-      "cache_key": "d2b61ccae5981f4e3b29facaa8814ab2c18dd154957ffba474a5a9d31ac3d149",
-      "selection_reasons": [
-        "food_beverage_002_017:role_upstream"
       ]
     },
     {
@@ -577,17 +543,6 @@
       "cache_key": "2153bc6f1cbc193b93f5350cefdb7aa14beab80f3d7850217ab27de894c262fe",
       "selection_reasons": [
         "food_beverage_001_008:role_upstream"
-      ]
-    },
-    {
-      "pair_id": "p_2c9c1eff5d96d4ab",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_005_007",
-      "verdict": "NO",
-      "decision_source": "cache",
-      "cache_key": "fb9a3cc8f7b31eb5b756036a3c5cea73a0e5d689c77b1e789f5e96339400f607",
-      "selection_reasons": [
-        "food_beverage_002_017:branch_diversity"
       ]
     },
     {
@@ -1577,17 +1532,6 @@
       ]
     },
     {
-      "pair_id": "p_a2ed22188bd60ce4",
-      "node_a_id": "food_beverage_001_007",
-      "node_b_id": "food_beverage_002_017",
-      "verdict": "NO",
-      "decision_source": "cache",
-      "cache_key": "8f1c8d0aa03615e99f0865161f5230cd51f1929d21fe8dc4d79e56cfda8c145b",
-      "selection_reasons": [
-        "food_beverage_001_007:branch_diversity"
-      ]
-    },
-    {
       "pair_id": "p_a3eada07dff1a1a4",
       "node_a_id": "food_beverage_002_003",
       "node_b_id": "food_beverage_006_017",
@@ -1799,17 +1743,6 @@
       "selection_reasons": [
         "food_beverage_006_017:role_downstream",
         "food_beverage_007_005:role_upstream"
-      ]
-    },
-    {
-      "pair_id": "p_b5b51a272c8038d3",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_003_002",
-      "verdict": "NO",
-      "decision_source": "cache",
-      "cache_key": "aec6b6eb452670f6af9470ab01967a98cbf8658b7eeb9d34085c3d04ba92ad32",
-      "selection_reasons": [
-        "deterministic_negative_audit"
       ]
     },
     {
@@ -2126,18 +2059,6 @@
       ]
     },
     {
-      "pair_id": "p_d91ecdecd425b466",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_003_001",
-      "verdict": "NO",
-      "decision_source": "cache",
-      "cache_key": "24cc073e80234b0c1e9871b5a55a6cefa74a461f7e285c876ff8d8ece60dbb16",
-      "selection_reasons": [
-        "food_beverage_002_017:branch_diversity",
-        "food_beverage_003_001:branch_diversity"
-      ]
-    },
-    {
       "pair_id": "p_d99f0ebdaac738a2",
       "node_a_id": "food_beverage_006_028",
       "node_b_id": "food_beverage_007_013",
@@ -2147,28 +2068,6 @@
       "selection_reasons": [
         "food_beverage_006_028:role_downstream",
         "food_beverage_007_013:role_upstream"
-      ]
-    },
-    {
-      "pair_id": "p_da694ed7723c2e9a",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_006_001",
-      "verdict": "B_TO_A",
-      "decision_source": "cache",
-      "cache_key": "109c619107a6329124b28896011685254f041be52ebc55c5896baa9ba64d7e83",
-      "selection_reasons": [
-        "food_beverage_002_017:role_upstream"
-      ]
-    },
-    {
-      "pair_id": "p_da853bb47268e6bc",
-      "node_a_id": "food_beverage_001_009",
-      "node_b_id": "food_beverage_002_017",
-      "verdict": "NO",
-      "decision_source": "cache",
-      "cache_key": "440006e046fd89ce7f5614c1d716344a0c81fa625c48156f06ac75759aa7875c",
-      "selection_reasons": [
-        "food_beverage_002_017:branch_diversity"
       ]
     },
     {
@@ -2505,17 +2404,6 @@
       "cache_key": "01551e0322ae8d6a953c8ef7defbe6bbb0fb1213a98e3f7312bb8a1a25edd4f1",
       "selection_reasons": [
         "food_beverage_007_006:branch_diversity"
-      ]
-    },
-    {
-      "pair_id": "p_fdd34603f58406ec",
-      "node_a_id": "food_beverage_002_017",
-      "node_b_id": "food_beverage_007_004",
-      "verdict": "A_TO_B",
-      "decision_source": "model_batch",
-      "cache_key": "42e74f74143fcba1a4521ca44ac6416cd5fdbd90ca513c171090e64212ac803e",
-      "selection_reasons": [
-        "food_beverage_002_017:role_downstream"
       ]
     },
     {
@@ -3254,62 +3142,6 @@
       "confidence": 0.8,
       "evidence_basis": "endpoint_graph_sources_and_pairwise_model_decision",
       "decision_pair_id": "p_3d97cd6fb6581182",
-      "updated_at": "2026-07-30T12:50:39+00:00"
-    },
-    {
-      "id": "food_beverage_002_017__upstream_downstream__food_beverage_007_004",
-      "source": "food_beverage_002_017",
-      "target": "food_beverage_007_004",
-      "relation_type": "upstream_downstream",
-      "relation_layer": "l2_flow",
-      "relation_weight": 1.0,
-      "description": "即饮咖啡是传统流通渠道的直接上游投入或供给环节。",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.8,
-      "evidence_basis": "endpoint_graph_sources_and_pairwise_model_decision",
-      "decision_pair_id": "p_fdd34603f58406ec",
-      "updated_at": "2026-07-30T12:50:39+00:00"
-    },
-    {
-      "id": "food_beverage_002_017__upstream_downstream__food_beverage_007_005",
-      "source": "food_beverage_002_017",
-      "target": "food_beverage_007_005",
-      "relation_type": "upstream_downstream",
-      "relation_layer": "l2_flow",
-      "relation_weight": 1.0,
-      "description": "即饮咖啡是餐饮与团餐渠道的直接上游投入或供给环节。",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.8,
-      "evidence_basis": "endpoint_graph_sources_and_pairwise_model_decision",
-      "decision_pair_id": "p_1ed6ba62b26f4a7b",
       "updated_at": "2026-07-30T12:50:39+00:00"
     },
     {
@@ -4428,34 +4260,6 @@
       "updated_at": "2026-07-30T12:50:39+00:00"
     },
     {
-      "id": "food_beverage_006_001__upstream_downstream__food_beverage_002_017",
-      "source": "food_beverage_006_001",
-      "target": "food_beverage_002_017",
-      "relation_type": "upstream_downstream",
-      "relation_layer": "l2_flow",
-      "relation_weight": 1.0,
-      "description": "农产品原料是即饮咖啡的直接上游投入或供给环节。",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.8,
-      "evidence_basis": "endpoint_graph_sources_and_pairwise_model_decision",
-      "decision_pair_id": "p_da694ed7723c2e9a",
-      "updated_at": "2026-07-30T12:50:39+00:00"
-    },
-    {
       "id": "food_beverage_006_001__upstream_downstream__food_beverage_003_001",
       "source": "food_beverage_006_001",
       "target": "food_beverage_003_001",
@@ -4981,34 +4785,6 @@
       "confidence": 0.8,
       "evidence_basis": "endpoint_graph_sources_and_pairwise_model_decision",
       "decision_pair_id": "p_90e319c69b062cb8",
-      "updated_at": "2026-07-30T12:50:39+00:00"
-    },
-    {
-      "id": "food_beverage_006_017__upstream_downstream__food_beverage_002_017",
-      "source": "food_beverage_006_017",
-      "target": "food_beverage_002_017",
-      "relation_type": "upstream_downstream",
-      "relation_layer": "l2_flow",
-      "relation_weight": 1.0,
-      "description": "食品添加剂与配料是即饮咖啡的直接上游投入或供给环节。",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.8,
-      "evidence_basis": "endpoint_graph_sources_and_pairwise_model_decision",
-      "decision_pair_id": "p_18638f5af6c60cce",
       "updated_at": "2026-07-30T12:50:39+00:00"
     },
     {
@@ -5590,34 +5366,6 @@
       "updated_at": "2026-07-30T12:50:39+00:00"
     },
     {
-      "id": "food_beverage_006_028__upstream_downstream__food_beverage_002_017",
-      "source": "food_beverage_006_028",
-      "target": "food_beverage_002_017",
-      "relation_type": "upstream_downstream",
-      "relation_layer": "l2_flow",
-      "relation_weight": 1.0,
-      "description": "包装材料是即饮咖啡的直接上游投入或供给环节。",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.8,
-      "evidence_basis": "endpoint_graph_sources_and_pairwise_model_decision",
-      "decision_pair_id": "p_1faaa13df63e0ca5",
-      "updated_at": "2026-07-30T12:50:39+00:00"
-    },
-    {
       "id": "food_beverage_006_028__upstream_downstream__food_beverage_003_001",
       "source": "food_beverage_006_028",
       "target": "food_beverage_003_001",
@@ -5874,7 +5622,7 @@
         "food_beverage_001_007__upstream_downstream__food_beverage_007_001",
         "food_beverage_001_009__upstream_downstream__food_beverage_007_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001__upstream_downstream__food_beverage_007_004",
@@ -5908,7 +5656,7 @@
         "food_beverage_001_008__upstream_downstream__food_beverage_007_004",
         "food_beverage_001_009__upstream_downstream__food_beverage_007_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001__upstream_downstream__food_beverage_007_005",
@@ -5943,7 +5691,7 @@
         "food_beverage_001_008__upstream_downstream__food_beverage_007_005",
         "food_beverage_001_009__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001__upstream_downstream__food_beverage_007_006",
@@ -5975,7 +5723,7 @@
         "food_beverage_001_007__upstream_downstream__food_beverage_007_006",
         "food_beverage_001_009__upstream_downstream__food_beverage_007_006"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001__upstream_downstream__food_beverage_007_009",
@@ -6006,7 +5754,7 @@
       "projected_from_edge_ids": [
         "food_beverage_001_002__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001__upstream_downstream__food_beverage_007_013",
@@ -6037,7 +5785,7 @@
       "projected_from_edge_ids": [
         "food_beverage_001_007__upstream_downstream__food_beverage_007_013"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001_001__upstream_downstream__food_beverage_007",
@@ -6069,7 +5817,7 @@
         "food_beverage_001_001__upstream_downstream__food_beverage_007_004",
         "food_beverage_001_001__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001_002__upstream_downstream__food_beverage_007",
@@ -6101,7 +5849,7 @@
         "food_beverage_001_002__upstream_downstream__food_beverage_007_005",
         "food_beverage_001_002__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001_007__upstream_downstream__food_beverage_007",
@@ -6136,7 +5884,7 @@
         "food_beverage_001_007__upstream_downstream__food_beverage_007_006",
         "food_beverage_001_007__upstream_downstream__food_beverage_007_013"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001_008__upstream_downstream__food_beverage_007",
@@ -6168,7 +5916,7 @@
         "food_beverage_001_008__upstream_downstream__food_beverage_007_004",
         "food_beverage_001_008__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_001_009__upstream_downstream__food_beverage_007",
@@ -6202,7 +5950,7 @@
         "food_beverage_001_009__upstream_downstream__food_beverage_007_005",
         "food_beverage_001_009__upstream_downstream__food_beverage_007_006"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002__upstream_downstream__food_beverage_007_001",
@@ -6233,7 +5981,7 @@
       "projected_from_edge_ids": [
         "food_beverage_002_002__upstream_downstream__food_beverage_007_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002__upstream_downstream__food_beverage_007_004",
@@ -6242,61 +5990,18 @@
       "relation_type": "upstream_downstream",
       "relation_layer": "l1_l2_flow_projection",
       "relation_weight": 1.0,
-      "description": "乳品与非酒精饮料制造是传统流通渠道的跨层上游投影，由 7 条 L2 上下游关系推导。",
+      "description": "乳品与非酒精饮料制造是传统流通渠道的跨层上游投影，由 6 条 L2 上下游关系推导。",
       "source_urls": [
         "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
         "https://en.wikipedia.org/wiki/Agrifood_systems",
         "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
       ],
       "evidence_ids": [
         "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.8,
-      "evidence_basis": "l2_flow_cross_level_projection",
-      "projection_roles": [
-        "source_parent_to_target"
-      ],
-      "projected_from_count": 7,
-      "projected_from_edge_ids": [
-        "food_beverage_002_001__upstream_downstream__food_beverage_007_004",
-        "food_beverage_002_002__upstream_downstream__food_beverage_007_004",
-        "food_beverage_002_005__upstream_downstream__food_beverage_007_004",
-        "food_beverage_002_007__upstream_downstream__food_beverage_007_004",
-        "food_beverage_002_011__upstream_downstream__food_beverage_007_004",
-        "food_beverage_002_012__upstream_downstream__food_beverage_007_004",
-        "food_beverage_002_017__upstream_downstream__food_beverage_007_004"
-      ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
-    },
-    {
-      "id": "food_beverage_002__upstream_downstream__food_beverage_007_005",
-      "source": "food_beverage_002",
-      "target": "food_beverage_007_005",
-      "relation_type": "upstream_downstream",
-      "relation_layer": "l1_l2_flow_projection",
-      "relation_weight": 1.0,
-      "description": "乳品与非酒精饮料制造是餐饮与团餐渠道的跨层上游投影，由 6 条 L2 上下游关系推导。",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
+        "food_beverage_ev_0002"
       ],
       "confidence": 0.8,
       "evidence_basis": "l2_flow_cross_level_projection",
@@ -6305,14 +6010,49 @@
       ],
       "projected_from_count": 6,
       "projected_from_edge_ids": [
+        "food_beverage_002_001__upstream_downstream__food_beverage_007_004",
+        "food_beverage_002_002__upstream_downstream__food_beverage_007_004",
+        "food_beverage_002_005__upstream_downstream__food_beverage_007_004",
+        "food_beverage_002_007__upstream_downstream__food_beverage_007_004",
+        "food_beverage_002_011__upstream_downstream__food_beverage_007_004",
+        "food_beverage_002_012__upstream_downstream__food_beverage_007_004"
+      ],
+      "updated_at": "2026-07-31T06:39:40+00:00"
+    },
+    {
+      "id": "food_beverage_002__upstream_downstream__food_beverage_007_005",
+      "source": "food_beverage_002",
+      "target": "food_beverage_007_005",
+      "relation_type": "upstream_downstream",
+      "relation_layer": "l1_l2_flow_projection",
+      "relation_weight": 1.0,
+      "description": "乳品与非酒精饮料制造是餐饮与团餐渠道的跨层上游投影，由 5 条 L2 上下游关系推导。",
+      "source_urls": [
+        "https://arxiv.org/abs/2001.03982",
+        "https://en.wikipedia.org/wiki/Agrifood_systems",
+        "https://en.wikipedia.org/wiki/Food_hubs",
+        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
+        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
+      ],
+      "evidence_ids": [
+        "food_beverage_ev_0001",
+        "food_beverage_ev_0002"
+      ],
+      "confidence": 0.8,
+      "evidence_basis": "l2_flow_cross_level_projection",
+      "projection_roles": [
+        "source_parent_to_target"
+      ],
+      "projected_from_count": 5,
+      "projected_from_edge_ids": [
         "food_beverage_002_001__upstream_downstream__food_beverage_007_005",
         "food_beverage_002_002__upstream_downstream__food_beverage_007_005",
         "food_beverage_002_005__upstream_downstream__food_beverage_007_005",
         "food_beverage_002_009__upstream_downstream__food_beverage_007_005",
-        "food_beverage_002_011__upstream_downstream__food_beverage_007_005",
-        "food_beverage_002_017__upstream_downstream__food_beverage_007_005"
+        "food_beverage_002_011__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002__upstream_downstream__food_beverage_007_009",
@@ -6344,7 +6084,7 @@
         "food_beverage_002_007__upstream_downstream__food_beverage_007_009",
         "food_beverage_002_011__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002_001__upstream_downstream__food_beverage_007",
@@ -6376,7 +6116,7 @@
         "food_beverage_002_001__upstream_downstream__food_beverage_007_004",
         "food_beverage_002_001__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002_002__upstream_downstream__food_beverage_007",
@@ -6409,7 +6149,7 @@
         "food_beverage_002_002__upstream_downstream__food_beverage_007_004",
         "food_beverage_002_002__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002_005__upstream_downstream__food_beverage_007",
@@ -6441,7 +6181,7 @@
         "food_beverage_002_005__upstream_downstream__food_beverage_007_004",
         "food_beverage_002_005__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002_007__upstream_downstream__food_beverage_007",
@@ -6473,7 +6213,7 @@
         "food_beverage_002_007__upstream_downstream__food_beverage_007_004",
         "food_beverage_002_007__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002_009__upstream_downstream__food_beverage_007",
@@ -6504,7 +6244,7 @@
       "projected_from_edge_ids": [
         "food_beverage_002_009__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002_011__upstream_downstream__food_beverage_007",
@@ -6537,7 +6277,7 @@
         "food_beverage_002_011__upstream_downstream__food_beverage_007_005",
         "food_beverage_002_011__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_002_012__upstream_downstream__food_beverage_007",
@@ -6568,42 +6308,7 @@
       "projected_from_edge_ids": [
         "food_beverage_002_012__upstream_downstream__food_beverage_007_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
-    },
-    {
-      "id": "food_beverage_002_017__upstream_downstream__food_beverage_007",
-      "source": "food_beverage_002_017",
-      "target": "food_beverage_007",
-      "relation_type": "upstream_downstream",
-      "relation_layer": "l1_l2_flow_projection",
-      "relation_weight": 1.0,
-      "description": "即饮咖啡是食品饮料流通与消费渠道的跨层上游投影，由 2 条 L2 上下游关系推导。",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.8,
-      "evidence_basis": "l2_flow_cross_level_projection",
-      "projection_roles": [
-        "source_to_target_parent"
-      ],
-      "projected_from_count": 2,
-      "projected_from_edge_ids": [
-        "food_beverage_002_017__upstream_downstream__food_beverage_007_004",
-        "food_beverage_002_017__upstream_downstream__food_beverage_007_005"
-      ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003__upstream_downstream__food_beverage_004_001",
@@ -6634,7 +6339,7 @@
       "projected_from_edge_ids": [
         "food_beverage_003_001__upstream_downstream__food_beverage_004_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003__upstream_downstream__food_beverage_005_008",
@@ -6669,7 +6374,7 @@
         "food_beverage_003_002__upstream_downstream__food_beverage_005_008",
         "food_beverage_003_011__upstream_downstream__food_beverage_005_008"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003__upstream_downstream__food_beverage_007_001",
@@ -6700,7 +6405,7 @@
       "projected_from_edge_ids": [
         "food_beverage_003_002__upstream_downstream__food_beverage_007_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003__upstream_downstream__food_beverage_007_004",
@@ -6735,7 +6440,7 @@
         "food_beverage_003_001__upstream_downstream__food_beverage_007_004",
         "food_beverage_003_011__upstream_downstream__food_beverage_007_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003__upstream_downstream__food_beverage_007_005",
@@ -6771,7 +6476,7 @@
         "food_beverage_003_002__upstream_downstream__food_beverage_007_005",
         "food_beverage_003_011__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003__upstream_downstream__food_beverage_007_006",
@@ -6805,7 +6510,7 @@
       "projected_from_edge_ids": [
         "food_beverage_003_011__upstream_downstream__food_beverage_007_006"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003__upstream_downstream__food_beverage_007_009",
@@ -6839,7 +6544,7 @@
       "projected_from_edge_ids": [
         "food_beverage_003_011__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003_001__upstream_downstream__food_beverage_004",
@@ -6870,7 +6575,7 @@
       "projected_from_edge_ids": [
         "food_beverage_003_001__upstream_downstream__food_beverage_004_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003_001__upstream_downstream__food_beverage_007",
@@ -6902,7 +6607,7 @@
         "food_beverage_003_001__upstream_downstream__food_beverage_007_004",
         "food_beverage_003_001__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003_002__upstream_downstream__food_beverage_005",
@@ -6933,7 +6638,7 @@
       "projected_from_edge_ids": [
         "food_beverage_003_002__upstream_downstream__food_beverage_005_008"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003_002__upstream_downstream__food_beverage_007",
@@ -6965,7 +6670,7 @@
         "food_beverage_003_002__upstream_downstream__food_beverage_007_001",
         "food_beverage_003_002__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003_011__upstream_downstream__food_beverage_005",
@@ -6999,7 +6704,7 @@
       "projected_from_edge_ids": [
         "food_beverage_003_011__upstream_downstream__food_beverage_005_008"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_003_011__upstream_downstream__food_beverage_007",
@@ -7036,7 +6741,7 @@
         "food_beverage_003_011__upstream_downstream__food_beverage_007_006",
         "food_beverage_003_011__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_004__upstream_downstream__food_beverage_007_001",
@@ -7067,7 +6772,7 @@
       "projected_from_edge_ids": [
         "food_beverage_004_004__upstream_downstream__food_beverage_007_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_004__upstream_downstream__food_beverage_007_004",
@@ -7098,7 +6803,7 @@
       "projected_from_edge_ids": [
         "food_beverage_004_004__upstream_downstream__food_beverage_007_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_004__upstream_downstream__food_beverage_007_005",
@@ -7130,7 +6835,7 @@
         "food_beverage_004_001__upstream_downstream__food_beverage_007_005",
         "food_beverage_004_004__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_004__upstream_downstream__food_beverage_007_006",
@@ -7161,7 +6866,7 @@
       "projected_from_edge_ids": [
         "food_beverage_004_004__upstream_downstream__food_beverage_007_006"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_004__upstream_downstream__food_beverage_007_009",
@@ -7192,7 +6897,7 @@
       "projected_from_edge_ids": [
         "food_beverage_004_001__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_004_001__upstream_downstream__food_beverage_007",
@@ -7224,7 +6929,7 @@
         "food_beverage_004_001__upstream_downstream__food_beverage_007_005",
         "food_beverage_004_001__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_004_004__upstream_downstream__food_beverage_007",
@@ -7258,7 +6963,7 @@
         "food_beverage_004_004__upstream_downstream__food_beverage_007_005",
         "food_beverage_004_004__upstream_downstream__food_beverage_007_006"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005__upstream_downstream__food_beverage_007_001",
@@ -7289,7 +6994,7 @@
       "projected_from_edge_ids": [
         "food_beverage_005_008__upstream_downstream__food_beverage_007_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005__upstream_downstream__food_beverage_007_004",
@@ -7324,7 +7029,7 @@
         "food_beverage_005_008__upstream_downstream__food_beverage_007_004",
         "food_beverage_005_011__upstream_downstream__food_beverage_007_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005__upstream_downstream__food_beverage_007_005",
@@ -7358,7 +7063,7 @@
         "food_beverage_005_007__upstream_downstream__food_beverage_007_005",
         "food_beverage_005_008__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005__upstream_downstream__food_beverage_007_006",
@@ -7389,7 +7094,7 @@
       "projected_from_edge_ids": [
         "food_beverage_005_008__upstream_downstream__food_beverage_007_006"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005__upstream_downstream__food_beverage_007_009",
@@ -7420,7 +7125,7 @@
       "projected_from_edge_ids": [
         "food_beverage_005_008__upstream_downstream__food_beverage_007_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005__upstream_downstream__food_beverage_007_013",
@@ -7452,7 +7157,7 @@
         "food_beverage_005_005__upstream_downstream__food_beverage_007_013",
         "food_beverage_005_008__upstream_downstream__food_beverage_007_013"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005_001__upstream_downstream__food_beverage_007",
@@ -7484,7 +7189,7 @@
         "food_beverage_005_001__upstream_downstream__food_beverage_007_004",
         "food_beverage_005_001__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005_005__upstream_downstream__food_beverage_007",
@@ -7517,7 +7222,7 @@
         "food_beverage_005_005__upstream_downstream__food_beverage_007_005",
         "food_beverage_005_005__upstream_downstream__food_beverage_007_013"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005_007__upstream_downstream__food_beverage_007",
@@ -7549,7 +7254,7 @@
         "food_beverage_005_007__upstream_downstream__food_beverage_007_004",
         "food_beverage_005_007__upstream_downstream__food_beverage_007_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005_008__upstream_downstream__food_beverage_007",
@@ -7585,7 +7290,7 @@
         "food_beverage_005_008__upstream_downstream__food_beverage_007_009",
         "food_beverage_005_008__upstream_downstream__food_beverage_007_013"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_005_011__upstream_downstream__food_beverage_007",
@@ -7616,7 +7321,7 @@
       "projected_from_edge_ids": [
         "food_beverage_005_011__upstream_downstream__food_beverage_007_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_001_001",
@@ -7648,7 +7353,7 @@
         "food_beverage_006_001__upstream_downstream__food_beverage_001_001",
         "food_beverage_006_028__upstream_downstream__food_beverage_001_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_001_002",
@@ -7681,7 +7386,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_001_002",
         "food_beverage_006_028__upstream_downstream__food_beverage_001_002"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_001_007",
@@ -7714,7 +7419,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_001_007",
         "food_beverage_006_028__upstream_downstream__food_beverage_001_007"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_001_008",
@@ -7747,7 +7452,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_001_008",
         "food_beverage_006_028__upstream_downstream__food_beverage_001_008"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_001_009",
@@ -7780,7 +7485,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_001_009",
         "food_beverage_006_028__upstream_downstream__food_beverage_001_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_002_001",
@@ -7812,7 +7517,7 @@
         "food_beverage_006_001__upstream_downstream__food_beverage_002_001",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_002_002",
@@ -7845,7 +7550,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_002_002",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_002"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_002_003",
@@ -7878,7 +7583,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_002_003",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_003"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_002_005",
@@ -7911,7 +7616,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_002_005",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_002_007",
@@ -7944,7 +7649,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_002_007",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_007"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_002_009",
@@ -7977,7 +7682,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_002_009",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_002_011",
@@ -8010,7 +7715,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_002_011",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_011"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_002_012",
@@ -8043,43 +7748,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_002_012",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_012"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
-    },
-    {
-      "id": "food_beverage_006__upstream_downstream__food_beverage_002_017",
-      "source": "food_beverage_006",
-      "target": "food_beverage_002_017",
-      "relation_type": "upstream_downstream",
-      "relation_layer": "l1_l2_flow_projection",
-      "relation_weight": 1.0,
-      "description": "食品原料、辅料与包材供应链是即饮咖啡的跨层上游投影，由 3 条 L2 上下游关系推导。",
-      "source_urls": [
-        "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.8,
-      "evidence_basis": "l2_flow_cross_level_projection",
-      "projection_roles": [
-        "source_parent_to_target"
-      ],
-      "projected_from_count": 3,
-      "projected_from_edge_ids": [
-        "food_beverage_006_001__upstream_downstream__food_beverage_002_017",
-        "food_beverage_006_017__upstream_downstream__food_beverage_002_017",
-        "food_beverage_006_028__upstream_downstream__food_beverage_002_017"
-      ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_003_001",
@@ -8112,7 +7781,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_003_001",
         "food_beverage_006_028__upstream_downstream__food_beverage_003_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_003_002",
@@ -8145,7 +7814,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_003_002",
         "food_beverage_006_028__upstream_downstream__food_beverage_003_002"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_003_011",
@@ -8180,7 +7849,7 @@
         "food_beverage_006_001__upstream_downstream__food_beverage_003_011",
         "food_beverage_006_017__upstream_downstream__food_beverage_003_011"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_004_001",
@@ -8213,7 +7882,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_004_001",
         "food_beverage_006_028__upstream_downstream__food_beverage_004_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_004_004",
@@ -8246,7 +7915,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_004_004",
         "food_beverage_006_028__upstream_downstream__food_beverage_004_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_005_001",
@@ -8279,7 +7948,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_005_001",
         "food_beverage_006_028__upstream_downstream__food_beverage_005_001"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_005_005",
@@ -8312,7 +7981,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_005_005",
         "food_beverage_006_028__upstream_downstream__food_beverage_005_005"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_005_007",
@@ -8345,7 +8014,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_005_007",
         "food_beverage_006_028__upstream_downstream__food_beverage_005_007"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_005_008",
@@ -8378,7 +8047,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_005_008",
         "food_beverage_006_028__upstream_downstream__food_beverage_005_008"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006__upstream_downstream__food_beverage_005_011",
@@ -8411,7 +8080,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_005_011",
         "food_beverage_006_028__upstream_downstream__food_beverage_005_011"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_001__upstream_downstream__food_beverage_001",
@@ -8446,7 +8115,7 @@
         "food_beverage_006_001__upstream_downstream__food_beverage_001_008",
         "food_beverage_006_001__upstream_downstream__food_beverage_001_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_001__upstream_downstream__food_beverage_002",
@@ -8455,28 +8124,25 @@
       "relation_type": "upstream_downstream",
       "relation_layer": "l1_l2_flow_projection",
       "relation_weight": 1.0,
-      "description": "农产品原料是乳品与非酒精饮料制造的跨层上游投影，由 9 条 L2 上下游关系推导。",
+      "description": "农产品原料是乳品与非酒精饮料制造的跨层上游投影，由 8 条 L2 上下游关系推导。",
       "source_urls": [
         "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
         "https://en.wikipedia.org/wiki/Agrifood_systems",
         "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
       ],
       "evidence_ids": [
         "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
+        "food_beverage_ev_0002"
       ],
       "confidence": 0.8,
       "evidence_basis": "l2_flow_cross_level_projection",
       "projection_roles": [
         "source_to_target_parent"
       ],
-      "projected_from_count": 9,
+      "projected_from_count": 8,
       "projected_from_edge_ids": [
         "food_beverage_006_001__upstream_downstream__food_beverage_002_001",
         "food_beverage_006_001__upstream_downstream__food_beverage_002_002",
@@ -8485,10 +8151,9 @@
         "food_beverage_006_001__upstream_downstream__food_beverage_002_007",
         "food_beverage_006_001__upstream_downstream__food_beverage_002_009",
         "food_beverage_006_001__upstream_downstream__food_beverage_002_011",
-        "food_beverage_006_001__upstream_downstream__food_beverage_002_012",
-        "food_beverage_006_001__upstream_downstream__food_beverage_002_017"
+        "food_beverage_006_001__upstream_downstream__food_beverage_002_012"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_001__upstream_downstream__food_beverage_003",
@@ -8524,7 +8189,7 @@
         "food_beverage_006_001__upstream_downstream__food_beverage_003_002",
         "food_beverage_006_001__upstream_downstream__food_beverage_003_011"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_001__upstream_downstream__food_beverage_004",
@@ -8556,7 +8221,7 @@
         "food_beverage_006_001__upstream_downstream__food_beverage_004_001",
         "food_beverage_006_001__upstream_downstream__food_beverage_004_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_001__upstream_downstream__food_beverage_005",
@@ -8591,7 +8256,7 @@
         "food_beverage_006_001__upstream_downstream__food_beverage_005_008",
         "food_beverage_006_001__upstream_downstream__food_beverage_005_011"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_017__upstream_downstream__food_beverage_001",
@@ -8625,7 +8290,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_001_008",
         "food_beverage_006_017__upstream_downstream__food_beverage_001_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_017__upstream_downstream__food_beverage_002",
@@ -8634,28 +8299,25 @@
       "relation_type": "upstream_downstream",
       "relation_layer": "l1_l2_flow_projection",
       "relation_weight": 1.0,
-      "description": "食品添加剂与配料是乳品与非酒精饮料制造的跨层上游投影，由 8 条 L2 上下游关系推导。",
+      "description": "食品添加剂与配料是乳品与非酒精饮料制造的跨层上游投影，由 7 条 L2 上下游关系推导。",
       "source_urls": [
         "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
         "https://en.wikipedia.org/wiki/Agrifood_systems",
         "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
       ],
       "evidence_ids": [
         "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
+        "food_beverage_ev_0002"
       ],
       "confidence": 0.8,
       "evidence_basis": "l2_flow_cross_level_projection",
       "projection_roles": [
         "source_to_target_parent"
       ],
-      "projected_from_count": 8,
+      "projected_from_count": 7,
       "projected_from_edge_ids": [
         "food_beverage_006_017__upstream_downstream__food_beverage_002_002",
         "food_beverage_006_017__upstream_downstream__food_beverage_002_003",
@@ -8663,10 +8325,9 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_002_007",
         "food_beverage_006_017__upstream_downstream__food_beverage_002_009",
         "food_beverage_006_017__upstream_downstream__food_beverage_002_011",
-        "food_beverage_006_017__upstream_downstream__food_beverage_002_012",
-        "food_beverage_006_017__upstream_downstream__food_beverage_002_017"
+        "food_beverage_006_017__upstream_downstream__food_beverage_002_012"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_017__upstream_downstream__food_beverage_003",
@@ -8702,7 +8363,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_003_002",
         "food_beverage_006_017__upstream_downstream__food_beverage_003_011"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_017__upstream_downstream__food_beverage_004",
@@ -8734,7 +8395,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_004_001",
         "food_beverage_006_017__upstream_downstream__food_beverage_004_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_017__upstream_downstream__food_beverage_005",
@@ -8769,7 +8430,7 @@
         "food_beverage_006_017__upstream_downstream__food_beverage_005_008",
         "food_beverage_006_017__upstream_downstream__food_beverage_005_011"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_028__upstream_downstream__food_beverage_001",
@@ -8804,7 +8465,7 @@
         "food_beverage_006_028__upstream_downstream__food_beverage_001_008",
         "food_beverage_006_028__upstream_downstream__food_beverage_001_009"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_028__upstream_downstream__food_beverage_002",
@@ -8813,28 +8474,25 @@
       "relation_type": "upstream_downstream",
       "relation_layer": "l1_l2_flow_projection",
       "relation_weight": 1.0,
-      "description": "包装材料是乳品与非酒精饮料制造的跨层上游投影，由 9 条 L2 上下游关系推导。",
+      "description": "包装材料是乳品与非酒精饮料制造的跨层上游投影，由 8 条 L2 上下游关系推导。",
       "source_urls": [
         "https://arxiv.org/abs/2001.03982",
-        "https://dongfangqb.com/article/8765",
         "https://en.wikipedia.org/wiki/Agrifood_systems",
         "https://en.wikipedia.org/wiki/Food_hubs",
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://zhuanlan.zhihu.com/p/602270226"
+        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82"
       ],
       "evidence_ids": [
         "food_beverage_ev_0001",
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0005"
+        "food_beverage_ev_0002"
       ],
       "confidence": 0.8,
       "evidence_basis": "l2_flow_cross_level_projection",
       "projection_roles": [
         "source_to_target_parent"
       ],
-      "projected_from_count": 9,
+      "projected_from_count": 8,
       "projected_from_edge_ids": [
         "food_beverage_006_028__upstream_downstream__food_beverage_002_001",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_002",
@@ -8843,10 +8501,9 @@
         "food_beverage_006_028__upstream_downstream__food_beverage_002_007",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_009",
         "food_beverage_006_028__upstream_downstream__food_beverage_002_011",
-        "food_beverage_006_028__upstream_downstream__food_beverage_002_012",
-        "food_beverage_006_028__upstream_downstream__food_beverage_002_017"
+        "food_beverage_006_028__upstream_downstream__food_beverage_002_012"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_028__upstream_downstream__food_beverage_003",
@@ -8878,7 +8535,7 @@
         "food_beverage_006_028__upstream_downstream__food_beverage_003_001",
         "food_beverage_006_028__upstream_downstream__food_beverage_003_002"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_028__upstream_downstream__food_beverage_004",
@@ -8910,7 +8567,7 @@
         "food_beverage_006_028__upstream_downstream__food_beverage_004_001",
         "food_beverage_006_028__upstream_downstream__food_beverage_004_004"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     },
     {
       "id": "food_beverage_006_028__upstream_downstream__food_beverage_005",
@@ -8945,7 +8602,7 @@
         "food_beverage_006_028__upstream_downstream__food_beverage_005_008",
         "food_beverage_006_028__upstream_downstream__food_beverage_005_011"
       ],
-      "updated_at": "2026-07-30T12:50:39+00:00"
+      "updated_at": "2026-07-31T06:39:40+00:00"
     }
   ]
 }

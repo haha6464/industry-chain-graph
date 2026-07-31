@@ -384,6 +384,15 @@ def configured_model() -> str:
 
 
 def _parent_map(graph: dict[str, Any]) -> dict[str, str]:
+    """Return the hierarchy used to aggregate company attachments.
+
+    Classification ``parent_id`` / ``contains`` relations are always included.
+    The main graph also models the two directional L0--L1 boundary branches as
+    upstream/downstream rather than ``contains``.  Those L1 nodes belong to the
+    industry root for company aggregation, regardless of direction.  Deliberately
+    do not treat any other upstream/downstream edge as a parent relation: L1--L2
+    flow projections describe a commercial flow, not a classification hierarchy.
+    """
     nodes = {str(node["id"]): node for node in graph.get("nodes", []) if node.get("id")}
     parents = {node_id: str(node.get("parent_id") or "") for node_id, node in nodes.items()}
     for edge in graph.get("edges", []):
@@ -556,6 +565,7 @@ def filter_listed_attachments(payload: dict[str, Any]) -> tuple[dict[str, Any], 
 
 
 def descendants_for_node(graph: dict[str, Any], node_id: str) -> set[str]:
+    """Return a node and all direct-attachment nodes aggregated into it."""
     children: dict[str, list[str]] = defaultdict(list)
     parents = _parent_map(graph)
     for child_id, parent_id in parents.items():
@@ -569,6 +579,98 @@ def descendants_for_node(graph: dict[str, Any], node_id: str) -> set[str]:
                 result.add(child_id)
                 queue.append(child_id)
     return result
+
+
+def ancestors_for_node(graph: dict[str, Any], node_id: str) -> list[str]:
+    """Return aggregation parents from nearest to farthest, excluding itself."""
+    parents = _parent_map(graph)
+    result: list[str] = []
+    current = parents.get(node_id, "")
+    visited = {node_id}
+    while current and current not in visited:
+        result.append(current)
+        visited.add(current)
+        current = parents.get(current, "")
+    return result
+
+
+def prune_graph_to_company_coverage(
+    graph: dict[str, Any], attachments: dict[str, Any]
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    """Keep only nodes that receive a direct or upward-aggregated company.
+
+    Direct attachments remain the source of truth.  Each direct attachment keeps
+    its own node and every aggregation parent, so deleting uncovered siblings can
+    never leave a retained node without its classification lineage.  The returned
+    attachment payload is rebased to the pruned graph fingerprint.
+    """
+    node_by_id = {str(node.get("id")): node for node in graph.get("nodes", []) if node.get("id")}
+    company_ids = {str(company.get("company_id")) for company in attachments.get("companies", [])}
+    direct_attachment_nodes = {
+        str(item.get("node_id"))
+        for item in attachments.get("attachments", []) or []
+        if str(item.get("company_id")) in company_ids and str(item.get("node_id")) in node_by_id
+    }
+    if not direct_attachment_nodes:
+        raise ValueError("公司挂载未命中任何有效产业链节点，已保留原图谱。")
+
+    retained_node_ids: set[str] = set()
+    for node_id in direct_attachment_nodes:
+        retained_node_ids.add(node_id)
+        retained_node_ids.update(ancestors_for_node(graph, node_id))
+    retained_node_ids.intersection_update(node_by_id)
+    root_ids = {
+        node_id for node_id, node in node_by_id.items()
+        if int(node.get("level", -1)) == 0 or node.get("chain_position") == "root"
+    }
+    if not root_ids.intersection(retained_node_ids):
+        raise ValueError("公司聚合未保留产业链根节点，已保留原图谱。")
+
+    removed_nodes = [node for node in graph.get("nodes", []) if str(node.get("id")) not in retained_node_ids]
+    pruned_graph = {
+        **graph,
+        "nodes": [node for node in graph.get("nodes", []) if str(node.get("id")) in retained_node_ids],
+        "edges": [
+            edge for edge in graph.get("edges", [])
+            if str(edge.get("source")) in retained_node_ids and str(edge.get("target")) in retained_node_ids
+        ],
+    }
+    retained_attachments = [
+        item for item in attachments.get("attachments", []) or []
+        if str(item.get("company_id")) in company_ids and str(item.get("node_id")) in retained_node_ids
+    ]
+    retained_company_ids = {str(item.get("company_id")) for item in retained_attachments}
+    rebased_attachments = {
+        **attachments,
+        "generated_at": now_iso(),
+        "graph_fingerprint": graph_fingerprint(pruned_graph),
+        "companies": [
+            company for company in attachments.get("companies", []) or []
+            if str(company.get("company_id")) in retained_company_ids
+        ],
+        "attachments": retained_attachments,
+        "coverage_pruning": {
+            "applied_at": now_iso(),
+            "rule": "保留直接挂载节点及其分类父节点、L0-L1 主图上下游聚合父节点；删除无公司可聚合节点。",
+            "nodes_before": len(node_by_id),
+            "nodes_after": len(pruned_graph["nodes"]),
+            "removed_node_count": len(removed_nodes),
+        },
+    }
+    report = {
+        "generated_at": now_iso(),
+        "rule": rebased_attachments["coverage_pruning"]["rule"],
+        "nodes_before": len(node_by_id),
+        "nodes_after": len(pruned_graph["nodes"]),
+        "edges_before": len(graph.get("edges", [])),
+        "edges_after": len(pruned_graph["edges"]),
+        "direct_attachment_count": len(retained_attachments),
+        "removed_nodes": [
+            {"id": str(node.get("id")), "name": str(node.get("name", "")), "level": node.get("level")}
+            for node in removed_nodes
+        ],
+    }
+    return pruned_graph, rebased_attachments, report
 
 
 def attachment_file_status(industry_id: str, graph: dict[str, Any], attachment_path: Path) -> tuple[str, dict[str, Any] | None, str]:
@@ -595,8 +697,8 @@ def attachment_file_status(industry_id: str, graph: dict[str, Any], attachment_p
 def aggregate_node_companies(
     graph: dict[str, Any], attachments: dict[str, Any], node_id: str, include_descendants: bool = True
 ) -> list[dict[str, Any]]:
-    # Keep the aggregate view available for delivery and non-visual consumers;
-    # the graph canvas explicitly requests direct attachments only.
+    # The canvas and delivery files use this same parent-aggregation view.  Keep
+    # direct attachment details so the UI can still explain why a company appears.
     visible_node_ids = descendants_for_node(graph, node_id) if include_descendants else {node_id}
     company_by_id = {str(company.get("company_id")): company for company in attachments.get("companies", [])}
     direct_nodes: dict[str, set[str]] = defaultdict(set)

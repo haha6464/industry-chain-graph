@@ -5,6 +5,7 @@ import concurrent.futures
 import json
 import sys
 import time
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -15,8 +16,8 @@ if __package__ is None or __package__ == "":
             sys.path.insert(0, str(parent))
             break
 
-from tools.agent.common import industry_dir, load_graph, write_json, write_jsonl
-from tools.agent.l2_flow_relations import relation_file_status
+from tools.agent.common import industry_dir, load_graph, load_manifest, save_manifest, write_json, write_jsonl
+from tools.agent.l2_flow_relations import apply_l1_l2_projection, graph_fingerprint as l2_graph_fingerprint, relation_file_status
 from tools.agent.company_attachments import (
     augment_scope_with_graph_taxonomy,
     build_attachment_payload,
@@ -30,11 +31,15 @@ from tools.agent.company_attachments import (
     configured_model,
     configured_search_strategy,
     filter_domestic_listed_companies,
+    filter_listed_attachments,
     load_candidate_companies,
+    prune_graph_to_company_coverage,
     select_companies_by_scope,
 )
 from tools.agent.validators.bailian_company_attachment_validator import repair_company_attachments
 from tools.agent.validators.company_attachment_validator import validate_company_attachments, write_company_attachment_report
+from tools.agent.validators.graph_validator import validate_graph
+from tools.agent.validators.l2_flow_relation_validator import validate_l2_flow_relations, write_l2_flow_validation_report
 
 
 def _log(message: str) -> None:
@@ -76,6 +81,57 @@ def _write_validation(output_dir: Path, report: dict[str, Any]) -> None:
     write_json(output_dir / "company_attachment_validation_report.json", report)
 
 
+def _rebase_l2_relations_after_pruning(payload: dict[str, Any], graph: dict[str, Any]) -> dict[str, Any]:
+    """Drop L2 evidence for removed nodes, then deterministically rebuild projections."""
+    node_by_id = {str(node.get("id")): node for node in graph.get("nodes", []) if node.get("id")}
+    l2_ids = {node_id for node_id, node in node_by_id.items() if int(node.get("level", -1)) == 2}
+    decisions = [
+        decision for decision in payload.get("pair_decisions", []) or []
+        if str(decision.get("node_a_id")) in l2_ids and str(decision.get("node_b_id")) in l2_ids
+    ]
+    decision_ids = {str(decision.get("pair_id")) for decision in decisions}
+    l2_edges = [
+        edge for edge in payload.get("edges", []) or []
+        if str(edge.get("source")) in l2_ids
+        and str(edge.get("target")) in l2_ids
+        and str(edge.get("decision_pair_id")) in decision_ids
+    ]
+    verdict_counts = Counter(str(decision.get("verdict", "")).upper() for decision in decisions)
+    cache_hit_count = min(int((payload.get("candidate_summary") or {}).get("cache_hit_count", 0) or 0), len(decisions))
+    rebased = {
+        **payload,
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "graph_fingerprint": l2_graph_fingerprint(graph),
+        "evaluated_node_ids": sorted(l2_ids),
+        "pair_decisions": decisions,
+        "edges": l2_edges,
+        "candidate_summary": {
+            **(payload.get("candidate_summary") or {}),
+            "candidate_pair_count": len(decisions),
+            "pair_decision_count": len(decisions),
+            "cache_hit_count": cache_hit_count,
+            "model_decision_count": len(decisions) - cache_hit_count,
+            "negative_audit_positive_count": sum(
+                1 for decision in decisions
+                if "deterministic_negative_audit" in (decision.get("selection_reasons") or [])
+                and str(decision.get("verdict", "")).upper() in {"A_TO_B", "B_TO_A"}
+            ),
+            "verdict_counts": dict(sorted(verdict_counts.items())),
+        },
+    }
+    return apply_l1_l2_projection(rebased, graph)
+
+
+def _update_manifest_counts(industry_id: str, graph: dict[str, Any]) -> None:
+    manifest = load_manifest()
+    for item in manifest:
+        if str(item.get("id")) == industry_id:
+            item["node_count"] = len(graph.get("nodes", []))
+            item["edge_count"] = len(graph.get("edges", []))
+            break
+    save_manifest(manifest)
+
+
 def run_company_attachment(industry_id: str) -> dict[str, str]:
     output_dir = industry_dir(industry_id)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -83,10 +139,10 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     if not graph_path.exists():
         raise FileNotFoundError("找不到正式 graph.json，请先完成最终校验并应用候选主图。")
     graph = load_graph(industry_id)
-    relation_status, _, relation_message = relation_file_status(
+    relation_status, relation_payload, relation_message = relation_file_status(
         industry_id, graph, output_dir / "l2_flow_relations.json"
     )
-    if relation_status != "ready":
+    if relation_status != "ready" or relation_payload is None:
         raise FileNotFoundError(relation_message or "请先完成 L2 上下游关系建边。")
     all_companies = load_candidate_companies()
     companies = filter_domestic_listed_companies(all_companies)
@@ -152,9 +208,21 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     write_jsonl(output_dir / "company_attachment_raw_responses.jsonl", sorted(raw_rows, key=lambda item: item["batch_index"]))
 
     candidate = build_attachment_payload(industry_id, graph, all_companies, selected_companies, scope_payload, match_results)
+    # The canvas and delivery both default to domestic listed companies.  Enforce
+    # that same scope before coverage pruning so a non-visible company can never
+    # keep an otherwise empty industry node in the formal graph.
+    candidate, listed_stats = filter_listed_attachments(candidate)
     candidate_path = output_dir / "company_attachment_candidate.json"
     write_json(candidate_path, candidate)
-    _log(f"已生成候选挂载：{len(candidate.get('companies', []))} 家公司、{len(candidate.get('attachments', []))} 条直接挂载。")
+    _log(
+        f"已生成候选挂载：{len(candidate.get('companies', []))} 家境内上市公司、"
+        f"{len(candidate.get('attachments', []))} 条直接挂载。"
+    )
+    if listed_stats["company_removed"] or listed_stats["attachment_removed"]:
+        _log(
+            f"已移除 {listed_stats['company_removed']} 家非境内上市公司及 "
+            f"{listed_stats['attachment_removed']} 条对应挂载。"
+        )
 
     validation = validate_company_attachments(candidate, graph, industry_id)
     repair_report: dict[str, Any] = {
@@ -184,14 +252,44 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     if validation.get("error_count", 0) > 0 or repair_report.get("validation_status") == "fail":
         raise RuntimeError(f"公司挂载硬规则校验失败：{validation.get('error_count', 0)} 个错误。")
 
+    _log("按父级聚合规则裁剪未挂载产业链节点。")
+    pruned_graph, candidate, pruning_report = prune_graph_to_company_coverage(graph, candidate)
+    graph_validation = validate_graph(pruned_graph, industry_id)
+    if graph_validation.get("error_count", 0) > 0:
+        raise RuntimeError(f"公司覆盖裁剪后的图谱硬规则校验失败：{graph_validation.get('error_count', 0)} 个错误。")
+    rebased_l2_payload = _rebase_l2_relations_after_pruning(relation_payload, pruned_graph)
+    l2_validation = validate_l2_flow_relations(rebased_l2_payload, pruned_graph, industry_id)
+    if l2_validation.get("error_count", 0) > 0:
+        raise RuntimeError(f"公司覆盖裁剪后的 L2 关系校验失败：{l2_validation.get('error_count', 0)} 个错误。")
+    validation = validate_company_attachments(candidate, pruned_graph, industry_id)
+    validation["format_repair"] = repair_report
+    if validation.get("error_count", 0) > 0:
+        raise RuntimeError(f"公司覆盖裁剪后的挂载校验失败：{validation.get('error_count', 0)} 个错误。")
+
+    write_json(graph_path, pruned_graph)
+    write_json(candidate_path, candidate)
     final_path = output_dir / "company_attachments.json"
     write_json(final_path, candidate)
-    _log("公司节点挂载完成并已发布独立附件。")
+    write_json(output_dir / "l2_flow_relations.json", rebased_l2_payload)
+    (output_dir / "l2_flow_relation_validation_report.md").write_text(
+        write_l2_flow_validation_report(l2_validation), encoding="utf-8"
+    )
+    write_json(output_dir / "l2_flow_relation_validation_report.json", l2_validation)
+    pruning_report["graph_validation"] = graph_validation
+    pruning_report["l2_relation_validation"] = l2_validation
+    write_json(output_dir / "company_attachment_pruning_report.json", pruning_report)
+    _write_validation(output_dir, validation)
+    _update_manifest_counts(industry_id, pruned_graph)
+    _log(
+        f"公司节点挂载完成：图谱节点 {pruning_report['nodes_before']} → {pruning_report['nodes_after']}，"
+        f"已删除 {len(pruning_report['removed_nodes'])} 个无公司可聚合节点。"
+    )
     return {
         "industry_id": industry_id,
         "company_scope": str(output_dir / "company_scope.json"),
         "company_attachment_candidate": str(candidate_path),
         "company_attachments": str(final_path),
+        "company_attachment_pruning_report": str(output_dir / "company_attachment_pruning_report.json"),
         "validation_report": str(output_dir / "company_attachment_validation_report.md"),
     }
 

@@ -1,0 +1,188 @@
+{
+  "generated_at": "2026-07-31T06:39:40+00:00",
+  "rule": "保留直接挂载节点及其分类父节点、L0-L1 主图上下游聚合父节点；删除无公司可聚合节点。",
+  "nodes_before": 114,
+  "nodes_after": 91,
+  "edges_before": 113,
+  "edges_after": 90,
+  "direct_attachment_count": 733,
+  "removed_nodes": [
+    {
+      "id": "food_beverage_001_004",
+      "name": "精酿啤酒",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_001_006",
+      "name": "无醇与低醇啤酒",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_002_017",
+      "name": "即饮咖啡",
+      "level": 2
+    },
+    {
+      "id": "food_beverage_003_006",
+      "name": "酵母及衍生品",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_003_009",
+      "name": "西式调味酱",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_003_012",
+      "name": "食盐",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_003_014",
+      "name": "蚝油与料酒",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_004_008",
+      "name": "膨化食品",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_005_013",
+      "name": "低温肉制品",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_005_015",
+      "name": "自热米饭与自热锅",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_005_017",
+      "name": "功能性便捷食品",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_006_004",
+      "name": "酿造用高粱与大麦",
+      "level": 4
+    },
+    {
+      "id": "food_beverage_006_022",
+      "name": "防腐保鲜剂",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_006_034",
+      "name": "玻璃包装",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_007_007",
+      "name": "内容电商",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_007_008",
+      "name": "即时零售",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_007_010",
+      "name": "家庭消费",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_007_012",
+      "name": "休闲与礼赠消费",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_007_014",
+      "name": "产地预冷与冷藏",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_007_016",
+      "name": "产地冷库",
+      "level": 4
+    },
+    {
+      "id": "food_beverage_007_020",
+      "name": "城市冷链配送",
+      "level": 4
+    },
+    {
+      "id": "food_beverage_007_021",
+      "name": "冷链包装耗材",
+      "level": 3
+    },
+    {
+      "id": "food_beverage_007_022",
+      "name": "冷链信息化追溯",
+      "level": 3
+    }
+  ],
+  "listed_filter": {
+    "company_count_before": 1581,
+    "company_count_after": 714,
+    "company_removed": 867,
+    "attachment_count_before": 1612,
+    "attachment_count_after": 733,
+    "attachment_removed": 879,
+    "listed_domestic_count": 714,
+    "listed_abroad_only_count": 1,
+    "removed_flag_counts": {
+      "is_listed=false": 364,
+      "is_listed=null": 503
+    }
+  },
+  "graph_validation": {
+    "industry": "食品饮料行业",
+    "schema_version": "standard_industry_graph_v0.2_agent",
+    "node_count": 83,
+    "edge_count": 82,
+    "max_contains_depth": 3,
+    "error_count": 0,
+    "warning_count": 2,
+    "status": "pass",
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "node_count_below_target",
+        "message": "节点数量 83 低于质量目标 120；允许应用为正式图谱，但建议后续继续扩展。",
+        "item_id": ""
+      },
+      {
+        "severity": "warning",
+        "code": "contains_depth_below_target",
+        "message": "contains 最大深度仅 3，目标图谱应至少存在若干 L4 核心链条。",
+        "item_id": ""
+      }
+    ]
+  },
+  "company_attachment_validation": {
+    "industry_id": "food_beverage",
+    "attachment_count": 733,
+    "company_count": 714,
+    "error_count": 0,
+    "warning_count": 0,
+    "status": "pass",
+    "issues": []
+  },
+  "l2_relation_validation": {
+    "industry_id": "food_beverage",
+    "l2_node_count": 32,
+    "evaluated_node_count": 32,
+    "candidate_pair_count": 209,
+    "pair_decision_count": 209,
+    "cache_hit_count": 174,
+    "model_decision_count": 35,
+    "relation_count": 126,
+    "projected_relation_count": 91,
+    "error_count": 0,
+    "warning_count": 0,
+    "status": "pass",
+    "issues": []
+  }
+}

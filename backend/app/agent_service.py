@@ -78,6 +78,7 @@ ARTIFACT_SPECS = [
     ArtifactSpec("company_scope", "公司候选范围", "company_scope.json", "json"),
     ArtifactSpec("company_attachment_candidate", "公司挂载候选", "company_attachment_candidate.json", "json"),
     ArtifactSpec("company_attachments", "公司挂载正式附件", "company_attachments.json", "json"),
+    ArtifactSpec("company_attachment_pruning_report", "公司挂载后图谱裁剪报告", "company_attachment_pruning_report.json", "json"),
     ArtifactSpec("company_attachment_raw_responses", "公司挂载原始响应", "company_attachment_raw_responses.jsonl", "jsonl"),
     ArtifactSpec("company_scope_request_prompt", "公司范围规划提示词", "company_scope_request_prompt.txt", "text"),
     ArtifactSpec("company_scope_raw_response", "公司范围规划原始响应", "company_scope_raw_response.txt", "text"),

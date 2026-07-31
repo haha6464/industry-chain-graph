@@ -380,7 +380,12 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     setSelectedArtifact(null);
     try {
       const result = await attachCompanies(industryId);
-      await trackAgentRun(result, "公司节点挂载完成");
+      await trackAgentRun(result, "公司挂载、父级聚合与无公司节点裁剪完成", async () => {
+        setCompanyResponses({});
+        setExpandedCompanyNodeIds([]);
+        setSelectedCompany(null);
+        await loadGraph(appliedFilters);
+      });
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "公司节点挂载失败");
     } finally {
@@ -544,7 +549,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     }
     setCompanyLoading(true);
     try {
-      const response = await fetchNodeCompanies(industryId, nodeId, 500, 0, false, companyScope === "listed");
+      const response = await fetchNodeCompanies(industryId, nodeId, 500, 0, true, companyScope === "listed");
       setCompanyResponses((current) => ({ ...current, [nodeId]: response }));
       if (response.status === "ready") {
         setExpandedCompanyNodeIds((current) => current.includes(nodeId) ? current : [...current, nodeId]);
@@ -570,7 +575,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     setCompanyLoading(true);
     try {
       const responses = await Promise.all(
-        expanded.map((nodeId) => fetchNodeCompanies(industryId, nodeId, 500, 0, false, scope === "listed"))
+        expanded.map((nodeId) => fetchNodeCompanies(industryId, nodeId, 500, 0, true, scope === "listed"))
       );
       setCompanyResponses(Object.fromEntries(expanded.map((nodeId, index) => [nodeId, responses[index]])));
     } catch (error) {

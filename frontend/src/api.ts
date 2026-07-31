@@ -151,13 +151,33 @@ export async function fetchNodeCompanies(industryId: string, nodeId: string, lim
     }
     const visibleNodeIds = new Set([nodeId]);
     if (includeDescendants) {
-      let changed = true;
-      while (changed) {
-        changed = false;
-        graph.nodes.forEach((node) => {
-          if (node.parent_id && visibleNodeIds.has(node.parent_id) && !visibleNodeIds.has(node.id)) {
-            visibleNodeIds.add(node.id);
-            changed = true;
+      const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+      const childrenByParent = new Map<string, Set<string>>();
+      const addChild = (parentId: string, childId: string) => {
+        const children = childrenByParent.get(parentId) ?? new Set<string>();
+        children.add(childId);
+        childrenByParent.set(parentId, children);
+      };
+      graph.nodes.forEach((node) => {
+        if (node.parent_id) addChild(node.parent_id, node.id);
+      });
+      // The main graph's directional L0--L1 branches are also aggregation
+      // parents.  Do not include any L1--L2 upstream/downstream flow here.
+      graph.edges.forEach((edge) => {
+        if (edge.relation_type !== "upstream_downstream") return;
+        const source = nodeById.get(edge.source);
+        const target = nodeById.get(edge.target);
+        if (!source || !target) return;
+        if (source.level === 0 && target.level === 1) addChild(source.id, target.id);
+        if (source.level === 1 && target.level === 0) addChild(target.id, source.id);
+      });
+      const queue = [nodeId];
+      while (queue.length) {
+        const current = queue.shift()!;
+        childrenByParent.get(current)?.forEach((childId) => {
+          if (!visibleNodeIds.has(childId)) {
+            visibleNodeIds.add(childId);
+            queue.push(childId);
           }
         });
       }

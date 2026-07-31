@@ -15,8 +15,13 @@ if __package__ is None or __package__ == "":
             sys.path.insert(0, str(parent))
             break
 
-from tools.agent.common import industry_dir, load_graph, standardize_graph
-from tools.agent.company_attachments import attachment_file_status, filter_listed_attachments
+from tools.agent.common import industry_dir, load_graph
+from tools.agent.company_attachments import (
+    ancestors_for_node,
+    attachment_file_status,
+    descendants_for_node,
+    filter_listed_attachments,
+)
 from tools.agent.l2_flow_relations import relation_file_status
 
 INDUSTRY_NODE_FIELDS = ["code", "name", "ind_id"]
@@ -88,7 +93,10 @@ def export_graph_csv(
     extra_edges: list[dict[str, Any]] | None = None,
     company_attachments: dict[str, Any] | None = None,
 ) -> dict[str, str]:
-    graph = standardize_graph(graph, industry_id)
+    # ``graph.json`` is already the formal, standardized graph.  Re-running the
+    # builder normalization here would remove singleton leaves, including leaves
+    # with valid company attachments, and make CSV disagree with the canvas.
+    graph = dict(graph)
     metadata = _industry_metadata(industry_id)
     industry_name, industry_code = metadata["name"], metadata["code"]
     effective_date = str(graph.get("generated_at", ""))[:10] or datetime.now().date().isoformat()
@@ -103,14 +111,16 @@ def export_graph_csv(
         for node in graph.get("nodes", [])
     }
 
-    company_by_node: dict[str, list[str]] = {}
+    direct_company_names_by_node: dict[str, set[str]] = {}
     if company_attachments:
         company_by_id = {str(item.get("company_id")): item for item in company_attachments.get("companies", []) or []}
         for attachment in company_attachments.get("attachments", []) or []:
             node_id = str(attachment.get("node_id", ""))
             company = company_by_id.get(str(attachment.get("company_id", "")))
             if node_id in id_map and company:
-                company_by_node.setdefault(node_id, []).append(str(company.get("name", "")))
+                company_name = str(company.get("name", "")).strip()
+                if company_name:
+                    direct_company_names_by_node.setdefault(node_id, set()).add(company_name)
 
     node_rows = []
     node_lookup = {}
@@ -118,6 +128,9 @@ def export_graph_csv(
         raw_id = str(node["id"])
         converted_id = id_map[raw_id]
         node_lookup[raw_id] = node
+        aggregated_company_names = set()
+        for descendant_id in descendants_for_node(graph, raw_id):
+            aggregated_company_names.update(direct_company_names_by_node.get(descendant_id, set()))
         node_rows.append(
             {
                 "节点id": converted_id,
@@ -126,7 +139,7 @@ def export_graph_csv(
                 "节点标签": ";".join(node.get("tags", [])),
                 "节点行业": industry_name,
                 "业务描述": node.get("business_description") or node.get("description", ""),
-                "公司列表": ";".join(sorted(set(company_by_node.get(raw_id, [])))),
+                "公司列表": ";".join(sorted(aggregated_company_names)),
                 "关键节点": "TRUE" if node.get("is_key_node") else "FALSE",
                 "产业链环节": _node_chain_segment(node),
                 "节点行业code": industry_code,
@@ -208,7 +221,7 @@ def export_company_attachment_csv(
     output_dir: Path | None = None,
     listed_only: bool = True,
 ) -> dict[str, str]:
-    """Export validated direct company attachments in the mentor's company CSV format.
+    """Export direct company attachments plus their aggregation-parent edges.
 
     Non-domestic-listed companies are dropped by default. The filtering reuses
     ``filter_listed_attachments`` so the CSV and the filter workflow can never
@@ -223,7 +236,8 @@ def export_company_attachment_csv(
                 f"{stats['attachment_count_after']}。",
                 flush=True,
             )
-    graph = standardize_graph(graph, industry_id)
+    # Keep the complete formal graph for the same reason as ``export_graph_csv``.
+    graph = dict(graph)
     metadata = _industry_metadata(industry_id)
     output_dir = output_dir or industry_dir(industry_id) / "exports"
     prefix = _safe_filename(metadata["name"])
@@ -255,24 +269,30 @@ def export_company_attachment_csv(
     for attachment in attachments.get("attachments", []) or []:
         company_id = str(attachment.get("company_id", ""))
         node_id = str(attachment.get("node_id", ""))
-        pair = (company_id, node_id)
-        if pair in seen_pairs or company_id not in company_by_id or node_id not in node_by_id:
+        if company_id not in company_by_id or node_id not in node_by_id:
             continue
-        seen_pairs.add(pair)
         company = company_by_id[company_id]
-        node = node_by_id[node_id]
-        edge_rows.append(
-            {
-                "起点节点code": company.get("comcode", ""),
-                "起点节点名称": company.get("name", ""),
-                "终点节点id": _delivery_node_id(node_id, industry_id, metadata["code"]),
-                "终点节点名称": node.get("name", ""),
-                "主体产业链关系": "BELONGS_TO_IND_NODE",
-                "开始时间": effective_date,
-                "结束时间": "",
-                "数据来源": "联网搜索",
-            }
-        )
+        # Preserve the direct attachment and add every classification parent.
+        # ``ancestors_for_node`` additionally maps the L0--L1 main-flow boundary
+        # to L0, but never treats L1--L2 flow edges as aggregation parents.
+        for aggregate_node_id in [node_id, *ancestors_for_node(graph, node_id)]:
+            pair = (company_id, aggregate_node_id)
+            if pair in seen_pairs or aggregate_node_id not in node_by_id:
+                continue
+            seen_pairs.add(pair)
+            node = node_by_id[aggregate_node_id]
+            edge_rows.append(
+                {
+                    "起点节点code": company.get("comcode", ""),
+                    "起点节点名称": company.get("name", ""),
+                    "终点节点id": _delivery_node_id(aggregate_node_id, industry_id, metadata["code"]),
+                    "终点节点名称": node.get("name", ""),
+                    "主体产业链关系": "BELONGS_TO_IND_NODE",
+                    "开始时间": effective_date,
+                    "结束时间": "",
+                    "数据来源": "联网搜索",
+                }
+            )
     company_node_path = _write_csv(company_node_path, COMPANY_NODE_FIELDS, company_rows)
     company_edge_path = _write_csv(company_edge_path, COMPANY_EDGE_FIELDS, edge_rows)
     return {"company_node_csv": str(company_node_path), "company_edge_csv": str(company_edge_path)}

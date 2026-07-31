@@ -374,68 +374,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_001_004",
-      "name": "精酿啤酒",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_001_002",
-      "description": "以差异化风味和小批量供给为特征的啤酒品类。",
-      "business_description": "以差异化风味和小批量供给为特征的啤酒品类。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_001_006",
-      "name": "无醇与低醇啤酒",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_001_002",
-      "description": "面向健康化、低酒精消费趋势的啤酒细分品类。",
-      "business_description": "面向健康化、低酒精消费趋势的啤酒细分品类。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_001_007",
       "name": "葡萄酒",
       "node_type": "细分环节",
@@ -870,33 +808,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_002_017",
-      "name": "即饮咖啡",
-      "node_type": "细分环节",
-      "tags": [
-        "level_2",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 2,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_002",
-      "description": "以咖啡提取物、乳品或植物基原料生产的即饮咖啡产品。",
-      "business_description": "以咖啡提取物、乳品或植物基原料生产的即饮咖啡产品。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/602270226",
-        "https://dongfangqb.com/article/8765"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0005"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_003_001",
       "name": "发酵调味品",
       "node_type": "细分环节",
@@ -1052,37 +963,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_003_006",
-      "name": "酵母及衍生品",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_003_001",
-      "description": "用于烘焙、发酵和增鲜的酵母及酵母衍生配料。",
-      "business_description": "用于烘焙、发酵和增鲜的酵母及酵母衍生配料。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_003_007",
       "name": "中式复合调味料",
       "node_type": "细分环节",
@@ -1096,37 +976,6 @@
       "parent_id": "food_beverage_003_002",
       "description": "面向家庭和餐饮的中式菜肴复合调味产品。",
       "business_description": "面向家庭和餐饮的中式菜肴复合调味产品。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_003_009",
-      "name": "西式调味酱",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_003_002",
-      "description": "番茄酱、沙拉酱等西式复合酱料。",
-      "business_description": "番茄酱、沙拉酱等西式复合酱料。",
       "is_key_node": false,
       "chain_segment": "中游核心制造",
       "source_urls": [
@@ -1203,33 +1052,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_003_012",
-      "name": "食盐",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_003_011",
-      "description": "食品加工与家庭烹饪使用的食用盐产品。",
-      "business_description": "食品加工与家庭烹饪使用的食用盐产品。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf",
-        "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0004"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_003_013",
       "name": "味精与鸡精",
       "node_type": "细分环节",
@@ -1243,33 +1065,6 @@
       "parent_id": "food_beverage_003_011",
       "description": "以谷氨酸钠或复合配方提供鲜味的基础调味品。",
       "business_description": "以谷氨酸钠或复合配方提供鲜味的基础调味品。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf",
-        "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0004"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_003_014",
-      "name": "蚝油与料酒",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_003_011",
-      "description": "用于增鲜、去腥和复合风味构建的基础调味品。",
-      "business_description": "用于增鲜、去腥和复合风味构建的基础调味品。",
       "is_key_node": false,
       "chain_segment": "中游核心制造",
       "source_urls": [
@@ -1483,37 +1278,6 @@
       "parent_id": "food_beverage_004_001",
       "description": "糖果、巧克力及相关甜味休闲食品。",
       "business_description": "糖果、巧克力及相关甜味休闲食品。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_004_008",
-      "name": "膨化食品",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_004_001",
-      "description": "以谷物、薯类等为原料的膨化休闲食品。",
-      "business_description": "以谷物、薯类等为原料的膨化休闲食品。",
       "is_key_node": false,
       "chain_segment": "中游核心制造",
       "source_urls": [
@@ -1935,37 +1699,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_005_013",
-      "name": "低温肉制品",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_005_005",
-      "description": "采用低温加工并依赖冷链流通的培根、香肠和熟食产品。",
-      "business_description": "采用低温加工并依赖冷链流通的培根、香肠和熟食产品。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_005_014",
       "name": "方便面与冲泡食品",
       "node_type": "细分环节",
@@ -1997,37 +1730,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_005_015",
-      "name": "自热米饭与自热锅",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_005_007",
-      "description": "利用自热包实现便捷加热的米饭、火锅等方便食品。",
-      "business_description": "利用自热包实现便捷加热的米饭、火锅等方便食品。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_005_016",
       "name": "营养补充食品",
       "node_type": "细分环节",
@@ -2041,37 +1743,6 @@
       "parent_id": "food_beverage_005_011",
       "description": "蛋白粉、维生素矿物质补充等营养食品。",
       "business_description": "蛋白粉、维生素矿物质补充等营养食品。",
-      "is_key_node": false,
-      "chain_segment": "中游核心制造",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_005_017",
-      "name": "功能性便捷食品",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "midstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "midstream",
-      "parent_id": "food_beverage_005_011",
-      "description": "兼具饱腹、控糖、运动营养等特定功能诉求的便捷食品。",
-      "business_description": "兼具饱腹、控糖、运动营养等特定功能诉求的便捷食品。",
       "is_key_node": false,
       "chain_segment": "中游核心制造",
       "source_urls": [
@@ -2165,37 +1836,6 @@
       "parent_id": "food_beverage_006_002",
       "description": "面粉和烘焙食品的核心粮食原料。",
       "business_description": "面粉和烘焙食品的核心粮食原料。",
-      "is_key_node": false,
-      "chain_segment": "上游原辅料与包材供给",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_006_004",
-      "name": "酿造用高粱与大麦",
-      "node_type": "细分环节",
-      "tags": [
-        "level_4",
-        "upstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "upstream",
-      "parent_id": "food_beverage_006_002",
-      "description": "白酒和啤酒的重要酿造粮食原料。",
-      "business_description": "白酒和啤酒的重要酿造粮食原料。",
       "is_key_node": false,
       "chain_segment": "上游原辅料与包材供给",
       "source_urls": [
@@ -2524,37 +2164,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_006_022",
-      "name": "防腐保鲜剂",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "upstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "upstream",
-      "parent_id": "food_beverage_006_017",
-      "description": "延长货架期并控制微生物风险的功能性添加剂。",
-      "business_description": "延长货架期并控制微生物风险的功能性添加剂。",
-      "is_key_node": false,
-      "chain_segment": "上游原辅料与包材供给",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_006_023",
       "name": "乳化稳定剂与胶体",
       "node_type": "细分环节",
@@ -2754,37 +2363,6 @@
       "parent_id": "food_beverage_006_028",
       "description": "两片罐、三片罐和金属盖等饮料酒类常用包装。",
       "business_description": "两片罐、三片罐和金属盖等饮料酒类常用包装。",
-      "is_key_node": false,
-      "chain_segment": "上游原辅料与包材供给",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_006_034",
-      "name": "玻璃包装",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "upstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "upstream",
-      "parent_id": "food_beverage_006_028",
-      "description": "玻璃瓶罐等高阻隔和高端展示包装。",
-      "business_description": "玻璃瓶罐等高阻隔和高端展示包装。",
       "is_key_node": false,
       "chain_segment": "上游原辅料与包材供给",
       "source_urls": [
@@ -3051,68 +2629,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_007_007",
-      "name": "内容电商",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_006",
-      "description": "直播、短视频和达人种草驱动的线上渠道。",
-      "business_description": "直播、短视频和达人种草驱动的线上渠道。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_008",
-      "name": "即时零售",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_006",
-      "description": "本地仓店履约、小时达和同城配送渠道。",
-      "business_description": "本地仓店履约、小时达和同城配送渠道。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_007_009",
       "name": "终端消费场景",
       "node_type": "细分环节",
@@ -3126,37 +2642,6 @@
       "parent_id": "food_beverage_007",
       "description": "家庭、餐饮、休闲、健康、礼赠等消费场景。",
       "business_description": "家庭、餐饮、休闲、健康、礼赠等消费场景。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_010",
-      "name": "家庭消费",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_009",
-      "description": "日常膳食、早餐和家庭囤货场景。",
-      "business_description": "日常膳食、早餐和家庭囤货场景。",
       "is_key_node": false,
       "chain_segment": "下游渠道终端",
       "source_urls": [
@@ -3206,37 +2691,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_007_012",
-      "name": "休闲与礼赠消费",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_009",
-      "description": "零食、酒类、饮料和节庆礼赠相关消费。",
-      "business_description": "零食、酒类、饮料和节庆礼赠相关消费。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_007_013",
       "name": "冷链物流与仓储",
       "node_type": "细分环节",
@@ -3268,37 +2722,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_007_014",
-      "name": "产地预冷与冷藏",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_013",
-      "description": "果蔬、水产、乳品等产品产地预冷和冷藏保鲜。",
-      "business_description": "果蔬、水产、乳品等产品产地预冷和冷藏保鲜。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_007_015",
       "name": "冷链仓储",
       "node_type": "细分环节",
@@ -3312,37 +2735,6 @@
       "parent_id": "food_beverage_007_013",
       "description": "冷库、低温仓和温控仓储服务。",
       "business_description": "冷库、低温仓和温控仓储服务。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_016",
-      "name": "产地冷库",
-      "node_type": "细分环节",
-      "tags": [
-        "level_4",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_015",
-      "description": "靠近产区的预冷、分级和暂存冷库。",
-      "business_description": "靠近产区的预冷、分级和暂存冷库。",
       "is_key_node": false,
       "chain_segment": "下游渠道终端",
       "source_urls": [
@@ -3436,99 +2828,6 @@
       "parent_id": "food_beverage_007_018",
       "description": "区域间低温运输和温控车辆运营。",
       "business_description": "区域间低温运输和温控车辆运营。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_020",
-      "name": "城市冷链配送",
-      "node_type": "细分环节",
-      "tags": [
-        "level_4",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 4,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_018",
-      "description": "到店、到仓和到家的城市温控配送。",
-      "business_description": "到店、到仓和到家的城市温控配送。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_021",
-      "name": "冷链包装耗材",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_013",
-      "description": "保温箱、冰袋、蓄冷剂和温控标签等耗材。",
-      "business_description": "保温箱、冰袋、蓄冷剂和温控标签等耗材。",
-      "is_key_node": false,
-      "chain_segment": "下游渠道终端",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_022",
-      "name": "冷链信息化追溯",
-      "node_type": "细分环节",
-      "tags": [
-        "level_3",
-        "downstream"
-      ],
-      "industry": "食品饮料行业",
-      "level": 3,
-      "chain_position": "downstream",
-      "parent_id": "food_beverage_007_013",
-      "description": "温控监测、在途追踪和冷链追溯系统。",
-      "business_description": "温控监测、在途追踪和冷链追溯系统。",
       "is_key_node": false,
       "chain_segment": "下游渠道终端",
       "source_urls": [
@@ -3761,50 +3060,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_001_002__contains__food_beverage_001_004",
-      "source": "food_beverage_001_002",
-      "target": "food_beverage_001_004",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "精酿啤酒隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_001_002__contains__food_beverage_001_006",
-      "source": "food_beverage_001_002",
-      "target": "food_beverage_001_006",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "无醇与低醇啤酒隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_002__contains__food_beverage_002_001",
       "source": "food_beverage_002",
       "target": "food_beverage_002_001",
@@ -3976,24 +3231,6 @@
       "evidence_ids": [
         "food_beverage_ev_0001",
         "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_002__contains__food_beverage_002_017",
-      "source": "food_beverage_002",
-      "target": "food_beverage_002_017",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "即饮咖啡隶属于上级分类。",
-      "source_urls": [
-        "https://zhuanlan.zhihu.com/p/602270226",
-        "https://dongfangqb.com/article/8765"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0005"
       ],
       "confidence": 0.86,
       "updated_at": "2026-07-28T15:31:44+00:00"
@@ -4193,56 +3430,12 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_003_001__contains__food_beverage_003_006",
-      "source": "food_beverage_003_001",
-      "target": "food_beverage_003_006",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "酵母及衍生品隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_003_002__contains__food_beverage_003_007",
       "source": "food_beverage_003_002",
       "target": "food_beverage_003_007",
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "中式复合调味料隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_003_002__contains__food_beverage_003_009",
-      "source": "food_beverage_003_002",
-      "target": "food_beverage_003_009",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "西式调味酱隶属于上级分类。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -4281,48 +3474,12 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_003_011__contains__food_beverage_003_012",
-      "source": "food_beverage_003_011",
-      "target": "food_beverage_003_012",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "食盐隶属于上级分类。",
-      "source_urls": [
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf",
-        "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0004"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_003_011__contains__food_beverage_003_013",
       "source": "food_beverage_003_011",
       "target": "food_beverage_003_013",
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "味精与鸡精隶属于上级分类。",
-      "source_urls": [
-        "https://www.lhratings.com/file/fe2d6ccd8f0.pdf",
-        "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0002",
-        "food_beverage_ev_0004"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_003_011__contains__food_beverage_003_014",
-      "source": "food_beverage_003_011",
-      "target": "food_beverage_003_014",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "蚝油与料酒隶属于上级分类。",
       "source_urls": [
         "https://www.lhratings.com/file/fe2d6ccd8f0.pdf",
         "https://finance.sina.cn/2020-02-13/detail-iimxyqvz2436196.d.html"
@@ -4429,28 +3586,6 @@
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "糖果巧克力隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_004_001__contains__food_beverage_004_008",
-      "source": "food_beverage_004_001",
-      "target": "food_beverage_004_008",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "膨化食品隶属于上级分类。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -4753,56 +3888,12 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_005_005__contains__food_beverage_005_013",
-      "source": "food_beverage_005_005",
-      "target": "food_beverage_005_013",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "低温肉制品隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_005_007__contains__food_beverage_005_014",
       "source": "food_beverage_005_007",
       "target": "food_beverage_005_014",
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "方便面与冲泡食品隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_005_007__contains__food_beverage_005_015",
-      "source": "food_beverage_005_007",
-      "target": "food_beverage_005_015",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "自热米饭与自热锅隶属于上级分类。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -4869,28 +3960,6 @@
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "营养补充食品隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_005_011__contains__food_beverage_005_017",
-      "source": "food_beverage_005_011",
-      "target": "food_beverage_005_017",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "功能性便捷食品隶属于上级分类。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -5171,28 +4240,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_006_002__contains__food_beverage_006_004",
-      "source": "food_beverage_006_002",
-      "target": "food_beverage_006_004",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "酿造用高粱与大麦隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_006_017__contains__food_beverage_006_018",
       "source": "food_beverage_006_017",
       "target": "food_beverage_006_018",
@@ -5221,28 +4268,6 @@
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "香精香料隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_006_017__contains__food_beverage_006_022",
-      "source": "food_beverage_006_017",
-      "target": "food_beverage_006_022",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "防腐保鲜剂隶属于上级分类。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -5375,28 +4400,6 @@
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "金属包装隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_006_028__contains__food_beverage_006_034",
-      "source": "food_beverage_006_028",
-      "target": "food_beverage_006_034",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "玻璃包装隶属于上级分类。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -5633,122 +4636,12 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_007_006__contains__food_beverage_007_007",
-      "source": "food_beverage_007_006",
-      "target": "food_beverage_007_007",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "内容电商隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_006__contains__food_beverage_007_008",
-      "source": "food_beverage_007_006",
-      "target": "food_beverage_007_008",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "即时零售隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_009__contains__food_beverage_007_010",
-      "source": "food_beverage_007_009",
-      "target": "food_beverage_007_010",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "家庭消费隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_007_009__contains__food_beverage_007_011",
       "source": "food_beverage_007_009",
       "target": "food_beverage_007_011",
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "餐饮消费隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_009__contains__food_beverage_007_012",
-      "source": "food_beverage_007_009",
-      "target": "food_beverage_007_012",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "休闲与礼赠消费隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_013__contains__food_beverage_007_014",
-      "source": "food_beverage_007_013",
-      "target": "food_beverage_007_014",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "产地预冷与冷藏隶属于上级分类。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
@@ -5809,72 +4702,6 @@
       "updated_at": "2026-07-28T15:31:44+00:00"
     },
     {
-      "id": "food_beverage_007_013__contains__food_beverage_007_021",
-      "source": "food_beverage_007_013",
-      "target": "food_beverage_007_021",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "冷链包装耗材隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_013__contains__food_beverage_007_022",
-      "source": "food_beverage_007_013",
-      "target": "food_beverage_007_022",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "冷链信息化追溯隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_015__contains__food_beverage_007_016",
-      "source": "food_beverage_007_015",
-      "target": "food_beverage_007_016",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "产地冷库隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
       "id": "food_beverage_007_015__contains__food_beverage_007_017",
       "source": "food_beverage_007_015",
       "target": "food_beverage_007_017",
@@ -5903,28 +4730,6 @@
       "relation_type": "contains",
       "relation_weight": 1.0,
       "description": "干线冷链运输隶属于上级分类。",
-      "source_urls": [
-        "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
-        "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
-        "https://en.wikipedia.org/wiki/Agrifood_systems",
-        "https://arxiv.org/abs/2001.03982",
-        "https://en.wikipedia.org/wiki/Food_hubs",
-        "https://zh.wikipedia.org/wiki/%E7%99%BD%E9%85%92"
-      ],
-      "evidence_ids": [
-        "food_beverage_ev_0001",
-        "food_beverage_ev_0002"
-      ],
-      "confidence": 0.86,
-      "updated_at": "2026-07-28T15:31:44+00:00"
-    },
-    {
-      "id": "food_beverage_007_018__contains__food_beverage_007_020",
-      "source": "food_beverage_007_018",
-      "target": "food_beverage_007_020",
-      "relation_type": "contains",
-      "relation_weight": 1.0,
-      "description": "城市冷链配送隶属于上级分类。",
       "source_urls": [
         "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%A7%E4%B8%9A%E5%88%86%E7%B1%BB",
         "https://zh.wikipedia.org/wiki/%E9%A3%9F%E5%93%81%E6%B7%BB%E5%8A%A0%E5%89%82",
