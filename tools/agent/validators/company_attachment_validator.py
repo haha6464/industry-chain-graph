@@ -10,6 +10,7 @@ from tools.agent.company_attachments import (
     build_deterministic_taxonomy_matches,
     candidate_index,
     file_sha256,
+    filter_domestic_listed_companies,
     graph_fingerprint,
     is_ancestor,
     load_candidate_companies,
@@ -98,7 +99,9 @@ def validate_company_attachments(payload: dict[str, Any], graph: dict[str, Any],
             if any(other != node_id and is_ancestor(node_id, other, parents) for other in node_ids):
                 issue("ancestor_descendant_attachment", "同一公司同时挂载了祖先和后代节点。", identifier)
                 break
-    selected_candidates = select_companies_by_scope(list(candidates.values()), payload.get("scope") or {})
+    selected_candidates = select_companies_by_scope(
+        filter_domestic_listed_companies(list(candidates.values())), payload.get("scope") or {}
+    )
     required_exact_matches = build_deterministic_taxonomy_matches(graph, selected_candidates)
     for result in required_exact_matches:
         identifier = str(result.get("company_id", ""))

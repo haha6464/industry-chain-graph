@@ -202,7 +202,7 @@ def build_scope_prompt(graph: dict[str, Any], taxonomy_catalog: dict[str, list[d
     roots = [node for node in compact_node_catalog(graph) if int(node["level"]) <= 1]
     payload = {"industry": graph.get("industry"), "level_0_and_level_1_nodes": roots, "taxonomy_catalog": taxonomy_catalog}
     return """
-你是证券投研产业链公司的候选范围规划 Agent。根据行业根节点、一级产业链环节和申万分类目录，选择应纳入该行业全产业链公司挂载的申万分类。
+你是证券投研产业链公司的候选范围规划 Agent。输入目录已提前过滤为境内上市公司；根据行业根节点、一级产业链环节和申万分类目录，选择应纳入该行业全产业链公司挂载的申万分类。
 
 这是候选范围过滤，不是公司业务质量评估。选择要兼顾主产业、中上游材料/包装/设备、物流/渠道等图谱已存在的分支；但不要为了覆盖而选择与该图谱无关的过宽分类。优先选择更细的 indunamesw2 或 indunamesw3；只有整个 indunamesw1 均高度相关时才使用一级分类。
 
@@ -286,7 +286,7 @@ def build_deterministic_taxonomy_matches(
 def build_match_prompt(graph: dict[str, Any], companies: list[dict[str, Any]]) -> str:
     payload = {"industry": graph.get("industry"), "nodes": compact_node_catalog(graph), "companies": companies}
     return """
-你是证券投研产业链公司挂载 Agent。请联网核实每家候选公司的主营业务，再把公司直接挂到最匹配、最具体的产业链节点。
+你是证券投研产业链公司挂载 Agent。输入公司均为已筛出的境内上市公司。请联网核实每家候选公司的主营业务，再把公司直接挂到最匹配、最具体的产业链节点。
 
 规则：
 1. 只能使用输入中 company_id 和节点 id；公司名称、代码不得改写。
@@ -490,6 +490,11 @@ def is_listed_company(company: dict[str, Any]) -> bool:
     intentionally not sufficient: the delivery scope is domestic listed companies.
     """
     return company.get("is_listed") is True
+
+
+def filter_domestic_listed_companies(companies: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Return the only companies eligible for model-backed attachment work."""
+    return [company for company in companies if is_listed_company(company)]
 
 
 def filter_listed_attachments(payload: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:

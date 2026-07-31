@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from tools.agent.company_attachments import filter_listed_attachments, is_listed_company
+from tools.agent.company_attachments import filter_domestic_listed_companies, filter_listed_attachments, is_listed_company
 from tools.agent.export_csv import export_company_attachment_csv
 
 
@@ -77,6 +77,10 @@ class ListedCompanyPredicateTest(unittest.TestCase):
 
     def test_explicit_false_is_unlisted(self):
         self.assertFalse(is_listed_company(company("sw_a", False)))
+
+    def test_model_candidate_filter_keeps_only_domestic_listed_companies(self):
+        filtered = filter_domestic_listed_companies(SAMPLE_PAYLOAD["companies"])
+        self.assertEqual([item["company_id"] for item in filtered], ["sw_listed"])
 
 
 class FilterListedAttachmentsTest(unittest.TestCase):

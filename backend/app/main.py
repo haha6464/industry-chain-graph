@@ -2,7 +2,7 @@ import httpx
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_attach_companies, run_build_branches, run_build_l2_flow_relations, run_build_skeleton, run_search_plan, run_final_validate, run_update
+from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_attach_companies, run_build_branches, run_build_l2_flow_relations, run_build_skeleton, run_export_offline, run_search_plan, run_final_validate, run_update
 from app.ai_service import AIConfigurationError, answer_with_graph_context
 from tools.agent.common import industry_dir, load_graph
 from tools.agent.company_attachments import aggregate_node_companies, attachment_file_status, filter_listed_attachments
@@ -355,6 +355,22 @@ def apply_industry_candidate(industry_id: str, request: ApplyCandidateRequest) -
 def export_industry_csv(industry_id: str) -> ExportResponse:
     try:
         return ExportResponse(**export_csv(industry_id))
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/api/industries/{industry_id}/export-offline", response_model=AgentRunResponse)
+def export_current_industry_offline(industry_id: str) -> AgentRunResponse:
+    try:
+        return AgentRunResponse(**run_export_offline(industry_id))
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.post("/api/export-offline/all", response_model=AgentRunResponse)
+def export_all_industries_offline() -> AgentRunResponse:
+    try:
+        return AgentRunResponse(**run_export_offline())
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 

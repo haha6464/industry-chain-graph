@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 import sys
 import threading
@@ -15,11 +16,13 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from tools.agent.common import industry_dir, read_json, read_jsonl, standardize_graph, write_json, write_jsonl
+from tools.agent.common import industry_dir, load_graph, read_json, read_jsonl, standardize_graph, write_json, write_jsonl
+from tools.agent.company_attachments import attachment_file_status
 from tools.agent.export_csv import export_graph_csv, export_industry_csv
 from tools.agent.l2_flow_relations import relation_file_status
 from tools.agent.search.search_planner import build_search_plan
 from tools.agent.validators.graph_validator import validate_graph, write_markdown_report
+from app.graph_loader import load_industry_graph, load_manifest
 
 
 @dataclass(frozen=True)
@@ -362,6 +365,49 @@ def cancel_run(run_id: str) -> dict[str, Any]:
 
 def export_csv(industry_id: str) -> dict[str, str]:
     return export_industry_csv(industry_id)
+
+
+def _formal_industry_ids() -> list[str]:
+    result: list[str] = []
+    for item in load_manifest():
+        if str(item.get("status", "pending")) == "pending":
+            continue
+        industry_id = str(item.get("id", ""))
+        if not industry_id:
+            continue
+        try:
+            _, nodes, _ = load_industry_graph(industry_id)
+            graph = load_graph(industry_id)
+            attachment_status, _, _ = attachment_file_status(
+                industry_id, graph, industry_dir(industry_id) / "company_attachments.json"
+            )
+        except (FileNotFoundError, ValueError):
+            continue
+        if nodes and attachment_status == "ready":
+            result.append(industry_id)
+    return result
+
+
+def run_export_offline(industry_id: str | None = None) -> dict[str, Any]:
+    """Refresh delivery CSVs, then build self-contained HTML delivery files."""
+    available_ids = _formal_industry_ids()
+    if industry_id:
+        if industry_id not in available_ids:
+            raise FileNotFoundError(f"该行业尚未满足交付条件：需要正式 graph.json 和与其一致的公司挂载附件。")
+        export_ids = [industry_id]
+    else:
+        export_ids = available_ids
+    if not export_ids:
+        raise FileNotFoundError("没有可导出的正式图谱。")
+
+    for current_id in export_ids:
+        export_industry_csv(current_id)
+
+    node_command = shutil.which("node") or "node"
+    command = [node_command, "scripts/export-offline-viewer.mjs"]
+    command.extend(["--industry-id", industry_id] if industry_id else ["--all"])
+    report_path = PROJECT_ROOT / "deliverables" / (f"{industry_id}_delivery" if industry_id else "25行业产业链图谱.html")
+    return _start_subprocess_run("export_offline", industry_id or "all", command, report_path)
 
 
 def _merge_checked_sources(industry_id: str, proposal_path: Path) -> None:

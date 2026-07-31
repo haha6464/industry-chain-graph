@@ -29,6 +29,7 @@ from tools.agent.company_attachments import (
     configured_max_concurrency,
     configured_model,
     configured_search_strategy,
+    filter_domestic_listed_companies,
     load_candidate_companies,
     select_companies_by_scope,
 )
@@ -87,8 +88,11 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     )
     if relation_status != "ready":
         raise FileNotFoundError(relation_message or "请先完成 L2 上下游关系建边。")
-    companies = load_candidate_companies()
-    _log(f"已读取正式图谱和 {len(companies)} 家候选公司。")
+    all_companies = load_candidate_companies()
+    companies = filter_domestic_listed_companies(all_companies)
+    _log(f"已读取正式图谱和 {len(all_companies)} 家原始候选公司；预筛后保留 {len(companies)} 家境内上市公司。")
+    if not companies:
+        raise RuntimeError("候选公司中没有境内上市公司，无法进行公司节点挂载。")
 
     _log("生成基于 L0/L1 的申万分类范围规则。")
     scope, scope_prompt, scope_raw = call_scope_agent(graph, companies)
@@ -96,7 +100,9 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     selected_companies = select_companies_by_scope(companies, scope)
     scope_payload = {
         **scope,
+        "source_candidate_total_count": len(all_companies),
         "candidate_total_count": len(companies),
+        "company_eligibility_rule": "is_listed is True (domestic listed company only)",
         "selected_company_count": len(selected_companies),
     }
     write_json(output_dir / "company_scope.json", scope_payload)
@@ -145,7 +151,7 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
             _log("公司匹配进度 " + _progress_bar(completed, len(batches), time.monotonic() - started_at))
     write_jsonl(output_dir / "company_attachment_raw_responses.jsonl", sorted(raw_rows, key=lambda item: item["batch_index"]))
 
-    candidate = build_attachment_payload(industry_id, graph, companies, selected_companies, scope_payload, match_results)
+    candidate = build_attachment_payload(industry_id, graph, all_companies, selected_companies, scope_payload, match_results)
     candidate_path = output_dir / "company_attachment_candidate.json"
     write_json(candidate_path, candidate)
     _log(f"已生成候选挂载：{len(candidate.get('companies', []))} 家公司、{len(candidate.get('attachments', []))} 条直接挂载。")
