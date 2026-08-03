@@ -272,8 +272,8 @@ def export_company_attachment_csv(
             continue
         company = company_by_id[company_id]
         # Preserve the direct attachment and add every classification parent.
-        # ``ancestors_for_node`` additionally maps the L0--L1 main-flow boundary
-        # to L0, but never treats L1--L2 flow edges as aggregation parents.
+        # Upstream/downstream edges, including L0--L1 boundaries, never become
+        # company aggregation hierarchy edges.
         for aggregate_node_id in [node_id, *ancestors_for_node(graph, node_id)]:
             pair = (company_id, aggregate_node_id)
             if pair in seen_pairs or aggregate_node_id not in node_by_id:

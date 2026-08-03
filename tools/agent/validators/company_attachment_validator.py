@@ -55,20 +55,28 @@ def validate_company_attachments(payload: dict[str, Any], graph: dict[str, Any],
             issue("company_identity_mismatch", "公司主数据与候选 CSV 不一致。", identifier)
 
     node_by_id = {str(node.get("id")): node for node in graph.get("nodes", []) if node.get("id")}
-    parents = {str(node_id): str(node.get("parent_id") or "") for node_id, node in node_by_id.items()}
+    flow_boundary_l1_ids: set[str] = set()
+    for edge in graph.get("edges", []):
+        if edge.get("relation_type") != "upstream_downstream":
+            continue
+        source, target = str(edge.get("source") or ""), str(edge.get("target") or "")
+        source_level = int(node_by_id.get(source, {}).get("level", -1))
+        target_level = int(node_by_id.get(target, {}).get("level", -1))
+        if source_level == 0 and target_level == 1:
+            flow_boundary_l1_ids.add(target)
+        elif source_level == 1 and target_level == 0:
+            flow_boundary_l1_ids.add(source)
+    parents: dict[str, str] = {}
+    for node_id, node in node_by_id.items():
+        parent_id = str(node.get("parent_id") or "")
+        if node_id in flow_boundary_l1_ids and int(node_by_id.get(parent_id, {}).get("level", -1)) == 0:
+            parent_id = ""
+        parents[node_id] = parent_id
     for edge in graph.get("edges", []):
         if edge.get("relation_type") == "contains" and edge.get("source") and edge.get("target"):
             target = str(edge["target"])
             if not parents.get(target):
                 parents[target] = str(edge["source"])
-        if edge.get("relation_type") == "upstream_downstream" and edge.get("source") and edge.get("target"):
-            source, target = str(edge["source"]), str(edge["target"])
-            source_level = int(node_by_id.get(source, {}).get("level", -1))
-            target_level = int(node_by_id.get(target, {}).get("level", -1))
-            if source_level == 0 and target_level == 1:
-                parents[target] = source
-            elif source_level == 1 and target_level == 0:
-                parents[source] = target
     pairs: list[tuple[str, str]] = []
     attached_nodes: dict[str, list[str]] = defaultdict(list)
     for attachment in payload.get("attachments", []) or []:

@@ -5,5 +5,11 @@
   "error_count": 0,
   "warning_count": 0,
   "status": "pass",
-  "issues": []
+  "issues": [],
+  "format_repair": {
+    "validation_status": "skipped",
+    "summary": "公司聚合规则更新后进行确定性重校验，未调用格式修复。",
+    "modifications": [],
+    "review_items": []
+  }
 }

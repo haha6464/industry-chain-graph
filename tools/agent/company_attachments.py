@@ -386,28 +386,36 @@ def configured_model() -> str:
 def _parent_map(graph: dict[str, Any]) -> dict[str, str]:
     """Return the hierarchy used to aggregate company attachments.
 
-    Classification ``parent_id`` / ``contains`` relations are always included.
-    The main graph also models the two directional L0--L1 boundary branches as
-    upstream/downstream rather than ``contains``.  Those L1 nodes belong to the
-    industry root for company aggregation, regardless of direction.  Deliberately
-    do not treat any other upstream/downstream edge as a parent relation: L1--L2
-    flow projections describe a commercial flow, not a classification hierarchy.
+    Only classification ``parent_id`` / ``contains`` relations are included.
+    ``upstream_downstream`` expresses industrial flow rather than affiliation:
+    this includes the main L0--L1 boundary, so a company's aggregation stops at
+    that L1 instead of extending to L0.
     """
     nodes = {str(node["id"]): node for node in graph.get("nodes", []) if node.get("id")}
-    parents = {node_id: str(node.get("parent_id") or "") for node_id, node in nodes.items()}
+    flow_boundary_l1_ids: set[str] = set()
+    for edge in graph.get("edges", []):
+        if edge.get("relation_type") != "upstream_downstream":
+            continue
+        source, target = str(edge.get("source") or ""), str(edge.get("target") or "")
+        source_level = int(nodes.get(source, {}).get("level", -1))
+        target_level = int(nodes.get(target, {}).get("level", -1))
+        if source_level == 0 and target_level == 1:
+            flow_boundary_l1_ids.add(target)
+        elif source_level == 1 and target_level == 0:
+            flow_boundary_l1_ids.add(source)
+    parents: dict[str, str] = {}
+    for node_id, node in nodes.items():
+        parent_id = str(node.get("parent_id") or "")
+        # Be resilient to legacy payloads that filled parent_id even though the
+        # actual L0--L1 relationship is upstream/downstream rather than contains.
+        if node_id in flow_boundary_l1_ids and int(nodes.get(parent_id, {}).get("level", -1)) == 0:
+            parent_id = ""
+        parents[node_id] = parent_id
     for edge in graph.get("edges", []):
         if edge.get("relation_type") == "contains" and edge.get("source") and edge.get("target"):
             target = str(edge["target"])
             if not parents.get(target):
                 parents[target] = str(edge["source"])
-        if edge.get("relation_type") == "upstream_downstream" and edge.get("source") and edge.get("target"):
-            source, target = str(edge["source"]), str(edge["target"])
-            source_level = int(nodes.get(source, {}).get("level", -1))
-            target_level = int(nodes.get(target, {}).get("level", -1))
-            if source_level == 0 and target_level == 1:
-                parents[target] = source
-            elif source_level == 1 and target_level == 0:
-                parents[source] = target
     return parents
 
 
@@ -623,8 +631,9 @@ def prune_graph_to_company_coverage(
         node_id for node_id, node in node_by_id.items()
         if int(node.get("level", -1)) == 0 or node.get("chain_position") == "root"
     }
-    if not root_ids.intersection(retained_node_ids):
-        raise ValueError("公司聚合未保留产业链根节点，已保留原图谱。")
+    # Keep L0 as a visible structural root.  It is not an aggregation ancestor
+    # simply because it is connected to an L1 by an upstream/downstream edge.
+    retained_node_ids.update(root_ids)
 
     removed_nodes = [node for node in graph.get("nodes", []) if str(node.get("id")) not in retained_node_ids]
     pruned_graph = {
@@ -651,7 +660,7 @@ def prune_graph_to_company_coverage(
         "attachments": retained_attachments,
         "coverage_pruning": {
             "applied_at": now_iso(),
-            "rule": "保留直接挂载节点及其分类父节点、L0-L1 主图上下游聚合父节点；删除无公司可聚合节点。",
+            "rule": "保留直接挂载节点及其分类隶属父节点及 L0 结构根节点；上下游关系不参与公司聚合，删除无公司可聚合节点。",
             "nodes_before": len(node_by_id),
             "nodes_after": len(pruned_graph["nodes"]),
             "removed_node_count": len(removed_nodes),

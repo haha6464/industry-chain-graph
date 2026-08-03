@@ -152,6 +152,14 @@ export async function fetchNodeCompanies(industryId: string, nodeId: string, lim
     const visibleNodeIds = new Set([nodeId]);
     if (includeDescendants) {
       const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+      const flowBoundaryL1Ids = new Set<string>();
+      graph.edges.forEach((edge) => {
+        if (edge.relation_type !== "upstream_downstream") return;
+        const source = nodeById.get(edge.source);
+        const target = nodeById.get(edge.target);
+        if (source?.level === 0 && target?.level === 1) flowBoundaryL1Ids.add(target.id);
+        if (source?.level === 1 && target?.level === 0) flowBoundaryL1Ids.add(source.id);
+      });
       const childrenByParent = new Map<string, Set<string>>();
       const addChild = (parentId: string, childId: string) => {
         const children = childrenByParent.get(parentId) ?? new Set<string>();
@@ -159,17 +167,9 @@ export async function fetchNodeCompanies(industryId: string, nodeId: string, lim
         childrenByParent.set(parentId, children);
       };
       graph.nodes.forEach((node) => {
-        if (node.parent_id) addChild(node.parent_id, node.id);
-      });
-      // The main graph's directional L0--L1 branches are also aggregation
-      // parents.  Do not include any L1--L2 upstream/downstream flow here.
-      graph.edges.forEach((edge) => {
-        if (edge.relation_type !== "upstream_downstream") return;
-        const source = nodeById.get(edge.source);
-        const target = nodeById.get(edge.target);
-        if (!source || !target) return;
-        if (source.level === 0 && target.level === 1) addChild(source.id, target.id);
-        if (source.level === 1 && target.level === 0) addChild(target.id, source.id);
+        const parent = node.parent_id ? nodeById.get(node.parent_id) : undefined;
+        const isLegacyFlowParent = flowBoundaryL1Ids.has(node.id) && parent?.level === 0;
+        if (node.parent_id && !isLegacyFlowParent) addChild(node.parent_id, node.id);
       });
       const queue = [nodeId];
       while (queue.length) {

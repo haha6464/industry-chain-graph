@@ -1,7 +1,7 @@
 {
   "schema_version": "industry_company_attachments_v0.2",
   "industry_id": "food_beverage",
-  "generated_at": "2026-07-31T07:03:02+00:00",
+  "generated_at": "2026-08-03T02:20:50+00:00",
   "graph_fingerprint": "b158e70a6c927cd3758805eb07a8dd70c36669f787c2ce55873056ad4f27838b",
   "candidate_source": {
     "path": "data/company_candidates/申万全量分类结果.csv",
@@ -15290,11 +15290,11 @@
     }
   },
   "coverage_pruning": {
-    "applied_at": "2026-07-31T06:39:40+00:00",
-    "rule": "保留直接挂载节点及其分类父节点、L0-L1 主图上下游聚合父节点；删除无公司可聚合节点。",
-    "nodes_before": 114,
-    "nodes_after": 91,
-    "removed_node_count": 23
+    "applied_at": "2026-08-03T02:20:50+00:00",
+    "rule": "保留直接挂载节点及其分类隶属父节点及 L0 结构根节点；上下游关系不参与公司聚合，删除无公司可聚合节点。",
+    "nodes_before": 83,
+    "nodes_after": 83,
+    "removed_node_count": 0
   },
   "singleton_leaf_compaction": {
     "applied_at": "2026-07-31T07:03:02+00:00",

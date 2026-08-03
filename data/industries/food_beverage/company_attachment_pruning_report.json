@@ -1,141 +1,15 @@
 {
-  "generated_at": "2026-07-31T06:39:40+00:00",
-  "rule": "保留直接挂载节点及其分类父节点、L0-L1 主图上下游聚合父节点；删除无公司可聚合节点。",
-  "nodes_before": 114,
+  "generated_at": "2026-08-03T02:20:50+00:00",
+  "rule": "保留直接挂载节点及其分类隶属父节点及 L0 结构根节点；上下游关系不参与公司聚合，删除无公司可聚合节点。",
+  "nodes_before": 83,
   "nodes_after": 83,
-  "edges_before": 113,
+  "edges_before": 82,
   "edges_after": 82,
   "direct_attachment_count": 733,
-  "removed_nodes": [
-    {
-      "id": "food_beverage_001_004",
-      "name": "精酿啤酒",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_001_006",
-      "name": "无醇与低醇啤酒",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_002_017",
-      "name": "即饮咖啡",
-      "level": 2
-    },
-    {
-      "id": "food_beverage_003_006",
-      "name": "酵母及衍生品",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_003_009",
-      "name": "西式调味酱",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_003_012",
-      "name": "食盐",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_003_014",
-      "name": "蚝油与料酒",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_004_008",
-      "name": "膨化食品",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_005_013",
-      "name": "低温肉制品",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_005_015",
-      "name": "自热米饭与自热锅",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_005_017",
-      "name": "功能性便捷食品",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_006_004",
-      "name": "酿造用高粱与大麦",
-      "level": 4
-    },
-    {
-      "id": "food_beverage_006_022",
-      "name": "防腐保鲜剂",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_006_034",
-      "name": "玻璃包装",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_007_007",
-      "name": "内容电商",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_007_008",
-      "name": "即时零售",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_007_010",
-      "name": "家庭消费",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_007_012",
-      "name": "休闲与礼赠消费",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_007_014",
-      "name": "产地预冷与冷藏",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_007_016",
-      "name": "产地冷库",
-      "level": 4
-    },
-    {
-      "id": "food_beverage_007_020",
-      "name": "城市冷链配送",
-      "level": 4
-    },
-    {
-      "id": "food_beverage_007_021",
-      "name": "冷链包装耗材",
-      "level": 3
-    },
-    {
-      "id": "food_beverage_007_022",
-      "name": "冷链信息化追溯",
-      "level": 3
-    }
-  ],
-  "listed_filter": {
-    "company_count_before": 1581,
-    "company_count_after": 714,
-    "company_removed": 867,
-    "attachment_count_before": 1612,
-    "attachment_count_after": 733,
-    "attachment_removed": 879,
-    "listed_domestic_count": 714,
-    "listed_abroad_only_count": 1,
-    "removed_flag_counts": {
-      "is_listed=false": 364,
-      "is_listed=null": 503
-    }
+  "removed_nodes": [],
+  "singleton_leaf_compaction": {
+    "rule": "非根节点仅保留一个 contains 子节点时，删除子节点并将公司挂载上移到父节点。",
+    "removed_nodes": []
   },
   "graph_validation": {
     "industry": "食品饮料行业",
@@ -161,15 +35,6 @@
       }
     ]
   },
-  "company_attachment_validation": {
-    "industry_id": "food_beverage",
-    "attachment_count": 733,
-    "company_count": 714,
-    "error_count": 0,
-    "warning_count": 0,
-    "status": "pass",
-    "issues": []
-  },
   "l2_relation_validation": {
     "industry_id": "food_beverage",
     "l2_node_count": 32,
@@ -184,58 +49,5 @@
     "warning_count": 0,
     "status": "pass",
     "issues": []
-  },
-  "singleton_leaf_compaction": {
-    "rule": "非根节点仅保留一个 contains 子节点时，删除子节点并将公司挂载上移到父节点。",
-    "removed_nodes": [
-      {
-        "parent_id": "food_beverage_001_002",
-        "parent_name": "啤酒",
-        "child_id": "food_beverage_001_003",
-        "child_name": "工业啤酒"
-      },
-      {
-        "parent_id": "food_beverage_003_011",
-        "parent_name": "基础调味品",
-        "child_id": "food_beverage_003_013",
-        "child_name": "味精与鸡精"
-      },
-      {
-        "parent_id": "food_beverage_005_007",
-        "parent_name": "方便食品制造",
-        "child_id": "food_beverage_005_014",
-        "child_name": "方便面与冲泡食品"
-      },
-      {
-        "parent_id": "food_beverage_005_011",
-        "parent_name": "保健食品制造",
-        "child_id": "food_beverage_005_016",
-        "child_name": "营养补充食品"
-      },
-      {
-        "parent_id": "food_beverage_006_002",
-        "parent_name": "粮食作物",
-        "child_id": "food_beverage_006_003",
-        "child_name": "制粉用小麦"
-      },
-      {
-        "parent_id": "food_beverage_007_009",
-        "parent_name": "终端消费场景",
-        "child_id": "food_beverage_007_011",
-        "child_name": "餐饮消费"
-      },
-      {
-        "parent_id": "food_beverage_007_015",
-        "parent_name": "冷链仓储",
-        "child_id": "food_beverage_007_017",
-        "child_name": "销地冷库"
-      },
-      {
-        "parent_id": "food_beverage_007_018",
-        "parent_name": "冷链运输",
-        "child_id": "food_beverage_007_019",
-        "child_name": "干线冷链运输"
-      }
-    ]
   }
 }

@@ -157,7 +157,7 @@ class CompanyAggregationTest(unittest.TestCase):
         "industry": "测试行业",
         "nodes": [
             {"id": "food_beverage_000", "name": "测试行业", "level": 0, "chain_position": "root", "parent_id": None},
-            {"id": "food_beverage_001", "name": "上游环节", "level": 1, "chain_position": "upstream", "parent_id": None},
+            {"id": "food_beverage_001", "name": "上游环节", "level": 1, "chain_position": "upstream", "parent_id": "food_beverage_000"},
             {"id": "food_beverage_002", "name": "上游子分类", "level": 2, "chain_position": "upstream", "parent_id": "food_beverage_001"},
             {"id": "food_beverage_003", "name": "非隶属流向节点", "level": 2, "chain_position": "midstream", "parent_id": None},
         ],
@@ -172,17 +172,24 @@ class CompanyAggregationTest(unittest.TestCase):
         "attachments": [attachment("sw_listed", "food_beverage_001")],
     }
 
-    def test_only_l0_l1_flow_extends_the_aggregation_hierarchy(self):
+    def test_flow_edges_do_not_extend_the_aggregation_hierarchy(self):
         self.assertEqual(
             descendants_for_node(self.GRAPH, "food_beverage_000"),
-            {"food_beverage_000", "food_beverage_001", "food_beverage_002"},
+            {"food_beverage_000"},
         )
-        self.assertEqual(ancestors_for_node(self.GRAPH, "food_beverage_002"), ["food_beverage_001", "food_beverage_000"])
+        self.assertEqual(
+            descendants_for_node(self.GRAPH, "food_beverage_001"),
+            {"food_beverage_001", "food_beverage_002"},
+        )
+        self.assertEqual(ancestors_for_node(self.GRAPH, "food_beverage_002"), ["food_beverage_001"])
+        self.assertEqual(ancestors_for_node(self.GRAPH, "food_beverage_001"), [])
         self.assertEqual(ancestors_for_node(self.GRAPH, "food_beverage_003"), [])
 
     def test_query_and_csv_export_include_aggregation_parents(self):
-        aggregated = aggregate_node_companies(self.GRAPH, self.ATTACHMENTS, "food_beverage_000")
-        self.assertEqual([item["company_id"] for item in aggregated], ["sw_listed"])
+        aggregated_root = aggregate_node_companies(self.GRAPH, self.ATTACHMENTS, "food_beverage_000")
+        aggregated_l1 = aggregate_node_companies(self.GRAPH, self.ATTACHMENTS, "food_beverage_001")
+        self.assertEqual(aggregated_root, [])
+        self.assertEqual([item["company_id"] for item in aggregated_l1], ["sw_listed"])
         with TemporaryDirectory() as directory:
             result = export_graph_csv(
                 self.GRAPH, "food_beverage", Path(directory), company_attachments=self.ATTACHMENTS
@@ -205,7 +212,7 @@ class CompanyAggregationTest(unittest.TestCase):
         self.assertEqual(l2_row["产业链环节"], "")
         self.assertEqual(
             {row["终点节点id"] for row in company_edges},
-            {"FOOD000000", "FOOD000001"},
+            {"FOOD000001"},
         )
 
     def test_csv_export_keeps_company_attached_singleton_leaf(self):
