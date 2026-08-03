@@ -1,0 +1,421 @@
+{
+  "generated_at": "2026-08-03T14:31:11+00:00",
+  "rule": "保留直接挂载节点及其分类隶属父节点及 L0 结构根节点；上下游关系不参与公司聚合，删除无公司可聚合节点。",
+  "nodes_before": 158,
+  "nodes_after": 103,
+  "edges_before": 157,
+  "edges_after": 102,
+  "direct_attachment_count": 718,
+  "removed_nodes": [
+    {
+      "id": "agriculture_forestry_animal_fishery_002_005",
+      "name": "种质资源保护与利用",
+      "level": 2
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_006",
+      "name": "种子加工与质量检验",
+      "level": 2
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_007",
+      "name": "种业渠道与经销网络",
+      "level": 2
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_012",
+      "name": "油料作物种子",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_014",
+      "name": "瓜果种子种苗",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_016",
+      "name": "基因编辑育种",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_017",
+      "name": "种子加工成套设备",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_018",
+      "name": "种子质量检验与认证",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_019",
+      "name": "抗虫性状",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002_020",
+      "name": "耐除草剂性状",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003_014",
+      "name": "碳酸氢铵",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003_015",
+      "name": "黄磷",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003_018",
+      "name": "硫酸钾",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003_021",
+      "name": "草甘膦",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003_022",
+      "name": "草铵膦",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003_023",
+      "name": "新烟碱类杀虫剂",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003_024",
+      "name": "菊酯类杀虫剂",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003_026",
+      "name": "甲氧基丙烯酸酯类杀菌剂",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_002",
+      "name": "预混料与浓缩料",
+      "level": 2
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_009",
+      "name": "反刍动物配合饲料",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_010",
+      "name": "添加剂预混合饲料",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_011",
+      "name": "浓缩饲料",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_014",
+      "name": "饲用酶制剂",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_019",
+      "name": "能量类饲料原料",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_021",
+      "name": "矿物质饲料原料",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_022",
+      "name": "淡水水产饲料",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_023",
+      "name": "海水水产饲料",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_024",
+      "name": "特种水产饲料",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_025",
+      "name": "肉禽配合饲料",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_026",
+      "name": "蛋禽配合饲料",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_028",
+      "name": "保育料",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_029",
+      "name": "育肥猪料",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004_030",
+      "name": "母猪料",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005_004",
+      "name": "兽用诊断试剂与快检产品",
+      "level": 2
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005_005",
+      "name": "养殖场消毒与生物安全产品",
+      "level": 2
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005_007",
+      "name": "禽用疫苗",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005_008",
+      "name": "反刍动物疫苗",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005_010",
+      "name": "宠物疫苗",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005_011",
+      "name": "兽用抗菌药制剂",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005_012",
+      "name": "兽用抗寄生虫药",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005_014",
+      "name": "猪圆环病毒疫苗",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_006_007",
+      "name": "水稻种植",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_006_008",
+      "name": "玉米种植",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_006_010",
+      "name": "油料作物种植",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_006_016",
+      "name": "大豆种植",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_006_017",
+      "name": "糖料种植",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_006_024",
+      "name": "父母代种鸡繁育",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_006_027",
+      "name": "仔猪保育",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_007_014",
+      "name": "低温肉制品",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_007_015",
+      "name": "巴氏杀菌乳",
+      "level": 4
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_008_009",
+      "name": "销地批发市场",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_008_012",
+      "name": "前置仓模式生鲜电商",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_008_013",
+      "name": "店仓一体模式生鲜电商",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_008_014",
+      "name": "社区团购平台",
+      "level": 3
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_008_015",
+      "name": "产地预冷与集配冷库",
+      "level": 4
+    }
+  ],
+  "singleton_leaf_compaction": {
+    "rule": "非根节点仅保留一个 contains 子节点时，删除子节点并将公司挂载上移到父节点。",
+    "removed_nodes": [
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_002_002",
+        "parent_name": "经济作物种子",
+        "child_id": "agriculture_forestry_animal_fishery_002_011",
+        "child_name": "棉花种子"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_002_003",
+        "parent_name": "蔬菜瓜果种子种苗",
+        "child_id": "agriculture_forestry_animal_fishery_002_013",
+        "child_name": "蔬菜种子"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_002_004",
+        "parent_name": "生物育种技术",
+        "child_id": "agriculture_forestry_animal_fishery_002_015",
+        "child_name": "转基因育种与性状授权"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_003_001",
+        "parent_name": "氮肥",
+        "child_id": "agriculture_forestry_animal_fishery_003_013",
+        "child_name": "尿素"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_003_003",
+        "parent_name": "钾肥",
+        "child_id": "agriculture_forestry_animal_fishery_003_017",
+        "child_name": "氯化钾"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_003_007",
+        "parent_name": "杀菌剂",
+        "child_id": "agriculture_forestry_animal_fishery_003_025",
+        "child_name": "三唑类杀菌剂"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_004_005",
+        "parent_name": "饲料原料",
+        "child_id": "agriculture_forestry_animal_fishery_004_020",
+        "child_name": "蛋白类饲料原料"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_004_006",
+        "parent_name": "猪用配合饲料",
+        "child_id": "agriculture_forestry_animal_fishery_004_027",
+        "child_name": "教槽料"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_005_006",
+        "parent_name": "猪用疫苗",
+        "child_id": "agriculture_forestry_animal_fishery_005_013",
+        "child_name": "猪口蹄疫疫苗"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_006_001",
+        "parent_name": "粮食作物种植",
+        "child_id": "agriculture_forestry_animal_fishery_006_015",
+        "child_name": "小麦种植"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_006_002",
+        "parent_name": "经济作物种植",
+        "child_id": "agriculture_forestry_animal_fishery_006_009",
+        "child_name": "棉花种植"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_007_005",
+        "parent_name": "肉制品与预制菜加工",
+        "child_id": "agriculture_forestry_animal_fishery_007_013",
+        "child_name": "高温肉制品"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_007_011",
+        "parent_name": "液态奶",
+        "child_id": "agriculture_forestry_animal_fishery_007_016",
+        "child_name": "灭菌乳"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_008_001",
+        "parent_name": "农产品批发市场",
+        "child_id": "agriculture_forestry_animal_fishery_008_008",
+        "child_name": "产地批发市场"
+      },
+      {
+        "parent_id": "agriculture_forestry_animal_fishery_008_010",
+        "parent_name": "冷库仓储服务",
+        "child_id": "agriculture_forestry_animal_fishery_008_016",
+        "child_name": "城市销地中转冷库"
+      }
+    ]
+  },
+  "graph_validation": {
+    "industry": "农林牧渔行业",
+    "schema_version": "standard_industry_graph_v0.2_agent",
+    "node_count": 88,
+    "edge_count": 87,
+    "max_contains_depth": 4,
+    "error_count": 0,
+    "warning_count": 1,
+    "status": "pass",
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "node_count_below_target",
+        "message": "节点数量 88 低于质量目标 120；允许应用为正式图谱，但建议后续继续扩展。",
+        "item_id": ""
+      }
+    ]
+  },
+  "l2_relation_validation": {
+    "industry_id": "agriculture_forestry_animal_fishery",
+    "l2_node_count": 44,
+    "evaluated_node_count": 44,
+    "candidate_pair_count": 270,
+    "pair_decision_count": 270,
+    "cache_hit_count": 0,
+    "model_decision_count": 270,
+    "relation_count": 81,
+    "projected_relation_count": 81,
+    "error_count": 0,
+    "warning_count": 1,
+    "status": "pass",
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "candidate_recall_audit_positive",
+        "message": "负样本审计发现 5 个正向关系，建议提高每节点候选数。",
+        "item_id": ""
+      }
+    ]
+  }
+}

@@ -8,15 +8,26 @@ from tempfile import TemporaryDirectory
 from tools.agent.export_csv import (
     COMPANY_EDGE_FIELDS,
     COMPANY_NODE_FIELDS,
+    INDUSTRY_EXPORT_METADATA,
     INDUSTRY_NODE_FIELDS,
     INDUSTRYNODE_EDGE_FIELDS,
     INDUSTRYNODE_INDUSTRY_EDGE_FIELDS,
     INDUSTRYNODE_NODE_FIELDS,
     export_industry_csv,
 )
+from tools.agent.common import load_manifest
 
 
 class DeliveryCsvExportTest(unittest.TestCase):
+    def test_all_manifest_industries_have_delivery_metadata(self) -> None:
+        manifest_ids = {str(item["id"]) for item in load_manifest()}
+        self.assertEqual(manifest_ids - set(INDUSTRY_EXPORT_METADATA), set())
+        for industry_id in manifest_ids:
+            metadata = INDUSTRY_EXPORT_METADATA[industry_id]
+            self.assertTrue(metadata["code"])
+            self.assertTrue(metadata["name"])
+            self.assertRegex(metadata["ind_id"], r"^\d{6}$")
+
     def test_food_beverage_exports_all_six_delivery_files(self) -> None:
         with TemporaryDirectory() as directory:
             result = export_industry_csv("food_beverage", Path(directory))

@@ -31,9 +31,36 @@ COMPANY_NODE_FIELDS = ["节点code", "节点类型", "节点名称", "证券代�
 COMPANY_EDGE_FIELDS = ["起点节点code", "起点节点名称", "终点节点id", "终点节点名称", "主体产业链关系", "开始时间", "结束时间", "数据来源"]
 
 # ind_id follows the delivery-side industry mapping shown in the supplied template.
-# Add an explicit row before exporting a newly onboarded industry.
+# Keep every manifest industry explicit so candidate validation can always finish
+# its CSV-export step, even before the industry has a formal graph.
 INDUSTRY_EXPORT_METADATA: dict[str, dict[str, str]] = {
+    "nonferrous_metals": {"code": "NONFERROUS", "name": "有色金属", "ind_id": "040100"},
+    "petroleum_petrochemical": {"code": "PETROCHEM", "name": "石油石化", "ind_id": "040200"},
+    "basic_chemicals": {"code": "CHEM", "name": "基础化工", "ind_id": "040300"},
+    "building_materials": {"code": "BUILD_MAT", "name": "建筑材料", "ind_id": "040400"},
+    "power_equipment_new_energy": {"code": "POWER", "name": "电力设备与新能源", "ind_id": "040500"},
+    "machinery_equipment": {"code": "MACH", "name": "机械设备", "ind_id": "040600"},
+    "defense_military": {"code": "DEFENSE", "name": "国防军工", "ind_id": "040700"},
+    "building_decoration": {"code": "CONSTRUCTION", "name": "建筑装饰", "ind_id": "040800"},
+    "public_utilities": {"code": "UTILITIES", "name": "公用事业", "ind_id": "040900"},
+    "environmental_protection": {"code": "ENV", "name": "环保", "ind_id": "041000"},
+    "transportation": {"code": "TRANSPORT", "name": "交通运输", "ind_id": "041100"},
+    "automobile": {"code": "AUTO", "name": "汽车", "ind_id": "041200"},
+    "electronics": {"code": "ELECTRONICS", "name": "电子", "ind_id": "041300"},
+    "computer": {"code": "COMPUTER", "name": "计算机", "ind_id": "041400"},
+    "communication": {"code": "TELECOM", "name": "通信", "ind_id": "041500"},
+    "media_internet": {"code": "MEDIA", "name": "传媒互联网", "ind_id": "041600"},
+    "healthcare": {"code": "HEALTHCARE", "name": "医药健康", "ind_id": "041700"},
     "food_beverage": {"code": "FOOD", "name": "食品饮料", "ind_id": "041800"},
+    "food_beverage_claude": {"code": "FOOD_CLAUDE", "name": "食品饮料", "ind_id": "041800"},
+    "food_beverage_without_shenwan": {"code": "FOOD_NO_SW", "name": "食品饮料", "ind_id": "041800"},
+    "agriculture_forestry_animal_fishery": {"code": "AGRI", "name": "农林牧渔", "ind_id": "041900"},
+    "social_services": {"code": "SOCIAL", "name": "社会服务", "ind_id": "042000"},
+    "beauty_care": {"code": "BEAUTY", "name": "美容护理", "ind_id": "042100"},
+    "commercial_retail": {"code": "RETAIL", "name": "商贸零售", "ind_id": "042200"},
+    "light_manufacturing": {"code": "LIGHT_MFG", "name": "轻工制造", "ind_id": "042300"},
+    "home_appliances": {"code": "APPLIANCES", "name": "家用电器", "ind_id": "042400"},
+    "textile_apparel": {"code": "TEXTILE", "name": "纺织服饰", "ind_id": "042500"},
 }
 
 

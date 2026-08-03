@@ -1,0 +1,396 @@
+{
+  "industry": "农林牧渔行业",
+  "version": "v0.2-staged-build",
+  "schema_version": "standard_industry_graph_v0.2_agent",
+  "generated_at": "2026-08-03T00:00:00+08:00",
+  "scope": "面向证券/金融投研的分阶段产业链图谱构建；L2 以下只表达分类隶属；不包含公司节点、股票代码、财务指标、新闻事件、政策标题、市场规模、营销概念或工艺流程节点。",
+  "source_basis": [
+    {
+      "name": "国家统计局《农业及相关产业统计分类（2020）》（国家统计局令第32号）",
+      "url": "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902783.html",
+      "note": "官方全产业链统计口径：涵盖农林牧渔业生产、食用/非食用加工制造、生产资料制造、流通服务，支持'投入品-生产-加工-流通'主轴划分"
+    },
+    {
+      "name": "FAO Sustainable Food Value Chain Framework",
+      "url": "https://www.fao.org/sustainable-food-value-chains/what-is-it/en/",
+      "note": "国际标准：农业价值链按input suppliers→farmers→processors/wholesalers→retailers→consumers分段，支持upstream-midstream-downstream主分类轴"
+    },
+    {
+      "name": "智研咨询-农林牧渔产业百科",
+      "url": "https://www.chyxx.com/wiki/1185254.html",
+      "note": "产业链分析：上游（种子、饲料、农机等生产要素供应）、中游（种植/养殖/渔业生产）、下游（加工/流通），支持投入品独立分支划分"
+    },
+    {
+      "name": "东方财富-种子行业投资框架",
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202501241642532407_1.pdf",
+      "note": "种业核心关注杂交玉米与杂交水稻，终端售价核算收入总规模约1300亿，确认种业作为独立可投资赛道"
+    },
+    {
+      "name": "东方财富-动物保健行业投资框架（2024年版）",
+      "url": "https://pdf.dfcfw.com/pdf/H3_AP202405151633162551_1.pdf",
+      "note": "动保行业细分为兽用化药（含中兽药）和生物制品（以动物疫苗为主），确认动保作为独立赛道"
+    },
+    {
+      "name": "智研咨询-2025年中国农药行业产业链",
+      "url": "https://www.chyxx.com/industry/1207515.html",
+      "note": "农药产业链中游为农药中间体、原药和制剂制造，下游为流通及应用，支持农化与肥料作为独立上游"
+    },
+    {
+      "name": "智研咨询-2021年中国饲料行业产业链全景分析",
+      "url": "https://www.chyxx.com/industry/1124101.html",
+      "note": "饲料按猪料、禽料、水产料、反刍料分品种，2021年产量3亿吨级，确认饲料工业作为独立中游赛道"
+    },
+    {
+      "name": "农业农村部市场与信息化司-冷链物流",
+      "url": "https://scs.moa.gov.cn/schs/202408/t20240806_6464233.htm",
+      "note": "2023年冷链市场规模5170亿元，支撑农产品流通与消费渠道作为独立下游环节"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "agriculture_forestry_animal_fishery_001",
+      "name": "农林牧渔行业",
+      "node_type": "产业链",
+      "tags": [
+        "level_0"
+      ],
+      "industry": "农林牧渔行业",
+      "level": 0,
+      "chain_position": "root",
+      "parent_id": "",
+      "description": "以生物资源再生产为核心的第一产业全产业链，涵盖种业、农化、饲料、动保等投入品，种养生产，加工增值与流通消费。",
+      "business_description": "以生物资源再生产为核心的第一产业全产业链，涵盖种业、农化、饲料、动保等投入品，种养生产，加工增值与流通消费。",
+      "is_key_node": true,
+      "chain_segment": "行业根节点",
+      "source_urls": [
+        "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902783.html",
+        "https://www.fao.org/sustainable-food-value-chains/what-is-it/en/",
+        "https://www.chyxx.com/wiki/1185254.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0001",
+        "agriculture_forestry_animal_fishery_ev_0002",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002",
+      "name": "种业与生物技术",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "农林牧渔行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "",
+      "description": "农作物种子（杂交玉米、水稻、小麦、大豆等）、蔬菜瓜果种苗、种质资源库、转基因性状研发与授权、基因编辑育种技术及植物新品种权运营。",
+      "business_description": "农作物种子（杂交玉米、水稻、小麦、大豆等）、蔬菜瓜果种苗、种质资源库、转基因性状研发与授权、基因编辑育种技术及植物新品种权运营。",
+      "is_key_node": true,
+      "chain_segment": "农业投入品-遗传资源",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202501241642532407_1.pdf",
+        "https://ccap.pku.edu.cn/docs/2024-01/20240105130031969916.pdf",
+        "https://www.chyxx.com/wiki/1185254.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0005",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003",
+      "name": "农化与肥料",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "农林牧渔行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "",
+      "description": "氮肥、磷肥及磷化工、钾肥、复合肥等化学肥料；除草剂、杀虫剂、杀菌剂等化学农药及生物农药；植物生长调节剂；农资经销与农技服务一体化经营。",
+      "business_description": "氮肥、磷肥及磷化工、钾肥、复合肥等化学肥料；除草剂、杀虫剂、杀菌剂等化学农药及生物农药；植物生长调节剂；农资经销与农技服务一体化经营。",
+      "is_key_node": true,
+      "chain_segment": "农业投入品-化学要素",
+      "source_urls": [
+        "https://www.chyxx.com/industry/1207515.html",
+        "https://www.enongzi.com/news/details/718bb8df-742c-4b81-8a3d-8c9c42913e14",
+        "https://www.chyxx.com/wiki/1185254.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0006",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_004",
+      "name": "饲料工业",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "农林牧渔行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "agriculture_forestry_animal_fishery_001",
+      "description": "猪料、禽料、水产饲料、反刍动物饲料、宠物食品等配合饲料制造；豆粕、玉米、鱼粉等饲料原料贸易；氨基酸、维生素、酶制剂等饲料添加剂生产。",
+      "business_description": "猪料、禽料、水产饲料、反刍动物饲料、宠物食品等配合饲料制造；豆粕、玉米、鱼粉等饲料原料贸易；氨基酸、维生素、酶制剂等饲料添加剂生产。",
+      "is_key_node": true,
+      "chain_segment": "养殖中间品-营养转化",
+      "source_urls": [
+        "https://www.chyxx.com/industry/1124101.html",
+        "https://pdf.dfcfw.com/pdf/H3_AP202012221442575453_1.pdf",
+        "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902783.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0007",
+        "agriculture_forestry_animal_fishery_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005",
+      "name": "动物保健与兽药",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "农林牧渔行业",
+      "level": 1,
+      "chain_position": "upstream",
+      "parent_id": "",
+      "description": "猪用疫苗、禽用疫苗、反刍动物疫苗、水产疫苗等兽用生物制品；抗生素、抗寄生虫药等兽用化药制剂及中兽药；兽用诊断试剂与快检产品；养殖场消毒与生物安全产品。",
+      "business_description": "猪用疫苗、禽用疫苗、反刍动物疫苗、水产疫苗等兽用生物制品；抗生素、抗寄生虫药等兽用化药制剂及中兽药；兽用诊断试剂与快检产品；养殖场消毒与生物安全产品。",
+      "is_key_node": true,
+      "chain_segment": "农业投入品-养殖健康",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202405151633162551_1.pdf",
+        "https://www.chyxx.com/industry/1271283.html",
+        "https://www.chyxx.com/wiki/1185254.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0008",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_006",
+      "name": "农林牧渔生产",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "农林牧渔行业",
+      "level": 1,
+      "chain_position": "midstream",
+      "parent_id": "agriculture_forestry_animal_fishery_001",
+      "description": "水稻、小麦、玉米、大豆等粮食种植；棉花、糖料、油料等经济作物种植；生猪规模化养殖；白羽/黄羽肉鸡与蛋鸡养殖；肉牛奶牛肉羊养殖；淡水海水水产养殖与远洋近海捕捞；用材林与经济林经营。",
+      "business_description": "水稻、小麦、玉米、大豆等粮食种植；棉花、糖料、油料等经济作物种植；生猪规模化养殖；白羽/黄羽肉鸡与蛋鸡养殖；肉牛奶牛肉羊养殖；淡水海水水产养殖与远洋近海捕捞；用材林与经济林经营。",
+      "is_key_node": true,
+      "chain_segment": "生物资源种养",
+      "source_urls": [
+        "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902783.html",
+        "https://www.chyxx.com/wiki/1185254.html",
+        "https://jhs.moa.gov.cn/gzdt/202012/t20201229_6359017.htm"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0001",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_007",
+      "name": "农产品加工与仓储",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "农林牧渔行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "",
+      "description": "大米面粉及植物油压榨精炼等粮油加工；淀粉及深加工；屠宰与肉禽分割及肉制品深加工与预制菜；乳制品加工；制糖工业；水产品冷冻与深加工；农产品冷链仓储；粮食收储与国储库运营。",
+      "business_description": "大米面粉及植物油压榨精炼等粮油加工；淀粉及深加工；屠宰与肉禽分割及肉制品深加工与预制菜；乳制品加工；制糖工业；水产品冷冻与深加工；农产品冷链仓储；粮食收储与国储库运营。",
+      "is_key_node": true,
+      "chain_segment": "产品增值与储存",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf",
+        "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902783.html",
+        "https://jhs.moa.gov.cn/gzdt/202012/t20201229_6359017.htm"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0009",
+        "agriculture_forestry_animal_fishery_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_008",
+      "name": "农产品流通与消费渠道",
+      "node_type": "一级环节",
+      "tags": [
+        "level_1"
+      ],
+      "industry": "农林牧渔行业",
+      "level": 1,
+      "chain_position": "downstream",
+      "parent_id": "",
+      "description": "蔬菜/水果/水产/畜禽等农产品批发市场；生鲜冷链物流配送；农产品供应链服务商（集采/分拣/配送）；生鲜超市与社区生鲜店；生鲜电商与社区团购；农产品进出口贸易；农业产业互联网平台。",
+      "business_description": "蔬菜/水果/水产/畜禽等农产品批发市场；生鲜冷链物流配送；农产品供应链服务商（集采/分拣/配送）；生鲜超市与社区生鲜店；生鲜电商与社区团购；农产品进出口贸易；农业产业互联网平台。",
+      "is_key_node": true,
+      "chain_segment": "终端流通与触达",
+      "source_urls": [
+        "https://scs.moa.gov.cn/schs/202408/t20240806_6464233.htm",
+        "https://img3.gelonghui.com/pdf/0d72f-38bc40b2-a01d-41e4-b506-fbb4f765c412.pdf",
+        "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902783.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0009",
+        "agriculture_forestry_animal_fishery_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    }
+  ],
+  "edges": [
+    {
+      "id": "agriculture_forestry_animal_fishery_001__contains__agriculture_forestry_animal_fishery_004",
+      "source": "agriculture_forestry_animal_fishery_001",
+      "target": "agriculture_forestry_animal_fishery_004",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "饲料工业是农林牧渔产业链中游核心环节，将种植业原料转化为畜禽水产养殖所需的配合饲料。",
+      "source_urls": [
+        "https://www.chyxx.com/industry/1124101.html",
+        "https://pdf.dfcfw.com/pdf/H3_AP202012221442575453_1.pdf"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0007",
+        "agriculture_forestry_animal_fishery_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_001__contains__agriculture_forestry_animal_fishery_006",
+      "source": "agriculture_forestry_animal_fishery_001",
+      "target": "agriculture_forestry_animal_fishery_006",
+      "relation_type": "contains",
+      "relation_weight": 1.0,
+      "description": "农林牧渔生产是产业链中游核心本体环节，涵盖种植、养殖、渔业、林业等生物资源再生产活动。",
+      "source_urls": [
+        "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902783.html",
+        "https://www.chyxx.com/wiki/1185254.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0001",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_001__upstream_downstream__agriculture_forestry_animal_fishery_007",
+      "source": "agriculture_forestry_animal_fishery_001",
+      "target": "agriculture_forestry_animal_fishery_007",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "农产品加工与仓储是农林牧渔行业下游增值与储存环节，将原粮、生鲜肉奶水产等转化为加工品并提供冷链仓储。",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202308301596832396_1.pdf",
+        "https://jhs.moa.gov.cn/gzdt/202012/t20201229_6359017.htm"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0009",
+        "agriculture_forestry_animal_fishery_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_001__upstream_downstream__agriculture_forestry_animal_fishery_008",
+      "source": "agriculture_forestry_animal_fishery_001",
+      "target": "agriculture_forestry_animal_fishery_008",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "农产品流通与消费渠道是农林牧渔行业下游终端触达环节，通过批发市场、冷链物流、生鲜零售及电商将农产品送达消费者。",
+      "source_urls": [
+        "https://scs.moa.gov.cn/schs/202408/t20240806_6464233.htm",
+        "https://img3.gelonghui.com/pdf/0d72f-38bc40b2-a01d-41e4-b506-fbb4f765c412.pdf"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0009",
+        "agriculture_forestry_animal_fishery_ev_0001"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_002__upstream_downstream__agriculture_forestry_animal_fishery_001",
+      "source": "agriculture_forestry_animal_fishery_002",
+      "target": "agriculture_forestry_animal_fishery_001",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "种业与生物技术是农林牧渔行业最上游的遗传资源投入环节，为种植业提供种子种苗及育种技术。",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202501241642532407_1.pdf",
+        "https://www.chyxx.com/wiki/1185254.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0005",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_003__upstream_downstream__agriculture_forestry_animal_fishery_001",
+      "source": "agriculture_forestry_animal_fishery_003",
+      "target": "agriculture_forestry_animal_fishery_001",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "农化与肥料是农林牧渔行业上游化学投入品环节，为种植业提供化肥、农药等生产资料。",
+      "source_urls": [
+        "https://www.chyxx.com/industry/1207515.html",
+        "https://www.enongzi.com/news/details/718bb8df-742c-4b81-8a3d-8c9c42913e14"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0006",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    },
+    {
+      "id": "agriculture_forestry_animal_fishery_005__upstream_downstream__agriculture_forestry_animal_fishery_001",
+      "source": "agriculture_forestry_animal_fishery_005",
+      "target": "agriculture_forestry_animal_fishery_001",
+      "relation_type": "upstream_downstream",
+      "relation_weight": 1.0,
+      "description": "动物保健与兽药是农林牧渔行业上游养殖健康投入品环节，为畜禽水产养殖提供疫苗、兽药及诊断产品。",
+      "source_urls": [
+        "https://pdf.dfcfw.com/pdf/H3_AP202405151633162551_1.pdf",
+        "https://www.chyxx.com/industry/1271283.html"
+      ],
+      "evidence_ids": [
+        "agriculture_forestry_animal_fishery_ev_0008",
+        "agriculture_forestry_animal_fishery_ev_0003"
+      ],
+      "confidence": 0.95,
+      "updated_at": "2026-08-03T00:00:00+08:00"
+    }
+  ]
+}

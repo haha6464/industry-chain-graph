@@ -285,10 +285,17 @@ export async function buildAgentSkeleton(industryId: string, industryName: strin
 }
 
 export async function buildAgentBranches(industryId: string, industryName: string, targetDepth = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点") {
-  return request<AgentRunResponse>("/api/agent/build-branches", {
-    method: "POST",
-    body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
-  });
+    return request<AgentRunResponse>("/api/agent/build-branches", {
+        method: "POST",
+        body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
+    });
+}
+
+export async function retryFailedAgentBranches(industryId: string, industryName: string, targetDepth = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点") {
+    return request<AgentRunResponse>("/api/agent/retry-failed-branches", {
+        method: "POST",
+        body: JSON.stringify({ industry_id: industryId, industry_name: industryName, target_depth: targetDepth })
+    });
 }
 
 export async function updateAgentGraph(industryId: string, mode: UpdateMode = "check_only") {

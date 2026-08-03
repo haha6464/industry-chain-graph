@@ -1,0 +1,18 @@
+{
+  "industry": "农林牧渔行业",
+  "schema_version": "standard_industry_graph_v0.2_agent",
+  "node_count": 158,
+  "edge_count": 157,
+  "max_contains_depth": 4,
+  "error_count": 0,
+  "warning_count": 1,
+  "status": "pass",
+  "issues": [
+    {
+      "severity": "warning",
+      "code": "process_step_node_name",
+      "message": "疑似工艺流程步骤节点；建议替换为更适合投研展示和公司挂载的品类、材料、设备、渠道或应用场景节点。",
+      "item_id": "agriculture_forestry_animal_fishery_004_010"
+    }
+  ]
+}

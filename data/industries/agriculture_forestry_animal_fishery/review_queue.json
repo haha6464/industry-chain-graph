@@ -1,0 +1,73 @@
+{
+  "status": "pending_review",
+  "items": [
+    {
+      "type": "quality_evaluation_opinion",
+      "stage": "branch",
+      "status": "auto_revised",
+      "initial_status": "needs_revision",
+      "revision_status": "auto_revised_not_rechecked",
+      "score": 60,
+      "initial_score": 60,
+      "summary": "分支主轴清晰但深度不足，缺失农药原药大单品及磷化工细分，无法满足投研对核心单品价格跟踪与企业挂载的需求。",
+      "opinions": [
+        "L2“农资流通与农技服务”作为渠道支撑环节设置合理，符合投研对农资供应链及飞防植保等服务商的跟踪需求。",
+        "肥料与农药大类的平行划分主轴清晰，符合主流券商对农化行业的赛道划分习惯，互斥性良好。"
+      ],
+      "revision_focus": [
+        "增加L3/L4深度，补充农药核心大单品：在“除草剂”下增设“灭生性除草剂/选择性除草剂”（L3）及“草甘膦/草铵膦/吡虫啉”等（L4）；在“氮肥”下增设“尿素”等核心品种，确保至少有一条主链达到L4。",
+        "修正“磷肥及磷化工”的子节点结构：要么将L2更名为“磷肥”以匹配现有L3子节点，要么在L3补充“黄磷”、“精细磷化工（如湿电子化学品）”等节点以坐实“磷化工”的范畴。",
+        "细化钾肥节点：在“钾肥”下补充“氯化钾”、“硫酸钾”等具体品种，以支撑钾肥进口依赖度及价格传导的投研分析。"
+      ],
+      "revised": true,
+      "revision_note": "已按初评意见自动修正，但未再次请求 LLM 打分；请以后续最终图谱和人工复核为准。",
+      "branch_id": "agriculture_forestry_animal_fishery_003",
+      "branch_name": "农化与肥料"
+    },
+    {
+      "type": "quality_evaluation_opinion",
+      "stage": "branch",
+      "status": "auto_revised",
+      "initial_status": "needs_revision",
+      "revision_status": "auto_revised_not_rechecked",
+      "score": 75,
+      "initial_score": 75,
+      "summary": "分支主干清晰且深度达标，但遗漏了决定饲料行业90%以上成本的核心节点'饲料原料'，导致无法支撑投研最核心的成本拆解与价格传导分析。",
+      "opinions": [
+        "宠物食品在投研中常被视为独立的消费赛道，估值逻辑与传统农牧饲料差异较大，放在饲料工业下作为L2节点虽可接受，但后续挂载公司时需注意区分消费属性与制造属性。",
+        "饲料添加剂下的氨基酸、维生素、酶制剂、微生态制剂分类准确，精准契合了'饲料禁抗'政策下的投研关注热点与替抗方案逻辑。"
+      ],
+      "revision_focus": [
+        "在 L2 增加'饲料原料'或'饲料原料贸易'节点，并向下拆解为能量原料（玉米、高粱等）、蛋白原料（豆粕、鱼粉等），以补齐成本端分析链条。",
+        "为'猪用配合饲料'补充 L4 节点（如教槽料、保育料、育肥料、母猪料），以保持与禽用、水产配合饲料的拆解深度一致，并契合投研对猪料高毛利核心单品（如教槽料）的关注。"
+      ],
+      "revised": true,
+      "revision_note": "已按初评意见自动修正，但未再次请求 LLM 打分；请以后续最终图谱和人工复核为准。",
+      "branch_id": "agriculture_forestry_animal_fishery_004",
+      "branch_name": "饲料工业"
+    },
+    {
+      "type": "quality_evaluation_opinion",
+      "stage": "branch",
+      "status": "auto_revised",
+      "initial_status": "needs_revision",
+      "revision_status": "auto_revised_not_rechecked",
+      "score": 65,
+      "initial_score": 65,
+      "summary": "分支结构基本合理且命名规范，但存在L2层级大类与单品混放、核心投研品种（大豆/糖料/蛋鸡）遗漏以及核心主链深度不足（未达L4）等实质问题。",
+      "opinions": [
+        "节点命名均为稳定的产业名词短语，未混入工艺流程动作或泛服务概念。",
+        "树状结构清晰，边关系均为 contains，无 L2 以下 upstream_downstream 违规现象。"
+      ],
+      "revision_focus": [
+        "重构L2养殖分类：增设“家畜养殖”或“牲畜养殖”作为L2，将“生猪养殖”移至L3，并补充肉牛、奶牛、肉羊等节点。",
+        "补全核心品种L3节点：在种植业下补充“大豆种植”、“小麦种植”、“糖料种植”，在家禽养殖下补充“蛋鸡养殖”。",
+        "拓展L4深度：在“白羽肉鸡养殖”下拆分出“祖代种鸡繁育”、“父母代种鸡繁育”、“商品代肉鸡养殖”等L4节点；在“生猪养殖”下拆分出“种猪繁育”、“仔猪保育”、“商品猪育肥”等L4节点。"
+      ],
+      "revised": true,
+      "revision_note": "已按初评意见自动修正，但未再次请求 LLM 打分；请以后续最终图谱和人工复核为准。",
+      "branch_id": "agriculture_forestry_animal_fishery_006",
+      "branch_name": "农林牧渔生产"
+    }
+  ]
+}

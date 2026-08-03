@@ -16,9 +16,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from tools.agent.common import industry_dir, load_graph, read_json, read_jsonl, standardize_graph, write_json, write_jsonl
+from tools.agent.common import industry_dir, load_graph, read_json, read_jsonl, save_manifest, standardize_graph, write_json, write_jsonl
 from tools.agent.company_attachments import attachment_file_status
-from tools.agent.export_csv import delivery_output_dir, export_graph_csv, export_industry_csv
+from tools.agent.export_csv import delivery_output_dir, export_industry_csv
 from tools.agent.l2_flow_relations import relation_file_status
 from tools.agent.search.search_planner import build_search_plan
 from tools.agent.validators.graph_validator import validate_graph, write_markdown_report
@@ -296,6 +296,17 @@ def run_build_branches(industry_id: str, industry_name: str | None, target_depth
     return _start_subprocess_run("build_branches", industry_id, command, output_dir / "pre_validation_candidate_graph.json")
 
 
+def run_retry_failed_branches(industry_id: str, industry_name: str | None, target_depth: str) -> dict[str, Any]:
+    output_dir = industry_dir(industry_id)
+    records_path = output_dir / "staged_branch_evaluations.json"
+    if not records_path.exists():
+        raise FileNotFoundError("找不到 staged_branch_evaluations.json，请先运行分支扩展。")
+    command = _build_candidate_command(industry_id, industry_name, target_depth, "retry-failed")
+    return _start_subprocess_run(
+        "retry_failed_branches", industry_id, command, output_dir / "pre_validation_candidate_graph.json"
+    )
+
+
 def run_update(industry_id: str, mode: str) -> dict[str, Any]:
     output_dir = industry_dir(industry_id)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -430,6 +441,20 @@ def _merge_checked_sources(industry_id: str, proposal_path: Path) -> None:
     write_jsonl(sources_path, merged)
 
 
+def _mark_industry_ready(industry_id: str, graph: dict[str, Any]) -> None:
+    """Publish the manifest state alongside a newly applied formal graph."""
+    manifest = load_manifest()
+    for item in manifest:
+        if str(item.get("id")) != industry_id:
+            continue
+        item["status"] = "ready"
+        item["node_count"] = len(graph.get("nodes", []))
+        item["edge_count"] = len(graph.get("edges", []))
+        save_manifest(manifest)
+        return
+    raise FileNotFoundError(f"行业 {industry_id} 未登记在 manifest.json 中。")
+
+
 def apply_candidate_graph(industry_id: str, candidate_type: str) -> dict[str, Any]:
     if candidate_type not in {"candidate_graph", "update_candidate_graph"}:
         raise FileNotFoundError(f"Unknown candidate type: {candidate_type}")
@@ -449,14 +474,14 @@ def apply_candidate_graph(industry_id: str, candidate_type: str) -> dict[str, An
         raise ValueError(f"候选图谱仍有 {validation.get('error_count')} 个工程格式错误，请先修正后再应用。")
 
     write_json(output_dir / "graph.json", candidate)
+    _mark_industry_ready(industry_id, candidate)
     if candidate_type == "update_candidate_graph":
         _merge_checked_sources(industry_id, output_dir / "update_proposal.json")
-    export = export_graph_csv(candidate, industry_id)
     label = "候选图谱" if candidate_type == "candidate_graph" else "更新候选图谱"
     logs = [
         f"已校验 {filename}：工程格式错误 {validation.get('error_count', 0)} 个，质量提醒 {validation.get('warning_count', 0)} 个。",
         f"已将{label}写入正式 graph.json。",
-        f"已刷新 CSV：{export.get('industrynode_node_csv')} / {export.get('industrynode_edge_csv')}。",
+        "CSV 请在 L2 关系和公司挂载完成后，通过独立导出操作生成。",
     ]
     return _register_completed_run("apply_candidate", industry_id, str(validation_path), logs)
 

@@ -14,7 +14,6 @@ import argparse
 from typing import Any
 
 from tools.agent.common import industry_dir, read_json, standardize_graph, write_json, write_jsonl
-from tools.agent.export_csv import export_graph_csv
 from tools.agent.mergers.graph_merger import build_review_queue
 from tools.agent.search.bailian_responses_agent import evidence_from_agent_graph
 from tools.agent.validators.bailian_graph_validator import repairable_hard_rule_errors, validate_and_repair_with_bailian
@@ -31,8 +30,6 @@ _ARTIFACT_LABELS = {
     "review_queue": "复核队列",
     "validation_agent_raw_response": "格式修复原始响应",
     "format_repair_report": "格式修复报告",
-    "node_csv": "节点 CSV",
-    "edge_csv": "关系 CSV",
 }
 
 
@@ -137,7 +134,7 @@ def run_final_validation(industry_id: str, graph_file: Path | None = None) -> di
     validation_raw_path.write_text(validation_raw_text, encoding="utf-8")
     write_json(output_dir / "format_repair_report.json", format_repair_report)
 
-    _log("生成最终候选图谱、证据库、复核队列与 CSV。")
+    _log("生成最终候选图谱、证据库与复核队列。")
     candidate = standardize_graph(candidate, industry_id)
     if quality_opinions:
         candidate["quality_evaluation"] = quality_opinions
@@ -170,7 +167,6 @@ def run_final_validation(industry_id: str, graph_file: Path | None = None) -> di
     review_path = output_dir / "review_queue.json"
     write_json(review_path, review_queue)
 
-    export = export_graph_csv(candidate, industry_id)
     _log("最终校验流程完成。")
     return {
         "industry_id": industry_id,
@@ -181,7 +177,6 @@ def run_final_validation(industry_id: str, graph_file: Path | None = None) -> di
         "review_queue": str(review_path),
         "validation_agent_raw_response": str(validation_raw_path),
         "format_repair_report": str(output_dir / "format_repair_report.json"),
-        **export,
     }
 
 

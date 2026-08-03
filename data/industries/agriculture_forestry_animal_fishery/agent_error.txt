@@ -1,0 +1,9 @@
+{
+  "staged_errors": [
+    {
+      "branch_id": "agriculture_forestry_animal_fishery_008",
+      "branch_name": "农产品流通与消费渠道",
+      "error": "BailianAgentError: Qwen response JSON parse failed: Expecting ',' delimiter: line 14 column 24 (char 475); preview={\\n  \"industry\": \"农林牧渔行业\",\\n  \"version\": \"v0.2-staged-build\",\\n  \"schema_version\": \"standard_industry_graph_v0.2_agent\",\\n  \"generated_at\": \"2026-08-03\",\\n  \"scope\": \"面向证券/金融投研的分阶段产业链图谱构建；L2 以下只表达分类隶属；不包含公司节点、股票代码、财务指标、新闻事件、政策标题、市场规模、营销概念或工艺流程节点。\",\\n  \"source_basis\": [\\n    {\\n      \"name\": \"国家统计局《农业及相关产业统计分类（2020）》\",\\n      \"url\": \"https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902783.html\",\\n      \"note\": \"官方全产业链统计口径，涵盖农产品流通服务环节分类\"\\n    },\\n    {\\n      \"name\": \"国务院办公厅《\"十四五\"冷链物流发展规划》\",\\n      \"ur"
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import httpx
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_attach_companies, run_build_branches, run_build_l2_flow_relations, run_build_skeleton, run_export_offline, run_search_plan, run_final_validate, run_update
+from app.agent_service import apply_candidate_graph, cancel_run, delete_agent_artifact, export_csv, get_run, list_agent_artifacts, list_exports, read_agent_artifact, read_report, run_attach_companies, run_build_branches, run_build_l2_flow_relations, run_build_skeleton, run_export_offline, run_retry_failed_branches, run_search_plan, run_final_validate, run_update
 from app.ai_service import AIConfigurationError, answer_with_graph_context
 from tools.agent.common import industry_dir, load_graph
 from tools.agent.company_attachments import aggregate_node_companies, attachment_file_status, filter_listed_attachments
@@ -291,6 +291,15 @@ def build_agent_branches(request: AgentRunRequest) -> AgentRunResponse:
 def attach_agent_companies(request: CompanyAttachmentRequest) -> AgentRunResponse:
     try:
         result = run_attach_companies(request.industry_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return AgentRunResponse(**result)
+
+
+@app.post("/api/agent/retry-failed-branches", response_model=AgentRunResponse)
+def retry_failed_agent_branches(request: AgentRunRequest) -> AgentRunResponse:
+    try:
+        result = run_retry_failed_branches(request.industry_id, request.industry_name, request.target_depth)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return AgentRunResponse(**result)

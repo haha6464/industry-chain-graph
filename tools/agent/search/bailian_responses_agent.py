@@ -84,6 +84,7 @@ def _repair_json_text(text: str) -> str:
     repaired = _strip_json_fences(text)
     repaired = repaired.replace("“", '"').replace("”", '"')
     repaired = repaired.replace("，", ",").replace("：", ":")
+    repaired = _escape_unquoted_string_quotes(repaired)
     repaired = re.sub(r",\s*([}\]])", r"\1", repaired)
     repaired = re.sub(
         r'("(?:[^"\\]|\\.)*"|-?\d+(?:\.\d+)?|true|false|null|\]|\})\s*\n\s*(")',
@@ -91,6 +92,50 @@ def _repair_json_text(text: str) -> str:
         repaired,
     )
     return repaired
+
+
+def _escape_unquoted_string_quotes(text: str) -> str:
+    """Escape quotation marks accidentally emitted inside a JSON string.
+
+    Models occasionally emit titles such as ``《"十四五"冷链物流发展规划》``
+    without escaping the inner quotation marks.  A quotation mark can close a
+    valid JSON string only when the next non-whitespace character is a JSON
+    delimiter.  All other unescaped quotation marks encountered while inside a
+    string are therefore repaired conservatively.
+    """
+    output: list[str] = []
+    in_string = False
+    escaped = False
+    delimiters = {":", ",", "}", "]"}
+
+    for index, char in enumerate(text):
+        if escaped:
+            output.append(char)
+            escaped = False
+            continue
+        if char == "\\":
+            output.append(char)
+            if in_string:
+                escaped = True
+            continue
+        if char != '"':
+            output.append(char)
+            continue
+        if not in_string:
+            output.append(char)
+            in_string = True
+            continue
+
+        next_index = index + 1
+        while next_index < len(text) and text[next_index].isspace():
+            next_index += 1
+        next_char = text[next_index] if next_index < len(text) else ""
+        if next_char and next_char not in delimiters:
+            output.append('\\"')
+        else:
+            output.append(char)
+            in_string = False
+    return "".join(output)
 
 
 def _extract_json_object(text: str) -> dict[str, Any]:

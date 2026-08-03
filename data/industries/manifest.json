@@ -205,9 +205,9 @@
     "sector": "必选消费",
     "source_order": 41,
     "data_path": "data/industries/agriculture_forestry_animal_fishery/graph.json",
-    "status": "pending",
-    "node_count": 0,
-    "edge_count": 0
+    "status": "ready",
+    "node_count": 88,
+    "edge_count": 87
   },
   {
     "id": "social_services",

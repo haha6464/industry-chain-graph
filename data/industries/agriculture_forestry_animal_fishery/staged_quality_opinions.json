@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "stage": "level1_skeleton",
+      "status": "pass",
+      "initial_status": "pass",
+      "revision_status": "not_revised",
+      "score": 95,
+      "initial_score": 95,
+      "summary": "一级骨架分类主轴清晰，边界界定准确，L1节点高度契合券商农林牧渔投研框架，无实质分类逻辑问题。",
+      "opinions": [
+        "“农林牧渔生产”作为L1节点内部容量较大（涵盖种植、养殖、渔业、林业），后续L2拆解时需按子行业平行展开，以保持与投入品分支的粒度平衡。",
+        "宠物食品在投研中已具备较强的独立消费赛道属性（宠物经济），当前归入“饲料工业”符合传统分类，但后续扩展时建议赋予足够权重或独立成支以匹配其估值逻辑。",
+        "数据工程层面，部分L1节点的parent_id缺失，且L0-L1之间的边在contains与upstream_downstream关系类型及方向上存在混用，虽不影响分类逻辑判定，但入库前需统一规范。"
+      ],
+      "revision_focus": [],
+      "revised": false
+    },
+    {
+      "stage": "branch",
+      "status": "pass",
+      "initial_status": "pass",
+      "revision_status": "not_revised",
+      "score": 95,
+      "initial_score": 95,
+      "summary": "该分支分类质量极高，精准契合券商农林牧渔投研对种业赛道的拆解逻辑，成功将工艺动作转化为设备与服务节点，且核心主链深度达标，结构清晰。",
+      "opinions": [
+        "大豆种子在投研口径中通常与玉米、水稻、小麦并列为大田作物（主粮），当前将其归入'经济作物种子'下的'油料作物种子'虽有其经济属性依据，但建议后续微调至大田作物或单独列出以贴合农业投研常识。",
+        "L2节点'种质资源保护与利用'略带科研与公共服务色彩，纯商业化上市标的较少，为便于后续公司节点挂载，可考虑微调命名为'种质资源库与品种权运营'，以突出其资产与IP属性。"
+      ],
+      "revision_focus": [],
+      "revised": false,
+      "branch_id": "agriculture_forestry_animal_fishery_002",
+      "branch_name": "种业与生物技术"
+    },
+    {
+      "stage": "branch",
+      "status": "auto_revised",
+      "initial_status": "needs_revision",
+      "revision_status": "auto_revised_not_rechecked",
+      "score": 60,
+      "initial_score": 60,
+      "summary": "分支主轴清晰但深度不足，缺失农药原药大单品及磷化工细分，无法满足投研对核心单品价格跟踪与企业挂载的需求。",
+      "opinions": [
+        "L2“农资流通与农技服务”作为渠道支撑环节设置合理，符合投研对农资供应链及飞防植保等服务商的跟踪需求。",
+        "肥料与农药大类的平行划分主轴清晰，符合主流券商对农化行业的赛道划分习惯，互斥性良好。"
+      ],
+      "revision_focus": [
+        "增加L3/L4深度，补充农药核心大单品：在“除草剂”下增设“灭生性除草剂/选择性除草剂”（L3）及“草甘膦/草铵膦/吡虫啉”等（L4）；在“氮肥”下增设“尿素”等核心品种，确保至少有一条主链达到L4。",
+        "修正“磷肥及磷化工”的子节点结构：要么将L2更名为“磷肥”以匹配现有L3子节点，要么在L3补充“黄磷”、“精细磷化工（如湿电子化学品）”等节点以坐实“磷化工”的范畴。",
+        "细化钾肥节点：在“钾肥”下补充“氯化钾”、“硫酸钾”等具体品种，以支撑钾肥进口依赖度及价格传导的投研分析。"
+      ],
+      "revised": true,
+      "revision_note": "已按初评意见自动修正，但未再次请求 LLM 打分；请以后续最终图谱和人工复核为准。",
+      "branch_id": "agriculture_forestry_animal_fishery_003",
+      "branch_name": "农化与肥料"
+    },
+    {
+      "stage": "branch",
+      "status": "auto_revised",
+      "initial_status": "needs_revision",
+      "revision_status": "auto_revised_not_rechecked",
+      "score": 75,
+      "initial_score": 75,
+      "summary": "分支主干清晰且深度达标，但遗漏了决定饲料行业90%以上成本的核心节点'饲料原料'，导致无法支撑投研最核心的成本拆解与价格传导分析。",
+      "opinions": [
+        "宠物食品在投研中常被视为独立的消费赛道，估值逻辑与传统农牧饲料差异较大，放在饲料工业下作为L2节点虽可接受，但后续挂载公司时需注意区分消费属性与制造属性。",
+        "饲料添加剂下的氨基酸、维生素、酶制剂、微生态制剂分类准确，精准契合了'饲料禁抗'政策下的投研关注热点与替抗方案逻辑。"
+      ],
+      "revision_focus": [
+        "在 L2 增加'饲料原料'或'饲料原料贸易'节点，并向下拆解为能量原料（玉米、高粱等）、蛋白原料（豆粕、鱼粉等），以补齐成本端分析链条。",
+        "为'猪用配合饲料'补充 L4 节点（如教槽料、保育料、育肥料、母猪料），以保持与禽用、水产配合饲料的拆解深度一致，并契合投研对猪料高毛利核心单品（如教槽料）的关注。"
+      ],
+      "revised": true,
+      "revision_note": "已按初评意见自动修正，但未再次请求 LLM 打分；请以后续最终图谱和人工复核为准。",
+      "branch_id": "agriculture_forestry_animal_fishery_004",
+      "branch_name": "饲料工业"
+    },
+    {
+      "stage": "branch",
+      "status": "pass",
+      "initial_status": "pass",
+      "revision_status": "not_revised",
+      "score": 95,
+      "initial_score": 95,
+      "summary": "该分支分类逻辑严密，高度契合券商动保行业研究框架，节点均为稳定的产品品类，层级展开合理，无工艺动作或无效概念，质量优秀。",
+      "opinions": [
+        "L3层级中，疫苗按目标动物分类，化药按药理作用分类，虽跨父节点分类维度不同，但这正是动保行业投研的惯例（猪苗/禽苗看动物，化药看药理），设计非常专业。",
+        "当前L4仅展开了猪用疫苗的核心大单品（口蹄疫、圆环），未来扩展时可考虑在禽用疫苗或宠物疫苗下补充L4节点（如高致病性禽流感疫苗、猫三联疫苗），以进一步提升各子赛道的颗粒度均衡性。"
+      ],
+      "revision_focus": [],
+      "revised": false,
+      "branch_id": "agriculture_forestry_animal_fishery_005",
+      "branch_name": "动物保健与兽药"
+    },
+    {
+      "stage": "branch",
+      "status": "auto_revised",
+      "initial_status": "needs_revision",
+      "revision_status": "auto_revised_not_rechecked",
+      "score": 65,
+      "initial_score": 65,
+      "summary": "分支结构基本合理且命名规范，但存在L2层级大类与单品混放、核心投研品种（大豆/糖料/蛋鸡）遗漏以及核心主链深度不足（未达L4）等实质问题。",
+      "opinions": [
+        "节点命名均为稳定的产业名词短语，未混入工艺流程动作或泛服务概念。",
+        "树状结构清晰，边关系均为 contains，无 L2 以下 upstream_downstream 违规现象。"
+      ],
+      "revision_focus": [
+        "重构L2养殖分类：增设“家畜养殖”或“牲畜养殖”作为L2，将“生猪养殖”移至L3，并补充肉牛、奶牛、肉羊等节点。",
+        "补全核心品种L3节点：在种植业下补充“大豆种植”、“小麦种植”、“糖料种植”，在家禽养殖下补充“蛋鸡养殖”。",
+        "拓展L4深度：在“白羽肉鸡养殖”下拆分出“祖代种鸡繁育”、“父母代种鸡繁育”、“商品代肉鸡养殖”等L4节点；在“生猪养殖”下拆分出“种猪繁育”、“仔猪保育”、“商品猪育肥”等L4节点。"
+      ],
+      "revised": true,
+      "revision_note": "已按初评意见自动修正，但未再次请求 LLM 打分；请以后续最终图谱和人工复核为准。",
+      "branch_id": "agriculture_forestry_animal_fishery_006",
+      "branch_name": "农林牧渔生产"
+    },
+    {
+      "stage": "branch",
+      "status": "pass",
+      "initial_status": "pass",
+      "revision_status": "not_revised",
+      "score": 95,
+      "initial_score": 95,
+      "summary": "该分支以加工品类和仓储功能为主轴进行拆解，高度契合券商农林牧渔投研框架，节点命名规范、粒度统一、深度达标，无明显的分类或结构缺陷。",
+      "opinions": [
+        "L3节点中的'乳粉'、'高温肉制品'、'低温肉制品'当前止步于L3，若后续挂载公司节点时发现有大量细分标的（如婴幼儿配方乳粉、成人乳粉、火腿肠、调理肉制品等），可进一步下探至L4以细化颗粒度。",
+        "预制菜在投研中常被视作独立的高成长赛道，当前合并在'肉制品与预制菜加工'中符合传统分类，但未来可考虑在L3单列'预制菜/调理食品'以突显其产业趋势。"
+      ],
+      "revision_focus": [],
+      "revised": false,
+      "branch_id": "agriculture_forestry_animal_fishery_007",
+      "branch_name": "农产品加工与仓储"
+    },
+    {
+      "stage": "branch",
+      "status": "pass",
+      "initial_status": "pass",
+      "revision_status": "not_revised",
+      "score": 92,
+      "initial_score": 92,
+      "summary": "该分支分类逻辑清晰，高度契合券商对生鲜供应链与农产品流通的投研框架，业态划分与履约模式拆解具备很强的成本与UE模型分析价值，节点深度与数量均达标。",
+      "opinions": [
+        "L3节点'社区团购平台'与兄弟节点'前置仓模式生鲜电商'、'店仓一体模式生鲜电商'在命名格式上不够统一，建议调整为'社区团购模式生鲜电商'，或统一简化为'前置仓模式'、'店仓一体模式'、'社区团购模式'。",
+        "L2节点'生鲜零售终端渠道'未向下展开L3（如连锁生鲜超市、社区生鲜便利店、传统农贸市场等），而电商和冷链均展开了L3/L4，建议后续补充线下零售终端的细分业态，以保持分支深度与结构的均衡。",
+        "L1描述中提及的'农业产业互联网平台'在L2节点中未体现，若该细分赛道有重要投资标的或独立研究价值，可考虑补充；若归属计算机或商贸零售行业，建议在L1描述中明确排除以避免歧义。"
+      ],
+      "revision_focus": [],
+      "revised": false,
+      "branch_id": "agriculture_forestry_animal_fishery_008",
+      "branch_name": "农产品流通与消费渠道"
+    }
+  ]
+}

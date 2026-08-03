@@ -454,6 +454,7 @@ def build_branch_candidates(
         (output_dir / "agent_error.txt").write_text(json.dumps({"staged_errors": staged_errors}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         raise RuntimeError(f"有 {len(staged_errors)} 个一级分支扩展失败，已保留分支产物但不生成校验前候选图谱。")
 
+    (output_dir / "staged_errors.json").unlink(missing_ok=True)
     _log("标准化合并图谱并写入 pre_validation_candidate_graph.json。")
     candidate = standardize_graph(extracted_candidate, industry_id)
     candidate["quality_evaluation"] = quality_opinions
@@ -469,6 +470,122 @@ def build_branch_candidates(
         "staged_merged_graph": str(output_dir / "staged_merged_graph.json"),
         "staged_errors": str(output_dir / "staged_errors.json"),
         "agent_raw_response": str(output_dir / "agent_raw_response.txt"),
+    }
+
+
+def retry_failed_branch_candidates(
+    industry_id: str,
+    industry_name: str | None,
+    target_depth: str = "L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点",
+) -> dict[str, str]:
+    """Retry only failed branch records and then rebuild the staged candidate.
+
+    This preserves successful branch responses, so a transient model or JSON
+    formatting error does not require repeating all networked branch builds.
+    """
+    output_dir = industry_dir(industry_id)
+    records_path = output_dir / "staged_branch_evaluations.json"
+    if not records_path.exists():
+        raise FileNotFoundError("找不到 staged_branch_evaluations.json，请先运行分支扩展阶段。")
+
+    resolved_industry_name = industry_name or industry_id
+    seed_record = _load_seed_record(output_dir)
+    seed_graph = standardize_graph(
+        seed_record.get("graph") or read_json(output_dir / "staged_level1_graph.json"),
+        industry_id,
+    )
+    seed_blueprint = seed_record.get("classification_blueprint") or {}
+    level_one_by_id = {
+        str(node.get("id")): node
+        for node in seed_graph.get("nodes", [])
+        if int(node.get("level", 0)) == 1
+    }
+    branch_records = read_json(records_path).get("items", []) or []
+    failed_indexes = [
+        index for index, record in enumerate(branch_records)
+        if record.get("status") != "ok" or not record.get("graph")
+    ]
+    if not failed_indexes:
+        _log("没有需要重试的失败一级分支，直接从现有分支产物重建候选图谱。")
+        return rebuild_staged_candidate(industry_id, industry_name)
+
+    retry_nodes: list[tuple[int, dict[str, Any]]] = []
+    for index in failed_indexes:
+        record = branch_records[index]
+        branch_id = str(record.get("branch_id", ""))
+        branch_node = level_one_by_id.get(branch_id)
+        if branch_node is None:
+            raise RuntimeError(f"失败分支 {branch_id or record.get('branch_name', '')} 无法匹配当前一级骨架。")
+        retry_nodes.append((index, branch_node))
+
+    _log(f"仅重试 {len(retry_nodes)} 个失败一级分支，保留其余 {len(branch_records) - len(retry_nodes)} 个成功产物。")
+    max_workers = staged_branch_concurrency(len(retry_nodes))
+    retried_records: dict[int, dict[str, Any]] = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {
+            executor.submit(
+                _expand_one_branch,
+                industry_id,
+                resolved_industry_name,
+                target_depth,
+                seed_graph,
+                seed_blueprint,
+                branch_node,
+                retry_index,
+                len(retry_nodes),
+            ): record_index
+            for retry_index, (record_index, branch_node) in enumerate(retry_nodes, start=1)
+        }
+        for completed, future in enumerate(concurrent.futures.as_completed(futures), start=1):
+            record_index = futures[future]
+            retried_records[record_index] = future.result()
+            _log(f"失败分支重试进度 {completed}/{len(retry_nodes)}。")
+
+    for record_index, record in retried_records.items():
+        branch_records[record_index] = record
+
+    branch_graphs = [record["graph"] for record in branch_records if record.get("status") == "ok"]
+    staged_errors = [
+        {
+            "branch_id": record.get("branch_id"),
+            "branch_name": record.get("branch_name"),
+            "error": record.get("error"),
+        }
+        for record in branch_records
+        if record.get("status") != "ok" or not record.get("graph")
+    ]
+    merged = merge_staged_graphs(industry_id, resolved_industry_name, seed_graph, branch_graphs)
+    quality_opinions = _quality_opinions(seed_record, branch_records)
+    merged["quality_evaluation"] = quality_opinions
+    write_staged_artifacts(output_dir, seed_graph, branch_records, merged, staged_errors)
+    write_json(records_path, {"items": branch_records})
+    write_json(output_dir / "staged_quality_opinions.json", quality_opinions)
+    (output_dir / "agent_raw_response.txt").write_text(
+        json.dumps({"seed": seed_record, "branches": branch_records}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    if staged_errors:
+        (output_dir / "agent_error.txt").write_text(
+            json.dumps({"staged_errors": staged_errors}, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        raise RuntimeError(f"重试后仍有 {len(staged_errors)} 个一级分支扩展失败。")
+
+    (output_dir / "staged_errors.json").unlink(missing_ok=True)
+    candidate = standardize_graph(merged, industry_id)
+    candidate["quality_evaluation"] = quality_opinions
+    pre_validation_path = output_dir / "pre_validation_candidate_graph.json"
+    write_json(pre_validation_path, candidate)
+    agent_error_path = output_dir / "agent_error.txt"
+    if agent_error_path.exists():
+        agent_error_path.unlink()
+    _log(f"失败分支已补齐并重建候选图谱：{len(candidate.get('nodes', []))} 个节点。")
+    return {
+        "industry_id": industry_id,
+        "pre_validation_candidate_graph": str(pre_validation_path),
+        "staged_branch_fragments": str(output_dir / "staged_branch_fragments.json"),
+        "staged_branch_evaluations": str(records_path),
+        "staged_merged_graph": str(output_dir / "staged_merged_graph.json"),
     }
 
 
@@ -528,6 +645,7 @@ def rebuild_staged_candidate(industry_id: str, industry_name: str | None) -> dic
     write_staged_artifacts(output_dir, seed_graph, branch_records, merged, [])
     write_json(records_path, {"items": branch_records})
     write_json(output_dir / "staged_quality_opinions.json", quality_opinions)
+    (output_dir / "staged_errors.json").unlink(missing_ok=True)
     (output_dir / "agent_raw_response.txt").write_text(
         json.dumps({"seed": seed_record, "branches": branch_records}, ensure_ascii=False, indent=2),
         encoding="utf-8",
@@ -591,7 +709,7 @@ if __name__ == "__main__":
     parser.add_argument("--industry-name")
     parser.add_argument("--target-depth", default="L0-L4（5 层），节点通常在 120 个以上，不设硬上限，避免低价值概念堆节点")
     parser.add_argument("--strategy", choices=["staged", "single"], default="staged")
-    parser.add_argument("--stage", choices=["all", "skeleton", "branches", "rebuild"], default="all")
+    parser.add_argument("--stage", choices=["all", "skeleton", "branches", "retry-failed", "rebuild"], default="all")
     parser.add_argument(
         "--use-shenwan-reference",
         action="store_true",
@@ -607,6 +725,8 @@ if __name__ == "__main__":
         )
     elif args.stage == "branches":
         result = build_branch_candidates(args.industry_id, args.industry_name, args.target_depth)
+    elif args.stage == "retry-failed":
+        result = retry_failed_branch_candidates(args.industry_id, args.industry_name, args.target_depth)
     elif args.stage == "rebuild":
         result = rebuild_staged_candidate(args.industry_id, args.industry_name)
     else:

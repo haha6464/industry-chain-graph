@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { InteractiveNvlWrapper } from "@neo4j-nvl/react";
 import { Bot, CheckCircle2, ChevronDown, ChevronRight, Circle, Database, Download, FileText, Filter, GitBranch, Network, RefreshCw, Search, Send, Sparkles, Square, Terminal, Trash2, X } from "lucide-react";
-import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, buildL2FlowRelations, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportAllOfflineGraphs, exportCurrentOfflineGraph, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchNeighbors, fetchNodeCompanies, fetchNodeL2FlowRelations, finalValidateAgentGraph, updateAgentGraph } from "./api";
+import { applyCandidateGraph, askGraph, attachCompanies, buildAgentBranches, buildAgentSkeleton, buildL2FlowRelations, cancelAgentRun, createSearchPlan, deleteAgentArtifact, exportAllOfflineGraphs, exportCurrentOfflineGraph, fetchAgentArtifact, fetchAgentArtifacts, fetchAgentRun, fetchGraph, fetchIndustries, fetchNeighbors, fetchNodeCompanies, fetchNodeL2FlowRelations, finalValidateAgentGraph, retryFailedAgentBranches, updateAgentGraph } from "./api";
 import type { AgentArtifact, AgentArtifactContent, AgentRunResponse, AskResponse, CandidateGraphType, ChainPosition, CompanyAttachmentItem, GraphEdge, GraphFilters, GraphNode, Industry, NodeCompaniesResponse, NodeL2FlowRelationsResponse, RelationType, UpdateMode } from "./types";
 
 const nodeTypeOptions: Array<{ value: ChainPosition; label: string; color: string }> = [
@@ -148,6 +148,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   const [runDrawerOpen, setRunDrawerOpen] = useState(false);
   const [artifactLoading, setArtifactLoading] = useState(false);
   const [artifacts, setArtifacts] = useState<AgentArtifact[]>([]);
+  const [hasFailedBranches, setHasFailedBranches] = useState(false);
   const [selectedArtifact, setSelectedArtifact] = useState<AgentArtifactContent | null>(null);
   const [message, setMessage] = useState("选择行业后会直接加载正式图谱；未构建行业请切到 Agent 工作流生成 graph.json。");
   const [layoutMode, setLayoutMode] = useState<LayoutMode>("forceDirected");
@@ -218,17 +219,33 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       setGraphLoading(false);
     }
   }
+  async function refreshFailedBranchState(nextArtifacts: AgentArtifact[]) {
+    if (!nextArtifacts.some((artifact) => artifact.name === "staged_branch_evaluations" && artifact.exists)) {
+      setHasFailedBranches(false);
+      return;
+    }
+    try {
+      const evaluation = await fetchAgentArtifact(industryId, "staged_branch_evaluations");
+      const items = (evaluation.content as { items?: Array<{ status?: string; graph?: unknown }> }).items ?? [];
+      setHasFailedBranches(items.some((item) => item.status !== "ok" || !item.graph));
+    } catch {
+      setHasFailedBranches(false);
+    }
+  }
   async function loadArtifacts() {
     if (!hasSelectedIndustry) {
       setArtifacts([]);
+      setHasFailedBranches(false);
       return;
     }
     setArtifactLoading(true);
     try {
       const data = await fetchAgentArtifacts(industryId);
       setArtifacts(data.artifacts);
+      await refreshFailedBranchState(data.artifacts);
     } catch {
       setArtifacts([]);
+      setHasFailedBranches(false);
     } finally {
       setArtifactLoading(false);
     }
@@ -238,6 +255,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
     try {
       const data = await fetchAgentArtifacts(industryId);
       setArtifacts(data.artifacts);
+      await refreshFailedBranchState(data.artifacts);
     } catch {
       // Keep the current artifact list while a long-running Agent call is still in flight.
     }
@@ -469,6 +487,27 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       await trackAgentRun(result, successMessage);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "离线图谱导出失败");
+    } finally {
+      setAgentBusy(false);
+    }
+  }
+
+  async function handleRetryFailedBranches() {
+    if (!hasSelectedIndustry) {
+      setMessage("请先选择行业。");
+      return;
+    }
+    if (!hasArtifact("staged_branch_evaluations")) {
+      setMessage("没有可供重试的分支记录；请先运行分支扩展。");
+      return;
+    }
+    setAgentBusy(true);
+    setSelectedArtifact(null);
+    try {
+      const result = await retryFailedAgentBranches(industryId, industryName);
+      await trackAgentRun(result, "失败分支重试完成并已重建候选图谱");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "失败分支重试未完成");
     } finally {
       setAgentBusy(false);
     }
@@ -871,7 +910,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
                       <button type="button" className="action-button" onClick={handleBuildSkeleton} disabled={agentBusy}>{agentBusy ? <span className="spinner" /> : <Sparkles size={15} />}运行骨架</button>
                     </div>
                   )}
-                  {step.action === "branches" && <button type="button" className="action-button" onClick={handleBuildBranches} disabled={agentBusy || !hasArtifact("staged_level1_graph")}>{agentBusy ? <span className="spinner" /> : <GitBranch size={15} />}运行分支</button>}
+                  {step.action === "branches" && <div className="button-grid vertical"><button type="button" className="action-button" onClick={handleBuildBranches} disabled={agentBusy || !hasArtifact("staged_level1_graph")}>{agentBusy ? <span className="spinner" /> : <GitBranch size={15} />}运行分支</button>{hasFailedBranches && <button type="button" className="secondary-button" onClick={handleRetryFailedBranches} disabled={agentBusy || !hasArtifact("staged_branch_evaluations")}>{agentBusy ? <span className="spinner" /> : <RefreshCw size={15} />}仅重试失败分支</button>}</div>}
                   {step.action === "final_validate" && <div className="button-grid vertical"><button type="button" className="action-button" onClick={handleFinalValidate} disabled={agentBusy || !hasArtifact("pre_validation_candidate_graph")}>{agentBusy ? <span className="spinner" /> : <CheckCircle2 size={15} />}运行最终校验</button><button type="button" className="secondary-button" onClick={() => handleApplyCandidate("candidate_graph")} disabled={agentBusy || !hasArtifact("candidate_graph")}>应用候选</button></div>}
                   {step.action === "l2_flow" && <button type="button" className="action-button" onClick={handleBuildL2FlowRelations} disabled={agentBusy || !hasArtifact("graph")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行 L2 建边</button>}
                   {step.action === "company_attach" && <button type="button" className="action-button" onClick={handleAttachCompanies} disabled={agentBusy || !hasArtifact("graph") || !hasArtifact("l2_flow_relations")}>{agentBusy ? <span className="spinner" /> : <Network size={15} />}运行公司挂载</button>}
