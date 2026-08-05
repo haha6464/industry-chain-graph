@@ -391,6 +391,27 @@ select {
   flex: 1;
 }
 
+.company-color-legend {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+  color: #475569;
+  font-size: 11px;
+}
+
+.company-color-legend span {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.company-color-legend i {
+  border-radius: 50%;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+}
+
 .filter-hint {
   color: #64748b;
   display: block;

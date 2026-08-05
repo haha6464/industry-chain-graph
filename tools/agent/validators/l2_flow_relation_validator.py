@@ -11,6 +11,7 @@ from tools.agent.l2_flow_relations import (
     PAIR_VERDICTS,
     build_l1_l2_projected_edges,
     graph_fingerprint,
+    is_allowed_l2_flow_direction,
 )
 
 
@@ -100,6 +101,15 @@ def validate_l2_flow_relations(payload: dict[str, Any], graph: dict[str, Any], i
             expected_directions[pair_identifier] = (node_a, node_b)
         elif verdict == "B_TO_A":
             expected_directions[pair_identifier] = (node_b, node_a)
+        if verdict in {"A_TO_B", "B_TO_A"}:
+            source, target = expected_directions[pair_identifier]
+            if not is_allowed_l2_flow_direction(graph, source, target):
+                issue(
+                    "error",
+                    "branch_role_policy_violation",
+                    "L2 上下游关系只允许上游分支→隶属分支或隶属分支→下游分支。",
+                    pair_identifier,
+                )
         if (
             "deterministic_negative_audit" in (decision.get("selection_reasons") or [])
             and verdict in {"A_TO_B", "B_TO_A"}
@@ -139,6 +149,13 @@ def validate_l2_flow_relations(payload: dict[str, Any], graph: dict[str, Any], i
             issue("error", "unknown_endpoint", "L2 上下游关系引用了不存在的节点。", identifier)
         elif source not in l2_ids or target not in l2_ids:
             issue("error", "endpoint_not_l2", "L2 上下游关系两端必须都是 level=2。", identifier)
+        elif not is_allowed_l2_flow_direction(graph, source, target):
+            issue(
+                "error",
+                "branch_role_policy_violation",
+                "L2 上下游关系只允许上游分支→隶属分支或隶属分支→下游分支。",
+                identifier,
+            )
         if frozenset((source, target)) in main_pairs:
             issue("error", "main_relation_conflict", "该节点对已存在主图关系，不能重复建立 L2 横向关系。", identifier)
         if not str(edge.get("description", "")).strip():

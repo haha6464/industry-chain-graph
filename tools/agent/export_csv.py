@@ -246,8 +246,9 @@ def export_company_attachment_csv(
     industry_id: str,
     output_dir: Path | None = None,
     listed_only: bool = True,
+    aggregate_upward: bool = True,
 ) -> dict[str, str]:
-    """Export direct company attachments plus their aggregation-parent edges.
+    """Export company attachment edges, optionally including aggregation parents.
 
     Non-domestic-listed companies are dropped by default. The filtering reuses
     ``filter_listed_attachments`` so the CSV and the filter workflow can never
@@ -268,7 +269,8 @@ def export_company_attachment_csv(
     output_dir = output_dir or delivery_output_dir(industry_id)
     prefix = _safe_filename(metadata["name"])
     company_node_path = output_dir / f"{prefix}_company_node.csv"
-    company_edge_path = output_dir / f"{prefix}_company_industrynode_edge_node.csv"
+    suffix = "" if aggregate_upward else "_不聚合"
+    company_edge_path = output_dir / f"{prefix}_company_industrynode_edge_node{suffix}.csv"
     effective_date = str(attachments.get("generated_at", ""))[:10] or datetime.now().date().isoformat()
     company_by_id = {str(item.get("company_id")): item for item in attachments.get("companies", [])}
     node_by_id = {str(item.get("id")): item for item in graph.get("nodes", [])}
@@ -298,10 +300,11 @@ def export_company_attachment_csv(
         if company_id not in company_by_id or node_id not in node_by_id:
             continue
         company = company_by_id[company_id]
-        # Preserve the direct attachment and add every classification parent.
-        # Upstream/downstream edges, including L0--L1 boundaries, never become
-        # company aggregation hierarchy edges.
-        for aggregate_node_id in [node_id, *ancestors_for_node(graph, node_id)]:
+        # The standard delivery file preserves the direct attachment and every
+        # classification parent.  The _不聚合 variant exposes only the direct
+        # match for consumers that need to inspect the original allocation.
+        aggregate_node_ids = [node_id, *ancestors_for_node(graph, node_id)] if aggregate_upward else [node_id]
+        for aggregate_node_id in aggregate_node_ids:
             pair = (company_id, aggregate_node_id)
             if pair in seen_pairs or aggregate_node_id not in node_by_id:
                 continue
@@ -321,7 +324,9 @@ def export_company_attachment_csv(
             )
     company_node_path = _write_csv(company_node_path, COMPANY_NODE_FIELDS, company_rows)
     company_edge_path = _write_csv(company_edge_path, COMPANY_EDGE_FIELDS, edge_rows)
-    return {"company_node_csv": str(company_node_path), "company_edge_csv": str(company_edge_path)}
+    result = {"company_node_csv": str(company_node_path)}
+    result["company_edge_csv" if aggregate_upward else "company_edge_csv_unaggregated"] = str(company_edge_path)
+    return result
 
 
 def export_industry_csv(
@@ -352,6 +357,11 @@ def export_industry_csv(
                 graph, attachments, industry_id, output_dir, listed_only=False
             )
         )
+        result.update(
+            export_company_attachment_csv(
+                graph, attachments, industry_id, output_dir, listed_only=False, aggregate_upward=False
+            )
+        )
     return result
 
 
@@ -359,7 +369,7 @@ def _print_export_summary(result: dict[str, str]) -> None:
     print(f"[agent] CSV 导出完成：{result.get('industry_id', '')}。", flush=True)
     labels = ["行业节点 CSV", "产业链节点关系 CSV", "产业链节点—行业关系 CSV", "产业链节点 CSV"]
     if result.get("company_node_csv"):
-        labels.extend(["公司节点 CSV", "公司—产业链节点关系 CSV"])
+        labels.extend(["公司节点 CSV", "公司—产业链节点关系 CSV", "公司—产业链节点关系 CSV（不聚合）"])
     print("[agent] 已生成产物：" + "、".join(labels) + "。", flush=True)
 
 if __name__ == "__main__":

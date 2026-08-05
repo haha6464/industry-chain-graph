@@ -153,7 +153,7 @@ for (const item of requestedItems) {
     }
     try {
       const payload = JSON.parse(await readFile(path.join(root, "data", "industries", item.id, "l2_flow_relations.json"), "utf8"));
-      if (payload.industry_id === item.id && payload.schema_version === "industry_l2_flow_relations_v0.2_pairwise" && payload.graph_fingerprint === currentGraphFingerprint && Array.isArray(payload.edges) && Array.isArray(payload.projected_edges)) {
+      if (payload.industry_id === item.id && ["industry_l2_flow_relations_v0.2_pairwise", "industry_l2_flow_relations_v0.3_role_constrained"].includes(payload.schema_version) && payload.graph_fingerprint === currentGraphFingerprint && Array.isArray(payload.edges) && Array.isArray(payload.projected_edges)) {
         l2FlowRelations[item.id] = {
           schema_version: payload.schema_version,
           graph_fingerprint: payload.graph_fingerprint,
@@ -210,7 +210,11 @@ async function buildIndustryDelivery(entry) {
     "industrynode_edge.csv",
     "industrynode_industry_edge.csv",
     "industrynode_node.csv",
-    ...(companyAttachments[entry.item.id] ? ["company_node.csv", "company_industrynode_edge_node.csv"] : [])
+    ...(companyAttachments[entry.item.id] ? [
+      "company_node.csv",
+      "company_industrynode_edge_node.csv",
+      "company_industrynode_edge_node_不聚合.csv"
+    ] : [])
   ];
   const availableCsvNames = await readdir(targetDirectory);
   const csvNames = csvSuffixes.map((suffix) => availableCsvNames.find((filename) => filename.endsWith(`_${suffix}`))).filter(Boolean);

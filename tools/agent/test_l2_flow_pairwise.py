@@ -16,6 +16,7 @@ from tools.agent.l2_flow_relations import (
     call_pair_batch,
     compact_l2_catalog,
     decision_cache_key,
+    is_allowed_l2_flow_direction,
     pair_id,
     parse_pair_verdicts,
 )
@@ -52,6 +53,15 @@ def sample_graph() -> dict:
             "evidence_ids": ["ev_product"],
         },
         {
+            "id": "l1_process",
+            "name": "加工",
+            "level": 1,
+            "parent_id": "root",
+            "chain_position": "midstream",
+            "source_urls": ["https://example.com/process"],
+            "evidence_ids": ["ev_process"],
+        },
+        {
             "id": "grain",
             "name": "粮食作物",
             "level": 2,
@@ -82,6 +92,16 @@ def sample_graph() -> dict:
             "evidence_ids": ["ev_liquor"],
         },
         {
+            "id": "milling",
+            "name": "粮食加工",
+            "level": 2,
+            "parent_id": "l1_process",
+            "chain_position": "midstream",
+            "description": "将粮食作物加工为食品原料。",
+            "source_urls": ["https://example.com/milling"],
+            "evidence_ids": ["ev_milling"],
+        },
+        {
             "id": "candy",
             "name": "糖果",
             "level": 2,
@@ -99,9 +119,11 @@ def sample_graph() -> dict:
         "edges": [
             {"source": "root", "target": "l1_raw", "relation_type": "contains"},
             {"source": "root", "target": "l1_product", "relation_type": "contains"},
+            {"source": "root", "target": "l1_process", "relation_type": "contains"},
             {"source": "l1_raw", "target": "grain", "relation_type": "contains"},
             {"source": "l1_raw", "target": "sugar", "relation_type": "contains"},
             {"source": "l1_product", "target": "liquor", "relation_type": "contains"},
+            {"source": "l1_process", "target": "milling", "relation_type": "contains"},
             {"source": "l1_product", "target": "candy", "relation_type": "contains"},
         ],
     }
@@ -126,13 +148,19 @@ class L2FlowPairwiseTests(unittest.TestCase):
             left = self.catalog_by_id[pair["node_a_id"]]
             right = self.catalog_by_id[pair["node_b_id"]]
             self.assertNotEqual(left["branch_id"], right["branch_id"])
-        self.assertIn(pair_id("grain", "liquor"), {pair["pair_id"] for pair in pairs})
+        self.assertIn(pair_id("grain", "milling"), {pair["pair_id"] for pair in pairs})
+
+    def test_branch_role_policy_blocks_direct_upstream_downstream_and_same_role_flows(self) -> None:
+        self.assertTrue(is_allowed_l2_flow_direction(self.graph, "grain", "milling"))
+        self.assertFalse(is_allowed_l2_flow_direction(self.graph, "grain", "liquor"))
+        self.assertFalse(is_allowed_l2_flow_direction(self.graph, "liquor", "milling"))
+        self.assertFalse(is_allowed_l2_flow_direction(self.graph, "grain", "sugar"))
 
     def test_descendant_description_promotes_obvious_l2_pair(self) -> None:
         graph = sample_graph()
         node_by_id = {node["id"]: node for node in graph["nodes"]}
         node_by_id["grain"].update(name="agricultural_inputs", description="broad upstream materials")
-        node_by_id["liquor"].update(name="liquor", description="distilled consumer product")
+        node_by_id["milling"].update(name="milling", description="processed grain ingredient")
         graph["nodes"].append(
             {
                 "id": "grain_detail",
@@ -140,7 +168,7 @@ class L2FlowPairwiseTests(unittest.TestCase):
                 "level": 3,
                 "parent_id": "grain",
                 "chain_position": "upstream",
-                "description": "Cereal crops are a primary raw-material input for liquor production.",
+                "description": "Cereal crops are a primary raw-material input for grain milling.",
                 "source_urls": ["https://example.com/grain-detail"],
                 "evidence_ids": ["ev_grain_detail"],
             }
@@ -151,9 +179,9 @@ class L2FlowPairwiseTests(unittest.TestCase):
         catalog = compact_l2_catalog(graph)
         catalog_by_id = {node["id"]: node for node in catalog}
         pairs, _ = build_candidate_pairs(graph, catalog, candidates_per_node=1, negative_audit_rate=0)
-        target = next(pair for pair in pairs if pair["pair_id"] == pair_id("grain", "liquor"))
+        target = next(pair for pair in pairs if pair["pair_id"] == pair_id("grain", "milling"))
         self.assertTrue(target["recall_evidence"])
-        self.assertIn("primary raw-material input for liquor", build_pair_prompt(catalog_by_id, [target]))
+        self.assertIn("primary raw-material input for grain milling", build_pair_prompt(catalog_by_id, [target]))
 
     def test_parser_is_strict_and_rejects_duplicate_pair_lines(self) -> None:
         first = pair_id("grain", "liquor")
@@ -167,8 +195,8 @@ class L2FlowPairwiseTests(unittest.TestCase):
         self.assertEqual(duplicate, {})
 
     def test_pair_call_disables_tools_and_uses_low_temperature(self) -> None:
-        identifier = pair_id("grain", "liquor")
-        pairs = [{"pair_id": identifier, "node_a_id": "grain", "node_b_id": "liquor"}]
+        identifier = pair_id("grain", "milling")
+        pairs = [{"pair_id": identifier, "node_a_id": "grain", "node_b_id": "milling"}]
 
         class Response:
             output_text = f"{identifier}:A_TO_B"
@@ -193,9 +221,10 @@ class L2FlowPairwiseTests(unittest.TestCase):
     def test_fixed_script_materializes_only_positive_pair_decisions(self) -> None:
         pairs = [
             {
-                "pair_id": pair_id("grain", "liquor"),
+                "pair_id": pair_id("grain", "milling"),
                 "node_a_id": "grain",
-                "node_b_id": "liquor",
+                "node_b_id": "milling",
+                "allowed_verdicts": ["A_TO_B"],
                 "score": 1.0,
                 "selection_reasons": ["grain:global_similarity"],
             },
@@ -225,10 +254,10 @@ class L2FlowPairwiseTests(unittest.TestCase):
         )
         self.assertEqual(len(payload["edges"]), 1)
         self.assertEqual(payload["edges"][0]["source"], "grain")
-        self.assertEqual(payload["edges"][0]["target"], "liquor")
+        self.assertEqual(payload["edges"][0]["target"], "milling")
         self.assertEqual(len(payload["projected_edges"]), 2)
         projected_pairs = {(edge["source"], edge["target"]) for edge in payload["projected_edges"]}
-        self.assertEqual(projected_pairs, {("l1_raw", "liquor"), ("grain", "l1_product")})
+        self.assertEqual(projected_pairs, {("l1_raw", "milling"), ("grain", "l1_process")})
         self.assertNotIn(("l1_raw", "l1_product"), projected_pairs)
         report = validate_l2_flow_relations(payload, self.graph, "test")
         self.assertEqual(report["error_count"], 0, report["issues"])
@@ -236,9 +265,9 @@ class L2FlowPairwiseTests(unittest.TestCase):
     def test_l1_l2_postprocess_creates_cross_projection_without_l1_l1_edge(self) -> None:
         l2_edges = [
             {
-                "id": "grain__upstream_downstream__liquor",
+                "id": "grain__upstream_downstream__milling",
                 "source": "grain",
-                "target": "liquor",
+                "target": "milling",
                 "relation_type": "upstream_downstream",
                 "relation_layer": "l2_flow",
                 "relation_weight": 1.0,
@@ -247,14 +276,14 @@ class L2FlowPairwiseTests(unittest.TestCase):
                 "confidence": 0.8,
             },
             {
-                "id": "grain__upstream_downstream__candy",
-                "source": "grain",
-                "target": "candy",
+                "id": "sugar__upstream_downstream__milling",
+                "source": "sugar",
+                "target": "milling",
                 "relation_type": "upstream_downstream",
                 "relation_layer": "l2_flow",
                 "relation_weight": 1.0,
-                "source_urls": ["https://example.com/candy"],
-                "evidence_ids": ["ev_candy"],
+                "source_urls": ["https://example.com/sugar"],
+                "evidence_ids": ["ev_sugar"],
                 "confidence": 0.8,
             },
         ]
@@ -262,9 +291,10 @@ class L2FlowPairwiseTests(unittest.TestCase):
         self.assertEqual(len(projected), 3)
         projected_by_pair = {(edge["source"], edge["target"]): edge for edge in projected}
         self.assertNotIn(("l1_raw", "l1_product"), projected_by_pair)
-        self.assertIn(("l1_raw", "liquor"), projected_by_pair)
-        self.assertIn(("l1_raw", "candy"), projected_by_pair)
-        collapsed = projected_by_pair[("grain", "l1_product")]
+        self.assertIn(("l1_raw", "milling"), projected_by_pair)
+        self.assertIn(("grain", "l1_process"), projected_by_pair)
+        self.assertIn(("sugar", "l1_process"), projected_by_pair)
+        collapsed = projected_by_pair[("l1_raw", "milling")]
         self.assertEqual(collapsed["projected_from_count"], 2)
         self.assertEqual(collapsed["relation_weight"], 1.0)
         self.assertEqual(collapsed["confidence"], 0.8)

@@ -37,7 +37,7 @@ type OfflineCompanyAttachments = {
 };
 
 type OfflineL2FlowRelations = {
-  schema_version?: "industry_l2_flow_relations_v0.2_pairwise";
+  schema_version?: "industry_l2_flow_relations_v0.2_pairwise" | "industry_l2_flow_relations_v0.3_role_constrained";
   graph_fingerprint?: string;
   edges: GraphResponse["edges"];
   projected_edges?: GraphResponse["edges"];

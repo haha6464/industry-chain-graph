@@ -14,10 +14,10 @@ from tools.agent.bailian_client import call_bailian_responses, load_bailian_env
 from tools.agent.common import content_hash, edge_id, read_jsonl
 
 
-L2_FLOW_SCHEMA_VERSION = "industry_l2_flow_relations_v0.2_pairwise"
+L2_FLOW_SCHEMA_VERSION = "industry_l2_flow_relations_v0.3_role_constrained"
 L2_FLOW_RELATION_LAYER = "l2_flow"
 L1_L2_FLOW_PROJECTION_LAYER = "l1_l2_flow_projection"
-PAIR_PROMPT_VERSION = "l2_pair_tri_state_v0.2"
+PAIR_PROMPT_VERSION = "l2_pair_tri_state_v0.3_role_constrained"
 PAIR_VERDICTS = {"A_TO_B", "B_TO_A", "NO"}
 DEFAULT_L2_FLOW_MODEL = "qwen3.7-plus"
 DEFAULT_PAIR_BATCH_SIZE = 20
@@ -27,9 +27,9 @@ DEFAULT_TEMPERATURE = 0.1
 DEFAULT_NEGATIVE_AUDIT_RATE = 0.03
 ACCEPTED_RELATION_CONFIDENCE = 0.8
 ROLE_CANDIDATE_QUOTAS = {
-    "upstream": (("midstream", 3), ("downstream", 2)),
-    "midstream": (("upstream", 3), ("downstream", 2)),
-    "downstream": (("midstream", 3), ("upstream", 2)),
+    "upstream": (("contains", 5),),
+    "contains": (("upstream", 3), ("downstream", 3)),
+    "downstream": (("contains", 5),),
 }
 
 
@@ -119,6 +119,35 @@ def _node_lineage(node: dict[str, Any], node_by_id: dict[str, dict[str, Any]]) -
     return list(reversed(lineage))
 
 
+def branch_role(node: dict[str, Any], node_by_id: dict[str, dict[str, Any]]) -> str:
+    """Return the L1 branch role governing an L2 node.
+
+    The classification tree may call its neutral branches ``midstream`` or
+    ``support``.  For cross-branch flow decisions they are both the L0
+    ``contains`` branch: only an upstream branch may supply it, and it may only
+    supply a downstream branch.  This keeps flow edges from crossing directly
+    between upstream and downstream branches or within one branch role.
+    """
+    lineage = _node_lineage(node, node_by_id)
+    l1 = next((item for item in lineage if int(item.get("level", -1)) == 1), {})
+    position = str(l1.get("chain_position", "")).strip()
+    if position in {"upstream", "downstream"}:
+        return position
+    return "contains"
+
+
+def is_allowed_l2_flow_direction(graph: dict[str, Any], source_id: str, target_id: str) -> bool:
+    """Whether a directed L2 flow edge respects the L1 branch-role policy."""
+    node_by_id = {str(node.get("id")): node for node in graph.get("nodes", []) if node.get("id")}
+    source = node_by_id.get(str(source_id))
+    target = node_by_id.get(str(target_id))
+    if not source or not target or int(source.get("level", -1)) != 2 or int(target.get("level", -1)) != 2:
+        return False
+    source_role = branch_role(source, node_by_id)
+    target_role = branch_role(target, node_by_id)
+    return (source_role, target_role) in {("upstream", "contains"), ("contains", "downstream")}
+
+
 def compact_l2_catalog(graph: dict[str, Any]) -> list[dict[str, Any]]:
     node_by_id = {str(node.get("id")): node for node in graph.get("nodes", []) if node.get("id")}
     children: dict[str, list[str]] = {}
@@ -161,6 +190,7 @@ def compact_l2_catalog(graph: dict[str, Any]) -> list[dict[str, Any]]:
             "path": " / ".join(str(item.get("name") or item.get("id")) for item in lineage),
             "branch_id": str(branch.get("id", "")),
             "branch_name": str(branch.get("name", "")),
+            "branch_role": branch_role(node, node_by_id),
             "chain_position": str(node.get("chain_position", "support")),
             "description": str(node.get("business_description") or node.get("description") or ""),
             "direct_child_names": direct_child_names[:12],
@@ -261,8 +291,15 @@ def build_candidate_pairs(
                 continue
             if frozenset((left["id"], right["id"])) in main_pairs:
                 continue
-            identifier = pair_id(left["id"], right["id"])
             node_a_id, node_b_id = sorted((str(left["id"]), str(right["id"])))
+            allowed_a_to_b = is_allowed_l2_flow_direction(graph, node_a_id, node_b_id)
+            allowed_b_to_a = is_allowed_l2_flow_direction(graph, node_b_id, node_a_id)
+            # The L1 branch policy only permits upstream -> contains and
+            # contains -> downstream.  Do not spend model calls on all other
+            # cross-branch pairs, even as negative-audit samples.
+            if not allowed_a_to_b and not allowed_b_to_a:
+                continue
+            identifier = pair_id(left["id"], right["id"])
             all_pairs[identifier] = {
                 "pair_id": identifier,
                 "node_a_id": node_a_id,
@@ -271,6 +308,13 @@ def build_candidate_pairs(
                 "node_b_name": str(node_by_id[node_b_id].get("name", node_b_id)),
                 "node_a_branch": str(node_by_id[node_a_id].get("branch_name", "")),
                 "node_b_branch": str(node_by_id[node_b_id].get("branch_name", "")),
+                "node_a_branch_role": str(node_by_id[node_a_id].get("branch_role", "contains")),
+                "node_b_branch_role": str(node_by_id[node_b_id].get("branch_role", "contains")),
+                "allowed_verdicts": [
+                    verdict
+                    for verdict, allowed in (("A_TO_B", allowed_a_to_b), ("B_TO_A", allowed_b_to_a))
+                    if allowed
+                ],
                 "score": _pair_score(left, right, features),
                 "recall_evidence": _pair_recall_evidence(left, right),
                 "selection_reasons": [],
@@ -284,12 +328,12 @@ def build_candidate_pairs(
     for node_id, pairs in incident.items():
         ranked = sorted(pairs, key=lambda item: (-float(item["score"]), item["pair_id"]))
         selected_for_node: list[dict[str, Any]] = []
-        node_position = str(node_by_id[node_id].get("chain_position", ""))
+        node_position = str(node_by_id[node_id].get("branch_role", "contains"))
         for target_position, quota in ROLE_CANDIDATE_QUOTAS.get(node_position, ()):
             role_candidates = []
             for pair in ranked:
                 other_id = pair["node_b_id"] if pair["node_a_id"] == node_id else pair["node_a_id"]
-                if str(node_by_id[other_id].get("chain_position", "")) == target_position:
+                if str(node_by_id[other_id].get("branch_role", "contains")) == target_position:
                     role_candidates.append(pair)
             for pair in role_candidates[:quota]:
                 if len(selected_for_node) >= per_node:
@@ -343,11 +387,12 @@ def build_pair_prompt(catalog_by_id: dict[str, dict[str, Any]], pairs: list[dict
     for pair in pairs:
         node_a = catalog_by_id[pair["node_a_id"]]
         node_b = catalog_by_id[pair["node_b_id"]]
-        fields = ("id", "name", "path", "branch_name", "chain_position", "description", "direct_child_names")
+        fields = ("id", "name", "path", "branch_name", "branch_role", "chain_position", "description", "direct_child_names")
         pair_input = {
             "pair_id": pair["pair_id"],
             "A": {field: node_a.get(field) for field in fields},
             "B": {field: node_b.get(field) for field in fields},
+            "allowed_verdicts": pair.get("allowed_verdicts", []),
         }
         if pair.get("recall_evidence"):
             pair_input["recall_evidence"] = pair["recall_evidence"]
@@ -367,6 +412,7 @@ def build_pair_prompt(catalog_by_id: dict[str, dict[str, Any]], pairs: list[dict
 1. 每个 pair_id 必须恰好输出一行。
 2. 每行只能是 `pair_id:A_TO_B`、`pair_id:B_TO_A` 或 `pair_id:NO`。
 3. 不要解释，不要 Markdown，不要 JSON，不要输出其他文字。
+4. 每个 pair 只能在其 allowed_verdicts 指定的方向与 NO 之间选择；不允许上游与下游分支直连，也不允许同角色分支互相建边。
 
 必须逐行覆盖以下 pair_id，并为每个 ID 选择一个三态结果：
 {expected}
@@ -423,6 +469,7 @@ def decision_cache_key(pair: dict[str, Any], catalog_by_id: dict[str, dict[str, 
         "node_b_id": pair["node_b_id"],
         "node_a_hash": catalog_by_id[pair["node_a_id"]]["node_content_hash"],
         "node_b_hash": catalog_by_id[pair["node_b_id"]]["node_content_hash"],
+        "allowed_verdicts": pair.get("allowed_verdicts", []),
     }
     if pair.get("recall_evidence"):
         payload["recall_evidence"] = pair["recall_evidence"]
@@ -531,6 +578,10 @@ def build_payload(
         if pair is None:
             continue
         verdict = str(decision.get("verdict", "INVALID")).upper()
+        allowed_verdicts = set(pair.get("allowed_verdicts", []))
+        rejected_by_branch_policy = verdict in {"A_TO_B", "B_TO_A"} and verdict not in allowed_verdicts
+        if rejected_by_branch_policy:
+            verdict = "NO"
         normalized = {
             "pair_id": identifier,
             "node_a_id": pair["node_a_id"],
@@ -540,6 +591,8 @@ def build_payload(
             "cache_key": str(decision.get("cache_key", "")),
             "selection_reasons": list(pair.get("selection_reasons", [])),
         }
+        if rejected_by_branch_policy:
+            normalized["rule_rejection"] = "l1_branch_role_policy"
         normalized_decisions.append(normalized)
         if verdict not in {"A_TO_B", "B_TO_A"}:
             continue

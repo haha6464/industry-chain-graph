@@ -15,6 +15,7 @@ from tools.agent.common import PROJECT_ROOT, content_hash, remove_singleton_cont
 
 
 COMPANY_ATTACHMENT_SCHEMA_VERSION = "industry_company_attachments_v0.2"
+LOW_COVERAGE_COMPANY_THRESHOLD = 2
 TAXONOMY_COLUMNS = ("indunamesw", "indunamesw1", "indunamesw2", "indunamesw3")
 CANDIDATE_CSV_RELATIVE_PATH = "data/company_candidates/申万全量分类结果.csv"
 CANDIDATE_CSV_PATH = PROJECT_ROOT / CANDIDATE_CSV_RELATIVE_PATH
@@ -291,9 +292,9 @@ def build_match_prompt(graph: dict[str, Any], companies: list[dict[str, Any]]) -
 规则：
 1. 只能使用输入中 company_id 和节点 id；公司名称、代码不得改写。
 2. 只返回主营业务直接相关的节点；不确定、弱相关或仅有极小业务时不要挂载。
-3. 同一公司可挂多个相互独立的业务节点；若同时匹配父节点和子节点，只返回更深的子节点。
+3. 同一公司可挂多个相互独立的业务节点；若同时匹配父节点和子节点，只返回更深的子节点。对 L1 节点，必须先逐一比对其 L2 及更深子类；只要存在准确覆盖主营业务的子类，就不得直接挂 L1。
 4. 不得返回 level=0 根节点；没有具体匹配时 matched_nodes 返回空数组。
-5. reason 使用不超过 40 个汉字说明主营业务与节点的直接关系；confidence 为 0.5 到 1.0。
+5. 只有在该公司主营业务确实跨越或不属于任一现有子类时才允许直挂 L1；此时 reason 必须明确说明为何输入子类均不适配。reason 使用不超过 40 个汉字说明主营业务与节点的直接关系；confidence 为 0.5 到 1.0。
 6. 不要输出 Markdown 或公司/节点之外的新数据。
 7. results 必须覆盖输入中的每一家、每个 company_id 恰好出现一次；确认不适合挂载时也要返回该公司，matched_nodes 为空数组。
 
@@ -478,6 +479,10 @@ def build_attachment_payload(
             attached_company_ids.add(current_company_id)
     companies = [company_by_id[identifier] for identifier in sorted(attached_company_ids) if identifier in company_by_id]
     method_counts = Counter(str(item.get("match_method", "unknown")) for item in attachments)
+    direct_l1 = [
+        item for item in attachments
+        if int(node_by_id.get(str(item.get("node_id")), {}).get("level", -1)) == 1
+    ]
     return {
         "schema_version": COMPANY_ATTACHMENT_SCHEMA_VERSION,
         "industry_id": industry_id,
@@ -492,7 +497,19 @@ def build_attachment_payload(
         "scope": scope,
         "companies": companies,
         "attachments": attachments,
-        "matching_summary": {"match_method_counts": dict(sorted(method_counts.items()))},
+        "matching_summary": {
+            "match_method_counts": dict(sorted(method_counts.items())),
+            "direct_l1_attachment_count": len(direct_l1),
+            "direct_l1_attachments": [
+                {
+                    "company_id": str(item.get("company_id", "")),
+                    "node_id": str(item.get("node_id", "")),
+                    "node_name": str(node_by_id.get(str(item.get("node_id")), {}).get("name", "")),
+                    "reason": str(item.get("reason", "")),
+                }
+                for item in direct_l1
+            ],
+        },
         "unmatched_company_count": max(0, len(selected_companies) - len(attached_company_ids)),
     }
 
@@ -558,11 +575,15 @@ def filter_listed_attachments(payload: dict[str, Any]) -> tuple[dict[str, Any], 
     }
 
     method_counts = Counter(str(item.get("match_method", "unknown")) for item in listed_attachments)
+    prior_matching_summary = dict(payload.get("matching_summary") or {})
     filtered = {
         **payload,
         "companies": retained_companies,
         "attachments": listed_attachments,
-        "matching_summary": {"match_method_counts": dict(sorted(method_counts.items()))},
+        "matching_summary": {
+            **prior_matching_summary,
+            "match_method_counts": dict(sorted(method_counts.items())),
+        },
         "listed_filter": {
             "applied_at": now_iso(),
             "rule": "is_listed is True (domestic listed company only)",
@@ -680,6 +701,99 @@ def prune_graph_to_company_coverage(
         ],
     }
     return pruned_graph, rebased_attachments, report
+
+
+def collapse_low_coverage_leaf_nodes(
+    graph: dict[str, Any], attachments: dict[str, Any], threshold: int = LOW_COVERAGE_COMPANY_THRESHOLD
+) -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
+    """Remove low-coverage classification leaves and aggregate their companies.
+
+    A node with no more than ``threshold`` directly attached companies has too
+    little standalone research value.  It is removed only when it is a leaf in
+    the retained classification tree; structural parents with surviving
+    descendants remain so that those descendants never lose their taxonomy
+    lineage.  Each removed node's direct attachments move to its contains
+    parent, preserving the company evidence and making the aggregation explicit.
+    """
+    current_graph = dict(graph)
+    current_attachments = dict(attachments)
+    removals: list[dict[str, Any]] = []
+
+    while True:
+        node_by_id = {
+            str(node.get("id")): node for node in current_graph.get("nodes", []) if node.get("id")
+        }
+        parents = _parent_map(current_graph)
+        children: dict[str, list[str]] = defaultdict(list)
+        for child_id, parent_id in parents.items():
+            if child_id in node_by_id and parent_id in node_by_id:
+                children[parent_id].append(child_id)
+        company_ids = {str(company.get("company_id")) for company in current_attachments.get("companies", [])}
+        direct_company_ids: dict[str, set[str]] = defaultdict(set)
+        for item in current_attachments.get("attachments", []) or []:
+            company_id, node_id = str(item.get("company_id", "")), str(item.get("node_id", ""))
+            if company_id in company_ids and node_id in node_by_id:
+                direct_company_ids[node_id].add(company_id)
+        removable = [
+            node_id
+            for node_id, node in node_by_id.items()
+            if int(node.get("level", -1)) > 0
+            and parents.get(node_id) in node_by_id
+            and not children.get(node_id)
+            and len(direct_company_ids.get(node_id, set())) <= threshold
+        ]
+        if not removable:
+            break
+        removable_set = set(removable)
+        parent_by_removed = {node_id: parents[node_id] for node_id in removable}
+        merged_attachments: dict[tuple[str, str], dict[str, Any]] = {}
+        for item in current_attachments.get("attachments", []) or []:
+            company_id = str(item.get("company_id", ""))
+            node_id = str(item.get("node_id", ""))
+            target_id = parent_by_removed.get(node_id, node_id)
+            updated = dict(item)
+            if target_id != node_id:
+                updated["node_id"] = target_id
+                updated["aggregation_source_node_id"] = node_id
+                updated["aggregation_reason"] = f"直接挂载公司数不超过 {threshold} 家，向分类父节点聚合"
+            key = (company_id, target_id)
+            # Prefer an original direct attachment when the company already
+            # matches the surviving parent.
+            if key not in merged_attachments or node_id == target_id:
+                merged_attachments[key] = updated
+        current_graph = {
+            **current_graph,
+            "nodes": [node for node in current_graph.get("nodes", []) if str(node.get("id")) not in removable_set],
+            "edges": [
+                edge for edge in current_graph.get("edges", [])
+                if str(edge.get("source")) not in removable_set and str(edge.get("target")) not in removable_set
+            ],
+        }
+        current_attachments = {
+            **current_attachments,
+            "generated_at": now_iso(),
+            "graph_fingerprint": graph_fingerprint(current_graph),
+            "attachments": list(merged_attachments.values()),
+        }
+        removals.extend(
+            {
+                "id": node_id,
+                "name": str(node_by_id[node_id].get("name", "")),
+                "level": int(node_by_id[node_id].get("level", -1)),
+                "parent_id": parent_by_removed[node_id],
+                "direct_company_count": len(direct_company_ids.get(node_id, set())),
+            }
+            for node_id in sorted(removable)
+        )
+
+    if removals:
+        current_attachments["low_coverage_compaction"] = {
+            "applied_at": now_iso(),
+            "threshold": threshold,
+            "rule": "非根叶节点直接挂载公司数小于或等于阈值时，删除该节点并将公司向分类父节点聚合。",
+            "removed_node_count": len(removals),
+        }
+    return current_graph, current_attachments, removals
 
 
 def collapse_company_attached_singleton_leaves(

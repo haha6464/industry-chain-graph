@@ -23,6 +23,8 @@ const DEFAULT_INSPECTOR_WIDTH = 420;
 const MIN_INSPECTOR_WIDTH = 320;
 const MAX_INSPECTOR_WIDTH = 720;
 const DESKTOP_LAYOUT_BREAKPOINT = 1280;
+const DIRECT_COMPANY_COLOR = "#f97316";
+const AGGREGATED_COMPANY_COLOR = "#16a34a";
 const DESKTOP_SIDEBAR_AND_GRAPH_MIN_WIDTH = 820;
 
 function clampInspectorWidth(value: number) {
@@ -811,9 +813,21 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
   );
   const companyNvlNodes = useMemo(() => {
     const result = new Map<string, { id: string; caption: string; size: number; color: string }>();
-    expandedCompanyGroups.forEach(({ response }) => response.items.forEach((company) => {
+    expandedCompanyGroups.forEach(({ nodeId, response }) => response.items.forEach((company) => {
       const id = companyGraphNodeId(company.company_id);
-      if (!result.has(id)) result.set(id, { id, caption: company.name, size: 17, color: "#16a34a" });
+      const isDirectAttachment = company.direct_node_ids.includes(nodeId);
+      const existing = result.get(id);
+      // A company can be shown under more than one expanded node.  If it is
+      // directly attached to any visible node, keep the more prominent orange
+      // marker; green is reserved for companies visible only through a child.
+      if (!existing || isDirectAttachment) {
+        result.set(id, {
+          id,
+          caption: company.name,
+          size: 17,
+          color: isDirectAttachment ? DIRECT_COMPANY_COLOR : AGGREGATED_COMPANY_COLOR
+        });
+      }
     }));
     return Array.from(result.values());
   }, [expandedCompanyGroups]);
@@ -822,8 +836,8 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
       id: `${nodeId}__company_attachment__${company.company_id}`,
       from: nodeId,
       to: companyGraphNodeId(company.company_id),
-      caption: "公司",
-      color: "#16a34a",
+      caption: company.direct_node_ids.includes(nodeId) ? "公司·直接挂载" : "公司·子节点聚合",
+      color: company.direct_node_ids.includes(nodeId) ? DIRECT_COMPANY_COLOR : AGGREGATED_COMPANY_COLOR,
       width: 1
     }))),
     [expandedCompanyGroups]
@@ -968,7 +982,7 @@ export function App({ offline = false }: { offline?: boolean } = {}) {
           <label className="field"><span>关键词</span><div className="search-box"><Search size={16} /><input placeholder="节点名称或简介" value={draftFilters.q} onChange={(event) => setDraftFilters({ ...draftFilters, q: event.target.value })} onKeyDown={(event) => { if (event.key === "Enter") applyFilters(draftFilters); }} /></div></label>
           <div className="filter-group"><span>节点类型</span>{nodeTypeOptions.map((option) => <label key={option.value} className="check-row"><input type="checkbox" checked={draftFilters.chain_positions.includes(option.value)} onChange={() => setDraftFilters({ ...draftFilters, chain_positions: toggleValue(draftFilters.chain_positions, option.value) })} /><span className="dot" style={{ backgroundColor: option.color }} />{option.label}</label>)}{levelOptions.map((level) => <label key={level} className="check-row"><input type="checkbox" checked={draftFilters.levels.includes(level)} onChange={() => setDraftFilters({ ...draftFilters, levels: toggleValue(draftFilters.levels, level) })} /><span className="dot" style={{ backgroundColor: levelColor(level, maxVisibleLevel) }} />L{level}</label>)}</div>
           <div className="filter-group"><span>关系类型</span>{relationOptions.map((option) => <label key={option.value} className="check-row"><input type="checkbox" checked={draftFilters.relation_types.includes(option.value)} onChange={() => setDraftFilters({ ...draftFilters, relation_types: toggleValue(draftFilters.relation_types, option.value) })} />{option.label}</label>)}</div>
-          <div className="filter-group"><span>公司范围</span><div className="layout-switch company-scope-switch" aria-label="公司范围"><button type="button" title="只显示境内上市公司" className={companyScope === "listed" ? "active" : ""} onClick={() => void handleCompanyScopeChange("listed")} disabled={companyLoading}>仅境内上市</button><button type="button" title="显示全部挂载公司" className={companyScope === "all" ? "active" : ""} onClick={() => void handleCompanyScopeChange("all")} disabled={companyLoading}>全部</button></div><small className="filter-hint">{companyScope === "listed" ? "展开节点时只挂载境内上市公司。" : "展开节点时挂载全部公司，含非境内上市主体。"}</small></div>
+          <div className="filter-group"><span>公司范围</span><div className="layout-switch company-scope-switch" aria-label="公司范围"><button type="button" title="只显示境内上市公司" className={companyScope === "listed" ? "active" : ""} onClick={() => void handleCompanyScopeChange("listed")} disabled={companyLoading}>仅境内上市</button><button type="button" title="显示全部挂载公司" className={companyScope === "all" ? "active" : ""} onClick={() => void handleCompanyScopeChange("all")} disabled={companyLoading}>全部</button></div><div className="company-color-legend"><span><i style={{ backgroundColor: DIRECT_COMPANY_COLOR }} />直接挂载当前节点</span><span><i style={{ backgroundColor: AGGREGATED_COMPANY_COLOR }} />子节点聚合展示</span></div><small className="filter-hint">{companyScope === "listed" ? "展开节点时只挂载境内上市公司。" : "展开节点时挂载全部公司，含非境内上市主体。"}</small></div>
           <div className="toolbar"><button type="button" title="应用筛选" onClick={() => applyFilters(draftFilters)} disabled={graphLoading || !hasSelectedIndustry}>{graphLoading ? <span className="spinner dark" /> : <Search size={16} />}</button><button type="button" title="重置筛选" onClick={() => applyFilters(defaultFilters)} disabled={graphLoading || !hasSelectedIndustry}><RefreshCw size={16} /></button></div>
         </section>
       </aside>

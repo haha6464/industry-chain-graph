@@ -1,0 +1,22 @@
+{
+  "industry_id": "agriculture_forestry_animal_fishery",
+  "updated_files": [
+    "graph.json",
+    "candidate_graph.json"
+  ],
+  "changes": {
+    "feed_branch": {
+      "id": "agriculture_forestry_animal_fishery_004",
+      "name": "饲料工业",
+      "chain_position": "upstream"
+    },
+    "processing_branch": {
+      "id": "agriculture_forestry_animal_fishery_007",
+      "old_name": "农产品加工与仓储",
+      "new_name": "农产品加工"
+    },
+    "removed_cold_chain_node_ids": [
+      "agriculture_forestry_animal_fishery_007_009"
+    ]
+  }
+}

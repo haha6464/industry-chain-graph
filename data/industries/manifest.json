@@ -206,8 +206,8 @@
     "source_order": 41,
     "data_path": "data/industries/agriculture_forestry_animal_fishery/graph.json",
     "status": "ready",
-    "node_count": 88,
-    "edge_count": 87
+    "node_count": 57,
+    "edge_count": 56
   },
   {
     "id": "social_services",

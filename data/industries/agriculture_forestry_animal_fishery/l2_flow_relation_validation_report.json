@@ -1,22 +1,15 @@
 {
   "industry_id": "agriculture_forestry_animal_fishery",
-  "l2_node_count": 44,
-  "evaluated_node_count": 44,
-  "candidate_pair_count": 270,
-  "pair_decision_count": 270,
+  "l2_node_count": 32,
+  "evaluated_node_count": 32,
+  "candidate_pair_count": 156,
+  "pair_decision_count": 156,
   "cache_hit_count": 0,
-  "model_decision_count": 270,
-  "relation_count": 81,
-  "projected_relation_count": 81,
+  "model_decision_count": 156,
+  "relation_count": 63,
+  "projected_relation_count": 46,
   "error_count": 0,
-  "warning_count": 1,
+  "warning_count": 0,
   "status": "pass",
-  "issues": [
-    {
-      "severity": "warning",
-      "code": "candidate_recall_audit_positive",
-      "message": "负样本审计发现 5 个正向关系，建议提高每节点候选数。",
-      "item_id": ""
-    }
-  ]
+  "issues": []
 }

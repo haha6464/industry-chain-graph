@@ -187,3 +187,4 @@ class ExportResponse(BaseModel):
     industrynode_node_csv: str
     company_node_csv: str | None = None
     company_edge_csv: str | None = None
+    company_edge_csv_unaggregated: str | None = None

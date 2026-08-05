@@ -1,82 +1,61 @@
 {
-  "summary": "覆盖农林牧渔全产业链，包括种养主业、农资农化、农产品初深加工与乳品、冷链仓储物流及生鲜零售电商渠道，兼顾农机与冷链设备等上游支撑。",
+  "summary": "覆盖农林牧渔主产业链、农化肥料与饲料添加剂等上游投入品、农机设备、农产品深加工及生鲜冷链流通与零售渠道。",
   "rules": [
     {
       "column": "indunamesw1",
       "values": [
         "农林牧渔"
       ],
-      "reason": "整个一级行业均高度相关，全面覆盖种业、种植、养殖、林业、渔业、饲料、动保及农产品初加工等核心主业"
+      "reason": "覆盖种业、饲料、动保、种养生产、林业、渔业及农产品初加工等核心主产业链"
     },
     {
       "column": "indunamesw2",
       "values": [
         "农化制品"
       ],
-      "reason": "覆盖上游农化与肥料分支，包括农药、氮肥、磷肥、钾肥及复合肥"
-    },
-    {
-      "column": "indunamesw2",
-      "values": [
-        "食品加工"
-      ],
-      "reason": "覆盖下游农产品深加工，包括屠宰肉禽分割、肉制品及预制菜"
-    },
-    {
-      "column": "indunamesw2",
-      "values": [
-        "饮料乳品"
-      ],
-      "reason": "覆盖下游乳制品加工及相关饮品"
-    },
-    {
-      "column": "indunamesw2",
-      "values": [
-        "物流"
-      ],
-      "reason": "覆盖农产品流通环节的生鲜冷链物流配送与仓储"
-    },
-    {
-      "column": "indunamesw2",
-      "values": [
-        "一般零售"
-      ],
-      "reason": "覆盖农产品流通与消费渠道中的生鲜超市与社区生鲜店"
-    },
-    {
-      "column": "indunamesw2",
-      "values": [
-        "互联网电商"
-      ],
-      "reason": "覆盖生鲜电商、社区团购及农业产业互联网平台"
-    },
-    {
-      "column": "indunamesw3",
-      "values": [
-        "制冷空调设备"
-      ],
-      "reason": "覆盖农产品冷链仓储与物流运输所需的核心制冷设备"
-    },
-    {
-      "column": "indunamesw3",
-      "values": [
-        "农用机械"
-      ],
-      "reason": "覆盖农林牧渔生产环节所需的拖拉机、收割机等农机设备"
+      "reason": "覆盖农药、化肥等农化与肥料上游投入品"
     },
     {
       "column": "indunamesw3",
       "values": [
         "食品及饲料添加剂"
       ],
-      "reason": "覆盖饲料工业上游的氨基酸、维生素、酶制剂等添加剂生产"
+      "reason": "覆盖氨基酸、维生素、酶制剂等饲料添加剂生产"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "农用机械"
+      ],
+      "reason": "覆盖农林牧渔生产所需的农机设备"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "食品加工"
+      ],
+      "reason": "覆盖农产品深加工及相关加工制品环节"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "仓储物流"
+      ],
+      "reason": "覆盖农产品生鲜冷链物流配送及仓储"
     },
     {
       "column": "indunamesw3",
       "values": [
         "中间产品及消费品供应链服务"
       ],
-      "reason": "覆盖农产品供应链服务商（集采/分拣/配送）"
+      "reason": "覆盖农产品集采、分拣、配送等供应链服务商"
+    },
+    {
+      "column": "indunamesw3",
+      "values": [
+        "超市"
+      ],
+      "reason": "覆盖生鲜超市与社区生鲜店等终端消费渠道"
     },
     {
       "column": "indunamesw",
@@ -86,15 +65,16 @@
         "磷肥及磷化工",
         "宠物食品",
         "氮肥",
-        "钾肥"
+        "钾肥",
+        "农产品加工"
       ],
       "reason": "申万原始细分类与图谱非根节点标准化后精确同名，用于补全层级分类缺失的公司",
       "source": "deterministic_graph_exact_match"
     }
   ],
-  "deterministic_scope_completion_count": 6,
+  "deterministic_scope_completion_count": 7,
   "source_candidate_total_count": 45807,
   "candidate_total_count": 14221,
   "company_eligibility_rule": "is_listed is True (domestic listed company only)",
-  "selected_company_count": 1021
+  "selected_company_count": 576
 }

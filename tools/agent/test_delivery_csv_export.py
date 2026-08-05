@@ -28,7 +28,7 @@ class DeliveryCsvExportTest(unittest.TestCase):
             self.assertTrue(metadata["name"])
             self.assertRegex(metadata["ind_id"], r"^\d{6}$")
 
-    def test_food_beverage_exports_all_six_delivery_files(self) -> None:
+    def test_food_beverage_exports_all_delivery_files_including_unaggregated_company_edges(self) -> None:
         with TemporaryDirectory() as directory:
             result = export_industry_csv("food_beverage", Path(directory))
             expected = {
@@ -38,12 +38,19 @@ class DeliveryCsvExportTest(unittest.TestCase):
                 "industrynode_node_csv": INDUSTRYNODE_NODE_FIELDS,
                 "company_node_csv": COMPANY_NODE_FIELDS,
                 "company_edge_csv": COMPANY_EDGE_FIELDS,
+                "company_edge_csv_unaggregated": COMPANY_EDGE_FIELDS,
             }
             for key, header in expected.items():
                 with Path(result[key]).open(encoding="utf-8-sig", newline="") as file:
                     rows = list(csv.reader(file))
                 self.assertEqual(rows[0], header)
                 self.assertGreater(len(rows), 1)
+
+            with Path(result["company_edge_csv"]).open(encoding="utf-8-sig", newline="") as file:
+                aggregated_rows = list(csv.DictReader(file))
+            with Path(result["company_edge_csv_unaggregated"]).open(encoding="utf-8-sig", newline="") as file:
+                direct_rows = list(csv.DictReader(file))
+            self.assertLessEqual(len(direct_rows), len(aggregated_rows))
 
             with Path(result["industry_node_csv"]).open(encoding="utf-8-sig", newline="") as file:
                 self.assertEqual(next(csv.DictReader(file)), {"code": "FOOD", "name": "食品饮料", "ind_id": "041800"})

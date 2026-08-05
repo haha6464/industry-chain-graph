@@ -26,6 +26,7 @@ from tools.agent.company_attachments import (
     call_match_agent,
     call_scope_agent,
     collapse_company_attached_singleton_leaves,
+    collapse_low_coverage_leaf_nodes,
     chunks,
     configured_batch_size,
     configured_max_concurrency,
@@ -253,8 +254,14 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     if validation.get("error_count", 0) > 0 or repair_report.get("validation_status") == "fail":
         raise RuntimeError(f"公司挂载硬规则校验失败：{validation.get('error_count', 0)} 个错误。")
 
-    _log("按父级聚合规则裁剪未挂载产业链节点。")
-    pruned_graph, candidate, pruning_report = prune_graph_to_company_coverage(graph, candidate)
+    _log("按低覆盖阈值将公司向父级聚合，并裁剪无公司可聚合节点。")
+    low_coverage_graph, candidate, low_coverage_removals = collapse_low_coverage_leaf_nodes(graph, candidate)
+    pruned_graph, candidate, pruning_report = prune_graph_to_company_coverage(low_coverage_graph, candidate)
+    pruning_report["low_coverage_leaf_compaction"] = {
+        "threshold": 2,
+        "rule": "非根叶节点直接挂载公司数小于或等于 2 家时，删除该节点并将公司向分类父节点聚合。",
+        "removed_nodes": low_coverage_removals,
+    }
     pruned_graph, candidate, singleton_removals = collapse_company_attached_singleton_leaves(pruned_graph, candidate)
     pruning_report["singleton_leaf_compaction"] = {
         "rule": "非根节点仅保留一个 contains 子节点时，删除子节点并将公司挂载上移到父节点。",
@@ -262,6 +269,8 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     }
     if singleton_removals:
         _log(f"已压缩 {len(singleton_removals)} 个仅有唯一子分类的节点层级，并上移公司挂载。")
+    if low_coverage_removals:
+        _log(f"已按公司数阈值压缩 {len(low_coverage_removals)} 个低覆盖叶节点，并上移公司挂载。")
     graph_validation = validate_graph(pruned_graph, industry_id)
     if graph_validation.get("error_count", 0) > 0:
         raise RuntimeError(f"公司覆盖裁剪后的图谱硬规则校验失败：{graph_validation.get('error_count', 0)} 个错误。")
@@ -290,7 +299,8 @@ def run_company_attachment(industry_id: str) -> dict[str, str]:
     _update_manifest_counts(industry_id, pruned_graph)
     _log(
         f"公司节点挂载完成：图谱节点 {pruning_report['nodes_before']} → {pruning_report['nodes_after']}，"
-        f"已删除 {len(pruning_report['removed_nodes'])} 个无公司可聚合节点。"
+        f"已删除 {len(pruning_report['removed_nodes'])} 个无公司可聚合节点，"
+        f"并按阈值聚合 {len(low_coverage_removals)} 个低覆盖叶节点。"
     )
     return {
         "industry_id": industry_id,

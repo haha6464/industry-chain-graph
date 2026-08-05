@@ -147,4 +147,5 @@ export interface ExportResponse {
   industrynode_node_csv: string;
   company_node_csv?: string | null;
   company_edge_csv?: string | null;
+  company_edge_csv_unaggregated?: string | null;
 }
